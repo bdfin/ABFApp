@@ -13,9 +13,6 @@ namespace ABF.Controllers.Admin
         public ActionResult Index()
         {
             return View();
-        
-        }
-
-       
+        }     
     }
 }
