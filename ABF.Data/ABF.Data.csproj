@@ -64,12 +64,19 @@
     <Compile Include="Migrations\201903121858084_Initial.Designer.cs">
       <DependentUpon>201903121858084_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903121913070_AddDataAnnotationToCustomer.cs" />
+    <Compile Include="Migrations\201903121913070_AddDataAnnotationToCustomer.Designer.cs">
+      <DependentUpon>201903121913070_AddDataAnnotationToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903121858084_Initial.resx">
       <DependentUpon>201903121858084_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121913070_AddDataAnnotationToCustomer.resx">
+      <DependentUpon>201903121913070_AddDataAnnotationToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
