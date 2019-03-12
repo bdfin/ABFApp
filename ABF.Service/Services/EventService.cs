@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ABF.Data.ABFDbModels;
 using ABF.Data.DAO;
+using ABF.Data.ViewModels;
 
 namespace ABF.Service.Services
 {
@@ -26,5 +27,10 @@ namespace ABF.Service.Services
         {
             return _eventDAO.GetEvents();
         } 
+
+        public void CreateEvent(CreateEventViewModel viewModel)
+        {
+            _eventDAO.CreateEvent(viewModel);
+        }
     }
 }

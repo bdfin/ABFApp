@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ABF.Data.ABFDbModels;
+using ABF.Data.ViewModels;
 
 namespace ABF.Data.DAO
 {
@@ -37,6 +38,12 @@ namespace ABF.Data.DAO
                       select e;
 
             return _events.ToList();
+        }
+
+        public void CreateEvent(CreateEventViewModel viewModel)
+        {
+            _context.Events.Add(viewModel.Event);
+            _context.SaveChanges();
         }
     }
 }

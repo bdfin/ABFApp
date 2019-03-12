@@ -287,6 +287,7 @@
     <Content Include="Views\AdminEvents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\AdminEvents\Details.cshtml" />
+    <Content Include="Views\AdminEvents\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Events\" />

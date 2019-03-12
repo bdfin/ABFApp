@@ -3,48 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
+using ABF.Data.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
     public class AdminEventsController : Controller
     {
-        private EventService _eventService;
+        private EventService eventService;
+        private LocationService locationService;
 
         public AdminEventsController()
         {
-            _eventService = new EventService();
+            eventService = new EventService();
+            locationService = new LocationService();
         }
 
-        // GET: Events
         [Route("Admin/Events")]
         public ActionResult Index()
         {
-            return View(_eventService.GetEvents());
+            return View(eventService.GetEvents());
         }
 
         [Route("Admin/Events/Details/{id}")]
-        // GET: Events/Details/5
         public ActionResult Details(int id)
         {
-            return View(_eventService.GetEvent(id));
+            return View(eventService.GetEvent(id));
         }
 
-        // GET: Events/Create
-        public ActionResult Create()
+        [Route("Admin/Events/New")]
+        public ActionResult New()
         {
-            return View();
+            var locations = locationService.GetLocations();
+
+            var viewModel = new CreateEventViewModel
+            {
+                Locations = locations,
+                Event = new Event()
+                
+            };
+
+            return View(viewModel);
         }
 
         // POST: Events/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(CreateEventViewModel viewModel)
         {
             try
             {
-                // TODO: Add insert logic here
+              eventService.CreateEvent(viewModel);
 
-                return RedirectToAction("Index");
+              return RedirectToAction("Index", "AdminEvents");
             }
             catch
             {
