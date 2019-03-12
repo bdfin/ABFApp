@@ -17,6 +17,11 @@ namespace ABF.Service.Services
             _eventDAO = new EventDAO();
         }
 
+        public Event GetEvent(int id)
+        {
+            return _eventDAO.GetEvent(id);
+        }
+
         public IList<Event> GetEvents()
         {
             return _eventDAO.GetEvents();

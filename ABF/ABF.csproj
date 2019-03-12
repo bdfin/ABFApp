@@ -286,6 +286,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\AdminEvents\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\AdminEvents\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Events\" />

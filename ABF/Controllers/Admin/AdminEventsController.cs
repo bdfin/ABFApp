@@ -23,10 +23,11 @@ namespace ABF.Controllers.Admin
             return View(_eventService.GetEvents());
         }
 
+        [Route("Admin/Events/Details/{id}")]
         // GET: Events/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(_eventService.GetEvent(id));
         }
 
         // GET: Events/Create

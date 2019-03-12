@@ -16,6 +16,18 @@ namespace ABF.Data.DAO
             _context = new ABFDbContext();
         }
 
+        public Event GetEvent(int id)
+        {
+            IQueryable<Event> _event;
+
+            _event = from e
+                     in _context.Events
+                     where e.Id == id
+                     select e;
+
+            return _event.ToList().First();
+        }
+
         public IList<Event> GetEvents()
         {
             IQueryable<Event> _events;
