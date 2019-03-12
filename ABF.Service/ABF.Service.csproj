@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EventService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ABF.Data\ABF.Data.csproj">
