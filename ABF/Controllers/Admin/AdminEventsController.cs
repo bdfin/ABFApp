@@ -41,7 +41,7 @@ namespace ABF.Controllers.Admin
             {
                 Locations = locations,
                 Event = new Event()
-                
+
             };
 
             return View(viewModel);
@@ -53,9 +53,9 @@ namespace ABF.Controllers.Admin
         {
             try
             {
-              eventService.CreateEvent(viewModel);
+                eventService.CreateEvent(viewModel);
 
-              return RedirectToAction("Index", "AdminEvents");
+                return RedirectToAction("Index", "AdminEvents");
             }
             catch
             {

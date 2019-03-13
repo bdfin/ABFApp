@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Create New", "New", "AdminEvents")
 </p>
-<table class="table table-responsive table-hover">
+<table id="events" class="table table-responsive table-hover">
     <thead>
         <tr>
             <th scope="col">
@@ -71,3 +71,12 @@
         }
     </tbody>
 </table>
+
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#events").dataTable();
+        });
+    </script>
+}
