@@ -11,7 +11,7 @@ namespace ABF.Data.ABFDbModels
             : base("name=ABFDbContext")
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ABFDbContext>());
-            Database.Initialize(false);
+            Database.Initialize(true);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

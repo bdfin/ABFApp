@@ -6,14 +6,14 @@ namespace ABF.Data.Migrations
     using System.Linq;
     using ABFDbModels;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ABFDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ABF.Data.ABFDbModels.ABFDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ABFDbContext context)
+        protected override void Seed(ABF.Data.ABFDbModels.ABFDbContext context)
         {
             context.Locations.AddOrUpdate(x => x.Id,
                 new Location()
