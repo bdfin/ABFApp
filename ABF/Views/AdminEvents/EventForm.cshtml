@@ -17,16 +17,17 @@ else
 @using (Html.BeginForm("Save", "AdminEvents"))
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+
+    <div>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Event.Id)
 
+
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col">
                 @Html.EditorFor(model => model.Event.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Event.Name, "", new { @class = "text-danger" })
             </div>
@@ -34,33 +35,32 @@ else
 
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col">
                 @Html.EditorFor(model => model.Event.Date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Event.Date, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="row">
+        <div class="form-row">
             <div class="form-group">
                 @Html.LabelFor(model => model.Event.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col">
                     @Html.EditorFor(model => model.Event.StartTime, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Event.StartTime, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Event.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col">
                     @Html.EditorFor(model => model.Event.EndTime, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Event.EndTime, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
-        
-
+       
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Details, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col">
                 @Html.EditorFor(model => model.Event.Details, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Event.Details, "", new { @class = "text-danger" })
             </div>
@@ -68,44 +68,46 @@ else
 
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col">
                 @Html.EditorFor(model => model.Event.Description, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Event.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Event.Capacity, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Event.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col">
+            @Html.EditorFor(model => model.Event.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Event.Capacity, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.LocationId, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(l => l.Event.LocationId, new SelectList(Model.Locations, "Id", "Name"), "Select location", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Event.LocationId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Event.LocationId, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col">
+            @Html.DropDownListFor(l => l.Event.LocationId, new SelectList(Model.Locations, "Id", "Name"), "Select location", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Event.LocationId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.IsMemberOnly, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Event.IsMemberOnly)
-                    @Html.ValidationMessageFor(model => model.Event.IsMemberOnly, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-primary" />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Event.IsMemberOnly, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.Event.IsMemberOnly)
+                @Html.ValidationMessageFor(model => model.Event.IsMemberOnly, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+
 }
 
 <div>

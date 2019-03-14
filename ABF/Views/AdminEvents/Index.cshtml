@@ -8,7 +8,7 @@
 <h2>Events</h2>
 
 <p>
-    @Html.ActionLink("New Event", "New", "AdminEvents")
+    @Html.ActionLink("New Event", "New", "AdminEvents", htmlAttributes: new { @class = "btn btn-primary"}) 
 </p>
 <table id="events" class="table table-responsive table-hover">
     <thead>
@@ -30,9 +30,6 @@
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Capacity)
-            </th>
-            <th scope="col">
-                @Html.DisplayNameFor(model => model.IsMemberOnly)
             </th>
             <th></th>
         </tr>
@@ -60,12 +57,9 @@
                     @Html.DisplayFor(modelItem => item.Capacity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.IsMemberOnly)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
                 </td>
             </tr>
         }

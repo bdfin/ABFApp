@@ -13,19 +13,21 @@ namespace ABF.Data.ABFDbModels
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-
+      
         [DataType(DataType.Time)]
+        [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
 
         [DataType(DataType.Time)]
+        [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
 
         public string Name { get; set; }
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.MultilineText)]
         public string Details { get; set; }
 
-        [DataType(DataType.Text)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
         public int Capacity { get; set; }

@@ -71,8 +71,8 @@ namespace ABF.Controllers.Admin
             }
             catch
             {
-                
-                return RedirectToAction("Index");
+
+                return View();
             }
         }
 
