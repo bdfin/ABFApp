@@ -15,7 +15,10 @@ namespace ABF.Data.ABFDbModels
         public DateTime Date { get; set; }
 
         [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        public DateTime StartTime { get; set; }
+
+        [DataType(DataType.Time)]
+        public DateTime EndTime { get; set; }
 
         public string Name { get; set; }
 

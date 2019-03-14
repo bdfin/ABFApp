@@ -51,7 +51,8 @@ namespace ABF.Data.DAO
             Event _event = GetEvent(viewModel.Event.Id);
 
             _event.Date = viewModel.Event.Date;
-            _event.Time = viewModel.Event.Time;
+            _event.StartTime = viewModel.Event.StartTime;
+            _event.EndTime = viewModel.Event.EndTime;
             _event.Name = viewModel.Event.Name;
             _event.Details = viewModel.Event.Details;
             _event.Description = viewModel.Event.Description;

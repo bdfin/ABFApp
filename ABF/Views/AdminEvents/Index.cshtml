@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th scope="col">
-                @Html.DisplayNameFor(model => model.Time)
+                Duration
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Details)
@@ -51,7 +51,7 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Time)
+                    @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Details)

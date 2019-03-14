@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201903141142572_Initial.Designer.cs">
       <DependentUpon>201903141142572_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903141813106_AddEndTimeToEventTable.cs" />
+    <Compile Include="Migrations\201903141813106_AddEndTimeToEventTable.Designer.cs">
+      <DependentUpon>201903141813106_AddEndTimeToEventTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
@@ -77,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903141142572_Initial.resx">
       <DependentUpon>201903141142572_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903141813106_AddEndTimeToEventTable.resx">
+      <DependentUpon>201903141813106_AddEndTimeToEventTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
