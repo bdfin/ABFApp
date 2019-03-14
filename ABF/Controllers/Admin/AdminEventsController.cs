@@ -101,26 +101,29 @@ namespace ABF.Controllers.Admin
             return View("EventForm", viewModel);
         }
 
-        // GET: Events/Delete/5
+        [Route("Admin/Events/Delete/{id}")]
         public ActionResult Delete(int id)
         {
-            return View();
+            var e = eventService.GetEvent(id);
+
+            if (e == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(e);
         }
 
-        // POST: Events/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteEvent(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var e = eventService.GetEvent(id);
+
+            eventService.DeleteEvent(e);
+
+            return RedirectToAction("Index", "AdminEvents");
+
         }
     }
 }

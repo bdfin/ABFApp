@@ -524,6 +524,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\AdminEvents\Details.cshtml" />
     <Content Include="Views\AdminEvents\EventForm.cshtml" />
+    <Content Include="Views\AdminEvents\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Events\" />

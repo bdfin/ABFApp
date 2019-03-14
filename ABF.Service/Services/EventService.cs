@@ -37,5 +37,10 @@ namespace ABF.Service.Services
         {
             _eventDAO.UpdateEvent(viewModel);
         }
+
+        public void DeleteEvent(Event e)
+        {
+            _eventDAO.DeleteEvent(e);
+        }
     }
 }
