@@ -1,19 +1,29 @@
-﻿@model ABF.Data.ViewModels.CreateEventViewModel
+﻿@model ABF.Data.ViewModels.EventFormViewModel
 
 @{
-    ViewBag.Title = "New";
+    ViewBag.Title = "EventForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create Event</h2>
+@if (Model.Event == null)
+{
+    <h2>New Event</h2>
+}
+else
+{
+    <h2>Update Event</h2>
+}
 
-@using (Html.BeginForm("Create", "AdminEvents")) 
+@using (Html.BeginForm("Save", "AdminEvents"))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.Event.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -82,7 +92,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>

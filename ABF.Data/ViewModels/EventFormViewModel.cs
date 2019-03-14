@@ -7,7 +7,7 @@ using ABF.Data.ABFDbModels;
 
 namespace ABF.Data.ViewModels
 {
-    public class CreateEventViewModel
+    public class EventFormViewModel
     {
         public IEnumerable<Location> Locations { get; set; }
         public Event Event { get; set; }

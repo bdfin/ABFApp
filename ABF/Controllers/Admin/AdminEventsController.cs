@@ -29,7 +29,14 @@ namespace ABF.Controllers.Admin
         [Route("Admin/Events/Details/{id}")]
         public ActionResult Details(int id)
         {
-            return View(eventService.GetEvent(id));
+            var e = eventService.GetEvent(id);
+
+            if (e == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(e);
         }
 
         [Route("Admin/Events/New")]
@@ -37,52 +44,56 @@ namespace ABF.Controllers.Admin
         {
             var locations = locationService.GetLocations();
 
-            var viewModel = new CreateEventViewModel
+            var viewModel = new EventFormViewModel
             {
-                Locations = locations,
-                Event = new Event()
+                Locations = locations
 
             };
 
-            return View(viewModel);
+            return View("EventForm", viewModel);
         }
 
-        // POST: Events/Create
         [HttpPost]
-        public ActionResult Create(CreateEventViewModel viewModel)
+        public ActionResult Save(EventFormViewModel viewModel)
         {
             try
             {
-                eventService.CreateEvent(viewModel);
+                if (viewModel.Event.Id == 0)
+                {
+                    eventService.CreateEvent(viewModel);
+                }
+                else
+                {
+                    eventService.UpdateEvent(viewModel);
+                }
 
                 return RedirectToAction("Index", "AdminEvents");
             }
             catch
             {
-                return View();
-            }
-        }
-
-        // GET: Events/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Events/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
+                
                 return RedirectToAction("Index");
             }
-            catch
+        }
+
+        [Route("Admin/Events/Edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var e = eventService.GetEvent(id);
+            var locations = locationService.GetLocations();
+
+            if (e == null)
             {
-                return View();
+                return HttpNotFound();
             }
+                
+            var viewModel = new EventFormViewModel
+            {
+                Event = e,
+                Locations = locations
+            };
+
+            return View("EventForm", viewModel);
         }
 
         // GET: Events/Delete/5
