@@ -46,9 +46,11 @@ namespace ABF.Controllers.Admin
 
             var viewModel = new EventFormViewModel
             {
-                Locations = locations
-
+                Locations = locations,
+                Event = new Event(),
             };
+
+            viewModel.Event.Date = DateTime.Now;
 
             return View("EventForm", viewModel);
         }
@@ -56,24 +58,27 @@ namespace ABF.Controllers.Admin
         [HttpPost]
         public ActionResult Save(EventFormViewModel viewModel)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (viewModel.Event.Id == 0)
+                var newViewModel = new EventFormViewModel
                 {
-                    eventService.CreateEvent(viewModel);
-                }
-                else
-                {
-                    eventService.UpdateEvent(viewModel);
-                }
+                    Locations = locationService.GetLocations(),
+                    Event = viewModel.Event
+                };
 
-                return RedirectToAction("Index", "AdminEvents");
+                return View("EventForm", newViewModel);
             }
-            catch
+
+            if (viewModel.Event.Id == 0)
             {
-
-                return View();
+                eventService.CreateEvent(viewModel);
             }
+            else
+            {
+                eventService.UpdateEvent(viewModel);
+            }
+
+            return RedirectToAction("Index", "AdminEvents");
         }
 
         [Route("Admin/Events/Edit/{id}")]

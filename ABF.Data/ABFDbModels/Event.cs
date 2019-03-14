@@ -12,6 +12,7 @@ namespace ABF.Data.ABFDbModels
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
       
         [DataType(DataType.Time)]
@@ -22,6 +23,7 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -30,6 +32,7 @@ namespace ABF.Data.ABFDbModels
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Required]
         public int Capacity { get; set; }
 
         [Display(Name = "Member Only")]

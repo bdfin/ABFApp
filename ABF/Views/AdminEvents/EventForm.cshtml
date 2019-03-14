@@ -20,7 +20,7 @@ else
 
     <div>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "Please fix the following errors:", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Event.Id)
 
@@ -57,7 +57,7 @@ else
                 </div>
             </div>
         </div>
-       
+
         <div class="form-group">
             @Html.LabelFor(model => model.Event.Details, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col">
