@@ -19,8 +19,10 @@ namespace ABF.Data.ABFDbModels
 
         public string Name { get; set; }
 
+        [DataType(DataType.Text)]
         public string Details { get; set; }
 
+        [DataType(DataType.Text)]
         public string Description { get; set; }
 
         public int Capacity { get; set; }
