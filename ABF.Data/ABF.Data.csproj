@@ -62,29 +62,22 @@
     <Compile Include="ABFDbModels\Ticket.cs" />
     <Compile Include="DAO\EventDAO.cs" />
     <Compile Include="DAO\LocationDAO.cs" />
-    <Compile Include="Migrations\201903121858084_Initial.cs" />
-    <Compile Include="Migrations\201903121858084_Initial.Designer.cs">
-      <DependentUpon>201903121858084_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903121913070_AddDataAnnotationToCustomer.cs" />
-    <Compile Include="Migrations\201903121913070_AddDataAnnotationToCustomer.Designer.cs">
-      <DependentUpon>201903121913070_AddDataAnnotationToCustomer.cs</DependentUpon>
+    <Compile Include="Migrations\201903141142572_Initial.cs" />
+    <Compile Include="Migrations\201903141142572_Initial.Designer.cs">
+      <DependentUpon>201903141142572_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CreateEventViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903121858084_Initial.resx">
-      <DependentUpon>201903121858084_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903121913070_AddDataAnnotationToCustomer.resx">
-      <DependentUpon>201903121913070_AddDataAnnotationToCustomer.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903141142572_Initial.resx">
+      <DependentUpon>201903141142572_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
