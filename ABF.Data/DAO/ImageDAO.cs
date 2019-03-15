@@ -22,9 +22,9 @@ namespace ABF.Data.DAO
                 .OrderByDescending(i => i.Id)
                 .First();
 
-            int lastImageId = image.Id + 1;
+            int newImageId = image.Id + 1;
 
-            return lastImageId;
+            return newImageId;
         }
 
         public Image GetImage(int id)
