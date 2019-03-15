@@ -527,6 +527,7 @@
     <Content Include="Views\AdminEvents\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\Images\" />
     <Folder Include="Views\Events\" />
   </ItemGroup>
   <ItemGroup>

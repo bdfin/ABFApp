@@ -1,4 +1,4 @@
-﻿@model ABF.Data.ABFDbModels.Event
+﻿@model ABF.Data.ViewModels.EventDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,7 +8,7 @@
 <h2>Details</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <h4>@Html.DisplayFor(model => model.Event.Name)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -16,76 +16,76 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Location.Name)
+            @Html.DisplayNameFor(model => model.Event.Location.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Location.Name)
+            @Html.DisplayFor(model => model.Event.Location.Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @Html.DisplayNameFor(model => model.Event.Date)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Date)
+            @Html.DisplayFor(model => model.Event.Date)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StartTime)
+            @Html.DisplayNameFor(model => model.Event.StartTime)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StartTime)
+            @Html.DisplayFor(model => model.Event.StartTime)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EndTime)
+            @Html.DisplayNameFor(model => model.Event.EndTime)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EndTime)
+            @Html.DisplayFor(model => model.Event.EndTime)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Details)
+            @Html.DisplayNameFor(model => model.Event.Details)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Details)
+            @Html.DisplayFor(model => model.Event.Details)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Event.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Event.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Capacity)
+            @Html.DisplayNameFor(model => model.Event.Capacity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Capacity)
+            @Html.DisplayFor(model => model.Event.Capacity)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IsMemberOnly)
+            @Html.DisplayNameFor(model => model.Event.IsMemberOnly)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IsMemberOnly)
+            @Html.DisplayFor(model => model.Event.IsMemberOnly)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Event.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

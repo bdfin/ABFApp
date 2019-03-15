@@ -1,11 +1,13 @@
 ﻿@model ABF.Data.ViewModels.EventFormViewModel
 
 @{
-    ViewBag.Title = "EventForm";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
+
+                ViewBag.Title = "EventForm";
+                Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Event == null)
+@if (Model.Event.Id == 0)
 {
     <h2>New Event</h2>
 }
@@ -14,7 +16,7 @@ else
     <h2>Update Event</h2>
 }
 
-@using (Html.BeginForm("Save", "AdminEvents"))
+@using (Html.BeginForm("Save", "AdminEvents", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -73,34 +75,42 @@ else
                 @Html.ValidationMessageFor(model => model.Event.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col">
-            @Html.EditorFor(model => model.Event.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Event.Capacity, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.Event.Capacity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Event.Capacity, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.LocationId, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col">
-            @Html.DropDownListFor(l => l.Event.LocationId, new SelectList(Model.Locations, "Id", "Name"), "Select location", new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Event.LocationId, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.LocationId, "Location", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.DropDownListFor(l => l.Event.LocationId, new SelectList(Model.Locations, "Id", "Name"), "Select location", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Event.LocationId, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image.ImageFile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                <input type="file" class="form-control-file" name="ImageFile" />
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Event.IsMemberOnly, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col">
-            <div class="checkbox">
-                @Html.EditorFor(model => model.Event.IsMemberOnly)
-                @Html.ValidationMessageFor(model => model.Event.IsMemberOnly, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.IsMemberOnly, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Event.IsMemberOnly)
+                    @Html.ValidationMessageFor(model => model.Event.IsMemberOnly, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
     </div>
+
+    
 
     <div class="form-group">
         <div class="col">

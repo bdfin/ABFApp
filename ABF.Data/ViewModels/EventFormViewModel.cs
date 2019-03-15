@@ -11,5 +11,7 @@ namespace ABF.Data.ViewModels
     {
         public IEnumerable<Location> Locations { get; set; }
         public Event Event { get; set; }
+        public Image Image { get; set; }
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

@@ -12,11 +12,13 @@ namespace ABF.Controllers.Admin
     public class AdminEventsController : Controller
     {
         private EventService eventService;
+        private ImageService imageService;
         private LocationService locationService;
 
         public AdminEventsController()
         {
             eventService = new EventService();
+            imageService = new ImageService();
             locationService = new LocationService();
         }
 
@@ -31,12 +33,18 @@ namespace ABF.Controllers.Admin
         {
             var e = eventService.GetEvent(id);
 
-            if (e == null)
+            var viewModel = new EventDetailsViewModel
+            {
+                Event = e,
+                Image = imageService.GetImage(e.ImageId)
+            };
+
+            if (viewModel == null)
             {
                 return HttpNotFound();
             }
 
-            return View(e);
+            return View(viewModel);
         }
 
         [Route("Admin/Events/New")]
@@ -48,6 +56,7 @@ namespace ABF.Controllers.Admin
             {
                 Locations = locations,
                 Event = new Event(),
+                Image = new Image()
             };
 
             viewModel.Event.Date = DateTime.Now;
@@ -63,7 +72,8 @@ namespace ABF.Controllers.Admin
                 var newViewModel = new EventFormViewModel
                 {
                     Locations = locationService.GetLocations(),
-                    Event = viewModel.Event
+                    Event = viewModel.Event,
+                    Image = new Image()
                 };
 
                 return View("EventForm", newViewModel);
@@ -71,7 +81,23 @@ namespace ABF.Controllers.Admin
 
             if (viewModel.Event.Id == 0)
             {
-                eventService.CreateEvent(viewModel);
+                if (viewModel.ImageFile != null)
+                {
+                    viewModel.Image = new Image();
+
+                    int newImageId = imageService.GetNewImageId();
+
+                    viewModel.Image.ImageFile = viewModel.ImageFile;
+                    viewModel.Image.Id = newImageId;
+                    viewModel.Event.ImageId = newImageId;
+
+                    imageService.SaveImage(viewModel.Image);
+                    eventService.CreateEvent(viewModel);
+                }
+                else
+                {
+                    eventService.CreateEvent(viewModel);
+                }
             }
             else
             {
@@ -117,13 +143,11 @@ namespace ABF.Controllers.Admin
         [HttpPost]
         public ActionResult DeleteEvent(int id)
         {
-
             var e = eventService.GetEvent(id);
 
             eventService.DeleteEvent(e);
 
             return RedirectToAction("Index", "AdminEvents");
-
         }
     }
 }

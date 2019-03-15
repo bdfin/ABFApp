@@ -41,9 +41,9 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Location")]
         public int LocationId { get; set; }
 
-        public int? ImageId { get; set; }
+        [Display(Name = "Event Image")]
+        public int ImageId { get; set; }
 
-        public virtual Image Image { get; set; }
         public virtual Location Location { get; set; }
         public virtual IList<AddOn> AddOns { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
