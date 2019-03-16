@@ -155,6 +155,9 @@ namespace ABF.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Sets default user type to basic 'Customer'
+                    await UserManager.AddToRolesAsync(user.Id, RoleNames.Customer);
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
