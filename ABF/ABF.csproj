@@ -181,6 +181,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IServiceCollection.cs" />
+    <Compile Include="Migrations\201903161654199_InitialCreate.cs" />
+    <Compile Include="Migrations\201903161654199_InitialCreate.Designer.cs">
+      <DependentUpon>201903161654199_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903162257211_AddCustomFieldsToUserRegistration.cs" />
+    <Compile Include="Migrations\201903162257211_AddCustomFieldsToUserRegistration.Designer.cs">
+      <DependentUpon>201903162257211_AddCustomFieldsToUserRegistration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -552,6 +561,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903161654199_InitialCreate.resx">
+      <DependentUpon>201903161654199_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903162257211_AddCustomFieldsToUserRegistration.resx">
+      <DependentUpon>201903162257211_AddCustomFieldsToUserRegistration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

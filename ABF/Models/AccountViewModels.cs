@@ -79,6 +79,17 @@ namespace ABF.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Full Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Post Code")]
+        public string PostCode { get; set; }
+
     }
 
     public class ResetPasswordViewModel
