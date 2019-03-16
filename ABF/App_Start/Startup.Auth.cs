@@ -54,9 +54,9 @@ namespace ABF
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "2391458254409644",
+               appSecret: "d57b1c8118c464b9ee5736b943eb4ccf");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

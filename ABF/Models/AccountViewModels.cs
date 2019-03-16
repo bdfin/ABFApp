@@ -8,6 +8,16 @@ namespace ABF.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "PostCode")]
+        [StringLength(10)]
+        public string PostCode { get; set; }
     }
 
     public class ExternalLoginListViewModel
