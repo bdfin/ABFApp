@@ -1,9 +1,18 @@
-﻿
+﻿@using Antlr.Runtime.Tree
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Admin Dashboard</h2>
+@Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "btn btn-primary" })
 
-@Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "btn btn-primary"})
+
+
+
+
+<h3>User and Role Management</h3>
+@Html.ActionLink("Add an Admin", "Index", "InitAdmin", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("User Management", "Index", "UsersAdmin", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Role Management", "Index", "RolesAdmin", null, new { @class = "btn btn-primary" })

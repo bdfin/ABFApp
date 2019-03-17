@@ -126,7 +126,9 @@ namespace ABF
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             var user = await UserManager.FindByIdAsync(id);
+
             if (user == null)
             {
                 return HttpNotFound();
