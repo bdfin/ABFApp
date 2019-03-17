@@ -55,6 +55,7 @@
     <Compile Include="ABFDbModels\ABFDbContext.cs" />
     <Compile Include="ABFDbModels\AddOn.cs" />
     <Compile Include="ABFDbModels\Customer.cs" />
+    <Compile Include="ABFDbModels\DBInitialiser.cs" />
     <Compile Include="ABFDbModels\Event.cs" />
     <Compile Include="ABFDbModels\Image.cs" />
     <Compile Include="ABFDbModels\Location.cs" />

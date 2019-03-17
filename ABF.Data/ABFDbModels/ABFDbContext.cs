@@ -10,7 +10,7 @@ namespace ABF.Data.ABFDbModels
         public ABFDbContext()
             : base("name=ABFDbContext")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ABFDbContext>());
+            Database.SetInitializer(new DBInitialiser());
             Database.Initialize(true);
         }
 
