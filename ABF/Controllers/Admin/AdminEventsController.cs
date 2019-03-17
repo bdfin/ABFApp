@@ -144,7 +144,9 @@ namespace ABF.Controllers.Admin
         public ActionResult DeleteEvent(int id)
         {
             var e = eventService.GetEvent(id);
+            var image = imageService.GetImage(e.ImageId);
 
+            imageService.DeleteImage(image);
             eventService.DeleteEvent(e);
 
             return RedirectToAction("Index", "AdminEvents");
