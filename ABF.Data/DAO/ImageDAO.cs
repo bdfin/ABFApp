@@ -16,8 +16,22 @@ namespace ABF.Data.DAO
             _context = new ABFDbContext();
         }
 
+        // checks to see if a row exists in the images database
+        // if it dosen't, add one, increment by 1 and return
         public int GetNewImageId()
         {
+            if (!_context.Images.Any())
+            {
+                Image i = new Image
+                {
+                    Id = 1,
+                    ImagePath = "Intialiser"
+                };
+
+                _context.Images.Add(i);
+                _context.SaveChanges();
+            };
+
             var image = _context.Images
                 .OrderByDescending(i => i.Id)
                 .First();
@@ -42,6 +56,12 @@ namespace ABF.Data.DAO
         public void SaveImagePath(Image image)
         {
             _context.Images.Add(image);
+            _context.SaveChanges();
+        }
+
+        public void DeleteImage(Image image)
+        {
+            _context.Images.Remove(image);
             _context.SaveChanges();
         }
     }

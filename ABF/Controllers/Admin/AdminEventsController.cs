@@ -92,16 +92,16 @@ namespace ABF.Controllers.Admin
                     viewModel.Event.ImageId = newImageId;
 
                     imageService.SaveImage(viewModel.Image);
-                    eventService.CreateEvent(viewModel);
+                    eventService.CreateEvent(viewModel.Event);
                 }
                 else
                 {
-                    eventService.CreateEvent(viewModel);
+                    eventService.CreateEvent(viewModel.Event);
                 }
             }
             else
             {
-                eventService.UpdateEvent(viewModel);
+                eventService.UpdateEvent(viewModel.Event);
             }
 
             return RedirectToAction("Index", "AdminEvents");
@@ -111,6 +111,7 @@ namespace ABF.Controllers.Admin
         public ActionResult Edit(int id)
         {
             var e = eventService.GetEvent(id);
+            var image = imageService.GetImage(e.ImageId);
             var locations = locationService.GetLocations();
 
             if (e == null)
@@ -121,7 +122,8 @@ namespace ABF.Controllers.Admin
             var viewModel = new EventFormViewModel
             {
                 Event = e,
-                Locations = locations
+                Locations = locations,
+                Image = image
             };
 
             return View("EventForm", viewModel);
@@ -144,7 +146,9 @@ namespace ABF.Controllers.Admin
         public ActionResult DeleteEvent(int id)
         {
             var e = eventService.GetEvent(id);
+            var image = imageService.GetImage(e.ImageId);
 
+            imageService.DeleteImage(image);
             eventService.DeleteEvent(e);
 
             return RedirectToAction("Index", "AdminEvents");

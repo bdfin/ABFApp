@@ -28,14 +28,14 @@ namespace ABF.Service.Services
             return _eventDAO.GetEvents();
         } 
 
-        public void CreateEvent(EventFormViewModel viewModel)
+        public void CreateEvent(Event e)
         {
-            _eventDAO.CreateEvent(viewModel);
+            _eventDAO.CreateEvent(e);
         }
 
-        public void UpdateEvent(EventFormViewModel viewModel)
+        public void UpdateEvent(Event e)
         {
-            _eventDAO.UpdateEvent(viewModel);
+            _eventDAO.UpdateEvent(e);
         }
 
         public void DeleteEvent(Event e)

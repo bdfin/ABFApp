@@ -45,5 +45,18 @@ namespace ABF.Service.Services
             }
             
         }
+
+        public void DeleteImage(Image image)
+        {
+            var imageToDelete = imageDAO.GetImage(image.Id);
+            string imagePath = HostingEnvironment.MapPath(imageToDelete.ImagePath);
+
+            if (File.Exists(imagePath))
+            {
+                File.Delete(imagePath);
+            } 
+
+            imageDAO.DeleteImage(image);
+        }
     }
 }
