@@ -40,26 +40,25 @@ namespace ABF.Data.DAO
             return _events.ToList();
         }
 
-        public void CreateEvent(EventFormViewModel viewModel)
+        public void CreateEvent(Event e)
         {
-            _context.Events.Add(viewModel.Event);
+            _context.Events.Add(e);
             _context.SaveChanges();
         }
 
-        public void UpdateEvent(EventFormViewModel viewModel)
+        public void UpdateEvent(Event e)
         {
-            Event _event = GetEvent(viewModel.Event.Id);
+            Event _event = GetEvent(e.Id);
 
-            _event.Date = viewModel.Event.Date;
-            _event.StartTime = viewModel.Event.StartTime;
-            _event.EndTime = viewModel.Event.EndTime;
-            _event.Name = viewModel.Event.Name;
-            _event.Details = viewModel.Event.Details;
-            _event.Description = viewModel.Event.Description;
-            _event.Capacity = viewModel.Event.Capacity;
-            _event.IsMemberOnly = viewModel.Event.IsMemberOnly;
-            _event.LocationId = viewModel.Event.LocationId;
-            _event.ImageId = viewModel.Event.ImageId;
+            _event.Date = e.Date;
+            _event.StartTime = e.StartTime;
+            _event.EndTime = e.EndTime;
+            _event.Name = e.Name;
+            _event.Details = e.Details;
+            _event.Description = e.Description;
+            _event.Capacity = e.Capacity;
+            _event.IsMemberOnly = e.IsMemberOnly;
+            _event.LocationId = e.LocationId;
 
             _context.SaveChanges();
         }
