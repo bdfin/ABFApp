@@ -54,11 +54,11 @@ namespace ABF
                appId: "2391458254409644",
                appSecret: "d57b1c8118c464b9ee5736b943eb4ccf");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "671971365244-ud4ik23cac7v983ktja97s81mjidje5n.apps.googleusercontent.com",
+                ClientSecret = "tdmCCc25GlFoohIIm_GA7BlK"
+            });
         }
     }
 }
