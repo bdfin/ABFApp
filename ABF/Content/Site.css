@@ -23,3 +23,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.box-opacity {
+
+    opacity: 0.5;
+}
+
+.box-colour {
+
+    background-color: #fcbf2d !important;
+}
+
+.rajdhani-font {
+    font: rajdhani;
+    font-size: medium;
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.2em;
+}
