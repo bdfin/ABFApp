@@ -8,6 +8,16 @@ namespace ABF.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "PostCode")]
+        [StringLength(10)]
+        public string PostCode { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -79,6 +89,17 @@ namespace ABF.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Full Name")]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Post Code")]
+        public string PostCode { get; set; }
+
     }
 
     public class ResetPasswordViewModel
