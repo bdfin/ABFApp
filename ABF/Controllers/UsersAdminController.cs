@@ -88,7 +88,13 @@ namespace ABF
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = userViewModel.Email, Email = userViewModel.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = userViewModel.Email,
+                    Email = userViewModel.Email,
+                    Name = userViewModel.Name,
+                    PostCode = userViewModel.PostCode
+                };
                 var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
 
                 //Add User to the selected Roles 
@@ -121,7 +127,7 @@ namespace ABF
         //
         // GET: /Users/Edit/1
         public async Task<ActionResult> Edit(string id)
-        {            
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -136,24 +142,29 @@ namespace ABF
 
             var userRoles = await UserManager.GetRolesAsync(user.Id);
 
-            return View(new EditUserViewModel()
+            var editUserViewModel = new EditUserViewModel
             {
                 Id = user.Id,
                 Email = user.Email,
-                RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
-                {
-                    Selected = userRoles.Contains(x.Name),
-                    Text = x.Name,
-                    Value = x.Name
-                })
-            });
+                Name = user.Name,
+                PostCode = user.PostCode
+            };
+
+            //editUserViewModel.RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
+            //{
+            //    Selected = userRoles.Contains(x.Name),
+            //    Text = x.Name,
+            //    Value = x.Name
+            //});
+
+            return View(editUserViewModel);
         }
 
         //
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Name,PostCode")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -165,6 +176,8 @@ namespace ABF
 
                 user.UserName = editUser.Email;
                 user.Email = editUser.Email;
+                user.Name = editUser.Name;
+                user.PostCode = editUser.PostCode;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 

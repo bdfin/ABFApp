@@ -23,7 +23,25 @@
                @Html.ValidationMessageFor(model => model.Email)
             </div>
         </div>
+
         <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.PostCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PostCode)
+            </div>
+        </div>
+
+        
+        @*<div class="form-group">
             @Html.Label("Roles", new { @class = "control-label col-md-2" })
             <span class=" col-md-10">
                 @foreach (var item in Model.RolesList)
@@ -32,7 +50,7 @@
                     @Html.Label(item.Value, new { @class = "control-label" })
                 }
             </span>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
