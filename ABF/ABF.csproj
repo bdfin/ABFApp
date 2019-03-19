@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InitAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -550,6 +551,10 @@
     <Content Include="Views\InitAdmin\Success.cshtml" />
     <Content Include="Views\InitAdmin\Index.cshtml" />
     <Content Include="Views\InitAdmin\Error.cshtml" />
+    <Content Include="Views\Customer\GetCustomers.cshtml" />
+    <Content Include="Views\Customer\CreateCustomer.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
