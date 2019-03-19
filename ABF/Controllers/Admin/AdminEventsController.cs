@@ -115,22 +115,33 @@ namespace ABF.Controllers.Admin
         public ActionResult Edit(int id)
         {
             var e = eventService.GetEvent(id);
-            var image = imageService.GetImage(e.ImageId);
             var locations = locationService.GetLocations();
 
-            if (e == null)
+            try
             {
-                return HttpNotFound();
-            }
-                
-            var viewModel = new EventFormViewModel
-            {
-                Event = e,
-                Locations = locations,
-                Image = image
-            };
+                var image = imageService.GetImage(e.ImageId);
 
-            return View("EventForm", viewModel);
+                var viewModel = new EventFormViewModel
+                {
+                    Event = e,
+                    Locations = locations,
+                    Image = image
+                };
+
+                return View("EventForm", viewModel);
+            }
+            catch
+            {
+                var viewModel = new EventFormViewModel
+                {
+                    Event = e,
+                    Locations = locations,
+                    Image = new Image()
+                };
+
+                return View("EventForm", viewModel);
+            }
+            
         }
 
         [Route("Admin/Events/Delete/{id}")]
