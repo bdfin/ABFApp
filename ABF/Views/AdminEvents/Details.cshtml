@@ -7,87 +7,99 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>@Html.DisplayFor(model => model.Event.Name)</h4>
-    <hr />
-    <dl class="dl-horizontal">
+<hr />
 
-        @if (Model.Event.ImageId != 0)
-        {
+<div class="row">
+    <div class="col">
+
+        <h4>@Html.DisplayFor(model => model.Event.Name)</h4>
+
+        <dl class="dl-horizontal">
+
+            @if (Model.Event.ImageId != 0)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Image.ImagePath)
+                </dt>
+
+                <dd>
+                    <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
+                </dd>
+            }
+
             <dt>
-                @Html.DisplayNameFor(model => model.Image.ImagePath)
+                @Html.DisplayNameFor(model => model.Event.Location.Name)
             </dt>
 
             <dd>
-                <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
+                @Html.DisplayFor(model => model.Event.Location.Name)
             </dd>
-        }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Location.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.Date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Location.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.Date)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Date)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.StartTime)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.StartTime)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.StartTime)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.EndTime)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.StartTime)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.EndTime)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.EndTime)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.Details)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.EndTime)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.Details)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Details)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Details)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.Capacity)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.Capacity)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Capacity)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.IsMemberOnly)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Capacity)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Event.IsMemberOnly)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.IsMemberOnly)
-        </dt>
+        </dl>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.IsMemberOnly)
-        </dd>
+    <div class="col">
+        <h4>Add-Ons</h4>
 
-    </dl>
+        @{ Html.RenderAction("GetEventAddOns", "AdminAddOns", new { id = Model.Event.Id }); }
+    </div>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Event.Id }) |
