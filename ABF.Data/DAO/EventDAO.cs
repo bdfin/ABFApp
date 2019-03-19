@@ -67,5 +67,6 @@ namespace ABF.Data.DAO
             _context.Events.Remove(e);
             _context.SaveChanges();
         }
+
     }
 }
