@@ -3,14 +3,15 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string menuId = "adminMenu";
 }
 
 <h2>Locations</h2>
 
 <p>
-    @Html.ActionLink("New Location", "New", "AdminLocations", htmlAttributes: new { @class = "btn btn-primary" })
+    @Html.ActionLink("New Location", "New", "AdminLocations", htmlAttributes: new { @class = "btn btn-success" })
 </p>
-<table id="locations" class="table table-hover">
+<table id="locations" class="table">
     <thead>
         <tr>
             <th scope="col">
@@ -38,12 +39,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PostCode)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
+                <td class="text-center">
+                    <p>
+                        <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#@menuId" aria-expanded="false" aria-controls="@menuId">
+                            Menu
+                        </button>
+                    </p>
+                    <div class="collapse" id="@menuId">
+                        <div class="card card-body menu-links">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info btn-block" })
+                        </div>
+                    </div>               
                 </td>
             </tr>
+            menuId = menuId + 1;
         }
     </tbody>
 </table>
