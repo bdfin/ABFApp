@@ -1,10 +1,9 @@
-﻿@model ABF.Data.ViewModels.EventFormViewModel
+﻿@model ABF.ViewModels.EventFormViewModel
 
 @{
-                /**/
 
-                ViewBag.Title = "EventForm";
-                Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "EventForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @if (Model.Event.Id == 0)
@@ -110,7 +109,7 @@ else
         </div>
     </div>
 
-    
+
 
     <div class="form-group">
         <div class="col">

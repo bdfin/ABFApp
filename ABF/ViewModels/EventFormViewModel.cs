@@ -5,7 +5,7 @@ using System.Web;
 using ABF.Data.ABFDbModels;
 
 
-namespace ABF.Data.ViewModels
+namespace ABF.ViewModels
 {
     public class EventFormViewModel
     {

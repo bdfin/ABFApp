@@ -68,8 +68,6 @@
     <Compile Include="DAO\LocationDAO.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\EventDetailsViewModel.cs" />
-    <Compile Include="ViewModels\EventFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
-using ABF.Data.ViewModels;
+using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {

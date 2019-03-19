@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ABF.Data.ABFDbModels;
 
-namespace ABF.Data.ViewModels
+namespace ABF.ViewModels
 {
     public class EventDetailsViewModel
     {
