@@ -34,19 +34,29 @@ namespace ABF.Controllers.Admin
         public ActionResult Details(int id)
         {
             var e = eventService.GetEvent(id);
-
-            var viewModel = new EventDetailsViewModel
+            
+            try
             {
-                Event = e,
-                Image = imageService.GetImage(e.ImageId)
-            };
+                var image = imageService.GetImage(e.Id);
 
-            if (viewModel == null)
-            {
-                return HttpNotFound();
+                var viewModel = new EventDetailsViewModel
+                {
+                    Event = e,
+                    Image = image
+                };
+
+                return View(viewModel);
             }
+            catch
+            {
+                var viewModel = new EventDetailsViewModel
+                {
+                    Event = e,
+                    Image = new Image()
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
         }
 
 
