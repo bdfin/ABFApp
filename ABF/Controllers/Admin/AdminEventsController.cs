@@ -14,12 +14,14 @@ namespace ABF.Controllers.Admin
         private EventService eventService;
         private ImageService imageService;
         private LocationService locationService;
+        private AddOnService addOnService;
 
         public AdminEventsController()
         {
             eventService = new EventService();
             imageService = new ImageService();
             locationService = new LocationService();
+            addOnService = new AddOnService();
         }
 
         [Route("Admin/Events")]
@@ -46,6 +48,7 @@ namespace ABF.Controllers.Admin
 
             return View(viewModel);
         }
+
 
         [Route("Admin/Events/New")]
         public ActionResult New()
