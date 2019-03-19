@@ -26,5 +26,15 @@ namespace ABF.Service.Services
         {
             return locationDAO.GetLocation(id);
         }
+
+        public void CreateLocation(Location location)
+        {
+            locationDAO.CreateLocation(location);
+        }
+
+        public void UpdateLocation(Location location)
+        {
+            locationDAO.UpdateLocation(location);
+        }
     }
 }

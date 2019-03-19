@@ -38,5 +38,26 @@ namespace ABF.Data.DAO
 
             return locations.ToList().First();
         }
+
+        public void CreateLocation(Location location)
+        {
+            _context.Locations.Add(location);
+            _context.SaveChanges();
+        }
+
+        public void UpdateLocation(Location location)
+        {
+            Location locationToUpdate = GetLocation(location.Id);
+
+            locationToUpdate.Name = location.Name;
+            locationToUpdate.Address1 = location.Address1;
+            locationToUpdate.Address2 = location.Address2;
+            locationToUpdate.PostCode = location.PostCode;
+            locationToUpdate.DisabledAccess = location.DisabledAccess;
+            locationToUpdate.Info = location.Info;
+            locationToUpdate.Contact = location.Contact;
+
+            _context.SaveChanges();
+        }
     }
 }
