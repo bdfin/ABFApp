@@ -36,5 +36,10 @@ namespace ABF.Service.Services
         {
             locationDAO.UpdateLocation(location);
         }
+
+        public void DeleteLocation(Location location)
+        {
+            locationDAO.DeleteLocation(location);
+        }
     }
 }

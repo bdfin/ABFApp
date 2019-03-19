@@ -59,5 +59,11 @@ namespace ABF.Data.DAO
 
             _context.SaveChanges();
         }
+
+        public void DeleteLocation(Location location)
+        {
+            _context.Locations.Remove(location);
+            _context.SaveChanges();
+        }
     }
 }

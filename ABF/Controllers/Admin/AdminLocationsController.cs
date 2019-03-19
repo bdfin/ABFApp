@@ -78,5 +78,28 @@ namespace ABF.Controllers.Admin
 
             return View("LocationForm", location);
         }
+
+        [Route("Admin/Location/Delete/{id}")]
+        public ActionResult Delete(int id)
+        {
+            var location = locationService.GetLocation(id);
+
+            if (location == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(location);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteLocation(int id)
+        {
+            var location = locationService.GetLocation(id);
+
+            locationService.DeleteLocation(location);
+
+            return RedirectToAction("Index", "AdminLocations");
+        }
     }
 }
