@@ -27,7 +27,7 @@ namespace ABF.Controllers.Admin
         }
 
         [HttpPost]
-        public ActionResult SaveAddOn(EventFormViewModel viewModel)
+        public ActionResult Save(EventFormViewModel viewModel)
         {
             viewModel.AddOn.EventId = viewModel.Event.Id;
 
@@ -39,7 +39,16 @@ namespace ABF.Controllers.Admin
         [ChildActionOnly]
         public ActionResult GetEventAddOns(int id)
         {
-            return PartialView("_AddOnsPartial", addOnService.GetAddOnsForEvent(id));
+            return PartialView("_AddOnsPartial", addOnService.GetEventAddOns(id));
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var addOn = addOnService.GetAddOn(id);
+
+            addOnService.DeleteAddOn(addOn);
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
     }

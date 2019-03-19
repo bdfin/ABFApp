@@ -27,7 +27,7 @@ namespace ABF.Data.DAO
             return addOns.ToList();
         }
 
-        public IList<AddOn> GetAddOnsForEvent(int id)
+        public IList<AddOn> GetEventAddOns(int id)
         {
             IQueryable<AddOn> addOns;
 
@@ -39,9 +39,27 @@ namespace ABF.Data.DAO
             return addOns.ToList();
         }
 
+        public AddOn GetAddOn(int id)
+        {
+            IQueryable<AddOn> addOns;
+
+            addOns = from addOn
+                     in _context.AddOns
+                     where addOn.Id == id
+                     select addOn;
+
+            return addOns.ToList().First();
+        }
+
         public void SaveAddOn(AddOn addOn)
         {
             _context.AddOns.Add(addOn);
+            _context.SaveChanges();
+        }
+
+        public void DeleteAddOn(AddOn addOn)
+        {
+            _context.AddOns.Remove(addOn);
             _context.SaveChanges();
         }
     }

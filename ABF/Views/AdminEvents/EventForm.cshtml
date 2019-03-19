@@ -133,7 +133,11 @@ else
 
         <div class="collapse" id="newAddOnCollapse">
             <div class="card card-body">
-                @using (Html.BeginForm("SaveAddOn", "AdminAddOns", FormMethod.Post))
+                <h4>New Add-On</h4>
+
+                <hr />
+
+                @using (Html.BeginForm("Save", "AdminAddOns", FormMethod.Post))
                 {
                     @Html.HiddenFor(model => model.Event.Id)
 

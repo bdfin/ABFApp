@@ -22,14 +22,24 @@ namespace ABF.Service.Services
             return addOnDAO.GetAllAddOns();
         }
 
-        public IList<AddOn> GetAddOnsForEvent(int id)
+        public AddOn GetAddOn(int id)
         {
-            return addOnDAO.GetAddOnsForEvent(id);
+            return addOnDAO.GetAddOn(id);
+        }
+
+        public IList<AddOn> GetEventAddOns(int id)
+        {
+            return addOnDAO.GetEventAddOns(id);
         }
 
         public void SaveAddOn(AddOn addOn)
         {
             addOnDAO.SaveAddOn(addOn);
+        }
+
+        public void DeleteAddOn(AddOn addOn)
+        {
+            addOnDAO.DeleteAddOn(addOn);
         }
     }
 }

@@ -59,9 +59,14 @@ namespace ABF.Controllers.Admin
             {
                 Locations = locations,
                 Event = new Event(),
-                Image = new Image()
+                Image = new Image(),
+                AddOn = new AddOn()
             };
 
+            int eventId = eventService.GetNewEventId();
+
+            viewModel.Event.Id = eventId;
+            viewModel.AddOn.EventId = eventId;
             viewModel.Event.Date = DateTime.Now;
 
             return View("EventForm", viewModel);

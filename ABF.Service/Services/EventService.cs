@@ -10,36 +10,41 @@ namespace ABF.Service.Services
 {
     public class EventService
     {
-        private EventDAO _eventDAO;
+        private EventDAO eventDAO;
 
         public EventService()
         {
-            _eventDAO = new EventDAO();
+            eventDAO = new EventDAO();
         }
 
         public Event GetEvent(int id)
         {
-            return _eventDAO.GetEvent(id);
+            return eventDAO.GetEvent(id);
         }
 
         public IList<Event> GetEvents()
         {
-            return _eventDAO.GetEvents();
+            return eventDAO.GetEvents();
         } 
 
         public void CreateEvent(Event e)
         {
-            _eventDAO.CreateEvent(e);
+            eventDAO.CreateEvent(e);
         }
 
         public void UpdateEvent(Event e)
         {
-            _eventDAO.UpdateEvent(e);
+            eventDAO.UpdateEvent(e);
         }
 
         public void DeleteEvent(Event e)
         {
-            _eventDAO.DeleteEvent(e);
+            eventDAO.DeleteEvent(e);
+        }
+
+        public int GetNewEventId()
+        {
+            return eventDAO.GetNewEventId();
         }
     }
 }
