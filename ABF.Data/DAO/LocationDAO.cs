@@ -18,13 +18,25 @@ namespace ABF.Data.DAO
 
         public IList<Location> GetLocations()
         {
-            IQueryable<Location> _locations;
+            IQueryable<Location> locations;
 
-            _locations = from location
+            locations = from location
                          in _context.Locations
                          select location;
 
-            return _locations.ToList();
+            return locations.ToList();
+        }
+
+        public Location GetLocation(int id)
+        {
+            IQueryable<Location> locations;
+
+            locations = from location
+                        in _context.Locations
+                        where location.Id == id
+                        select location;
+
+            return locations.ToList().First();
         }
     }
 }

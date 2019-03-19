@@ -22,6 +22,17 @@ namespace ABF.Controllers.Admin
             return View(locationService.GetLocations());
         }
 
-       
+       [Route("Admin/Locations/Details/{id}")]
+       public ActionResult Details(int id)
+        {
+            var location = locationService.GetLocation(id);
+
+            if (location == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(location);
+        }
     }
 }
