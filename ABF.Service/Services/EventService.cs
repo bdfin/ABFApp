@@ -41,10 +41,5 @@ namespace ABF.Service.Services
         {
             eventDAO.DeleteEvent(e);
         }
-
-        public int GetNewEventId()
-        {
-            return eventDAO.GetNewEventId();
-        }
     }
 }

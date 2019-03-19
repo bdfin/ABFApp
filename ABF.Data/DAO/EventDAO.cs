@@ -68,33 +68,5 @@ namespace ABF.Data.DAO
             _context.SaveChanges();
         }
 
-        public int GetNewEventId()
-        {
-            if (!_context.Events.Any())
-            {
-                Event e = new Event
-                {
-                    Id = 1,
-                    Name = "Intialiser",
-                    Date = DateTime.Now,
-                    StartTime = DateTime.Now,
-                    EndTime = DateTime.Now,
-                    Capacity = 20,
-                    IsMemberOnly = false,
-                    LocationId = 2
-                };
-
-                _context.Events.Add(e);
-                _context.SaveChanges();
-            };
-
-            var eventId = _context.Events
-                .OrderByDescending(i => i.Id)
-                .First();
-
-            int newEventId = eventId.Id + 1;
-
-            return newEventId;
-        }
     }
 }

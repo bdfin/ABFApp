@@ -121,70 +121,71 @@ else
     </div>
     <div class="col">
 
-        <h3>Add-Ons</h3>
-        
-        @{Html.RenderAction("GetEventAddOns", "AdminAddOns", new { id = Model.Event.Id });}
-        
-        <p>
-            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newAddOnCollapse" aria-expanded="false" aria-controls="newAddOnCollapse">
-                New Add-On
-            </button>
-        </p>
+        @if (Model.Event.Id != 0)
+        {
+            <h3>Add-Ons</h3>
 
-        <div class="collapse" id="newAddOnCollapse">
-            <div class="card card-body">
-                <h4>New Add-On</h4>
+            { Html.RenderAction("GetEventAddOns", "AdminAddOns", new { id = Model.Event.Id }); }
 
-                <hr />
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newAddOnCollapse" aria-expanded="false" aria-controls="newAddOnCollapse">
+                    New Add-On
+                </button>
+            </p>
 
-                @using (Html.BeginForm("Save", "AdminAddOns", FormMethod.Post))
-                {
-                    @Html.HiddenFor(model => model.Event.Id)
+            <div class="collapse" id="newAddOnCollapse">
+                <div class="card card-body">
+                    <h4>New Add-On</h4>
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.AddOn.Name, htmlAttributes: new { @class = "control-label col" })
-                        <div class="col">
-                            @Html.EditorFor(model => model.AddOn.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.AddOn.Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                    <hr />
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.AddOn.Description, htmlAttributes: new { @class = "control-label col" })
-                        <div class="col">
-                            @Html.EditorFor(model => model.AddOn.Description, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.AddOn.Description, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                    @using (Html.BeginForm("Save", "AdminAddOns", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(model => model.Event.Id)
 
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.AddOn.Price, htmlAttributes: new { @class = "control-label col" })
-                        <div class="col">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">£</span>
-                                </div>
-                                @Html.EditorFor(model => model.AddOn.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AddOn.Name, htmlAttributes: new { @class = "control-label col" })
+                            <div class="col">
+                                @Html.EditorFor(model => model.AddOn.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AddOn.Name, "", new { @class = "text-danger" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.AddOn.Price, "", new { @class = "text-danger" })
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col">
-                            <input type="submit" value="Save" class="btn btn-primary" />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AddOn.Description, htmlAttributes: new { @class = "control-label col" })
+                            <div class="col">
+                                @Html.EditorFor(model => model.AddOn.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.AddOn.Description, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div>
-                }
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AddOn.Price, htmlAttributes: new { @class = "control-label col" })
+                            <div class="col">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">£</span>
+                                    </div>
+                                    @Html.EditorFor(model => model.AddOn.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.AddOn.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
+        }
+
+
     </div>
 
 </div>
-
-
-
-
 
 <div>
     @Html.ActionLink("Back to List", "Index")

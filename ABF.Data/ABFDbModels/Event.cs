@@ -10,7 +10,6 @@ namespace ABF.Data.ABFDbModels
 {
     public class Event
     {
-        [Required, Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
