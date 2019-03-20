@@ -1,9 +1,9 @@
-﻿
-@import url(https://fonts.google.com/specimen/Rajdhani);
+﻿@import url('https://fonts.googleapis.com/css?family=Rajdhani');
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: Rajdhani;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -31,20 +31,20 @@ textarea {
     background: rgba(252,191,45, 0.5) !important;
 }
 
-.rajdhani-font {
-    font-family: Rajdhani;
+.index-font {
     font-size: x-large;
     font-weight: 500;
     color: white;
-    text-shadow: black 0.1em 0.1em 0.5em;
-    
+    text-shadow: black 0.1em 0.1em 0.5em; 
 }
 
 .site-background123 {
-    background-image: url("/Content/SiteImages/appledoorSiteBackground.png") !important;
+    background: url("/Content/SiteImages/appledoorSiteBackground.png") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-repeat: no-repeat;
-
+}
 .menu-links {
     padding: 0 !important;
     border: none !important;
