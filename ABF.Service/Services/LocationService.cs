@@ -10,16 +10,36 @@ namespace ABF.Service.Services
 {
     public class LocationService
     {
-        private LocationDAO _locationDAO;
+        private LocationDAO locationDAO;
 
         public LocationService()
         {
-            _locationDAO = new LocationDAO();
+            locationDAO = new LocationDAO();
         }
 
         public IList<Location> GetLocations()
         {
-            return _locationDAO.GetLocations();
+            return locationDAO.GetLocations();
+        }
+
+        public Location GetLocation(int id)
+        {
+            return locationDAO.GetLocation(id);
+        }
+
+        public void CreateLocation(Location location)
+        {
+            locationDAO.CreateLocation(location);
+        }
+
+        public void UpdateLocation(Location location)
+        {
+            locationDAO.UpdateLocation(location);
+        }
+
+        public void DeleteLocation(Location location)
+        {
+            locationDAO.DeleteLocation(location);
         }
     }
 }

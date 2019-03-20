@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
-using ABF.Data.ViewModels;
+using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
@@ -14,12 +14,14 @@ namespace ABF.Controllers.Admin
         private EventService eventService;
         private ImageService imageService;
         private LocationService locationService;
+        private AddOnService addOnService;
 
         public AdminEventsController()
         {
             eventService = new EventService();
             imageService = new ImageService();
             locationService = new LocationService();
+            addOnService = new AddOnService();
         }
 
         [Route("Admin/Events")]
@@ -32,20 +34,31 @@ namespace ABF.Controllers.Admin
         public ActionResult Details(int id)
         {
             var e = eventService.GetEvent(id);
-
-            var viewModel = new EventDetailsViewModel
+            
+            try
             {
-                Event = e,
-                Image = imageService.GetImage(e.ImageId)
-            };
+                var image = imageService.GetImage(e.Id);
 
-            if (viewModel == null)
-            {
-                return HttpNotFound();
+                var viewModel = new EventDetailsViewModel
+                {
+                    Event = e,
+                    Image = image
+                };
+
+                return View(viewModel);
             }
+            catch
+            {
+                var viewModel = new EventDetailsViewModel
+                {
+                    Event = e,
+                    Image = new Image()
+                };
 
-            return View(viewModel);
+                return View(viewModel);
+            }
         }
+
 
         [Route("Admin/Events/New")]
         public ActionResult New()
@@ -56,7 +69,8 @@ namespace ABF.Controllers.Admin
             {
                 Locations = locations,
                 Event = new Event(),
-                Image = new Image()
+                Image = new Image(),
+                AddOn = new AddOn()
             };
 
             viewModel.Event.Date = DateTime.Now;
@@ -111,22 +125,33 @@ namespace ABF.Controllers.Admin
         public ActionResult Edit(int id)
         {
             var e = eventService.GetEvent(id);
-            var image = imageService.GetImage(e.ImageId);
             var locations = locationService.GetLocations();
 
-            if (e == null)
+            try
             {
-                return HttpNotFound();
-            }
-                
-            var viewModel = new EventFormViewModel
-            {
-                Event = e,
-                Locations = locations,
-                Image = image
-            };
+                var image = imageService.GetImage(e.ImageId);
 
-            return View("EventForm", viewModel);
+                var viewModel = new EventFormViewModel
+                {
+                    Event = e,
+                    Locations = locations,
+                    Image = image
+                };
+
+                return View("EventForm", viewModel);
+            }
+            catch
+            {
+                var viewModel = new EventFormViewModel
+                {
+                    Event = e,
+                    Locations = locations,
+                    Image = new Image()
+                };
+
+                return View("EventForm", viewModel);
+            }
+            
         }
 
         [Route("Admin/Events/Delete/{id}")]
