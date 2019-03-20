@@ -58,6 +58,7 @@ namespace ABF.Data.DAO
             _event.Capacity = e.Capacity;
             _event.IsMemberOnly = e.IsMemberOnly;
             _event.LocationId = e.LocationId;
+            _event.ImageId = e.ImageId;
 
             _context.SaveChanges();
         }

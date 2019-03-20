@@ -11,6 +11,7 @@ namespace ABF.Data.ABFDbModels
     {
         protected override void Seed(ABFDbContext context)
         {
+            // location seed
             IList<Location> initialisedLocations = new List<Location>
             {
                 new Location()
@@ -175,6 +176,14 @@ namespace ABF.Data.ABFDbModels
                 }
             };
 
+            // image seed
+            Image initialisedImage = new Image
+            {
+                Id = 1,
+                ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
+            };
+
+            context.Images.Add(initialisedImage);
             context.Locations.AddRange(initialisedLocations);
 
             base.Seed(context);

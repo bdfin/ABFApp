@@ -25,7 +25,7 @@ namespace ABF.Data.DAO
                 Image i = new Image
                 {
                     Id = 1,
-                    ImagePath = "Intialiser"
+                    ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
                 };
 
                 _context.Images.Add(i);

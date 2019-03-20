@@ -34,29 +34,16 @@ namespace ABF.Controllers.Admin
         public ActionResult Details(int id)
         {
             var e = eventService.GetEvent(id);
-            
-            try
+
+            var image = imageService.GetImage(e.ImageId);
+
+            var viewModel = new EventDetailsViewModel
             {
-                var image = imageService.GetImage(e.Id);
+                Event = e,
+                Image = image
+            };
 
-                var viewModel = new EventDetailsViewModel
-                {
-                    Event = e,
-                    Image = image
-                };
-
-                return View(viewModel);
-            }
-            catch
-            {
-                var viewModel = new EventDetailsViewModel
-                {
-                    Event = e,
-                    Image = new Image()
-                };
-
-                return View(viewModel);
-            }
+            return View(viewModel);
         }
 
 
@@ -110,11 +97,21 @@ namespace ABF.Controllers.Admin
                 }
                 else
                 {
+                    viewModel.Event.ImageId = 1;
                     eventService.CreateEvent(viewModel.Event);
                 }
             }
             else
             {
+                viewModel.Image = new Image();
+
+                int newImageId = imageService.GetNewImageId();
+
+                viewModel.Image.ImageFile = viewModel.ImageFile;
+                viewModel.Image.Id = newImageId;
+                viewModel.Event.ImageId = newImageId;
+
+                imageService.SaveImage(viewModel.Image);
                 eventService.UpdateEvent(viewModel.Event);
             }
 
@@ -151,7 +148,7 @@ namespace ABF.Controllers.Admin
 
                 return View("EventForm", viewModel);
             }
-            
+
         }
 
         [Route("Admin/Events/Delete/{id}")]
