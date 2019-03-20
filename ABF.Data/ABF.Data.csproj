@@ -63,6 +63,7 @@
     <Compile Include="ABFDbModels\Order.cs" />
     <Compile Include="ABFDbModels\Payment.cs" />
     <Compile Include="ABFDbModels\Ticket.cs" />
+    <Compile Include="DAO\CustomerDAO.cs" />
     <Compile Include="DAO\AddOnDAO.cs" />
     <Compile Include="DAO\EventDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />

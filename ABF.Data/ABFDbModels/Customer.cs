@@ -14,16 +14,21 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public string Name { get; set; }
 
+        [Display(Name ="House Number/Name")]
         public string Address1 { get; set; }
 
+        [Display(Name="Street Name")]
         public string Address2 { get; set; }
 
+        [Display(Name="Town/City")]
         public string Address3 { get; set; }
 
+        [Display(Name="Post Code")]
         public string PostCode { get; set; }
-
+       
         public string Email { get; set; }
 
+        [Display(Name = "Phone Number")]
         public int PhoneNumber { get; set; }
 
         public int? MembershipId { get; set; }
