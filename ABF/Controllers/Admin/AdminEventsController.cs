@@ -123,31 +123,16 @@ namespace ABF.Controllers.Admin
         {
             var e = eventService.GetEvent(id);
             var locations = locationService.GetLocations();
+            var image = imageService.GetImage(e.ImageId);
 
-            try
+            var viewModel = new EventFormViewModel
             {
-                var image = imageService.GetImage(e.ImageId);
+                Event = e,
+                Locations = locations,
+                Image = image
+            };
 
-                var viewModel = new EventFormViewModel
-                {
-                    Event = e,
-                    Locations = locations,
-                    Image = image
-                };
-
-                return View("EventForm", viewModel);
-            }
-            catch
-            {
-                var viewModel = new EventFormViewModel
-                {
-                    Event = e,
-                    Locations = locations,
-                    Image = new Image()
-                };
-
-                return View("EventForm", viewModel);
-            }
+            return View("EventForm", viewModel);
 
         }
 
