@@ -27,14 +27,9 @@ textarea {
     max-width: 280px;
 }
 
-.box-opacity {
-
-    opacity: 0.5;
-}
 
 .box-colour {
-
-    background-color: #fcbf2d !important;
+    background: rgba(252,191,45, 0.5) !important;
 }
 
 .rajdhani-font {
@@ -43,11 +38,11 @@ textarea {
     font-weight: 500;
     color: white;
     text-shadow: black 0.1em 0.1em 0.5em;
-    opacity: 1.0 !important;
+    
 }
 
 .site-background123 {
-    background-image: url("/Content/Images/appledoorSiteBackground.png") !important;
+    background-image: url("/Content/SiteImages/appledoorSiteBackground.png") !important;
     background-size: cover;
     background-repeat: no-repeat;
 }
