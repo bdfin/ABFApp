@@ -8,25 +8,20 @@ using ABF.Service.Services;
 
 namespace ABF.Controllers
 {
-    public class CustomerController : Controller
+    public class AdminCustomersController : Controller
     {
 
         private CustomerService customerService;
 
-        public CustomerController()
+        public AdminCustomersController()
         {
             customerService = new CustomerService();
         }
 
-        [Route("Customer/GetCustomers")]
-        public ActionResult GetCustomers()
-        {
-            return View(customerService.GetCustomers());
-        }
-        // GET: Customer
+        [Route("Admin/Customers")]
         public ActionResult Index()
         {
-            return View();
+            return View(customerService.GetCustomers());
         }
 
         // GET: Customer/Details/5
@@ -58,7 +53,7 @@ namespace ABF.Controllers
         }
 
         // GET: Customer/Edit/5
-        [Route("Customer/Edit/{custNo}")]
+        [Route("Admin/Customer/Edit/{custNo}")]
         public ActionResult Edit(int custNo)
         {
             return View(customerService.GetCustomer(custNo));
