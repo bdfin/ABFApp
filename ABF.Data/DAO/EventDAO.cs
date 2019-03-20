@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ABF.Data.ABFDbModels;
-using ABF.Data.ViewModels;
 
 namespace ABF.Data.DAO
 {
@@ -68,5 +67,6 @@ namespace ABF.Data.DAO
             _context.Events.Remove(e);
             _context.SaveChanges();
         }
+
     }
 }

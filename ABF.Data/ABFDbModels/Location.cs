@@ -14,14 +14,20 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Location")]
         public string Name { get; set; }
 
+        [Display(Name = "Address 1")]
         public string Address1 { get; set; }
 
+        [Display(Name = "Address 2")]
         public string Address2 { get; set; }
 
+        [Display(Name = "Post Code")]
+        [DataType(DataType.PostalCode)]
         public string PostCode { get; set; }
 
+        [Display(Name = "Disabled Access")]
         public bool DisabledAccess { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string Info { get; set; }
 
         public string Contact { get; set; }

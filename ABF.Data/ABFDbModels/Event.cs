@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,6 @@ namespace ABF.Data.ABFDbModels
         public int ImageId { get; set; }
 
         public virtual Location Location { get; set; }
-        public virtual IList<AddOn> AddOns { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
     }
 }
