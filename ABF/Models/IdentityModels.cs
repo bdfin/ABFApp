@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -32,13 +34,93 @@ namespace ABF.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("UserDbConnection", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new IdentityDbInitialiser());
+            Database.Initialize(true);
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+    }
+
+    public class IdentityDbInitialiser : CreateDatabaseIfNotExists<ApplicationDbContext>
+    {
+        protected override void Seed(ApplicationDbContext context)
+        {
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Admin" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "BoxOffice"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "BoxOffice" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Name == "User"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "User" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "admin"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser {
+                    UserName = "admin@test.net",
+                    Email = "admin@test.net",
+                    Name = "Admin User",
+                    PostCode = "S40 9UF"
+                };
+
+                manager.Create(user, "admin123");
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "boxoffice"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser {
+                    UserName = "boxoffice@test.net",
+                    Email = "boxoffice@test.net",
+                    Name = "Box Office User",
+                    PostCode = "S70 4HJ"
+                };
+
+                manager.Create(user, "boxoffice123");
+                manager.AddToRole(user.Id, "BoxOffice");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "testuser"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser {
+                    UserName = "testuser@test.net",
+                    Email = "testuser@test.net",
+                    Name = "Standard User",
+                    PostCode = "S8 7RW" };
+
+                manager.Create(user, "user123");
+                manager.AddToRole(user.Id, "User");
+            }
+
         }
     }
 }
