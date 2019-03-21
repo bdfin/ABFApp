@@ -9,6 +9,7 @@ using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class AdminEventsController : Controller
     {
         private EventService eventService;

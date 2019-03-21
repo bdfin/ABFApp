@@ -8,6 +8,7 @@ using ABF.Service.Services;
 
 namespace ABF.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminCustomersController : Controller
     {
 
