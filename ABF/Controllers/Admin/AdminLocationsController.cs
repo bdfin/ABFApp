@@ -8,6 +8,7 @@ using ABF.Data.ABFDbModels;
 
 namespace ABF.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class AdminLocationsController : Controller
     {
         private LocationService locationService;

@@ -7,6 +7,7 @@ using ABF.Service.Services;
 
 namespace ABF.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
