@@ -53,7 +53,6 @@ namespace ABF
 
                 string name = adminUserEmail;
                 string password = adminPassword;
-                string roleName = RoleNames.Admin;
 
                 var user = userManager.FindByName(name);
                 if (user == null)

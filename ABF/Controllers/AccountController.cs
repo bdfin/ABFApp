@@ -162,7 +162,7 @@ namespace ABF.Controllers
                 if (result.Succeeded)
                 {
                     // Sets default user type to basic 'Customer'
-                    // await UserManager.AddToRolesAsync(user.Id, RoleNames.Customer);
+                    await UserManager.AddToRolesAsync(user.Id, "User");
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
