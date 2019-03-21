@@ -1,7 +1,7 @@
-@model IEnumerable<ABF.ViewModels.Users_in_Role_ViewModel>
+﻿@model IEnumerable<ABF.ViewModels.Users_in_Role_ViewModel>
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Users With Roles";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,8 +10,8 @@
         <h3 class="box-title">
             <b>Log-In Accounts</b>
         </h3>
-        @Html.ActionLink("Create New", "Create")
     </div>
+
 
     <div class="panel-body">
         <table class="table table-hover table-bordered table-condensed" id="UsersWithRoles">
@@ -26,18 +26,18 @@
             </thead>
             @foreach (var user in Model)
             {
-                <tr>
-                    <td>@user.Username</td>
-                    <td>@user.Name</td>
-                    <td>@user.PostCode</td>
-                    <td>@user.Role</td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = user.UserId }) |
-                        @Html.ActionLink("Details", "Details", new { id = user.UserId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = user.UserId })
-                    </td>
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.Name</td>
+                <td>@user.PostCode</td>
+                <td>@user.Role</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = user.UserId}) |
+                    @Html.ActionLink("Details", "Details", new { id = user.UserId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = user.UserId })
+                </td>
 
-                </tr>
+            </tr>
             }
         </table>
     </div>

@@ -27,6 +27,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+
                 <a href="@Url.Action("Delete", "RolesAdmin", new { @id=item.Id })" onclick="return confirm('Are you sure you want to delete the role @item.Name');">Delete</a>
             </td>
         </tr>

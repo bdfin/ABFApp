@@ -204,6 +204,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
+    <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -564,6 +565,7 @@
     <Content Include="Views\AdminLocations\LocationForm.cshtml" />
     <Content Include="Views\AdminLocations\Delete.cshtml" />
     <Content Include="Views\Shared\_AddOnsPartial.cshtml" />
+    <Content Include="Views\UsersAdmin\UsersWithRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
