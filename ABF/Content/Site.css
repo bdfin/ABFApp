@@ -1,7 +1,7 @@
 ﻿@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
     font-family: 'Poppins', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -51,5 +51,20 @@ textarea {
 .menu-links {
     padding: 0 !important;
     border: none !important;
+
+}
+
+
+/*Makes content in cntainer central*/
+.center-block {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.logo-padding {
+
+    padding-bottom:40px;
 
 }
