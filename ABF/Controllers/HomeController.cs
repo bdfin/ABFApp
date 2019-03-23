@@ -13,6 +13,11 @@ namespace ABF.Controllers
             return View();
         }
 
+        public ActionResult Visit()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
