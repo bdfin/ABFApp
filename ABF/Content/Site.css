@@ -34,6 +34,11 @@ textarea {
     background: rgba(252,191,45, 0.5) !important;
 }
 
+.navbar-colour {
+    /*background: rgb(151,206,200) !important;*/
+    box-shadow: 10px 10px 8px #888888;
+}
+
 .index-font {
     font-size: x-large;
     font-weight: 500;
@@ -60,6 +65,7 @@ textarea {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    
 }
 
 
@@ -69,7 +75,3 @@ textarea {
 
 }
 
-.navbar-logo {
-
-
-}
