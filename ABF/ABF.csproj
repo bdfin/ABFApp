@@ -371,6 +371,7 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Content\SiteImages\appledoorSiteBackground.png" />
+    <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo.png" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
     <Content Include="favicon.ico" />
