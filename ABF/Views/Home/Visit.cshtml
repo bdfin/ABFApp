@@ -1,0 +1,172 @@
+﻿
+@{
+    ViewBag.Title = "Visit";
+}
+<html>
+    <head>
+        <title>ABF | Visit Appledore</title>
+    </head>
+
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md">
+                    <script>
+                        function myMap() {
+                            var mapProp = {
+                                center: new google.maps.LatLng(51.054514, -4.194),
+                                zoom: 16,
+                                mapTypeControl: false
+                            };
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                            //Set the locations of the places of interest
+                            var loc_stmaryshall = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.055187, -4.193109),
+                                icon: "/Content/MapIcons/letter_a.png"
+                            });
+                            var loc_stmaryschurch = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.054869, -4.192689),
+                                icon: "/Content/MapIcons/letter_b.png"
+                            });
+                            var loc_doctoncourt = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.051804, -4.192091),
+                                icon: "/Content/MapIcons/letter_c.png"
+                            });
+                            var loc_baptistchapel = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.054134, -4.191923),
+                                icon: "/Content/MapIcons/letter_d.png"
+                            });
+
+                            // set the content of the information pop-ups
+                            var infowindow_stmaryshall = new google.maps.InfoWindow({
+                                content: "Book Festival HQ - St Mary's Hall"
+                            });
+                            var infowindow_stmaryschurch = new google.maps.InfoWindow({
+                                content: "Venue - St Mary's Church"
+                            });
+                            var infowindow_doctoncourt = new google.maps.InfoWindow({
+                                content: "Box Office - Docton Court Gallery"
+                            });
+                            var infowindow_baptistchapel = new google.maps.InfoWindow({
+                                content: "Venue - Baptist Chapel"
+                            });
+
+                            // plot the locations on the map
+                            loc_stmaryshall.setMap(map);
+                            loc_stmaryschurch.setMap(map);
+                            loc_doctoncourt.setMap(map);
+                            loc_baptistchapel.setMap(map);
+
+                            // event handlers for displaying the information pop-ups
+                            google.maps.event.addListener(loc_stmaryshall, 'click', function () {
+                                infowindow_stmaryshall.open(map, loc_stmaryshall);
+                            });
+                            google.maps.event.addListener(loc_stmaryschurch, 'click', function () {
+                                infowindow_stmaryschurch.open(map, loc_stmaryschurch);
+                            });
+                            google.maps.event.addListener(loc_doctoncourt, 'click', function () {
+                                infowindow_doctocourt.open(map, loc_doctoncourt);
+                            });
+                            google.maps.event.addListener(loc_baptistchapel, 'click', function () {
+                                infowindow_baptistchapel.open(map, loc_baptistchapel);
+                            });
+
+                        }
+                    </script>
+
+                    @* show the Google Map*@
+                    <div id="googleMap" style="height:500px;"></div>
+                </div>
+
+                <div class="col-md">
+                    <input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
+
+                    <hr />
+
+                    <table id="myTable" style="border:1px solid orange; border">
+                        <tr style="background-color:lightblue; border:1px solid orange;">
+                            <th style="width:8%"></th>
+                            <th style="width:29%">Location</th>
+                            <th style="width:32%">Category</th>
+                            <th>Facilities</th>
+                        </tr>
+
+                        <tr>
+                            <td><img src="~/Content/MapIcons/letter_a.png" /></td>
+                            <td>St Mary's Hall</td>
+                            <td>Festival Hub, Venue</td>
+                            <td>Toilets, Shop, Cafe, Tickets, Information</td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="~/Content/MapIcons/letter_b.png" /></td>
+                            <td>St Mary's Church</td>
+                            <td>Venue</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="~/Content/MapIcons/letter_c.png" /></td>
+                            <td>Docton Court Gallery</td>
+                            <td>Box Office, Venue</td>
+                            <td>Shop, Tickets, Information</td>
+                        </tr>
+
+                        <tr>
+                            <td><img src="~/Content/MapIcons/letter_d.png" /></td>
+                            <td>Baptist Chapel</td>
+                            <td>Venue</td>
+                            <td></td>
+                        </tr>
+
+
+
+                    </table>
+
+                    <script>
+                        function doSearch() {
+                            var searchText = document.getElementById('myInput').value.toUpperCase();
+
+                            var targetTable = document.getElementById('myTable');
+                            var targetTableColCount;
+
+                            //Loop through table rows
+                            for (var rowIndex = 0; rowIndex < targetTable.rows.length; rowIndex++) {
+                                var rowData = '';
+
+                                //Get column count from header row
+                                if (rowIndex == 0) {
+                                    targetTableColCount = targetTable.rows.item(rowIndex).cells.length;
+                                    continue; //do not execute further code for header row.
+                                }
+
+                                //Process data rows. (rowIndex >= 1)
+                                for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
+                                    rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
+                                    rowData = rowData.toUpperCase();
+                                }
+
+                                //If search term is not found in row data
+                                //then hide the row, else show
+                                if (rowData.indexOf(searchText) == -1)
+                                    targetTable.rows.item(rowIndex).style.display = 'none';
+                                else
+                                    targetTable.rows.item(rowIndex).style.display = 'table-row';
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
+
+    </body>
+
+</html>

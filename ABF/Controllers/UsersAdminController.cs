@@ -1,4 +1,5 @@
 using ABF.Models;
+using ABF.ViewModels;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System.Linq;
@@ -52,9 +53,29 @@ namespace ABF
 
         //
         // GET: /Users/
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await UserManager.Users.ToListAsync());
+            var usersWithRoles = (from user in context.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      Username = user.UserName,
+                                      Name = user.Name,
+                                      PostCode = user.PostCode,
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in context.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new Users_in_Role_ViewModel()
+
+                                  {
+                                      UserId = p.UserId,
+                                      Username = p.Username,
+                                      Name = p.Name,
+                                      PostCode = p.PostCode,
+                                      Role = string.Join(",", p.RoleNames)
+                                  });
+            return View(usersWithRoles);
         }
 
         //
@@ -246,6 +267,31 @@ namespace ABF
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+        public ActionResult UsersWithRoles()
+        {
+            var usersWithRoles = (from user in context.Users
+                                  select new
+                                  {
+                                      UserId = user.Id,
+                                      Username = user.UserName,
+                                      Name = user.Name,
+                                      PostCode = user.PostCode,
+                                      RoleNames = (from userRole in user.Roles
+                                                   join role in context.Roles on userRole.RoleId
+                                                   equals role.Id
+                                                   select role.Name).ToList()
+                                  }).ToList().Select(p => new Users_in_Role_ViewModel()
+
+                                  {
+                                      UserId = p.UserId,
+                                      Username = p.Username,
+                                      Name = p.Name,
+                                      PostCode = p.PostCode,
+                                      Role = string.Join(",", p.RoleNames)
+                                  });
+            return View(usersWithRoles);
         }
     }
 }
