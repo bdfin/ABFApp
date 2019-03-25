@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using ABF.Data.ABFDbModels;
 
-namespace ABF.Data.ABFDbModels
+namespace ABF.ViewModels
 {
-    public class Event
+    public class EventListViewModel
     {
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:ddd dd MMMM}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-      
+
         [DataType(DataType.Time)]
         [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
@@ -27,26 +26,11 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string Author { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        public string Details { get; set; }
-
-        [DataType(DataType.MultilineText)]
-        public string Description { get; set; }
-
-        [Required]
-        public int Capacity { get; set; }
-
         [Display(Name = "Member Only")]
         public bool IsMemberOnly { get; set; }
 
         [Display(Name = "Location")]
         public int LocationId { get; set; }
-
-        [Display(Name = "Event Image")]
-        public int ImageId { get; set; }
 
         public virtual Location Location { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }

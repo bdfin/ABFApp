@@ -23,6 +23,9 @@
         <tr>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Name)
+            </th>            
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Location.Name)
@@ -45,6 +48,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Location.Name)

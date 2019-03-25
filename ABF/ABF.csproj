@@ -204,6 +204,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
+    <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
