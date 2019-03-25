@@ -34,7 +34,9 @@ textarea {
     background: rgba(252,191,45, 0.5) !important;
 }
 
-
+.navlogo-padding {
+    padding-left: 4px;
+}
 
 .index-font {
     font-size: x-large;
