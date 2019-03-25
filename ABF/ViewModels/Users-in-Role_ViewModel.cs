@@ -13,6 +13,5 @@ namespace ABF.ViewModels
         public string Role { get; set; }
         public string Name { get; set; }
         public string PostCode { get; set; }
-
     }
 }

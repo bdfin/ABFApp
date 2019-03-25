@@ -26,6 +26,9 @@ namespace ABF.ViewModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Author { get; set; }
+
         [Display(Name = "Member Only")]
         public bool IsMemberOnly { get; set; }
 
