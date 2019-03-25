@@ -25,19 +25,6 @@ namespace ABF.Controllers
             return View(customerService.GetCustomers());
         }
 
-        // GET: Customer/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Customer/Create
-        public ActionResult CreateCustomer()
-        {
-            return View();
-        }
-
-        // POST: Customer/Create
         [HttpPost]
         public ActionResult CreateCustomer(Customer NewCustomer)
         {
@@ -45,7 +32,7 @@ namespace ABF.Controllers
             {
                 // TODO: Add insert logic here
                 customerService.CreateCustomer(NewCustomer);
-                return RedirectToAction("GetCustomers");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -53,23 +40,19 @@ namespace ABF.Controllers
             }
         }
 
-        // GET: Customer/Edit/5
-        [Route("Admin/Customer/Edit/{custNo}")]
-        public ActionResult Edit(int custNo)
+        [Route("Admin/Customers/Edit/{id}")]
+        public ActionResult Edit(int id)
         {
-            return View(customerService.GetCustomer(custNo));
+            return View(customerService.GetCustomer(id));
         }
 
-        // POST: Customer/Edit/5
         [HttpPost]
-        [Route("Customer/Edit/{custNo}")]
         public ActionResult Edit(int custNo, Customer UpdateCustomer)
         {
             try
-            {
-                // TODO: Add update logic here
+            {              
                 customerService.EditCustomer(UpdateCustomer);
-                return RedirectToAction("GetCustomers");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -77,24 +60,20 @@ namespace ABF.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
-        [Route("Customer/Delete/{custNo}")]
-        public ActionResult Delete(int custNo)
+        [Route("Admin/Customers/Delete/{id}")]
+        public ActionResult Delete(int id)
         {
-            return View(customerService.GetCustomer(custNo));
+            return View(customerService.GetCustomer(id));
         }
 
-        // POST: Customer/Delete/5
+
         [HttpPost]
-        [Route("Customer/Delete/{custNo}")]
         public ActionResult Delete(int custNo, Customer RemoveCustomer)
-        {
-            
-                // TODO: Add delete logic here
+        {     
                 Customer  _customer;
                 _customer = customerService.GetCustomer(custNo);
                 customerService.DeleteCustomer(_customer);
-                return RedirectToAction("GetCustomers");
+                return RedirectToAction("Index");
            
         }
     }
