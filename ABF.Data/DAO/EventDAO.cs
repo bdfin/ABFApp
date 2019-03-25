@@ -57,6 +57,7 @@ namespace ABF.Data.DAO
             _event.Details = e.Details;
             _event.Description = e.Description;
             _event.Capacity = e.Capacity;
+            _event.TicketPrice = e.TicketPrice;
             _event.IsMemberOnly = e.IsMemberOnly;
             _event.LocationId = e.LocationId;
             _event.ImageId = e.ImageId;

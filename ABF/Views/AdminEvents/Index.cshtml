@@ -39,6 +39,9 @@
             <th scope="col">
                 @Html.DisplayNameFor(model => model.Capacity)
             </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.TicketPrice)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -63,6 +66,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketPrice)
                 </td>
                 <td class="text-center"> 
                     <p>                       

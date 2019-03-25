@@ -39,6 +39,10 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public int Capacity { get; set; }
 
+        [Required]
+        [Display(Name = "Ticket Price")]
+        public double TicketPrice { get; set; }
+
         [Display(Name = "Member Only")]
         public bool IsMemberOnly { get; set; }
 

@@ -24,7 +24,7 @@ namespace ABF.ViewModels
         public DateTime EndTime { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string EventName { get; set; }
 
         [Required]
         public string Author { get; set; }
@@ -33,9 +33,7 @@ namespace ABF.ViewModels
         public bool IsMemberOnly { get; set; }
 
         [Display(Name = "Location")]
-        public int LocationId { get; set; }
+        public string LocationName { get; set; }
 
-        public virtual Location Location { get; set; }
-        public virtual IList<Ticket> Tickets { get; set; }
     }
 }
