@@ -9,31 +9,9 @@ namespace ABF.ViewModels
 {
     public class EventListViewModel
     {
-        public int Id { get; set; }
+        public Event thisevent { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:ddd dd MMMM}", ApplyFormatInEditMode = true)]
-        public DateTime Date { get; set; }
-
-        [DataType(DataType.Time)]
-        [Display(Name = "Start Time")]
-        public DateTime StartTime { get; set; }
-
-        [DataType(DataType.Time)]
-        [Display(Name = "End Time")]
-        public DateTime EndTime { get; set; }
-
-        [Required]
-        public string EventName { get; set; }
-
-        [Required]
-        public string Author { get; set; }
-
-        [Display(Name = "Member Only")]
-        public bool IsMemberOnly { get; set; }
-
-        [Display(Name = "Location")]
-        public string LocationName { get; set; }
+        public Location thislocation { get; set; }
 
     }
 }

@@ -179,6 +179,7 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InitAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -597,6 +598,7 @@
     <Content Include="Views\Shared\_AddOnsPartial.cshtml" />
     <Content Include="Views\UsersAdmin\UsersWithRoles.cshtml" />
     <Content Include="Views\Home\Visit.cshtml" />
+    <Content Include="Views\Bookings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
