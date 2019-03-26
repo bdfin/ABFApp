@@ -1,18 +1,156 @@
-﻿@model ABF.ViewModels.EventListViewModel
+﻿@model ABF.ViewModels.EventDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<table id="infoheader">
+    <tr>
+        <td rowspan="5" style="width:280px;">
+            @if (Model.Event.ImageId != 0)
+            {
+                <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
+            }
+        </td>
 
-<div>
-    <h4>@Model.thisevent.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
-</div>
-<h5>Some more details about this event will go here eventually.</h5>
+        <td style="width:55%">
+            <h2>@Model.Event.Name</h2>
+        </td>
+
+        <td rowspan="5" style="width:250px; background-color:#fcbf2d; text-align:center; align-content:center">
+            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br/>
+            <p class="button btn-dark button-lg">-  0  +</p>
+            <p class="button btn-light button-lg">Add To Basket</p>
+            <p><b>Extras Available:</b><br/> add tickets to basket first</p>
+            <ul>
+                <li>Add-On 1 - £price</li>
+                <li>Add-On 2 - £price</li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h3>@Model.Event.Author</h3>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <h5>@Model.Event.Date.ToShortDateString(), @Model.Event.StartTime.ToShortTimeString() - @Model.Event.EndTime.ToShortTimeString()</h5>
+        </td>
+
+    </tr>
+
+    <tr>
+        <td>
+            <h5>@Model.Location.Name</h5>
+        </td>
+    </tr>
+
+    <tr style="height:25%"></tr>
+
+
+
+</table>
+
+<hr />
+
+<table id="maincontent">
+    <tr>
+        <td>
+            <p class="lead" style="width:100%">@Model.Event.Details</p>
+        </td>
+        <td style="width:10px"></td>
+        <td rowspan="2" style="width:35%;background-color:#f4814b">
+            <table id="locationmap">
+                <tr>
+                    <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px">
+                        <script>
+                            function myMap() {
+
+                                
+                                var mapProp =
+                                {
+                                    center: new google.maps.LatLng(@Model.Location.LatLong),
+                                    zoom: 16,
+                                    mapTypeControl: false
+                                };
+
+                                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                                //Set the locations of the places of interest
+                                var venue_location = new google.maps.Marker(
+                                    {
+                                        position: new google.maps.LatLng(@Model.Location.LatLong),
+                                    });
+
+                                // plot the locations on the map
+                                venue_location.setMap(map);
+                            }
+                        </script>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <address style="text-align:right">
+                        <b>@Model.Location.Name</b><br/>
+                        @Model.Location.Address1, @Model.Location.Address2 <br />
+                        <b>@Model.Location.PostCode</b>
+                        </address>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="~/Content/MapIcons/arrow.png" width="30">
+                    </td>
+                    <td>
+                        @Model.Location.Info
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <img src="~/Content/MapIcons/Disability_Friendly-512.png" width="30"/>
+                    </td>
+                    <td>
+                        @if (!Model.Location.DisabledAccess)
+                        {
+                            <b>We regret there is currently no disabled access at this venue.</b>
+                        }
+                        else
+                        {
+                            <b>Please contact a steward on arrival for disabled access or assistance.</b>
+                        }
+                    </td>
+                </tr>
+
+
+
+
+
+
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <p>@Model.Event.Description</p>
+        </td>
+    </tr>
+</table>
+
+<hr />
+
+
+
+
 <p>
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>

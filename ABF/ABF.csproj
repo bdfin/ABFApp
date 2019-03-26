@@ -372,6 +372,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\MapIcons\arrow.png" />
+    <Content Include="Content\MapIcons\Disability_Friendly-512.png" />
     <Content Include="Content\MapIcons\letter_a.png" />
     <Content Include="Content\MapIcons\letter_b.png" />
     <Content Include="Content\MapIcons\letter_c.png" />
