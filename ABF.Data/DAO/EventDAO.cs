@@ -61,6 +61,8 @@ namespace ABF.Data.DAO
             _event.IsMemberOnly = e.IsMemberOnly;
             _event.LocationId = e.LocationId;
             _event.ImageId = e.ImageId;
+            _event.BookUrl = e.BookUrl;
+            _event.AuthorUrl = e.AuthorUrl;
 
             _context.SaveChanges();
         }

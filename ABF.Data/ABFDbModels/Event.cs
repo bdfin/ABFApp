@@ -52,6 +52,12 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Event Image")]
         public int ImageId { get; set; }
 
+        [Display(Name = "URL for Book Sales (Waterstones)")]
+        public string BookUrl { get; set; }
+
+        [Display(Name = "URL for Author's Website/Social Media")]
+        public string AuthorUrl { get; set; }
+
         public virtual Location Location { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
     }

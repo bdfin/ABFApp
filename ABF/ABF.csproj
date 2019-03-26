@@ -609,8 +609,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Views\AdminAddOns\" />
-    <Folder Include="Views\Events\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
