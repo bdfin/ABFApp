@@ -47,7 +47,12 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <p>&copy; @DateTime.Now.Year </p>
+                @Html.ActionLink("About Us", "About", new { area = "" }) |
+                @Html.ActionLink("Contact Us", "Contact", new { area = "" }) |
+                @Html.ActionLink("FAQ's", "FAQs", new { area = "" }) |
+                @Html.ActionLink("Terms and Conditions", "TermsConditions", new { area = "" }) |
+                @Html.ActionLink("Cookies and Privacy Policy", "Cookies", new { area = "" }) |
             </footer>
         </div>
 
