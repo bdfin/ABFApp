@@ -15,12 +15,14 @@ namespace ABF.Controllers
         private LocationService locationService;
         private EventService eventService;
         private ImageService imageService;
+        private AddOnService addOnService;
 
         public BookingsController()
         {
             locationService = new LocationService();
             eventService = new EventService();
             imageService = new ImageService();
+            addOnService = new AddOnService();
         }
 
         // GET: Bookings
@@ -52,12 +54,14 @@ namespace ABF.Controllers
             var thisevent = eventService.GetEvent(id);
             var eventlocation = locationService.GetLocation(thisevent.LocationId);
             var eventimage = imageService.GetImage(thisevent.ImageId);
+            var eventaddons = addOnService.GetEventAddOns(id);
 
             var viewmodel = new EventDetailsViewModel
             {
                 Event = thisevent,
                 Location = eventlocation,
-                Image = eventimage
+                Image = eventimage,
+                AddOns = eventaddons.ToList()
             };
 
             return View(viewmodel);

@@ -49,14 +49,12 @@
         </div>
     </nav>
 
-  
-        
-
         <div class="container body-content">
             @RenderBody()
             <hr />
+
+
             <footer>
-                <p>&copy; @DateTime.Now.Year </p>
                 @Html.ActionLink("About Us", "About", new { area = "" }) |
                 @Html.ActionLink("Contact Us", "Contact", new { area = "" }) |
                 @Html.ActionLink("FAQ's", "FAQs", new { area = "" }) |

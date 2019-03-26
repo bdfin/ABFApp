@@ -12,5 +12,6 @@ namespace ABF.ViewModels
         public Location Location { get; set; }
         public Event Event { get; set; }
         public Image Image { get; set; }
+        public List<AddOn> AddOns { get; set; }
     }
 }

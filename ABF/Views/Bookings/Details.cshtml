@@ -1,5 +1,4 @@
 ﻿@model ABF.ViewModels.EventDetailsViewModel
-
 @{
     ViewBag.Title = "Details";
 }
@@ -8,24 +7,32 @@
     <tr>
         <td rowspan="5" style="width:280px;">
             @if (Model.Event.ImageId != 0)
-            {
+             {
                 <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
-            }
+             }
         </td>
 
         <td style="width:55%">
             <h2>@Model.Event.Name</h2>
         </td>
 
-        <td rowspan="5" style="width:250px; background-color:#fcbf2d; text-align:center; align-content:center">
+        <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
             <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br/>
             <p class="button btn-dark button-lg">-  0  +</p>
             <p class="button btn-light button-lg">Add To Basket</p>
-            <p><b>Extras Available:</b><br/> add tickets to basket first</p>
-            <ul>
-                <li>Add-On 1 - £price</li>
-                <li>Add-On 2 - £price</li>
-            </ul>
+            
+            @if (Model.AddOns.Count > 0)
+            {
+                <ul>
+                    @foreach (var item in Model.AddOns)
+                     {
+                        <li style="list-style:none; text-align:right">
+                            @item.Name - <b>£@item.Price</b>
+                        </li>
+                     }
+                </ul>
+                <p>(add tickets to basket first)</p>
+            }
         </td>
     </tr>
 
@@ -48,7 +55,25 @@
         </td>
     </tr>
 
-    <tr style="height:25%"></tr>
+    <tr style="height:25%">
+        @if (Model.AddOns.Count > 0)
+        {
+            <td style="background-color:aliceblue">
+               
+                <ul style="list-style:none">
+                    <li>
+                        <b><u>Extras Available:</u></b>
+                    </li>
+                    @foreach (var item in Model.AddOns)
+                    {
+                        <li>
+                            <b>@item.Name</b>: @item.Description
+                        </li>
+                    }
+                </ul>
+            </td>
+         }
+    </tr>
 
 
 
@@ -58,10 +83,14 @@
 
 <table id="maincontent">
     <tr>
-        <td>
-            <p class="lead" style="width:100%">@Model.Event.Details</p>
+        <td style="vertical-align:top">
+            <h4><i>@Model.Event.Details</i></h4>
+            <hr />
+            <p>@Model.Event.Description</p>
         </td>
+
         <td style="width:10px"></td>
+
         <td rowspan="2" style="width:35%;background-color:#f4814b">
             <table id="locationmap">
                 <tr>
@@ -127,30 +156,15 @@
                     </td>
                 </tr>
 
-
-
-
-
-
             </table>
         </td>
     </tr>
 
-    <tr>
-        <td>
-            <p>@Model.Event.Description</p>
-        </td>
+
+    <tr style="border:2px dashed blue; height:auto">
+        <td>&nbsp;</td>
     </tr>
 </table>
-
-<hr />
-
-
-
-
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
