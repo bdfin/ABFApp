@@ -6,22 +6,32 @@
 
 <table class="table">
     <tr>
+        <th>ID</th>
         <th>Title</th>
         <th>Author</th>
+        <th>Date</th>
+        <th>Time</th>
         <th>Price</th>
         <th>Venue</th>
-        <th></th>
-        <th></th>
+        <th>Topics </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+       
+        <td>@item.thisevent.Id</td>
         <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
         <td>@item.thisevent.Author</td>
+        <td>@item.thisevent.Date.ToShortDateString()</td>
+        <td>@item.thisevent.StartTime.ToShortTimeString() -@item.thisevent.EndTime.ToShortTimeString()</td>
         <td>£@item.thisevent.TicketPrice</td>
         <td>@item.thislocation.Name</td>
-        <td>Some Buttons</td>
-        <td>Add to Basket</td>
+        <td>All the topics go here</td>
+        <td style="font-size:40px"><i class="fas fa-plus-square" style = "color:#fcbf2d"></i></td>
+        <td style="font-size:30px;align-content:center"><text >0</text></td>
+        <td style="font-size:40px"><i class="fas fa-minus-square" style = "color:#fcbf2d"></i></td>
+       <td><button style ="width:140px;height:50px;background-color:#f4814b" >Add to Basket</button></td>
+      
     </tr>
 }
 
