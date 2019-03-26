@@ -598,6 +598,9 @@
     <Content Include="Views\Shared\_AddOnsPartial.cshtml" />
     <Content Include="Views\UsersAdmin\UsersWithRoles.cshtml" />
     <Content Include="Views\Home\Visit.cshtml" />
+    <Content Include="Views\Home\FAQs.cshtml" />
+    <Content Include="Views\Home\TermsConditions.cshtml" />
+    <Content Include="Views\Home\Cookies.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
   </ItemGroup>
