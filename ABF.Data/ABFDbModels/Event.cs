@@ -27,6 +27,9 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Author { get; set; }
+
         [DataType(DataType.MultilineText)]
         public string Details { get; set; }
 
@@ -35,6 +38,10 @@ namespace ABF.Data.ABFDbModels
 
         [Required]
         public int Capacity { get; set; }
+
+        [Required]
+        [Display(Name = "Ticket Price")]
+        public double TicketPrice { get; set; }
 
         [Display(Name = "Member Only")]
         public bool IsMemberOnly { get; set; }

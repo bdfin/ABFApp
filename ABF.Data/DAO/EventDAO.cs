@@ -53,9 +53,11 @@ namespace ABF.Data.DAO
             _event.StartTime = e.StartTime;
             _event.EndTime = e.EndTime;
             _event.Name = e.Name;
+            _event.Author = e.Author;
             _event.Details = e.Details;
             _event.Description = e.Description;
             _event.Capacity = e.Capacity;
+            _event.TicketPrice = e.TicketPrice;
             _event.IsMemberOnly = e.IsMemberOnly;
             _event.LocationId = e.LocationId;
             _event.ImageId = e.ImageId;
