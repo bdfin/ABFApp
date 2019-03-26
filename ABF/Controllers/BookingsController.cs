@@ -44,5 +44,19 @@ namespace ABF.Controllers
 
             return View(viewModelList);
         }
+
+        public ActionResult Details(int id)
+        {
+            var thisevent = eventService.GetEvent(id);
+            var eventlocation = locationService.GetLocation(thisevent.LocationId);
+
+            var viewmodel = new EventListViewModel
+            {
+                thisevent = thisevent,
+                thislocation = eventlocation
+            };
+
+            return View(viewmodel);
+        }
     }
 }

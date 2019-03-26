@@ -1,0 +1,18 @@
+﻿@model ABF.ViewModels.EventListViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.thisevent.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+<h5>Some more details about this event will go here eventually.</h5>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

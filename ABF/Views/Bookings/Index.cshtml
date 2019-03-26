@@ -16,13 +16,12 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>@item.thisevent.Name</td>
+        <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
         <td>@item.thisevent.Author</td>
         <td>£@item.thisevent.TicketPrice</td>
         <td>@item.thislocation.Name</td>
         <td>Some Buttons</td>
         <td>Add to Basket</td>
-
     </tr>
 }
 

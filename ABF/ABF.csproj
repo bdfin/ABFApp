@@ -599,6 +599,7 @@
     <Content Include="Views\UsersAdmin\UsersWithRoles.cshtml" />
     <Content Include="Views\Home\Visit.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
+    <Content Include="Views\Bookings\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
