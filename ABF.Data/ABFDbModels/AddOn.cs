@@ -19,7 +19,7 @@ namespace ABF.Data.ABFDbModels
         public int Quantity { get; set; }
 
         [DataType(DataType.Currency)]
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public int EventId { get; set; }
     }

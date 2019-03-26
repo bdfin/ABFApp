@@ -41,7 +41,6 @@ namespace ABF.Data.ABFDbModels
 
         [Required]
         [Display(Name = "Ticket Price")]
-        //[DataType(DataType.Currency)]
         public decimal TicketPrice { get; set; }
 
         [Display(Name = "Member Only")]

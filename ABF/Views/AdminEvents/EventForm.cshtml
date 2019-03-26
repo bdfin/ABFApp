@@ -81,7 +81,8 @@ else
                 <div class="form-group">
                     @Html.LabelFor(model => model.Event.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col">
-                        @Html.EditorFor(model => model.Event.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Event.Description, 8, 50, null)
+                        @*@Html.EditorFor(model => model.Event.Description, new { htmlAttributes = new { @class = "form-control" } })*@
                         @Html.ValidationMessageFor(model => model.Event.Description, "", new { @class = "text-danger" })
                     </div>
                 </div>
