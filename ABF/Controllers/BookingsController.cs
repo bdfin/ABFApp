@@ -31,6 +31,7 @@ namespace ABF.Controllers
             var locationlist = locationService.GetLocations();
             var eList = eventService.GetEvents();
             var viewModelList = new List<EventListViewModel>();
+            var indexview = new EventIndexViewModel();
 
             foreach (Event Singleevent in eList)
             {
@@ -46,7 +47,12 @@ namespace ABF.Controllers
                 viewModelList.Add(viewModel);
             }
 
-            return View(viewModelList);
+            var datelist = eventService.GetUniqueDates();
+
+            indexview.events = viewModelList;
+            indexview.datelist = datelist.ToList();
+
+            return View(indexview);
         }
 
         public ActionResult Details(int id)
@@ -70,8 +76,13 @@ namespace ABF.Controllers
         public ActionResult UniqueDates()
         {
             var datelist = eventService.GetUniqueDates();
+            var stringdatelist = new List<string>();
 
-            return View("_DateList", datelist);
+            foreach (var item in datelist)
+            {
+                stringdatelist.Add(item.ToString());
+            }
+            return View("_DateList", stringdatelist);
         }
     }
 }

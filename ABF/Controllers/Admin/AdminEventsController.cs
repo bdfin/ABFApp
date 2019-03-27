@@ -47,7 +47,6 @@ namespace ABF.Controllers.Admin
             return View(viewModel);
         }
 
-
         [Route("Admin/Events/New")]
         public ActionResult New()
         {

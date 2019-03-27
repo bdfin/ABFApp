@@ -1,6 +1,12 @@
 ﻿@model IEnumerable<DateTime>
 
+<input id="AllEvents" type="button" value="Show All Events" onclick="doSearch('')" />
+
 @foreach (var item in Model)
-{    
-    @item<br/>
+{
+    var value = item.ToString("ddd dd MMM");
+    var searchvalue = item.ToString("ddMMMyyyy");
+    
+    <input id="@item" type="button" value="@value" onclick="doSearch('@searchvalue')" />
+
 }
