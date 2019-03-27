@@ -91,7 +91,7 @@
 
         <td style="width:10px"></td>
 
-        <td rowspan="2" style="width:35%;background-color:#f4814b">
+        <td rowspan="3" style="width:35%;background-color:#f4814b">
             <table id="locationmap">
                 <tr>
                     <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px">
@@ -160,9 +160,38 @@
         </td>
     </tr>
 
+    <tr style="border:2px dashed blue; border-radius:2px; height:auto">
+        <td>
+            <table id="externalLinksTable">
+                <tr>
+                    <td style="width:250px">
+                        <h5><b>External Links:</b></h5>
+                    </td>
+                    <td>
 
-    <tr style="border:2px dashed blue; height:auto">
-        <td>&nbsp;</td>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h5>Buy The Book</h5>
+                    </td>
+                    <td>
+                        <h5><a href=@Model.Event.BookUrl>@Model.Event.Name</a></h5>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h5>Author's Website</h5>
+                    </td>
+                    <td>
+                        <h5><a href=@Model.Event.AuthorUrl>@Model.Event.Author</a></h5>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
     </tr>
 </table>
 
