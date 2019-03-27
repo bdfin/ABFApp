@@ -66,5 +66,12 @@ namespace ABF.Controllers
 
             return View(viewmodel);
         }
+
+        public ActionResult UniqueDates()
+        {
+            var datelist = eventService.GetUniqueDates();
+
+            return View("_DateList", datelist);
+        }
     }
 }

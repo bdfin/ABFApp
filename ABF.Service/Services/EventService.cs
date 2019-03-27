@@ -41,5 +41,10 @@ namespace ABF.Service.Services
         {
             eventDAO.DeleteEvent(e);
         }
+
+        public IList<DateTime> GetUniqueDates()
+        {
+            return eventDAO.GetUniqueDates();
+        }
     }
 }

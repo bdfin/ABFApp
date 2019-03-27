@@ -4,8 +4,10 @@
     ViewBag.Title = "Index";
 }
 
+<input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
+
 <table class="table" id="eventsTable">
-    <tr>
+    <tr id="tableheader">
         <th style="display:none">ID</th>
         <th>Title</th>
         <th>Author</th>
@@ -18,7 +20,7 @@
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr id="tabledata">
             <td style="display:none">@item.thisevent.Id</td>
             <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
             <td>@item.thisevent.Author</td>
@@ -32,6 +34,39 @@
             <td style="font-size:30px"><i class="fas fa-minus-square" style="color:#fcbf2d"></i></td>
             <td><button style="width:130px; height:50px; background-color:#f4814b">Add to Basket</button></td>
         </tr>
-     }
+    }
 
-    </table>
+</table>
+
+
+<script>
+    function doSearch() {
+        var searchText = document.getElementById('myInput').value.toUpperCase();
+        var targetTable = document.getElementById('eventsTable');
+        var targetTableColCount;
+
+        //Loop through table rows
+        for (var rowIndex = 0; rowIndex < targetTable.rows.length; rowIndex++) {
+            var rowData = '';
+
+            //Get column count from header row
+            if (rowIndex == 0) {
+                targetTableColCount = targetTable.rows.item(rowIndex).cells.length;
+                continue; //do not execute further code for header row.
+            }
+
+            //Process data rows. (rowIndex >= 1)
+            for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
+                rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
+                rowData = rowData.toUpperCase();
+            }
+
+            //If search term is not found in row data
+            //then hide the row, else show
+            if (rowData.indexOf(searchText) == -1)
+                targetTable.rows.item(rowIndex).style.display = 'none';
+            else
+                targetTable.rows.item(rowIndex).style.display = 'table-row';
+        }
+    }
+</script>

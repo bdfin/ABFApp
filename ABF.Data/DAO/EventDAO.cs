@@ -73,5 +73,21 @@ namespace ABF.Data.DAO
             _context.SaveChanges();
         }
 
+        public List<DateTime> GetUniqueDates()
+        {
+            var eventlist = GetEvents();
+            var datelist = new List<DateTime>();
+
+            foreach (Event e in eventlist)
+            {
+                if (!datelist.Contains(e.Date))
+                {
+                    datelist.Add(e.Date);
+                }
+            }
+
+            return datelist;
+        }
+
     }
 }
