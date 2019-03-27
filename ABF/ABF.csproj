@@ -401,10 +401,11 @@
     <Content Include="Content\MapIcons\letter_y.png" />
     <Content Include="Content\MapIcons\letter_z.png" />
     <Content Include="Content\SiteImages\appledoorSiteBackground.png" />
-    <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar.png" />
+    <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar-small.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-shadow.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo.png" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
+    <Content Include="Content\SiteImages\navbar-basket.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
