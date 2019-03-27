@@ -32,6 +32,7 @@ textarea {
 
 .box-colour {
     background: rgba(252,191,45, 0.5) !important;
+    padding-bottom: 40px;
 }
 
 .navlogo-padding {
@@ -73,4 +74,12 @@ textarea {
     padding-bottom:40px;
 
 }
+
+.accordion-footer {
+    position: center;
+    bottom: 0;
+    width: 100% !important;
+}
+
+
 
