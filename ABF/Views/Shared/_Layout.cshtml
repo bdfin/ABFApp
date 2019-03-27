@@ -35,7 +35,7 @@
                     }
 
                     <li class="nav-item">
-                        @Html.ActionLink("Browse Events", "", "", new { @class = "nav-link" })
+                        @Html.ActionLink("Browse Events", "Index", "Bookings", null, new { @class = "nav-link" })
                     </li>
 
                     <li class="nav-item">
@@ -47,19 +47,19 @@
                             About Us
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @Html.ActionLink("About Us", "", "", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Local Information", "", "", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("FAQ", "", "", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Contact Us", "", "", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Our Policies", "", "", null, new { @class = "dropdown-item" })
-
-
+                            @Html.ActionLink("About Us", "About", "Home", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Local Information", "Visit", "Home", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("FAQ", "FAQs", "Home", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Our Policies", "Cookies", "Home", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", null, new { @class = "dropdown-item" })
                         </div>
                     </li>
 
                  
 
                 </ul>
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -72,7 +72,7 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                <p>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211) </p>
             </footer>
         </div>
 

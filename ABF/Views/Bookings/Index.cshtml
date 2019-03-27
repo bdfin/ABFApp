@@ -23,7 +23,7 @@
         <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
         <td>@item.thisevent.Author</td>
         <td>@item.thisevent.Date.ToShortDateString()</td>
-        <td>@item.thisevent.StartTime.ToShortTimeString() -@item.thisevent.EndTime.ToShortTimeString()</td>
+        <td>@item.thisevent.StartTime.ToShortTimeString() - @item.thisevent.EndTime.ToShortTimeString()</td>
         <td>£@item.thisevent.TicketPrice</td>
         <td>@item.thislocation.Name</td>
         <td>All the topics go here</td>
