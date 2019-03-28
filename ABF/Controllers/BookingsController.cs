@@ -84,5 +84,43 @@ namespace ABF.Controllers
             }
             return View("_DateList", stringdatelist);
         }
+
+        public ActionResult Basket()
+        {
+            if (Session["tix"] == null)
+            {
+                return View("BasketEmpty");
+            }
+            else
+            {
+                // empty list ready to be passed to view
+                var basketviewmodel = new List<BasketViewModel>();
+
+                // get Session["tix"] and store in Dictionary
+                Dictionary<int, int> event_ticket = new Dictionary<int, int>();
+                event_ticket = (Dictionary<int, int>)Session["tix"];
+
+                if (event_ticket.Count == 0)
+                {
+                    return View("BasketEmpty");
+                }
+                else
+                {
+                    // populate viewmodel list for view
+                    foreach (KeyValuePair<int, int> e in event_ticket)
+                    {
+                        BasketViewModel basketentry = new BasketViewModel();
+                        basketentry.Event = eventService.GetEvent(e.Key);
+                        basketentry.LocationName = locationService.GetLocation(basketentry.Event.LocationId).Name;
+                        basketentry.Quantity = e.Value;
+                        basketviewmodel.Add(basketentry);
+                    }
+
+                    return View(basketviewmodel);
+                }
+            }
+
+
+        }
     }
 }

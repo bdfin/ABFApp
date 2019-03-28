@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ABF.ViewModels.BasketViewModel>
+
+@{
+    ViewBag.Title = "Basket"
+}
+
+<h2>Basket</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Event
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+           Venue
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Total
+        </th>
+    </tr>
+
+    @{ decimal grandtotal = 0; }
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.StartTime - item.Event.EndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LocationName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.TicketPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @{ decimal price = item.Event.TicketPrice * item.Quantity;
+                grandtotal += price; }
+            @price
+        </td>
+    </tr>
+}
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2"><b>Grand Total</b></td>
+        <td><b>@grandtotal</b></td>
+    </tr>
+
+</table>

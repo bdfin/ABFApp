@@ -204,6 +204,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
     <Compile Include="ViewModels\EventIndexViewModel.cs" />
@@ -614,6 +615,8 @@
     <Content Include="Views\AdminTicketSales\EventTickets.cshtml" />
     <Content Include="Views\AdminTicketSales\AllTicketQuantities.cshtml" />
     <Content Include="Views\AdminTicketSales\EventQuantity.cshtml" />
+    <Content Include="Views\Bookings\Basket.cshtml" />
+    <Content Include="Views\Bookings\BasketEmpty.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
