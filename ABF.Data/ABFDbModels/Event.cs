@@ -60,5 +60,6 @@ namespace ABF.Data.ABFDbModels
 
         public virtual Location Location { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
+        public virtual Event Events { get; set; }
     }
 }

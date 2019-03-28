@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace ABF.Data.ABFDbModels
 {
-    public class DBInitialiser : DropCreateDatabaseIfModelChanges<ABFDbContext>
+   
+    public class DBInitialiser :DropCreateDatabaseIfModelChanges<ABFDbContext>
     {
         protected override void Seed(ABFDbContext context)
         {
@@ -177,6 +178,342 @@ namespace ABF.Data.ABFDbModels
                 }
             };
 
+            //Event seed
+
+            IList<Event> intialisedEvents = new List<Event>
+            {
+               new Event()
+                {
+                    Id = 0,
+                    Date = new DateTime(2019,9,21),
+                    StartTime = new DateTime(2019,9,21),
+                    EndTime = new DateTime(2019,9,21),
+                    Name = "La Vie en Rose" ,
+                    Author = "Music",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 80,
+                    TicketPrice = 10,
+                    IsMemberOnly = true,
+                    LocationId = 0,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+               new Event()
+                {
+                    Id = 1,
+                    Date = new DateTime(2019,9,21),
+                    StartTime = new DateTime(2019,9,21),
+                    EndTime = new DateTime(2019,9,21),
+                    Name = "Peter Rabbit" ,
+                    Author = "Film",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 40,
+                    TicketPrice = 8,
+                    IsMemberOnly = true,
+                    LocationId = 2,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+               new Event()
+                {
+                    Id = 2,
+                    Date = new DateTime(2019,9,22),
+                    StartTime = new DateTime(2019,9,22),
+                    EndTime = new DateTime(2019,9,22),
+                    Name = "One Sentence",
+                    Author = "Jeremy Vine",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 230,
+                    TicketPrice = 10,
+                    IsMemberOnly = true,
+                    LocationId = 0,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+               new Event()
+                {
+                    Id = 3,
+                    Date = new DateTime(2019,9,23),
+                    StartTime = new DateTime(2019,9,23),
+                    EndTime = new DateTime(2019,9,23),
+                    Name ="The Burning Chambers" ,
+                    Author = "Kate Mosse" ,
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 230,
+                    TicketPrice = 12,
+                    IsMemberOnly = true,
+                    LocationId = 0,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+               },
+
+               new Event()
+                {
+                    Id = 4,
+                    Date = new DateTime(2019,9,23),
+                    StartTime = new DateTime(2019,9,23),
+                    EndTime = new DateTime(2019,9,23),
+                    Name = "Horrible Science Lab",
+                    Author = "Nick Arnold",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 40,
+                    TicketPrice = 5,
+                    IsMemberOnly = false,
+                    LocationId = 11,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+               new Event()
+                {
+                    Id = 5,
+                    Date = new DateTime(2019,9,24),
+                    StartTime = new DateTime(2019,9,24),
+                    EndTime = new DateTime(2019,9,24),
+                    Name = "The Appledore Walk",
+                    Author = "David Carter",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 80,
+                    TicketPrice = 10,
+                    IsMemberOnly = true,
+                    LocationId = 0,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+               new Event()
+                {
+                    Id = 6,
+                    Date = new DateTime(2019,9,24),
+                    StartTime = new DateTime(2019,9,24),
+                    EndTime = new DateTime(2019,9,24),
+                    Name = "The Dartmoor Conchies",
+                    Author = "Simon Dartmoor",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                    " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                    " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                    " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                    " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                    "tincidunt tempus. ",
+                    Capacity = 140,
+                    TicketPrice = 6,
+                    IsMemberOnly = true,
+                    LocationId = 3,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+                },
+
+                new Event()
+                 {
+                        Id = 7,
+                        Date = new DateTime(2019,9,25),
+                        StartTime = new DateTime(2019,9,25),
+                        EndTime = new DateTime(2019,9,25),
+                        Name = "A Babies Bones",
+                        Author = "Rebecca Alexander",
+                        Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                        Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                        " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                        " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                        " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                        " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                        "tincidunt tempus. ",
+                        Capacity = 40,
+                        TicketPrice = 8,
+                        IsMemberOnly = false,
+                        LocationId = 12,
+                        ImageId = 1,
+                        BookUrl ="Link goes here",
+                        AuthorUrl="Link goes here",
+
+                 },
+
+                new Event()
+                  {
+                        Id = 8,
+                        Date = new DateTime(2019,9,25),
+                        StartTime = new DateTime(2019,9,25),
+                        EndTime = new DateTime(2019,9,25),
+                        Name = "Playing with Clay",
+                        Author = "Sandy Brown",
+                        Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                        Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                        " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                        " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                        " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                        " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                        "tincidunt tempus. ",
+                        Capacity = 7,
+                        TicketPrice = 40,
+                        IsMemberOnly = true,
+                        LocationId = 9,
+                        ImageId = 1,
+                        BookUrl ="Link goes here",
+                        AuthorUrl="Link goes here",
+
+                  },
+
+                new Event()
+                   {
+                        Id = 9,
+                        Date = new DateTime(2019,9,26),
+                        StartTime = new DateTime(2019,9,26),
+                        EndTime = new DateTime(2019,9,26),
+                        Name = "Ghost Walk 2",
+                        Author = "Terry Bailey",
+                        Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                        Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                        " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                        " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                        " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                        " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                        "tincidunt tempus. ",
+                        Capacity = 30,
+                        TicketPrice = 8,
+                        IsMemberOnly = true,
+                        LocationId = 0,
+                        ImageId = 1,
+                        BookUrl ="Link goes here",
+                        AuthorUrl="Link goes here",
+
+                   },
+
+                new Event()
+               {
+                        Id = 10,
+                        Date = new DateTime(2019,9,26),
+                        StartTime = new DateTime(2019,9,26),
+                        EndTime = new DateTime(2019,9,26),
+                        Name = "The Salt Path",
+                        Author = "Raymor Winn",
+                        Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                        Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                        " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                        " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                        " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                        " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                        "tincidunt tempus. ",
+                        Capacity = 220,
+                        TicketPrice = 8,
+                        IsMemberOnly = false,
+                        LocationId = 0,
+                        ImageId = 1,
+                        BookUrl ="Link goes here",
+                        AuthorUrl="Link goes here",
+
+               },
+
+                new Event()
+               {
+                    Id = 11,
+                    Date = new DateTime(2019,9,27),
+                    StartTime = new DateTime(2019,9,27),
+                    EndTime = new DateTime(2019,9,27),
+                    Name = "Beer Tasting",
+                    Author = "Barry Raynes",
+                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                    Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                   " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                   " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                   " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                   " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                   "tincidunt tempus. ",
+                    Capacity = 40,
+                    TicketPrice = 8,
+                    IsMemberOnly = false,
+                    LocationId = 10,
+                    ImageId = 1,
+                    BookUrl ="Link goes here",
+                    AuthorUrl="Link goes here",
+
+               },
+
+                new Event()
+               {
+                   Id = 12,
+                   Date = new DateTime(2019,9,27),
+                   StartTime = new DateTime(2019,9,27),
+                   EndTime = new DateTime(2019,9,27),
+                   Name = "Dare to Try",
+                   Author = "Louise Minchin",
+                   Details =" Vestibulum at nunc sed metus congue sollicitudin",
+                   Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
+                   " Curabitur ornare molestie nisi et sodales. Phasellus sem nulla, egestas sit amet justo nec, feugiat" +
+                   " tempor ante. Vestibulum at nunc sed metus congue sollicitudin. Pellentesque molestie, eros et" +
+                   " hendrerit mollis, massa dolor rutrum lorem, eget vulputate mauris lacus vitae justo. Donec vulputate" +
+                   " eu sapien eu rhoncus. Aenean placerat faucibus tortor id pellentesque. Integer nec lectus a urna " +
+                   "tincidunt tempus. ",
+                   Capacity = 230,
+                   TicketPrice = 10,
+                   IsMemberOnly = false,
+                   LocationId = 0,
+                   ImageId = 1,
+                   BookUrl ="Link goes here",
+                   AuthorUrl="Link goes here",
+
+               }
+
+
+            };
+
+
+
+
+
             // image seed
             Image initialisedImage = new Image
             {
@@ -186,6 +523,8 @@ namespace ABF.Data.ABFDbModels
 
             context.Images.Add(initialisedImage);
             context.Locations.AddRange(initialisedLocations);
+            context.Events.AddRange(intialisedEvents);
+            context.SaveChanges();
 
             base.Seed(context);
         }
