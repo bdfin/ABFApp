@@ -401,6 +401,7 @@
     <Content Include="Content\MapIcons\letter_x.png" />
     <Content Include="Content\MapIcons\letter_y.png" />
     <Content Include="Content\MapIcons\letter_z.png" />
+    <Content Include="Content\MapIcons\vipIcon.png" />
     <Content Include="Content\SiteImages\appledoorSiteBackground.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar-small.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-shadow.png" />

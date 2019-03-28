@@ -8,8 +8,13 @@
 
 @Html.Partial("_DateList", datelist)
 
+<br />
+
+<br />
+
 <table class="table" id="eventsTable">
     <tr id="tableheader">
+        <th></th>
         <th style="display:none">Hidden ID</th>
         <th>Title</th>
         <th>Author</th>
@@ -19,28 +24,54 @@
         <th>Price</th>
         <th>Venue</th>
         <th style="display:none">Hidden Topics</th>
+        <th colspan="2" style="text-align:center">Tickets</th>
     </tr>
 
-    @foreach (var item in events)
+   @foreach (var item in events)
     {
         var fulldate = item.thisevent.Date.ToString("ddMMMyyyy");
         var date = item.thisevent.Date.ToString("ddd dd MMM").ToString();
         var times = item.thisevent.StartTime.ToString("HH:mm") + " - " + item.thisevent.EndTime.ToString("HH:mm");
         
         <tr id="tabledata">
+            <td>
+                @if (item.thisevent.IsMemberOnly)
+                {
+                    <img src="~/Content/MapIcons/vipIcon.png" width="25" alt="Members Exclusive Event"  />
+                }
+            </td>
             <td style="display:none">@item.thisevent.Id</td>
             <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
             <td>@item.thisevent.Author</td>
             <td style="display:none">@fulldate</td>
-            <td>@date</td>
-            <td>@times</td>
+            <td style="white-space:nowrap">@date</td>
+            <td style="white-space:nowrap">@times</td>
             <td>£@item.thisevent.TicketPrice</td>
             <td>@item.thislocation.Name</td>
             <td style="display:none">All the topics go here</td>
-            <td style="font-size:30px"><i class="fas fa-plus-square" style="color:#fcbf2d"></i></td>
-            <td style="font-size:20px;align-content:center"><text>0</text></td>
-            <td style="font-size:30px"><i class="fas fa-minus-square" style="color:#fcbf2d"></i></td>
-            <td><button style="width:130px; height:40px; background-color:#f4814b">Add to Basket</button></td>
+
+
+            @if (item.thisevent.IsMemberOnly || User.IsInRole("Member"))
+            {
+                <td colspan="2">
+                    <button style="width:250px; background-color:rgba(255, 0, 0, 0.82); border-radius:10px; text-align:center">
+                        Members Exclusive Event<br/>
+                        <sub>Log In or click <b>here</b> for information</sub>
+                    </button>
+                </td>
+            }
+            else
+            {
+                <td style="font-size:30px; align-content:center; width:120px">
+                    <i class="fas fa-plus-square" style="color:#fcbf2d"></i>
+                    <text>0</text>
+                    <i class="fas fa-minus-square" style="color:#fcbf2d"></i>
+                </td>
+
+                <td>
+                    <button style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px">Add to Basket</button>
+                </td>
+            }
         </tr>
     }
 
