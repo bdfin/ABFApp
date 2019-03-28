@@ -11,6 +11,7 @@
 <br />
 
 <br />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <table class="table" id="eventsTable">
     <tr id="tableheader">
@@ -24,20 +25,20 @@
         <th>Price</th>
         <th>Venue</th>
         <th style="display:none">Hidden Topics</th>
-        <th colspan="2" style="text-align:center">Tickets</th>
+        <th colspan="4" style="text-align:center">Tickets</th>
     </tr>
 
-   @foreach (var item in events)
+    @foreach (var item in events)
     {
         var fulldate = item.thisevent.Date.ToString("ddMMMyyyy");
         var date = item.thisevent.Date.ToString("ddd dd MMM").ToString();
         var times = item.thisevent.StartTime.ToString("HH:mm") + " - " + item.thisevent.EndTime.ToString("HH:mm");
-        
+
         <tr id="tabledata">
             <td>
                 @if (item.thisevent.IsMemberOnly)
                 {
-                    <img src="~/Content/MapIcons/vipIcon.png" width="25" alt="Members Exclusive Event"  />
+                    <img src="~/Content/MapIcons/vipIcon.png" width="25" alt="Members Exclusive Event" />
                 }
             </td>
             <td style="display:none">@item.thisevent.Id</td>
@@ -52,19 +53,23 @@
 
             @if (item.thisevent.IsMemberOnly && !User.IsInRole("Member"))
             {
-                <td colspan="2">
+                <td colspan="4">
                     <button style="width:250px; background-color:rgba(255, 0, 0, 0.82); border-radius:10px; text-align:center">
-                        Members Exclusive Event<br/>
+                        Members Exclusive Event<br />
                         <sub>Log In or click <b>here</b> for information</sub>
                     </button>
                 </td>
             }
             else
             {
-                <td style="font-size:30px; align-content:center; width:120px">
-                    <i class="fas fa-plus-square" style="color:#fcbf2d"></i>
-                    <text>0</text>
-                    <i class="fas fa-minus-square" style="color:#fcbf2d"></i>
+                <td>
+                    <button name="button" type="button" class="sub btn btn-default">-</button>
+                </td>
+                <td>
+                    <input name="quantity" type="text" id="@item.thisevent.Id" value="0" class="field" style="width:25px; text-align:center" />
+                </td>
+                <td>
+                    <button name="button" type="button" class="add btn btn-default">+</button>
                 </td>
                 <td>
                     <button style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px">Add to Basket</button>
@@ -83,35 +88,47 @@
         var targetTableColCount;
 
         //Loop through table rows
-        for (var rowIndex = 0; rowIndex < targetTable.rows.length; rowIndex++)
-        {
+        for (var rowIndex = 0; rowIndex < targetTable.rows.length; rowIndex++) {
             var rowData = '';
 
             //Get column count from header row
-            if (rowIndex == 0)
-            {
+            if (rowIndex == 0) {
                 targetTableColCount = targetTable.rows.item(rowIndex).cells.length;
                 continue; //do not execute further code for header row.
             }
 
             //Process data rows. (rowIndex >= 1)
             // The date column (3) is the only one being searched
-            for (var colIndex = 0; colIndex < targetTableColCount; colIndex++)
-            {
+            for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
                 rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
                 rowData = rowData.toUpperCase();
             }
 
             //If search term is not found in row data
             //then hide the row, else show
-            if ((rowData.indexOf(searchTextUp) == -1))
-            {
+            if ((rowData.indexOf(searchTextUp) == -1)) {
                 targetTable.rows.item(rowIndex).style.display = 'none';
             }
-            else
-            {
+            else {
                 targetTable.rows.item(rowIndex).style.display = 'table-row';
             }
         }
     }
+</script>
+
+<script>
+
+    $('.add').click(function () {
+        if (!isNaN($(this).parent().prev().children(".field").val()))
+            $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
+        else
+            $(this).parent().prev().children(".field").val(0);
+    });
+    $('.sub').click(function () {
+        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0))
+            $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
+        else
+            $(this).parent().next().children(".field").val(0);
+    });
+
 </script>

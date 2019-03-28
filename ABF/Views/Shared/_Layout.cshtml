@@ -59,9 +59,8 @@
         <div class="container body-content">
             @RenderBody()
             <hr />
-            <footer class="bg-light accordion-footer fixed-bottom">
+            <footer class="bg-light fixed-bottom" style="height:35px">
                 <div class="row col-sm-12 center">
-
                     <ul class="nav-item">
                         @Html.ActionLink("About Us", "About", "Home", null, new { @class = "nav-link" })
                     </ul>
@@ -85,16 +84,8 @@
                     <ul class="nav-item">
                         @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "nav-link" })
                     </ul>
-
                 </div>
-
-                <div class=" row center col-sm-12">
-                    <p>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211) </p>
-                </div>
-
-
             </footer>
-            
         </div>
 
         @Scripts.Render("~/bundles/lib")
