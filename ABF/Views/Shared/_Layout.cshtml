@@ -42,19 +42,7 @@
                         @Html.ActionLink("Membership", "", "", new { @class = "nav-link" })
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            About Us
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @Html.ActionLink("About Us", "About", "Home", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Local Information", "Visit", "Home", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("FAQ", "FAQs", "Home", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Contact Us", "Contact", "Home", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Our Policies", "Cookies", "Home", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", null, new { @class = "dropdown-item" })
-                        </div>
-                    </li>
+                   
 
                  
 
@@ -71,9 +59,42 @@
         <div class="container body-content">
             @RenderBody()
             <hr />
-            <footer>
-                <p>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211) </p>
+            <footer class="bg-light accordion-footer fixed-bottom">
+                <div class="row col-sm-12 center">
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("About Us", "About", "Home", null, new { @class = "nav-link" })
+                    </ul>
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("Local Information", "Visit", "Home", new { @class = "nav-link" })
+                    </ul>
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("FAQ", "FAQs", "Home", null, new { @class = "nav-link" })
+                    </ul>
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "nav-link" })
+                    </ul>
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("Our Policies", "Cookies", "Home", null, new { @class = "nav-link" })
+                    </ul>
+
+                    <ul class="nav-item">
+                        @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "nav-link" })
+                    </ul>
+
+                </div>
+
+                <div class=" row center col-sm-12">
+                    <p>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211) </p>
+                </div>
+
+
             </footer>
+            
         </div>
 
         @Scripts.Render("~/bundles/lib")
