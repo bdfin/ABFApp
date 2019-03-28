@@ -51,7 +51,7 @@
             <td style="display:none">All the topics go here</td>
 
 
-            @if (item.thisevent.IsMemberOnly || User.IsInRole("Member"))
+            @if (item.thisevent.IsMemberOnly && !User.IsInRole("Member"))
             {
                 <td colspan="2">
                     <button style="width:250px; background-color:rgba(255, 0, 0, 0.82); border-radius:10px; text-align:center">
