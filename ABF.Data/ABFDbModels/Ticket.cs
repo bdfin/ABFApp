@@ -10,15 +10,14 @@ namespace ABF.Data.ABFDbModels
     {
         public int Id { get; set; }
 
-        public double Price { get; set; }
-
         public int EventId { get; set; }
 
-        public bool IsChild { get; set; }
+        public int AddOnId { get; set; }
 
-        public int CustomerId { get; set; }
+        public int OrderId { get; set; }
 
-        public virtual Customer Customer { get; set; }
+        public virtual AddOn AddOn { get; set; }
         public virtual Event Event { get; set; }
+        public virtual Order Order { get; set; }
     }
 }
