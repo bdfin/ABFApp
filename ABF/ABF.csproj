@@ -179,6 +179,7 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
+    <Compile Include="Controllers\Admin\AdminTicketSalesController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InitAdminController.cs" />
@@ -609,6 +610,10 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
     <Content Include="Views\Bookings\_DateList.cshtml" />
+    <Content Include="Views\AdminTicketSales\Index.cshtml" />
+    <Content Include="Views\AdminTicketSales\EventTickets.cshtml" />
+    <Content Include="Views\AdminTicketSales\AllTicketQuantities.cshtml" />
+    <Content Include="Views\AdminTicketSales\EventQuantity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -48,6 +48,7 @@
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\TicketSalesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ABF.Data\ABF.Data.csproj">
