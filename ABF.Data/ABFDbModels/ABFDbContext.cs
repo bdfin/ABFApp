@@ -8,8 +8,9 @@ namespace ABF.Data.ABFDbModels
     public class ABFDbContext : DbContext
     {
         public ABFDbContext()
-            : base("name=ABFDbContext")
+            :  base("name=ABFDbContext")
         {
+            
             Database.SetInitializer(new DBInitialiser());
             Database.Initialize(true);
         }
@@ -29,4 +30,7 @@ namespace ABF.Data.ABFDbModels
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }
     }
+
+
+  
 }
