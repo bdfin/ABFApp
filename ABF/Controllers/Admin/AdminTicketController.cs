@@ -8,40 +8,40 @@ using System.Web.Mvc;
 namespace ABF.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
-    public class AdminTicketSalesController : Controller
+    public class AdminTicketController : Controller
     {
-        private TicketSalesService ticketSalesService;
+        private TicketService ticketService;
 
-        public AdminTicketSalesController()
+        public AdminTicketController()
         {
-            ticketSalesService = new TicketSalesService();
+            ticketService = new TicketService();
         }
 
         // GET: AdminTicketSales
         public ActionResult Index()
         {
-            var allticketsales = ticketSalesService.GetAllTicketSales();
+            var allticketsales = ticketService.GetAllTicketSales();
 
             return View(allticketsales);
         }
 
         public ActionResult EventTickets(int id)
         {
-            var ticketsforevent = ticketSalesService.GetTicketSalesForEvent(id);
+            var ticketsforevent = ticketService.GetTicketSalesForEvent(id);
 
             return View(ticketsforevent);
         }
 
         public ActionResult AllTicketQuantities()
         {
-            var ticketquantities = ticketSalesService.GetTicketSalesQuantitiesForAllEvents();
+            var ticketquantities = ticketService.GetTicketSalesQuantitiesForAllEvents();
 
             return View(ticketquantities);
         }
 
         public ActionResult EventQuantity(int id)
         {
-            var eventquantity = ticketSalesService.GetTicketSalesQuantityForEvent(id);
+            var eventquantity = ticketService.GetTicketSalesQuantityForEvent(id);
 
             return View(eventquantity);
         }

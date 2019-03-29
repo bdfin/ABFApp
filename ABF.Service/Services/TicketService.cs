@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ABF.Service.Services
 {
-    public class TicketSalesService
+    public class TicketService
     {
-        private TicketSalesDAO _ticketSalesDAO;
+        private TicketDAO _ticketSalesDAO;
 
-        public TicketSalesService()
+        public TicketService()
         {
-            _ticketSalesDAO = new TicketSalesDAO();
+            _ticketSalesDAO = new TicketDAO();
         }
 
         public IList<Ticket> GetAllTicketSales()

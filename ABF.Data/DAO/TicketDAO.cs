@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ABF.Data.DAO
 {
-    public class TicketSalesDAO
+    public class TicketDAO
     {
         private ABFDbContext _context;
 
-        public TicketSalesDAO()
+        public TicketDAO()
         {
             _context = new ABFDbContext();
         }
