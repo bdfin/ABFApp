@@ -81,5 +81,12 @@ textarea {
     width: 100% !important;
 }
 
+.button1
+{
+    border:none;
+    background-color:transparent;
+    outline:none;
+}
+
 
 
