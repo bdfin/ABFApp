@@ -167,7 +167,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 11,
+                    Id = 12,
                     Name = "Kingsley School Hall",
                     Address1 = "Northdown Road",
                     Address2 = "Bideford",
@@ -179,7 +179,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 12,
+                    Id = 13,
                     Name = "The Royal George",
                     Address1 = "Irsha Street",
                     Address2 = "Appledore",
@@ -192,7 +192,6 @@ namespace ABF.Data.ABFDbModels
             };
 
             //Event seed
-
             IList<Event> intialisedEvents = new List<Event>
             {
                new Event()
@@ -238,7 +237,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 8,
                     IsMemberOnly = true,
-                    LocationId = 2,
+                    LocationId = 1,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -263,7 +262,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 230,
                     TicketPrice = 10,
                     IsMemberOnly = true,
-                    LocationId = 0,
+                    LocationId = 2,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -288,7 +287,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 230,
                     TicketPrice = 12,
                     IsMemberOnly = true,
-                    LocationId = 0,
+                    LocationId = 3,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -313,7 +312,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 5,
                     IsMemberOnly = false,
-                    LocationId = 11,
+                    LocationId = 4,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -338,7 +337,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 80,
                     TicketPrice = 10,
                     IsMemberOnly = true,
-                    LocationId = 0,
+                    LocationId = 5,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -363,7 +362,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 140,
                     TicketPrice = 6,
                     IsMemberOnly = true,
-                    LocationId = 3,
+                    LocationId = 6,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -388,7 +387,7 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 40,
                         TicketPrice = 8,
                         IsMemberOnly = false,
-                        LocationId = 12,
+                        LocationId = 7,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
@@ -413,7 +412,7 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 7,
                         TicketPrice = 40,
                         IsMemberOnly = true,
-                        LocationId = 9,
+                        LocationId = 8,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
@@ -438,7 +437,7 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 30,
                         TicketPrice = 8,
                         IsMemberOnly = true,
-                        LocationId = 0,
+                        LocationId = 9,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
@@ -463,7 +462,7 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 220,
                         TicketPrice = 8,
                         IsMemberOnly = false,
-                        LocationId = 0,
+                        LocationId = 10,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
@@ -488,7 +487,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 8,
                     IsMemberOnly = false,
-                    LocationId = 10,
+                    LocationId = 11,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -513,19 +512,13 @@ namespace ABF.Data.ABFDbModels
                    Capacity = 230,
                    TicketPrice = 10,
                    IsMemberOnly = false,
-                   LocationId = 0,
+                   LocationId = 12,
                    ImageId = 1,
                    BookUrl ="Link goes here",
                    AuthorUrl="Link goes here",
 
                }
-
-
             };
-
-
-
-
 
             // image seed
             Image initialisedImage = new Image
