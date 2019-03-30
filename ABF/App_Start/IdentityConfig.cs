@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ABF.Models;
+using System.Net.Mail;
 
 namespace ABF
 {
@@ -18,7 +19,18 @@ namespace ABF
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
+            // Create the mail message
+            var mailMessage = new MailMessage(
+                "appledoretest@gmail.com",
+                message.Destination,
+                message.Subject,
+                message.Body
+                );
+
+            // Send the message
+            SmtpClient client = new SmtpClient();
+            SMTPEmail.SendEmail(message.Destination, message.Subject, message.Body);
+
             return Task.FromResult(0);
         }
     }
