@@ -618,6 +618,7 @@
     <Content Include="Views\AdminTicket\EventQuantity.cshtml" />
     <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Bookings\BasketEmpty.cshtml" />
+    <Content Include="Views\Home\ContactSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
