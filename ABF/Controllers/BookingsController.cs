@@ -121,6 +121,7 @@ namespace ABF.Controllers
             }
 
 
+            return View("_DateList", datelist);
         }
     }
 }
