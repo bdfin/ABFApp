@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace ABF.Data.ABFDbModels
 {
-    public class Membership
+    public class MembershipType
     {
         public int Id { get; set; }
 
         public string Type { get; set; }
 
-        public DateTime DatePurchased { get; set; }
+        public bool Expiry { get; set; }
 
-        public DateTime Expiry { get; set; }
-
-        [Required]
-        public virtual Customer Customer { get; set; }
+        public virtual IList<Customer> Customers { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace ABF.Data.ABFDbModels
     {
         protected override void Seed(ABFDbContext context)
         {
-            // location seed
+            // Location seed
             IList<Location> initialisedLocations = new List<Location>
             {
                 new Location()
@@ -520,13 +520,33 @@ namespace ABF.Data.ABFDbModels
                }
             };
 
-            // image seed
+            // Image seed
             Image initialisedImage = new Image
             {
                 Id = 1,
                 ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
             };
 
+            // MembershipType seed
+            IList<MembershipType> initialisedMembershipTypes = new List<MembershipType> {
+
+                new MembershipType
+                {
+                    Id = 1,
+                    Type = "Standard",
+                    Expiry = true
+                    
+                },
+
+                new MembershipType
+                {
+                    Id = 2,
+                    Type = "Life Time",
+                    Expiry = false
+                }
+            };
+
+            context.MembershipTypes.AddRange(initialisedMembershipTypes);
             context.Images.Add(initialisedImage);
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);

@@ -60,7 +60,7 @@
     <Compile Include="ABFDbModels\Event.cs" />
     <Compile Include="ABFDbModels\Image.cs" />
     <Compile Include="ABFDbModels\Location.cs" />
-    <Compile Include="ABFDbModels\Membership.cs" />
+    <Compile Include="ABFDbModels\MembershipType.cs" />
     <Compile Include="ABFDbModels\Order.cs" />
     <Compile Include="ABFDbModels\Payment.cs" />
     <Compile Include="ABFDbModels\Ticket.cs" />
