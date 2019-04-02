@@ -32,11 +32,11 @@ textarea {
 
 .box-colour {
     background: rgba(252,191,45, 0.5) !important;
+    padding-bottom: 40px;
 }
 
-.navbar-colour {
-    /*background: rgb(151,206,200) !important;*/
-    box-shadow: 10px 10px 8px #888888;
+.navlogo-padding {
+    padding-left: 4px;
 }
 
 .index-font {
@@ -74,4 +74,12 @@ textarea {
     padding-bottom:40px;
 
 }
+
+.accordion-footer {
+    position: center;
+    bottom: 0;
+    width: 100% !important;
+}
+
+
 

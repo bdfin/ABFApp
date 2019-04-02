@@ -372,6 +372,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\MapIcons\arrow.png" />
+    <Content Include="Content\MapIcons\Disability_Friendly-512.png" />
     <Content Include="Content\MapIcons\letter_a.png" />
     <Content Include="Content\MapIcons\letter_b.png" />
     <Content Include="Content\MapIcons\letter_c.png" />
@@ -399,10 +401,11 @@
     <Content Include="Content\MapIcons\letter_y.png" />
     <Content Include="Content\MapIcons\letter_z.png" />
     <Content Include="Content\SiteImages\appledoorSiteBackground.png" />
-    <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar.png" />
+    <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar-small.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-shadow.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo.png" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
+    <Content Include="Content\SiteImages\navbar-basket.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -603,12 +606,11 @@
     <Content Include="Views\Home\Cookies.cshtml" />
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
+    <Content Include="Views\Bookings\_DateList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Views\AdminAddOns\" />
-    <Folder Include="Views\Events\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

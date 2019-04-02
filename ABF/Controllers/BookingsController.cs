@@ -14,11 +14,15 @@ namespace ABF.Controllers
     {
         private LocationService locationService;
         private EventService eventService;
+        private ImageService imageService;
+        private AddOnService addOnService;
 
         public BookingsController()
         {
             locationService = new LocationService();
             eventService = new EventService();
+            imageService = new ImageService();
+            addOnService = new AddOnService();
         }
 
         // GET: Bookings
@@ -49,14 +53,25 @@ namespace ABF.Controllers
         {
             var thisevent = eventService.GetEvent(id);
             var eventlocation = locationService.GetLocation(thisevent.LocationId);
+            var eventimage = imageService.GetImage(thisevent.ImageId);
+            var eventaddons = addOnService.GetEventAddOns(id);
 
-            var viewmodel = new EventListViewModel
+            var viewmodel = new EventDetailsViewModel
             {
-                thisevent = thisevent,
-                thislocation = eventlocation
+                Event = thisevent,
+                Location = eventlocation,
+                Image = eventimage,
+                AddOns = eventaddons.ToList()
             };
 
             return View(viewmodel);
+        }
+
+        public ActionResult UniqueDates()
+        {
+            var datelist = eventService.GetUniqueDates();
+
+            return View("_DateList", datelist);
         }
     }
 }

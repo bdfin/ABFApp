@@ -21,6 +21,7 @@ namespace ABF.Data.ABFDbModels
                     Address1 = "Churchfield Road",
                     Address2 = "Appledore",
                     PostCode = "EX39 1RL",
+                    LatLong = "51.054710, -4.192693",
                     DisabledAccess = true,
                     Info = "Seating is on wooden pews. Feel free to bring a cushion.",
                     Contact = "Adam Adams 01237 123456"

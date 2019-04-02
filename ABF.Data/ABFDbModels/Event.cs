@@ -41,7 +41,6 @@ namespace ABF.Data.ABFDbModels
 
         [Required]
         [Display(Name = "Ticket Price")]
-        //[DataType(DataType.Currency)]
         public decimal TicketPrice { get; set; }
 
         [Display(Name = "Member Only")]
@@ -52,6 +51,12 @@ namespace ABF.Data.ABFDbModels
 
         [Display(Name = "Event Image")]
         public int ImageId { get; set; }
+
+        [Display(Name = "Book URL")]
+        public string BookUrl { get; set; }
+
+        [Display(Name = "Author's Website")]
+        public string AuthorUrl { get; set; }
 
         public virtual Location Location { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }

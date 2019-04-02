@@ -61,6 +61,8 @@ namespace ABF.Data.DAO
             _event.IsMemberOnly = e.IsMemberOnly;
             _event.LocationId = e.LocationId;
             _event.ImageId = e.ImageId;
+            _event.BookUrl = e.BookUrl;
+            _event.AuthorUrl = e.AuthorUrl;
 
             _context.SaveChanges();
         }
@@ -69,6 +71,22 @@ namespace ABF.Data.DAO
         {
             _context.Events.Remove(e);
             _context.SaveChanges();
+        }
+
+        public List<DateTime> GetUniqueDates()
+        {
+            var eventlist = GetEvents();
+            var datelist = new List<DateTime>();
+
+            foreach (Event e in eventlist)
+            {
+                if (!datelist.Contains(e.Date))
+                {
+                    datelist.Add(e.Date);
+                }
+            }
+
+            return datelist;
         }
 
     }
