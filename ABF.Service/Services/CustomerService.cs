@@ -23,24 +23,24 @@ namespace ABF.Service.Services
             return _customerDAO.GetCustomers();
         }
 
-        public Customer GetCustomer(int custNo)
+        public Customer GetCustomer(int id)
         {
-            return _customerDAO.GetCustomer(custNo);
+            return _customerDAO.GetCustomer(id);
         }
 
-        public void CreateCustomer(Customer NewCustomer)
+        public void CreateCustomer(Customer customer)
         {
-            _customerDAO.CreateCustomer(NewCustomer);
+            _customerDAO.CreateCustomer(customer);
         }
 
-        public void EditCustomer(Customer UpdateCustomer)
+        public void EditCustomer(Customer customer)
         {
-            _customerDAO.EditCustomer(UpdateCustomer);
+            _customerDAO.EditCustomer(customer);
         }
 
-        public void DeleteCustomer(Customer RemoveCustomer)
+        public void DeleteCustomer(Customer customer)
         {
-            _customerDAO.DeleteCustomer(RemoveCustomer);
+            _customerDAO.DeleteCustomer(customer);
         }
     }
 }

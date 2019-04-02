@@ -24,12 +24,15 @@ namespace ABF.Data.ABFDbModels
         public string Address3 { get; set; }
 
         [Display(Name="Post Code")]
+        [DataType(DataType.PostalCode)]
         public string PostCode { get; set; }
-       
+
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Display(Name = "Phone Number")]
-        public int PhoneNumber { get; set; }
+        [DataType(DataType.PhoneNumber)]        
+        public string PhoneNumber { get; set; }
 
         public int? MembershipTypeId { get; set; }
 

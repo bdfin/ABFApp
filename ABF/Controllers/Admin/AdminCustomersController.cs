@@ -41,6 +41,20 @@ namespace ABF.Controllers
             return View("CustomerForm", viewModel);
         }
 
+        public ActionResult Save(CustomerFormViewModel viewModel)
+        {
+            try
+            {
+                customerService.CreateCustomer(viewModel.Customer);
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
         [Route("Admin/Customers/Edit/{id}")]
         public ActionResult Edit(int id)
         {

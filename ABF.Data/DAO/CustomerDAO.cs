@@ -23,6 +23,7 @@ namespace ABF.Data.DAO
             _customers = from c
                          in _context.Customers
                          select c;
+
             return _customers.ToList();
             
         }
@@ -35,36 +36,37 @@ namespace ABF.Data.DAO
                             in _context.Customers
                             where c.Id == custNo
                             select c;
+
             return _customer.ToList().First();
         }
 
-        public void CreateCustomer(Customer NewCustomer)
+        public void CreateCustomer(Customer customer)
         {
 
-            _context.Customers.Add(NewCustomer);
+            _context.Customers.Add(customer);
             _context.SaveChanges();
 
         }
         
-        public void EditCustomer(Customer UpdateCustomer)
+        public void EditCustomer(Customer customer)
 
         {
-            Customer UpCustomer = GetCustomer(UpdateCustomer.Id);
+            Customer UpCustomer = GetCustomer(customer.Id);
 
-            UpCustomer.Name = UpdateCustomer.Name;
-            UpCustomer.Address1 = UpdateCustomer.Address1;
-            UpCustomer.Address2 = UpdateCustomer.Address2;
-            UpCustomer.Address3 = UpdateCustomer.Address3;
-            UpCustomer.PostCode = UpdateCustomer.PostCode;
-            UpCustomer.Email = UpdateCustomer.Email;
-            UpCustomer.PhoneNumber = UpdateCustomer.PhoneNumber;
+            UpCustomer.Name = customer.Name;
+            UpCustomer.Address1 = customer.Address1;
+            UpCustomer.Address2 = customer.Address2;
+            UpCustomer.Address3 = customer.Address3;
+            UpCustomer.PostCode = customer.PostCode;
+            UpCustomer.Email = customer.Email;
+            UpCustomer.PhoneNumber = customer.PhoneNumber;
 
             _context.SaveChanges();
         }
 
-        public void DeleteCustomer(Customer RemoveCustomer)
+        public void DeleteCustomer(Customer customer)
         {
-            _context.Customers.Remove(RemoveCustomer);
+            _context.Customers.Remove(customer);
             _context.SaveChanges();
         }
 
