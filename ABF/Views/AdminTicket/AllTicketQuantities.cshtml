@@ -1,0 +1,23 @@
+﻿@model Dictionary<int, int>
+
+@{
+    ViewBag.Title = "Event IDs and Tickets Sold";
+}
+
+<h2>Event IDs and Tickets sold</h2>
+<table>
+    <tr>
+        <th>Event ID</th>
+        <th>Tickets Sold</th>
+    </tr>
+
+    @foreach (KeyValuePair<int, int> singleevent in Model)
+    {
+        <tr>
+            <td>@singleevent.Key</td>
+            <td>@singleevent.Value</td>
+        </tr>
+    }
+</table>
+
+

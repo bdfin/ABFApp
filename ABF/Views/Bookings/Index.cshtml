@@ -1,20 +1,92 @@
-﻿@model IEnumerable<ABF.ViewModels.EventListViewModel>
+﻿@model ABF.ViewModels.EventIndexViewModel
 
 @{
     ViewBag.Title = "Index";
+    var events = Model.events;
+    var datelist = Model.datelist;
 }
 
+@Html.Partial("_DateList", datelist)
+
+<br />
+
+<br />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<table class="table" id="eventsTable">
+    <tr id="tableheader">
+        <th></th>
+        <th style="display:none">Hidden ID</th>
 <input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
 
 <table class="table" id="eventsTable">
     <tr id="tableheader">
         <th style="display:none">ID</th>
+
         <th>Title</th>
         <th>Author</th>
+        <th style="display:none">Hidden Date</th>
         <th>Date</th>
         <th>Time</th>
         <th>Price</th>
         <th>Venue</th>
+        <th style="display:none">Hidden Topics</th>
+        <th colspan="4" style="text-align:center">Tickets</th>
+    </tr>
+
+    @foreach (var item in events)
+    {
+        var fulldate = item.thisevent.Date.ToString("ddMMMyyyy");
+        var date = item.thisevent.Date.ToString("ddd dd MMM").ToString();
+        var times = item.thisevent.StartTime.ToString("HH:mm") + " - " + item.thisevent.EndTime.ToString("HH:mm");
+
+        <tr id="tabledata">
+            <td>
+                @if (item.thisevent.IsMemberOnly)
+                {
+                    <img src="~/Content/MapIcons/vipIcon.png" width="25" alt="Members Exclusive Event" />
+                }
+            </td>
+            <td style="display:none">@item.thisevent.Id</td>
+            <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
+            <td>@item.thisevent.Author</td>
+            <td style="display:none">@fulldate</td>
+            <td style="white-space:nowrap">@date</td>
+            <td style="white-space:nowrap">@times</td>
+            <td>£@item.thisevent.TicketPrice</td>
+            <td>@item.thislocation.Name</td>
+            <td style="display:none">All the topics go here</td>
+
+            @if (item.thisevent.IsMemberOnly && !User.IsInRole("Member"))
+            {
+                <td colspan="4">
+                    <button style="width:250px; background-color:rgba(255, 0, 0, 0.82); border-radius:10px; text-align:center">
+                        Members Exclusive Event<br />
+                        <sub>Log In or click <b>here</b> for information</sub>
+                    </button>
+                </td>
+            }
+            else
+            {
+
+
+
+                <td>
+                    <span class="min button" style="width:40px;height:40px">
+                        <i class="fas fa-minus-square" style="color:#fcbf2d;"></i>
+                    </span>
+                </td>
+                <td><input type="text" name="qty" id="qty" maxlength="12" style="width:40px;height:40px"/></td>
+                <td>
+                    <span class="plus button" style="width:40px;height:40px">
+                        <i class="fas fa-plus-square" style="color:#fcbf2d;"></i>
+                    </span>
+                    
+                </td>
+
+
+            }
         <th style="display:none">Topics</th>
     </tr>
 
@@ -40,6 +112,11 @@
 
 
 <script>
+
+    // search function for filtering data by day.
+    function doSearch(searchText) {
+        var searchTextUp = searchText.toUpperCase();
+
     function doSearch() {
         var searchText = document.getElementById('myInput').value.toUpperCase();
         var targetTable = document.getElementById('eventsTable');
@@ -56,6 +133,8 @@
             }
 
             //Process data rows. (rowIndex >= 1)
+
+            // The date column (3) is the only one being searched
             for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
                 rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
                 rowData = rowData.toUpperCase();
@@ -63,6 +142,48 @@
 
             //If search term is not found in row data
             //then hide the row, else show
+            if ((rowData.indexOf(searchTextUp) == -1)) {
+                targetTable.rows.item(rowIndex).style.display = 'none';
+            }
+            else {
+                targetTable.rows.item(rowIndex).style.display = 'table-row';
+            }
+        }
+    }
+</script>
+
+<script>
+
+    jQuery(function () {
+        var j = jQuery; //Just a variable for using jQuery without conflicts
+        var addInput = '#qty'; //This is the id of the input you are changing
+        var n = 1; //n is equal to 1
+
+        //Set default value to n (n = 1)
+        j(addInput).val(n);
+
+        //On click add 1 to n
+        j('.plus').on('click', function () {
+            j(addInput).val(++n);
+        })
+
+        j('.min').on('click', function () {
+            //If n is bigger or equal to 1 subtract 1 from n
+            if (n >= 1) {
+               j(addInput).val(--n);
+            } 
+                //else {
+                //Otherwise do nothing
+           // }
+        });
+    });
+
+
+
+
+ 
+</script>
+
             if (rowData.indexOf(searchText) == -1)
                 targetTable.rows.item(rowIndex).style.display = 'none';
             else
@@ -70,3 +191,4 @@
         }
     }
 </script>
+

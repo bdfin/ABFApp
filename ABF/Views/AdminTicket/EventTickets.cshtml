@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ABF.Data.ABFDbModels.Ticket>
+
+@{
+    ViewBag.Title = "Tickets For Event";
+}
+
+<h2>Ticket Sales for Event</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EventId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddOnId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddOnId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderId)
+        </td>
+    </tr>
+}
+
+</table>

@@ -179,6 +179,8 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
+
+    <Compile Include="Controllers\Admin\AdminTicketController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -204,8 +206,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
+    <Compile Include="ViewModels\EventIndexViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
@@ -401,6 +405,7 @@
     <Content Include="Content\MapIcons\letter_x.png" />
     <Content Include="Content\MapIcons\letter_y.png" />
     <Content Include="Content\MapIcons\letter_z.png" />
+    <Content Include="Content\MapIcons\vipIcon.png" />
     <Content Include="Content\SiteImages\appledoorSiteBackground.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-navbar-small.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo-shadow.png" />
@@ -608,6 +613,12 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Bookings\Details.cshtml" />
     <Content Include="Views\Bookings\_DateList.cshtml" />
+    <Content Include="Views\AdminTicket\Index.cshtml" />
+    <Content Include="Views\AdminTicket\EventTickets.cshtml" />
+    <Content Include="Views\AdminTicket\AllTicketQuantities.cshtml" />
+    <Content Include="Views\AdminTicket\EventQuantity.cshtml" />
+    <Content Include="Views\Bookings\Basket.cshtml" />
+    <Content Include="Views\Bookings\BasketEmpty.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

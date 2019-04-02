@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>Appledore Book Festival</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
@@ -59,6 +59,8 @@
         <div class="container body-content">
             @RenderBody()
             <hr />
+            <footer class="bg-light fixed-bottom" style="height:35px">
+                <div class="row col-sm-12 center">
             <footer class="bg-light accordion-footer fixed-bottom">
                 <div class="row col-sm-12 center">
 
@@ -85,6 +87,8 @@
                     <ul class="nav-item">
                         @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "nav-link" })
                     </ul>
+                </div>
+
 
                 </div>
 

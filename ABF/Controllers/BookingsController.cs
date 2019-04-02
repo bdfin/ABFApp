@@ -31,6 +31,7 @@ namespace ABF.Controllers
             var locationlist = locationService.GetLocations();
             var eList = eventService.GetEvents();
             var viewModelList = new List<EventListViewModel>();
+            var indexview = new EventIndexViewModel();
 
             foreach (Event Singleevent in eList)
             {
@@ -46,7 +47,12 @@ namespace ABF.Controllers
                 viewModelList.Add(viewModel);
             }
 
-            return View(viewModelList);
+            var datelist = eventService.GetUniqueDates();
+
+            indexview.events = viewModelList;
+            indexview.datelist = datelist.ToList();
+
+            return View(indexview);
         }
 
         public ActionResult Details(int id)
@@ -70,6 +76,50 @@ namespace ABF.Controllers
         public ActionResult UniqueDates()
         {
             var datelist = eventService.GetUniqueDates();
+            var stringdatelist = new List<string>();
+
+            foreach (var item in datelist)
+            {
+                stringdatelist.Add(item.ToString());
+            }
+            return View("_DateList", stringdatelist);
+        }
+
+        public ActionResult Basket()
+        {
+            if (Session["tix"] == null)
+            {
+                return View("BasketEmpty");
+            }
+            else
+            {
+                // empty list ready to be passed to view
+                var basketviewmodel = new List<BasketViewModel>();
+
+                // get Session["tix"] and store in Dictionary
+                Dictionary<int, int> event_ticket = new Dictionary<int, int>();
+                event_ticket = (Dictionary<int, int>)Session["tix"];
+
+                if (event_ticket.Count == 0)
+                {
+                    return View("BasketEmpty");
+                }
+                else
+                {
+                    // populate viewmodel list for view
+                    foreach (KeyValuePair<int, int> e in event_ticket)
+                    {
+                        BasketViewModel basketentry = new BasketViewModel();
+                        basketentry.Event = eventService.GetEvent(e.Key);
+                        basketentry.LocationName = locationService.GetLocation(basketentry.Event.LocationId).Name;
+                        basketentry.Quantity = e.Value;
+                        basketviewmodel.Add(basketentry);
+                    }
+
+                    return View(basketviewmodel);
+                }
+            }
+
 
             return View("_DateList", datelist);
         }
