@@ -204,6 +204,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SMTPEmail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
@@ -619,6 +620,9 @@
     <Content Include="Views\AdminTicket\EventQuantity.cshtml" />
     <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Bookings\BasketEmpty.cshtml" />
+    <Content Include="Views\Home\ContactSent.cshtml" />
+    <Content Include="Views\Shared\Info.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

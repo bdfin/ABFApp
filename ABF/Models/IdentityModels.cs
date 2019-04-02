@@ -85,7 +85,8 @@ namespace ABF.Models
                     UserName = "admin@test.net",
                     Email = "admin@test.net",
                     Name = "Admin User",
-                    PostCode = "S40 9UF"
+                    PostCode = "S40 9UF",
+                    EmailConfirmed = true,
                 };
 
                 manager.Create(user, "admin123");
@@ -100,7 +101,8 @@ namespace ABF.Models
                     UserName = "boxoffice@test.net",
                     Email = "boxoffice@test.net",
                     Name = "Box Office User",
-                    PostCode = "S70 4HJ"
+                    PostCode = "S70 4HJ",
+                    EmailConfirmed = true,
                 };
 
                 manager.Create(user, "boxoffice123");
@@ -115,7 +117,9 @@ namespace ABF.Models
                     UserName = "testuser@test.net",
                     Email = "testuser@test.net",
                     Name = "Standard User",
-                    PostCode = "S8 7RW" };
+                    PostCode = "S8 7RW",
+                    EmailConfirmed = true,
+                };
 
                 manager.Create(user, "user123");
                 manager.AddToRole(user.Id, "User");

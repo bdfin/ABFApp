@@ -1,23 +1,63 @@
 ﻿@{
     ViewBag.Title = "";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
+
 <h3 align="center">@ViewBag.Message</h3>
 
+<hr />
 
+<div class="instructions">
+    <h5>Please complete the form below with any general queries or comments.</h5>
+    <p>If your enquiry is urgent, or related to a ticket order, please consider calling the Box Office directly on <b>01237 42 49 49</b></p>
+</div>
 
-<h4>
-    Phone us on: 01237 424 949
-</h4>
+<hr />
 
-<h4>Contact Emails</h4>
-<address>
-    <strong><a href="boxoffice@appledorebookfestival.co.uk">Box Office</a></strong> |
-    <strong><a href="info@appledorebookfestival.co.uk">Info</a></strong> |
-    <strong><a href="schools@appledorebookfestival.co.uk">Schools</a></strong> |
-    <strong><a href="director@appledorebookfestival.co.uk">Director</a></strong> |
-</address>
-
-
-<h4> Contact Us on Social Media</h4>
-
+<div class="form-group">
+    <form action='@Url.Action("Contact","Home")' method='post'>
+    
+        <table>
+            <tr id="nameinput">
+                <td>
+                    <label for='name'><b>Your Name</b></label>
+                </td>
+                <td rowspan="5" style="width:20px">&nbsp</td>
+                <td>
+                    <input name='name' />
+                </td>
+            </tr>
+            <tr id="emailinput">
+                <td>
+                    <label for='email'><b>Email</b></label>
+                </td>
+                <td>
+                    <input name='email' />
+                </td>
+            </tr>
+            <tr id="phoneinput">
+                <td>
+                    <label for='phone'><b>Phone Number</b></label>
+                </td>
+                <td>
+                    <input name='phone' />
+                </td>
+            </tr>
+            <tr id="messageinput">
+                <td>
+                    <label for='message'><b>Message</b></label>
+                </td>
+                <td>
+                    <textarea name='message'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type='submit' value='Send Message' />
+                </td>
+            </tr>
+        </table>
+    
+    </form>
+</div>
