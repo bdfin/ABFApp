@@ -11,6 +11,8 @@ namespace ABF.Data.ABFDbModels
     {
         public int Id { get; set; }
 
+        public string IdentityId { get; set; }
+
         [Required]
         public string Name { get; set; }
 

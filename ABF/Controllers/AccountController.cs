@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ABF.Models;
+using ABF.Service.Services;
+using ABF.Data.ABFDbModels;
 
 namespace ABF.Controllers
 {
@@ -17,9 +19,11 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private CustomerService customerService;
 
         public AccountController()
         {
+            customerService = new CustomerService();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -181,6 +185,16 @@ namespace ABF.Controllers
 
                 if (result.Succeeded)
                 {
+                    var customer = new Customer
+                    {
+                        Name = model.Name,
+                        Email = model.Email,
+                        PostCode = model.PostCode,
+                        IdentityId = user.Id
+                    };
+
+                    customerService.CreateCustomer(customer);
+
                     // Sets default user type to basic 'Customer'
                     await UserManager.AddToRolesAsync(user.Id, "User");
 
