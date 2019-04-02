@@ -33,9 +33,9 @@ namespace ABF.Service.Services
             _customerDAO.CreateCustomer(customer);
         }
 
-        public void EditCustomer(Customer customer)
+        public void UpdateCustomer(Customer customer)
         {
-            _customerDAO.EditCustomer(customer);
+            _customerDAO.UpdateCustomer(customer);
         }
 
         public void DeleteCustomer(Customer customer)

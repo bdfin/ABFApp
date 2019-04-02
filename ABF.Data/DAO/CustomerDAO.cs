@@ -48,7 +48,7 @@ namespace ABF.Data.DAO
 
         }
         
-        public void EditCustomer(Customer customer)
+        public void UpdateCustomer(Customer customer)
 
         {
             Customer UpCustomer = GetCustomer(customer.Id);
@@ -60,6 +60,7 @@ namespace ABF.Data.DAO
             UpCustomer.PostCode = customer.PostCode;
             UpCustomer.Email = customer.Email;
             UpCustomer.PhoneNumber = customer.PhoneNumber;
+            UpCustomer.MembershipTypeId = customer.MembershipTypeId;
 
             _context.SaveChanges();
         }

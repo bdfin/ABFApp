@@ -43,37 +43,38 @@ namespace ABF.Controllers
 
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
-            try
+            if (viewModel.Customer.Id == 0)
             {
                 customerService.CreateCustomer(viewModel.Customer);
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
+                customerService.UpdateCustomer(viewModel.Customer);
+
                 return RedirectToAction("Index");
             }
+                
+            
+            
         }
 
         [Route("Admin/Customers/Edit/{id}")]
         public ActionResult Edit(int id)
         {
-            return View(customerService.GetCustomer(id));
+            var membershipTypes = membershipTypeService.GetMembershipTypes();
+            var customer = customerService.GetCustomer(id);
+
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershipTypes,
+                Customer = customer
+            };
+
+            return View("CustomerForm", viewModel);
         }
 
-        [HttpPost]
-        public ActionResult Edit(int custNo, Customer customer)
-        {
-            try
-            {              
-                customerService.EditCustomer(customer);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         [Route("Admin/Customers/Delete/{id}")]
         public ActionResult Delete(int id)
