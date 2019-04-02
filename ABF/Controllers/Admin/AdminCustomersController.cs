@@ -86,11 +86,11 @@ namespace ABF.Controllers
 
         [HttpPost]
         public ActionResult DeleteCustomer(int id)
-        {     
-                Customer  customer;
-                customer = customerService.GetCustomer(id);
-                customerService.DeleteCustomer(customer);
-                return RedirectToAction("Index");
+        {
+            var customer = customerService.GetCustomer(id);
+            customerService.DeleteCustomer(customer);
+            
+            return RedirectToAction("Index");
            
         }
     }
