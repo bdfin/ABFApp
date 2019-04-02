@@ -18,6 +18,12 @@
     <tr id="tableheader">
         <th></th>
         <th style="display:none">Hidden ID</th>
+<input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
+
+<table class="table" id="eventsTable">
+    <tr id="tableheader">
+        <th style="display:none">ID</th>
+
         <th>Title</th>
         <th>Author</th>
         <th style="display:none">Hidden Date</th>
@@ -81,6 +87,24 @@
 
 
             }
+        <th style="display:none">Topics</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="tabledata">
+            <td style="display:none">@item.thisevent.Id</td>
+            <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
+            <td>@item.thisevent.Author</td>
+            <td>@item.thisevent.Date.ToShortDateString()</td>
+            <td>@item.thisevent.StartTime.ToShortTimeString() - @item.thisevent.EndTime.ToShortTimeString()</td>
+            <td>£@item.thisevent.TicketPrice</td>
+            <td>@item.thislocation.Name</td>
+            <td style="display:none">All the topics go here</td>
+            <td style="font-size:30px"><i class="fas fa-plus-square" style="color:#fcbf2d"></i></td>
+            <td style="font-size:20px;align-content:center"><text>0</text></td>
+            <td style="font-size:30px"><i class="fas fa-minus-square" style="color:#fcbf2d"></i></td>
+            <td><button style="width:130px; height:50px; background-color:#f4814b">Add to Basket</button></td>
         </tr>
     }
 
@@ -88,9 +112,13 @@
 
 
 <script>
+
     // search function for filtering data by day.
     function doSearch(searchText) {
         var searchTextUp = searchText.toUpperCase();
+
+    function doSearch() {
+        var searchText = document.getElementById('myInput').value.toUpperCase();
         var targetTable = document.getElementById('eventsTable');
         var targetTableColCount;
 
@@ -105,6 +133,7 @@
             }
 
             //Process data rows. (rowIndex >= 1)
+
             // The date column (3) is the only one being searched
             for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
                 rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
@@ -153,5 +182,13 @@
 
 
  
+</script>
+
+            if (rowData.indexOf(searchText) == -1)
+                targetTable.rows.item(rowIndex).style.display = 'none';
+            else
+                targetTable.rows.item(rowIndex).style.display = 'table-row';
+        }
+    }
 </script>
 

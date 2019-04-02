@@ -9,4 +9,7 @@
     
     <input id="@item" type="button" value="@value" onclick="doSearch('@searchvalue')" />
 
+@foreach (var item in Model)
+{    
+    @item<br/>
 }

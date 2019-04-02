@@ -73,6 +73,7 @@ namespace ABF.Data.DAO
             _context.SaveChanges();
         }
 
+
         // returns a list of dates on which events are happening, in DateTime format
         public List<DateTime> GetUniqueDates()
         {
