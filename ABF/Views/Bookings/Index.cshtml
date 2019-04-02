@@ -11,7 +11,6 @@
 <br />
 
 <br />
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <table class="table" id="eventsTable">
@@ -63,23 +62,18 @@
             }
             else
             {
-
-
-
                 <td>
-                    <span class="min button" style="width:40px;height:40px">
-                        <i class="fas fa-minus-square" style="color:#fcbf2d;"></i>
-                    </span>
+                    <button name="button" type="button" class="sub btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">-</button>
                 </td>
-                <td><input type="text" name="qty" id="qty" maxlength="12" style="width:40px;height:40px"/></td>
                 <td>
-                    <span class="plus button" style="width:40px;height:40px">
-                        <i class="fas fa-plus-square" style="color:#fcbf2d;"></i>
-                    </span>
-                    
+                    <input name="quantity" type="text" id="@item.thisevent.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
                 </td>
-
-
+                <td>
+                    <button name="button" type="button" class="add btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">+</button>
+                </td>
+                <td>
+                    <button style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">Add to Basket</button>
+                </td>
             }
         </tr>
     }
@@ -88,7 +82,6 @@
 
 
 <script>
-    // search function for filtering data by day.
     function doSearch(searchText) {
         var searchTextUp = searchText.toUpperCase();
         var targetTable = document.getElementById('eventsTable');
@@ -125,33 +118,17 @@
 
 <script>
 
-    jQuery(function () {
-        var j = jQuery; //Just a variable for using jQuery without conflicts
-        var addInput = '#qty'; //This is the id of the input you are changing
-        var n = 1; //n is equal to 1
-
-        //Set default value to n (n = 1)
-        j(addInput).val(n);
-
-        //On click add 1 to n
-        j('.plus').on('click', function () {
-            j(addInput).val(++n);
-        })
-
-        j('.min').on('click', function () {
-            //If n is bigger or equal to 1 subtract 1 from n
-            if (n >= 1) {
-               j(addInput).val(--n);
-            } 
-                //else {
-                //Otherwise do nothing
-           // }
-        });
+    $('.add').click(function () {
+        if (!isNaN($(this).parent().prev().children(".field").val()))
+            $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
+        else
+            $(this).parent().prev().children(".field").val(0);
+    });
+    $('.sub').click(function () {
+        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0))
+            $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
+        else
+            $(this).parent().next().children(".field").val(0);
     });
 
-
-
-
- 
 </script>
-
