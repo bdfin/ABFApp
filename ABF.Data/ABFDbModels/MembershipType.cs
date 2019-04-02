@@ -11,6 +11,7 @@ namespace ABF.Data.ABFDbModels
     {
         public int Id { get; set; }
 
+        [Display(Name = "Membership Type")]
         public string Type { get; set; }
 
         public bool Expiry { get; set; }

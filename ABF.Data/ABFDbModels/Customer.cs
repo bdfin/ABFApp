@@ -34,6 +34,7 @@ namespace ABF.Data.ABFDbModels
         [DataType(DataType.PhoneNumber)]        
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "Membership Type")]
         public int? MembershipTypeId { get; set; }
 
         public virtual MembershipType MembershipType { get; set; }

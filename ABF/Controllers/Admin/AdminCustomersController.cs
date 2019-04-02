@@ -54,10 +54,7 @@ namespace ABF.Controllers
                 customerService.UpdateCustomer(viewModel.Customer);
 
                 return RedirectToAction("Index");
-            }
-                
-            
-            
+            }                           
         }
 
         [Route("Admin/Customers/Edit/{id}")]
@@ -75,6 +72,10 @@ namespace ABF.Controllers
             return View("CustomerForm", viewModel);
         }
 
+        public ActionResult Details(int id)
+        {
+            return View(customerService.GetCustomer(id));
+        }
 
         [Route("Admin/Customers/Delete/{id}")]
         public ActionResult Delete(int id)
