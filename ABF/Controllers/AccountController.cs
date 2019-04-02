@@ -73,24 +73,6 @@ namespace ABF.Controllers
                 return View(model);
             }
 
-            // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    // send another email
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "ABF: Resent confirmation email");
-
-                    ViewBag.errorMessage1 = "You must have confirmed your email address to log into the site.";
-                    ViewBag.errorMessage2 = "This is for added security, as your tickets will only be sent to the registered email address.";
-                    ViewBag.errorMessage3 = "For convenience, another email containing the confiration link has been sent to you. " +
-                        "\nPlease check your emails and click on the link which has been sent to you. " +
-                        "nnIf you have not received this email, please check your SPAM or Junk folders.";
-                    return View("Error");
-                }
-            }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -176,28 +158,21 @@ namespace ABF.Controllers
                     Name = model.Name,
                     PostCode = model.PostCode
                 };
-
                 var result = await UserManager.CreateAsync(user, model.Password);
-
                 if (result.Succeeded)
                 {
                     // Sets default user type to basic 'Customer'
                     await UserManager.AddToRolesAsync(user.Id, "User");
 
-                    //COMMENT THIS ONE LINE OUT IF YOU WANT TO HAVE A USER'S EMAIL ADDRESS CONFIRMED BEFORE ALLOWING LOG IN
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    // these two lines create a confirmation code and toeken
-                    string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "Confirm your account");
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-
-                    // send the confirmation email to the email address
-                    SMTPEmail.SendEmail(user.Email, "ABF: Confirm your email address", 
-                        "Please confirm your account by clicking this link below:/n" + callbackUrl);
-
-                    // return a message to the user
-                    ViewBag.Message = "Please check your email and confirm your email account by clicking on the link you have been sent.";
-                    return View("Info");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -243,10 +218,12 @@ namespace ABF.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                SMTPEmail.SendEmail(user.Email, "ABF: Password Reset Link", "Please reset your password by clicking the link below:\n" + callbackUrl);
-                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -519,16 +496,5 @@ namespace ABF.Controllers
             }
         }
         #endregion
-
-        private async Task<string> SendEmailConfirmationTokenAsync(string userID, string useremail, string subject)
-        {
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
-            var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
-
-            SMTPEmail.SendEmail(useremail, "ABF: " + subject, "Please confirm your account by clicking the link below:\n" + callbackUrl);
-
-            return callbackUrl;
-        }
     }
 }
