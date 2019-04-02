@@ -5,18 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
+using ABF.ViewModels;
 
 namespace ABF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminCustomersController : Controller
     {
-
+        private MembershipTypeService membershipTypeService;
         private CustomerService customerService;
 
         public AdminCustomersController()
         {
             customerService = new CustomerService();
+            membershipTypeService = new MembershipTypeService();
         }
 
         [Route("Admin/Customers")]
@@ -25,19 +27,18 @@ namespace ABF.Controllers
             return View(customerService.GetCustomers());
         }
 
-        [HttpPost]
-        public ActionResult CreateCustomer(Customer NewCustomer)
+        [Route("Admin/Customers/New")]
+        public ActionResult New()
         {
-            try
+            var membershipTypes = membershipTypeService.GetMembershipTypes();
+
+            var viewModel = new CustomerFormViewModel
             {
-                // TODO: Add insert logic here
-                customerService.CreateCustomer(NewCustomer);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                MembershipTypes = membershipTypes,
+                Customer = new Customer()
+            };
+
+            return View("CustomerForm", viewModel);
         }
 
         [Route("Admin/Customers/Edit/{id}")]
@@ -47,11 +48,11 @@ namespace ABF.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int custNo, Customer UpdateCustomer)
+        public ActionResult Edit(int custNo, Customer customer)
         {
             try
             {              
-                customerService.EditCustomer(UpdateCustomer);
+                customerService.EditCustomer(customer);
                 return RedirectToAction("Index");
             }
             catch
@@ -68,11 +69,11 @@ namespace ABF.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(int custNo, Customer RemoveCustomer)
+        public ActionResult DeleteCustomer(int id)
         {     
-                Customer  _customer;
-                _customer = customerService.GetCustomer(custNo);
-                customerService.DeleteCustomer(_customer);
+                Customer  customer;
+                customer = customerService.GetCustomer(id);
+                customerService.DeleteCustomer(customer);
                 return RedirectToAction("Index");
            
         }

@@ -179,7 +179,6 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
-
     <Compile Include="Controllers\Admin\AdminTicketController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
@@ -208,6 +207,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
+    <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
     <Compile Include="ViewModels\EventFormViewModel.cs" />
     <Compile Include="ViewModels\EventIndexViewModel.cs" />
@@ -598,7 +598,6 @@
     <Content Include="Views\InitAdmin\Index.cshtml" />
     <Content Include="Views\InitAdmin\Error.cshtml" />
     <Content Include="Views\AdminCustomers\Index.cshtml" />
-    <Content Include="Views\AdminCustomers\CreateCustomer.cshtml" />
     <Content Include="Views\AdminCustomers\Edit.cshtml" />
     <Content Include="Views\AdminCustomers\Delete.cshtml" />
     <Content Include="Views\AdminLocations\Index.cshtml" />
@@ -624,6 +623,7 @@
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
+    <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
