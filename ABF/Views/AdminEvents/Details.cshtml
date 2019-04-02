@@ -13,6 +13,7 @@
     <div class="col">
 
         <h4>@Html.DisplayFor(model => model.Event.Name)</h4>
+        <h5>@Html.DisplayFor(model => model.Event.Author)</h5>
 
         <dl class="dl-horizontal">
 
@@ -79,8 +80,12 @@
                 @Html.DisplayNameFor(model => model.Event.Capacity)
             </dt>
 
+            <dt>
+                @Html.DisplayNameFor(model => model.Event.TicketPrice)
+            </dt>
+
             <dd>
-                @Html.DisplayFor(model => model.Event.Capacity)
+                @Html.DisplayFor(model => model.Event.TicketPrice)
             </dd>
 
             <dt>

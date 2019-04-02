@@ -13,7 +13,7 @@ namespace ABF.Data.ABFDbModels
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dddd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
       
         [DataType(DataType.Time)]
@@ -27,6 +27,9 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Author { get; set; }
+
         [DataType(DataType.MultilineText)]
         public string Details { get; set; }
 
@@ -35,6 +38,11 @@ namespace ABF.Data.ABFDbModels
 
         [Required]
         public int Capacity { get; set; }
+
+        [Required]
+        [Display(Name = "Ticket Price")]
+        //[DataType(DataType.Currency)]
+        public decimal TicketPrice { get; set; }
 
         [Display(Name = "Member Only")]
         public bool IsMemberOnly { get; set; }

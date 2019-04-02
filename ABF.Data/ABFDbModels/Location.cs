@@ -24,6 +24,9 @@ namespace ABF.Data.ABFDbModels
         [DataType(DataType.PostalCode)]
         public string PostCode { get; set; }
 
+        [Display(Name = "Co-ordinates")]
+        public string LatLong { get; set; }
+
         [Display(Name = "Disabled Access")]
         public bool DisabledAccess { get; set; }
 
