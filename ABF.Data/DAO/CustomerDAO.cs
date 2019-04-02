@@ -19,25 +19,39 @@ namespace ABF.Data.DAO
 
         public IList<Customer> GetCustomers()
         {
-            IQueryable<Customer> _customers;
-            _customers = from c
+            IQueryable<Customer> customers;
+
+            customers = from c
                          in _context.Customers
                          select c;
 
-            return _customers.ToList();
+            return customers.ToList();
             
         }
 
 
-        public Customer GetCustomer(int custNo)
+        public Customer GetCustomer(int id)
         {
-            IQueryable<Customer> _customer;
-                _customer = from c
-                            in _context.Customers
-                            where c.Id == custNo
-                            select c;
+            IQueryable<Customer> customer;
 
-            return _customer.ToList().First();
+            customer = from c
+                        in _context.Customers
+                        where c.Id == id
+                        select c;
+
+            return customer.ToList().First();
+        }
+
+        public Customer GetCustomerByUserId(string id)
+        {
+            IQueryable<Customer> customer;
+
+            customer = from c
+                       in _context.Customers
+                       where c.UserId == id
+                       select c;
+
+            return customer.ToList().First();
         }
 
         public void CreateCustomer(Customer customer)

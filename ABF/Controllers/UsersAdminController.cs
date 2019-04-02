@@ -7,6 +7,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Service.Services;
+using ABF.Data.ABFDbModels;
 
 namespace ABF
 {
@@ -14,9 +16,13 @@ namespace ABF
     public class UsersAdminController : Controller
     {
         ApplicationDbContext context;
+
+        private CustomerService customerService;
+
         public UsersAdminController()
         {
             context = new ApplicationDbContext();
+            customerService = new CustomerService();
         }
 
         public UsersAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
@@ -254,7 +260,9 @@ namespace ABF
                 }
 
                 var user = await UserManager.FindByIdAsync(id);
-                if (user == null)
+                var customer = customerService.GetCustomerByUserId(id);
+
+                if (user == null && customer == null)
                 {
                     return HttpNotFound();
                 }
@@ -264,6 +272,9 @@ namespace ABF
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+
+                customerService.DeleteCustomer(customer);
+
                 return RedirectToAction("Index");
             }
             return View();
