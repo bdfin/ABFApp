@@ -1,0 +1,62 @@
+﻿@model ABF.ViewModels.EventIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string dropdownId = "addOnMenu";
+
+    var eventDates = Model.Events.Select(x => x.Event.Date).Distinct();
+}
+
+<h2>Events</h2>
+
+<hr />
+<div class="row mb-3">
+    <div class="col text-center">
+        @Html.ActionLink("All Events", "Index", null, new { @class = "btn btn-outline-info btn-lg shadow-sm" })
+    </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid shadow-sm">
+
+    <div class="button-group text-center">
+
+        @foreach (var item in eventDates)
+        {
+            @Html.ActionLink(item.Date.ToString("ddd") + " " + item.Day.ToString(), "Index", new { dateSearch = item.Date }, new { @class = "btn btn-info btn-lg shadow mr-2 mt-2" })
+        }
+
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+
+    @foreach (var item in Model.Events)
+    {
+        <div class="col mb-5 pb-5 mt-5">
+            <div class="card shadow" style="width: 20rem;">
+                <img src="@Url.Content(item.Image.ImagePath)" class="card-img-top" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Event.Name)</h5>
+                    <h6>@Html.DisplayFor(modelItem => item.Event.Author)</h6>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Event.Details)</p>
+                    <p>
+                        <button class="btn btn-info shadow-sm" type="button" data-toggle="collapse" data-target="#@dropdownId" aria-expanded="false" aria-controls="@dropdownId">
+                            Button with data-target
+                        </button>
+                    </p>
+                    <div class="collapse" id="@dropdownId">
+                        <div class="card card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        dropdownId = dropdownId + 1;
+    }
+
+</div>

@@ -40,8 +40,8 @@ namespace ABF.Controllers
 
                 var viewModel = new EventListViewModel
                 {
-                    thisevent = e,
-                    thislocation = l
+                    Event = e,
+                    Location = l
                 };
 
                 viewModelList.Add(viewModel);
