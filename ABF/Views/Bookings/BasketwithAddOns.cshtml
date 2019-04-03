@@ -1,0 +1,44 @@
+﻿@model ABF.ViewModels.FullBasketViewModel
+
+@{
+    ViewBag.Title = "BasketwithAddOns";
+
+    var addons = Model.addontickets;
+    var events = Model.eventtickets;
+
+}
+
+<h2>Full Basket (With Add-Ons)</h2>
+
+<table>
+    <tr>
+        <th>Event</th>
+        <th>Author</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+    </tr>
+
+@foreach (var item in events)
+{
+    <tr>
+        <td>@item.Event.Name</td>
+        <td>@item.Event.Author</td>
+        <td>@item.Event.Date.ToString("dd MMM")</td>
+        <td>@item.Event.StartTime.ToString("HH:mm")</td>
+        <td>@item.LocationName</td>
+        <td>@item.Event.TicketPrice</td>
+        <td>@item.Quantity</td>
+        <td>
+            @{ var subtotal = @item.Event.TicketPrice * @item.Quantity; }
+            @subtotal
+        </td>
+    </tr>
+
+
+}
+
+</table>

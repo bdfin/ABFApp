@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\EventFormViewModel.cs" />
     <Compile Include="ViewModels\EventIndexViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\FullBasketViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -625,6 +626,7 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />
+    <Content Include="Views\Bookings\BasketwithAddOns.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

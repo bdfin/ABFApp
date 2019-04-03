@@ -120,5 +120,64 @@ namespace ABF.Controllers
                 }
             }
         }
+
+        public ActionResult BasketwithAddOns()
+        {
+            if (Session["Tix"] == null)
+            {
+                return View("BasketEmpty");
+            }
+            else
+            {
+                // empty full basket view model
+                var fullbasketviewmodel = new FullBasketViewModel();
+
+                // empty list of events ready to be passed to viewmodel
+                var basketviewmodel = new List<BasketViewModel>();
+
+                // get Session["Tix"] and store in Dictionary
+                var event_ticket = new Dictionary<int, int>();
+                event_ticket = (Dictionary<int, int>)Session["Tix"];
+
+                if (event_ticket.Count == 0)
+                {
+                    return View("BasketEmpty");
+                }
+                else
+                {
+                    // populate events viewmodel list
+                    foreach (KeyValuePair<int, int> e in event_ticket)
+                    {
+                        BasketViewModel basketentry = new BasketViewModel();
+                        basketentry.Event = eventService.GetEvent(e.Key);
+                        basketentry.LocationName = locationService.GetLocation(basketentry.Event.LocationId).Name;
+                        basketentry.Quantity = e.Value;
+                        basketviewmodel.Add(basketentry);
+                    }
+
+                    fullbasketviewmodel.eventtickets = basketviewmodel;
+
+
+                    if (Session["AddOns"] != null)
+                    {
+                        // get Session["AddOns"] and store it in Dictionary
+                        var addondictionary = new Dictionary<int, int>();
+                        addondictionary = (Dictionary<int, int>)Session["AddOns"];
+
+                        // populate dictionary of addons
+                        var fulladdons = new Dictionary<AddOn, int>();
+                        foreach (KeyValuePair<int, int> a in addondictionary)
+                        {
+                            var thisaddon = addOnService.GetAddOn(a.Key);
+                            fulladdons.Add(thisaddon, a.Value);
+                        }
+
+                        fullbasketviewmodel.addontickets = fulladdons;
+                    }
+
+                    return View(fullbasketviewmodel);
+                }
+            }
+        }
     }
 }
