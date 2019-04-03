@@ -119,9 +119,6 @@ namespace ABF.Controllers
                     return View(basketviewmodel);
                 }
             }
-
-
-            //return View("_DateList", datelist);
         }
     }
 }
