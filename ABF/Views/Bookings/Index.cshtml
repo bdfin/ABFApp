@@ -85,8 +85,6 @@
     }
 
 </table>
-
-
 <script>
     function doSearch(searchText) {
         var searchTextUp = searchText.toUpperCase();
@@ -121,11 +119,21 @@
         }
     }
 </script>
-
 <script>
 
+    // when any element with the 'add' class is clicked....
     $('.add').click(function () {
-        if (!isNaN($(this).parent().prev().children(".field").val())) {
+
+        // if value of 'field' class in previous TD is valid
+        if (!isNaN($(this).parent().prev().children(".field").val()))
+        {
+            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
+            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
+            // prev()             = find the previous occurence of the <td> tag (in this case)
+            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <button>
+            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
+            // val()              = get the value of the element
+
             $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
             $(this).parent().next().children(".addform").children(".store").val($(this).parent().prev().children(".field").val());
         }

@@ -4,7 +4,7 @@
     ViewBag.Title = "Basket";
 }
 
-<h2>ViewBag.Message</h2>
+<h2>@ViewBag.Message</h2>
 
 <table class="table">
     <tr>
@@ -80,3 +80,14 @@
     </tr>
 
 </table>
+
+@{ if (User.IsInRole("User"))
+    {
+        <button>Checkout</button>
+    }
+    else
+    {
+        <button>Checkout as Guest</button>
+        <button>Login/Register</button>
+        }
+    }
