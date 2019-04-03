@@ -624,6 +624,7 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />
+    <Content Include="Views\Home\Membership.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
