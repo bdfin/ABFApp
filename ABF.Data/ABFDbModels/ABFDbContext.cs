@@ -25,7 +25,7 @@ namespace ABF.Data.ABFDbModels
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Membership> Memberships { get; set; }
+        public virtual DbSet<MembershipType> MembershipTypes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Ticket> Tickets { get; set; }

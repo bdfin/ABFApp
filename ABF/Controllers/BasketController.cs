@@ -1,4 +1,6 @@
 ﻿using System;
+﻿using ABF.Service.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -51,6 +53,20 @@ namespace ABF.Controllers
             }
 
             return View("AddtoBasket");
+
+        private BasketService basketService;
+      
+
+        public BasketController()
+        {
+            basketService = new BasketService();
+          
+        }
+
+        // GET: Basket
+        public ActionResult Index()
+        {
+            return View();
         }
     }
 }

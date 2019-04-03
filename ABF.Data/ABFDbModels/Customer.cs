@@ -11,6 +11,8 @@ namespace ABF.Data.ABFDbModels
     {
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+
         [Required]
         public string Name { get; set; }
 
@@ -24,16 +26,20 @@ namespace ABF.Data.ABFDbModels
         public string Address3 { get; set; }
 
         [Display(Name="Post Code")]
+        [DataType(DataType.PostalCode)]
         public string PostCode { get; set; }
-       
+
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Display(Name = "Phone Number")]
-        public int PhoneNumber { get; set; }
+        [DataType(DataType.PhoneNumber)]        
+        public string PhoneNumber { get; set; }
 
-        public int? MembershipId { get; set; }
+        [Display(Name = "Membership Type")]
+        public int? MembershipTypeId { get; set; }
 
-        public virtual Membership Membership { get; set; }
+        public virtual MembershipType MembershipType { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
         public virtual IList<Order> Orders { get; set; }
     }

@@ -10,37 +10,42 @@ namespace ABF.Service.Services
 {
    public class CustomerService
     {
-        private CustomerDAO _customerDAO;
+        private CustomerDAO customerDAO;
 
         public CustomerService()
 
         {
-            _customerDAO = new CustomerDAO();
+            customerDAO = new CustomerDAO();
         }
 
         public IList<Customer> GetCustomers()
         {
-            return _customerDAO.GetCustomers();
+            return customerDAO.GetCustomers();
         }
 
-        public Customer GetCustomer(int custNo)
+        public Customer GetCustomer(int id)
         {
-            return _customerDAO.GetCustomer(custNo);
+            return customerDAO.GetCustomer(id);
         }
 
-        public void CreateCustomer(Customer NewCustomer)
+        public Customer GetCustomerByUserId(string id)
         {
-            _customerDAO.CreateCustomer(NewCustomer);
+            return customerDAO.GetCustomerByUserId(id);
         }
 
-        public void EditCustomer(Customer UpdateCustomer)
+        public void CreateCustomer(Customer customer)
         {
-            _customerDAO.EditCustomer(UpdateCustomer);
+            customerDAO.CreateCustomer(customer);
         }
 
-        public void DeleteCustomer(Customer RemoveCustomer)
+        public void UpdateCustomer(Customer customer)
         {
-            _customerDAO.DeleteCustomer(RemoveCustomer);
+            customerDAO.UpdateCustomer(customer);
+        }
+
+        public void DeleteCustomer(Customer customer)
+        {
+            customerDAO.DeleteCustomer(customer);
         }
     }
 }

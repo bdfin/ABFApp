@@ -43,11 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BasketService.cs" />
     <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\AddOnService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\MembershipTypeService.cs" />
     <Compile Include="Services\TicketService.cs" />
   </ItemGroup>
   <ItemGroup>

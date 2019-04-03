@@ -7,6 +7,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Service.Services;
+using ABF.Data.ABFDbModels;
 
 namespace ABF
 {
@@ -14,9 +16,13 @@ namespace ABF
     public class UsersAdminController : Controller
     {
         ApplicationDbContext context;
+
+        private CustomerService customerService;
+
         public UsersAdminController()
         {
             context = new ApplicationDbContext();
+            customerService = new CustomerService();
         }
 
         public UsersAdminController(ApplicationUserManager userManager, ApplicationRoleManager roleManager)
@@ -139,6 +145,21 @@ namespace ABF
                     return View();
 
                 }
+
+                string roleCheck = string.Join("", selectedRoles);
+
+                if (roleCheck == "User")
+                {
+                    var customer = new Customer
+                    {
+                        Email = userViewModel.Email,
+                        Name = userViewModel.Name,
+                        PostCode = userViewModel.PostCode
+                    };
+
+                    customerService.CreateCustomer(customer);
+                }
+
                 return RedirectToAction("Index");
             }
             ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
@@ -200,6 +221,14 @@ namespace ABF
                 user.Name = editUser.Name;
                 user.PostCode = editUser.PostCode;
 
+                var customer = customerService.GetCustomerByUserId(user.Id);
+
+                customer.Email = editUser.Email;
+                customer.Name = editUser.Name;
+                customer.PostCode = editUser.PostCode;
+
+                customerService.UpdateCustomer(customer);
+
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
                 selectedRole = selectedRole ?? new string[] { };
@@ -254,7 +283,9 @@ namespace ABF
                 }
 
                 var user = await UserManager.FindByIdAsync(id);
-                if (user == null)
+                var customer = customerService.GetCustomerByUserId(id);
+
+                if (user == null && customer == null)
                 {
                     return HttpNotFound();
                 }
@@ -264,6 +295,9 @@ namespace ABF
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
+
+                customerService.DeleteCustomer(customer);
+
                 return RedirectToAction("Index");
             }
             return View();

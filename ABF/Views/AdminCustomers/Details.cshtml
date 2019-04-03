@@ -1,27 +1,22 @@
 ﻿@model ABF.Data.ABFDbModels.Customer
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<h2>Details</h2>
 
-<h3 class="text-danger">Are you sure you want to delete this customer?</h3>
-<div>
-    <hr />
+<hr />
+
+<div class="container">
+
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Address1)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Address1)
         </dd>
@@ -29,7 +24,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Address2)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Address2)
         </dd>
@@ -37,7 +31,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Address3)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Address3)
         </dd>
@@ -45,7 +38,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.PostCode)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.PostCode)
         </dd>
@@ -53,7 +45,6 @@
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
@@ -61,23 +52,20 @@
         <dt>
             @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
         <dt>
-      
-
-        
+            @Html.DisplayNameFor(model => model.MembershipType.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MembershipType.Type)
+        </dd>
     </dl>
 
-    @using (Html.BeginForm("DeleteCustomer", "AdminCustomers", new { id = Model.Id }, FormMethod.Post)) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
 </div>

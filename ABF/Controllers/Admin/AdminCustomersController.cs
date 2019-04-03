@@ -5,18 +5,20 @@ using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
+using ABF.ViewModels;
 
 namespace ABF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminCustomersController : Controller
     {
-
+        private MembershipTypeService membershipTypeService;
         private CustomerService customerService;
 
         public AdminCustomersController()
         {
             customerService = new CustomerService();
+            membershipTypeService = new MembershipTypeService();
         }
 
         [Route("Admin/Customers")]
@@ -25,39 +27,54 @@ namespace ABF.Controllers
             return View(customerService.GetCustomers());
         }
 
-        [HttpPost]
-        public ActionResult CreateCustomer(Customer NewCustomer)
+        [Route("Admin/Customers/New")]
+        public ActionResult New()
         {
-            try
+            var membershipTypes = membershipTypeService.GetMembershipTypes();
+
+            var viewModel = new CustomerFormViewModel
             {
-                // TODO: Add insert logic here
-                customerService.CreateCustomer(NewCustomer);
+                MembershipTypes = membershipTypes,
+                Customer = new Customer()
+            };
+
+            return View("CustomerForm", viewModel);
+        }
+
+        public ActionResult Save(CustomerFormViewModel viewModel)
+        {
+            if (viewModel.Customer.Id == 0)
+            {
+                customerService.CreateCustomer(viewModel.Customer);
+
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
-            }
+                customerService.UpdateCustomer(viewModel.Customer);
+
+                return RedirectToAction("Index");
+            }                           
         }
 
         [Route("Admin/Customers/Edit/{id}")]
         public ActionResult Edit(int id)
         {
-            return View(customerService.GetCustomer(id));
+            var membershipTypes = membershipTypeService.GetMembershipTypes();
+            var customer = customerService.GetCustomer(id);
+
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershipTypes,
+                Customer = customer
+            };
+
+            return View("CustomerForm", viewModel);
         }
 
-        [HttpPost]
-        public ActionResult Edit(int custNo, Customer UpdateCustomer)
+        public ActionResult Details(int id)
         {
-            try
-            {              
-                customerService.EditCustomer(UpdateCustomer);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(customerService.GetCustomer(id));
         }
 
         [Route("Admin/Customers/Delete/{id}")]
@@ -68,12 +85,12 @@ namespace ABF.Controllers
 
 
         [HttpPost]
-        public ActionResult Delete(int custNo, Customer RemoveCustomer)
-        {     
-                Customer  _customer;
-                _customer = customerService.GetCustomer(custNo);
-                customerService.DeleteCustomer(_customer);
-                return RedirectToAction("Index");
+        public ActionResult DeleteCustomer(int id)
+        {
+            var customer = customerService.GetCustomer(id);
+            customerService.DeleteCustomer(customer);
+            
+            return RedirectToAction("Index");
            
         }
     }
