@@ -7,8 +7,8 @@ namespace ABF.ViewModels
 {
     public class EventIndexViewModel
     {
-        public List<EventListViewModel> events { get; set; }
+        public List<EventListViewModel> Events { get; set; }
 
-        public List<DateTime> datelist { get; set; }
+        public List<DateTime> Datelist { get; set; }
     }
 }

@@ -49,8 +49,8 @@ namespace ABF.Controllers
 
             var datelist = eventService.GetUniqueDates();
 
-            indexview.events = viewModelList;
-            indexview.datelist = datelist.ToList();
+            indexview.Events = viewModelList;
+            indexview.Datelist = datelist.ToList();
 
             return View(indexview);
         }
@@ -121,7 +121,7 @@ namespace ABF.Controllers
             }
 
 
-            //return View("_DateList", datelist);
+            //return View("_DateList", Datelist);
         }
     }
 }
