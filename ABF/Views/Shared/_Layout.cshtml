@@ -8,14 +8,15 @@
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="@Url.Action("Index", "Home")" class="navbar-left"><img src="/Content/SiteImages/appledore-book-festival-logo-navbar-small.png" ></a>
-            <li class="navbar-collapse collapse" id="navbarSupportedContent">
+            <a href="@Url.Action("Index", "Home")" class="navbar-left"><img src="/Content/SiteImages/appledore-book-festival-logo-navbar-small.png"></a>
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
                 <ul class="nav navbar-nav mr-auto">
                     @if (User.IsInRole("Admin"))
@@ -42,10 +43,6 @@
                         @Html.ActionLink("Membership", "", "", new { @class = "nav-link" })
                     </li>
 
-                   
-
-                 
-
                 </ul>
 
                 @Html.Partial("_LoginPartial")
@@ -53,56 +50,43 @@
         </div>
     </nav>
 
-  
-        
+    <div class="container body-content h-100 pb-5">
+        @RenderBody()
+    </div>
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer class="bg-light fixed-bottom" style="height:35px">
-                <div class="row col-sm-12 center">
-            <footer class="bg-light accordion-footer fixed-bottom">
-                <div class="row col-sm-12 center">
+    <footer class="navbar mt-5" id="footer">
+        <ul class="list-group list-group-horizontal d-flex justify-content-center text-center">
+            <li class="list-group-item">
+                <small>@Html.ActionLink("About Us", "About", "Home")</small>
+            </li>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("About Us", "About", "Home")
-                    </ul>
+            <li class="list-group-item">
+                <small>@Html.ActionLink("Local Information", "Visit", "Home")</small>
+            </li>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("Local Information", "Visit", "Home")
-                    </ul>
+            <li class="list-group-item">
+                <small>@Html.ActionLink("FAQ", "FAQs", "Home")</small> 
+            </li>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("FAQ", "FAQs", "Home")
-                    </ul>
+            <li class="list-group-item">
+                <small>@Html.ActionLink("Contact Us", "Contact", "Home")</small>
+            </li>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("Contact Us", "Contact", "Home")
-                    </ul>
+            <li class="list-group-item">
+                <small>@Html.ActionLink("Our Policies", "Cookies", "Home")</small>
+            </li>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("Our Policies", "Cookies", "Home")
-                    </ul>
+            <li class="list-group-item">
+                <small>@Html.ActionLink("Ts & Cs", "TermsConditions", "Home")</small>
+            </li>
+            <li class="list-group-item">
+                <small>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211)</small>
+            </li>
+        </ul>
+    </footer>
 
-                    <ul class="nav-item">
-                        @Html.ActionLink("Ts & Cs", "TermsConditions", "Home")
-                    </ul>
-                </div>
-
-
-                </div>
-
-                <div class=" row center col-sm-12">
-                    <p>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211) </p>
-                </div>
-
-
-            </footer>
-            
-        </div>
-
-        @Scripts.Render("~/bundles/lib")
-        @Scripts.Render("~/bundles/jqueryval")
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

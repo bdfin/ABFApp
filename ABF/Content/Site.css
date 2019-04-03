@@ -7,6 +7,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    position: relative;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -86,6 +88,12 @@ textarea {
     border:none;
     background-color:transparent;
     outline:none;
+}
+
+#footer { 
+    width: 100%;
+    position:absolute;
+    bottom: -5;
 }
 
 
