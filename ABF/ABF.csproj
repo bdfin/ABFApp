@@ -621,6 +621,7 @@
     <Content Include="Views\Home\ContactSent.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
     <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Basket\AddtoBasket.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />

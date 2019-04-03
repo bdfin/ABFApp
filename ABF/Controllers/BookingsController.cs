@@ -87,7 +87,7 @@ namespace ABF.Controllers
 
         public ActionResult Basket()
         {
-            if (Session["tix"] == null)
+            if (Session["Tix"] == null)
             {
                 return View("BasketEmpty");
             }
@@ -98,7 +98,7 @@ namespace ABF.Controllers
 
                 // get Session["tix"] and store in Dictionary
                 Dictionary<int, int> event_ticket = new Dictionary<int, int>();
-                event_ticket = (Dictionary<int, int>)Session["tix"];
+                event_ticket = (Dictionary<int, int>)Session["Tix"];
 
                 if (event_ticket.Count == 0)
                 {

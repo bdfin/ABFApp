@@ -6,51 +6,6 @@
 <h2>Your Basket Is Empty</h2>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<table>
-    <tbody>
-        <tr>
-            <td>
-                <button name="button" type="button" class="sub btn btn-default">-</button>
-            </td>
-            <td>
-                <input name="quantity" type="text" id="1" value="0" class="field" />
-            </td>
-            <td>
-                <button name="button" type="button" class="add btn btn-default">+</button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button name="button" type="button" class="sub btn btn-default">-</button>
-            </td>
-            <td>
-                <input name="quantity" type="text" id="2" value="0" class="field" />
-            </td>
-            <td>
-                <button name="button" type="button" class="add btn btn-default">+</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-
-<script>
-
-    $('.add').click(function () {
-        if (!isNaN($(this).parent().prev().children(".field").val()))
-            $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
-        else
-            $(this).parent().prev().children(".field").val(0);
-    });
-    $('.sub').click(function () {
-        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0))
-            $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
-        else
-            $(this).parent().next().children(".field").val(0);
-    });
-
-</script>
 
 
 
