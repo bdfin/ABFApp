@@ -1,6 +1,7 @@
 ﻿@model ABF.ViewModels.EventIndexViewModel
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Index";
     var events = Model.events;
     var datelist = Model.datelist;
@@ -13,10 +14,7 @@
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<table class="table" id="eventsTable">
-    <tr id="tableheader">
-        <th></th>
-        <th style="display:none">Hidden ID</th>
+
 <input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
 
 <table class="table" id="eventsTable">
@@ -79,8 +77,8 @@
             </td>
             <td>
                 <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                    <input name="eventId" type="hidden" class="eId" value=@item.thisevent.Id>
-                    <input name="quantity" type="hidden" class="store" value="0" />
+                    <input name="eventId" type="text" class="eId" value=@item.thisevent.Id>
+                    <input name="quantity" type="text" class="store" value="0" />
                     <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
                         Add to Basket
                     </button>
@@ -88,44 +86,11 @@
             </td>
         }
     </tr>
-                </td>
-            }
-            else
-            {
-                <td>
-                    <button name="button" type="button" class="sub btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">-</button>
-                </td>
-                <td>
-                    <input name="quantity" type="text" id="@item.thisevent.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
-                </td>
-                <td>
-                    <button name="button" type="button" class="add btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">+</button>
-                </td>
-                <td>
-                    <button style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">Add to Basket</button>
-                </td>
-            }
-        <th style="display:none">Topics</th>
-    </tr>
+                
+        
     }
 
-    @foreach (var item in Model)
-    {
-        <tr id="tabledata">
-            <td style="display:none">@item.thisevent.Id</td>
-            <td>@Html.ActionLink(item.thisevent.Name, "Details", new { id = item.thisevent.Id })</td>
-            <td>@item.thisevent.Author</td>
-            <td>@item.thisevent.Date.ToShortDateString()</td>
-            <td>@item.thisevent.StartTime.ToShortTimeString() - @item.thisevent.EndTime.ToShortTimeString()</td>
-            <td>£@item.thisevent.TicketPrice</td>
-            <td>@item.thislocation.Name</td>
-            <td style="display:none">All the topics go here</td>
-            <td style="font-size:30px"><i class="fas fa-plus-square" style="color:#fcbf2d"></i></td>
-            <td style="font-size:20px;align-content:center"><text>0</text></td>
-            <td style="font-size:30px"><i class="fas fa-minus-square" style="color:#fcbf2d"></i></td>
-            <td><button style="width:130px; height:50px; background-color:#f4814b">Add to Basket</button></td>
-        </tr>
-    }
+  
 
 </table>
 <script>
@@ -206,15 +171,4 @@
 </script>
 
 
-
- 
-<script>
-
-            if (rowData.indexOf(searchText) == -1)
-                targetTable.rows.item(rowIndex).style.display = 'none';
-            else
-                targetTable.rows.item(rowIndex).style.display = 'table-row';
-        }
-    }
-</script>
 

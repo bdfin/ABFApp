@@ -154,7 +154,8 @@ namespace ABF
                     {
                         Email = userViewModel.Email,
                         Name = userViewModel.Name,
-                        PostCode = userViewModel.PostCode
+                        PostCode = userViewModel.PostCode,
+                        UserId = user.Id
                     };
 
                     customerService.CreateCustomer(customer);

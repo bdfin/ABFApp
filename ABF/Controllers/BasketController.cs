@@ -1,4 +1,3 @@
-﻿using System;
 ﻿using ABF.Service.Services;
 using System;
 using System.Collections.Generic;
@@ -53,7 +52,7 @@ namespace ABF.Controllers
             }
 
             return View("AddtoBasket");
-
+        }
         private BasketService basketService;
       
 
@@ -63,10 +62,5 @@ namespace ABF.Controllers
           
         }
 
-        // GET: Basket
-        public ActionResult Index()
-        {
-            return View();
-        }
     }
 }

@@ -6,10 +6,6 @@
 {
     var value = item.ToString("ddd dd MMM");
     var searchvalue = item.ToString("ddMMMyyyy");
-    
-    <input id="@item" type="button" value="@value" onclick="doSearch('@searchvalue')" />
 
-@foreach (var item in Model)
-{    
-    @item<br/>
+    <input id="@item" type="button" value="@value" onclick="doSearch('@searchvalue')" />
 }
