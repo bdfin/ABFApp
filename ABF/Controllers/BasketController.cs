@@ -67,6 +67,20 @@ namespace ABF.Controllers
         {
             return View();
         }
+
+        public void AddMembership(int membershipId)
+        {
+            // if user already has membership in basket, can not add another - must delete from basket
+
+            var ms = new MembershipTypeService();
+            var membershiptype = ms.GetMembershipType(membershipId);
+
+            Session["Membership"] = membershiptype;
+
+            ViewBag.Message = "membership type " + membershipId + " has been added to basket";
+            
+
+        }
  
     }
 }

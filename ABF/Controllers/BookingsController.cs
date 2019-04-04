@@ -123,7 +123,7 @@ namespace ABF.Controllers
 
         public ActionResult BasketwithAddOns()
         {
-            if (Session["Tix"] == null)
+            if (Session["Tix"] == null && (Session["Membership"] == null))
             {
                 return View("BasketEmpty");
             }
@@ -139,11 +139,7 @@ namespace ABF.Controllers
                 var event_ticket = new Dictionary<int, int>();
                 event_ticket = (Dictionary<int, int>)Session["Tix"];
 
-                if (event_ticket.Count == 0)
-                {
-                    return View("BasketEmpty");
-                }
-                else
+                if (event_ticket != null)
                 {
                     // populate events viewmodel list
                     foreach (KeyValuePair<int, int> e in event_ticket)
@@ -156,27 +152,31 @@ namespace ABF.Controllers
                     }
 
                     fullbasketviewmodel.eventtickets = basketviewmodel;
+                }
 
+                if (Session["AddOns"] != null)
+                {
+                    // get Session["AddOns"] and store it in Dictionary
+                    var addondictionary = new Dictionary<int, int>();
+                    addondictionary = (Dictionary<int, int>)Session["AddOns"];
 
-                    if (Session["AddOns"] != null)
+                    // populate dictionary of addons
+                    var fulladdons = new Dictionary<AddOn, int>();
+                    foreach (KeyValuePair<int, int> a in addondictionary)
                     {
-                        // get Session["AddOns"] and store it in Dictionary
-                        var addondictionary = new Dictionary<int, int>();
-                        addondictionary = (Dictionary<int, int>)Session["AddOns"];
-
-                        // populate dictionary of addons
-                        var fulladdons = new Dictionary<AddOn, int>();
-                        foreach (KeyValuePair<int, int> a in addondictionary)
-                        {
-                            var thisaddon = addOnService.GetAddOn(a.Key);
-                            fulladdons.Add(thisaddon, a.Value);
-                        }
-
-                        fullbasketviewmodel.addontickets = fulladdons;
+                        var thisaddon = addOnService.GetAddOn(a.Key);
+                        fulladdons.Add(thisaddon, a.Value);
                     }
 
-                    return View(fullbasketviewmodel);
+                    fullbasketviewmodel.addontickets = fulladdons;
                 }
+
+                if (Session["Membership"] != null)
+                {
+                    fullbasketviewmodel.Membership = (MembershipType)Session["Membership"];
+                }
+
+                return View(fullbasketviewmodel);
             }
         }
     }

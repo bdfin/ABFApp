@@ -2,7 +2,12 @@
     ViewBag.Title = "Membership";
 }
 
+@ViewBag.Message;
+
+<p>Make sure this can't be clicked until the user is logged it</p>
+<p>Also if user is already memeber, can not add new membership until old one expires</p>
+
 <h2>Membership stuff will go here</h2>
 
-@Html.ActionLink("Add standard membership to basket", "AddMembership", "Basket", new {membershipId = 2 }, null)
+@Html.ActionLink("Add standard membership to basket", "AddMembership", "Basket", new {membershipId = 1 }, null)
 
