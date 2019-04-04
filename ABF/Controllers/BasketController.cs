@@ -9,6 +9,13 @@ namespace ABF.Controllers
 {
     public class BasketController : Controller
     {
+        private BasketService basketService;
+        public BasketController()
+        {
+            basketService = new BasketService();
+
+        }
+
         // GET: Basket
         public ActionResult Index()
         {
@@ -53,14 +60,13 @@ namespace ABF.Controllers
 
             return View("AddtoBasket");
         }
-        private BasketService basketService;
-      
 
-        public BasketController()
+
+
+        public ActionResult Membership()
         {
-            basketService = new BasketService();
-          
+            return View();
         }
-
+ 
     }
 }
