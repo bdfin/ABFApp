@@ -11,5 +11,7 @@ namespace ABF.ViewModels
         public List<BasketViewModel> eventtickets { get; set; }
 
         public Dictionary<AddOn, int> addontickets { get; set; }
+
+        public MembershipType Membership { get; set; }
     }
 }

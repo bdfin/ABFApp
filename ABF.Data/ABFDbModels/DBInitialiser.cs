@@ -534,7 +534,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 1,
                     Type = "Standard",
-                    Expiry = true
+                    Expiry = true,
+                    Price = 20.00
                     
                 },
 
@@ -542,7 +543,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 2,
                     Type = "Life Time",
-                    Expiry = false
+                    Expiry = false,
+                    Price = 0.00
                 }
             };
 
