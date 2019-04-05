@@ -548,7 +548,7 @@ namespace ABF.Data.ABFDbModels
                     Id = 1,
                     Type = "Standard",
                     Expiry = true,
-                    Price = 20.00
+                    Price = 20
                     
                 },
 
@@ -557,7 +557,7 @@ namespace ABF.Data.ABFDbModels
                     Id = 2,
                     Type = "Life Time",
                     Expiry = false,
-                    Price = 0.00
+                    Price = 0
                 }
             };
 
