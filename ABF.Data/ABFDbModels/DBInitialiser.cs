@@ -520,19 +520,6 @@ namespace ABF.Data.ABFDbModels
                }
             };
 
-            // Add-On seed (Dan has added one to test basket features)
-            IList<AddOn> initialisedAddOns = new List<AddOn>
-            {
-                new AddOn()
-                {
-                    Id = 1,
-                    Name = "Test Add On",
-                    Description = "A test add-on so that Dan can do some basket stuff!",
-                    EventId = 1,
-                    Price = 5.00M
-                }
-            };
-
             // Image seed
             Image initialisedImage = new Image
             {
@@ -624,7 +611,6 @@ namespace ABF.Data.ABFDbModels
                 new AddOn
                 {
 
-
                     Id = 6,
                     Name = "Slime Making Kit",
                     Description = "Make your own slime! Includes several different colours.",
@@ -633,7 +619,150 @@ namespace ABF.Data.ABFDbModels
                     EventId = 4,
                 },
 
-        };
+             };
+
+            IList<Customer> InitialisedCustomers = new List<Customer>
+            {
+                new Customer
+                {
+                    Id= 1,
+                    UserId= "1",
+                    Name= "Lucy Stalker",
+                    Address1= "123 Avenue",
+                    Address2= "London",
+                    Address3= "",
+                    PostCode= "EC123LZ",
+                    Email= "Lucy.Stalker@test.com",
+                    PhoneNumber= "123456123458" ,
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 2,
+                    UserId= "2",
+                    Name= "Samantha Squire" ,
+                    Address1= "12 Road Street",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S215GN",
+                    Email= "sammysquire@test.com",
+                    PhoneNumber= "01149804582",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 3,
+                    UserId= "3",
+                    Name= "Marcus Pledge",
+                    Address1= "1 Castle Lane",
+                    Address2= "Floor 3",
+                    Address3= "Doncaster",
+                    PostCode= "D6JHS8",
+                    Email= "the.pledge.m@test.com",
+                    PhoneNumber= "01893920863",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 4,
+                    UserId= "4",
+                    Name= "Amy White",
+                    Address1= "52 Brooke Ln",
+                    Address2= "Leeds",
+                    Address3= "",
+                    PostCode= "LS8709K",
+                    Email= "a.white@test.com",
+                    PhoneNumber= "01757889365",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 5,
+                    UserId= "5",
+                    Name= "Tinker Bell",
+                    Address1= "12 Boat Line",
+                    Address2= "Pixie Street",
+                    Address3= "Neverland",
+                    PostCode= "NL89HK2",
+                    Email= "Tinkerbell@test.com",
+                    PhoneNumber= "7777778990",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 6,
+                    UserId= "6",
+                    Name= "Peter Pahn",
+                    Address1= "12 Boat Line",
+                    Address2= "Pixie Street",
+                    Address3= "Neverland",
+                    PostCode= "NL89HK2",
+                    Email= "PeterPan@test.com",
+                    PhoneNumber= "666789219274",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 7,
+                    UserId= "7",
+                    Name= "Andrew Cole",
+                    Address1= "67 Walkers Lane",
+                    Address2= "Selby",
+                    Address3= "North Yorkshire",
+                    PostCode= "YO89KO",
+                    Email= "a.cole@test.com",
+                    PhoneNumber= "01787639223" ,
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 8,
+                    UserId= "8",
+                    Name= "Eenie Miney" ,
+                    Address1= "2 Mousley Close",
+                    Address2= "Edinborough",
+                    Address3= "",
+                    PostCode= "EH13LK",
+                    Email= "Eenie.meenie.miney.m@tst.com",
+                    PhoneNumber= "123490987768",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 9,
+                    UserId= "9",
+                    Name= "Dave Bob",
+                    Address1= "23 Robley Lane",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S29OL",
+                    Email= "Dave.bb@test.com",
+                    PhoneNumber= "88975461209",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 10,
+                    UserId= "10",
+                    Name= "Chelsea Lou",
+                    Address1= "19 Floral Path",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S18RF",
+                    Email= "chelsea.lou@test.com",
+                    PhoneNumber= "0985672983",
+                    MembershipTypeId= 1,
+                },
+            };
 
 
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
@@ -641,6 +770,7 @@ namespace ABF.Data.ABFDbModels
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
             context.AddOns.AddRange(initialisedAddOns);
+           // context.Customers.AddRange(initialisedCustomers);
             context.SaveChanges();
 
             base.Seed(context);
