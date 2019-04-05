@@ -199,18 +199,14 @@ namespace ABF.Controllers
                     await UserManager.AddToRolesAsync(user.Id, "User");
 
                     //COMMENT THIS ONE LINE OUT IF YOU WANT TO HAVE A USER'S EMAIL ADDRESS CONFIRMED BEFORE ALLOWING LOG IN
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // these two lines create a confirmation code and toeken
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "Confirm your account");
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-                    // send the confirmation email to the email address
-                    SMTPEmail.SendEmail(user.Email, "ABF: Confirm your email address", 
-                        "Please confirm your account by clicking this link below:/n" + callbackUrl);
-
                     // return a message to the user
-                    ViewBag.Message = "Please check your email and confirm your email account by clicking on the link you have been sent.";
+                    ViewBag.Message = "Please check your email and click on the link you have been sent to confirm your email address.";
                     return View("Info");
                 }
                 AddErrors(result);
