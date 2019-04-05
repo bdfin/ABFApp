@@ -68,7 +68,7 @@ namespace ABF.Controllers
             return View();
         }
 
-        public void AddMembership(int membershipId)
+        public ActionResult AddMembership(int membershipId)
         {
             // if user already has membership in basket, can not add another - must delete from basket
 
@@ -78,7 +78,8 @@ namespace ABF.Controllers
             Session["Membership"] = membershiptype;
 
             ViewBag.Message = "membership type " + membershipId + " has been added to basket";
-            
+
+            return View ("AddtoBasket");
 
         }
  
