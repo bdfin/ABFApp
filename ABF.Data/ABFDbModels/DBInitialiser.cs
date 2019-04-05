@@ -621,7 +621,7 @@ namespace ABF.Data.ABFDbModels
 
              };
 
-            IList<Customer> InitialisedCustomers = new List<Customer>
+            IList<Customer> initialisedCustomers = new List<Customer>
             {
                 new Customer
                 {
@@ -634,7 +634,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
-                    MembershipTypeId= 1,
+                    //MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -662,7 +662,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 2,
                 },
 
                 new Customer
@@ -770,7 +770,7 @@ namespace ABF.Data.ABFDbModels
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
             context.AddOns.AddRange(initialisedAddOns);
-           // context.Customers.AddRange(initialisedCustomers);
+            context.Customers.AddRange(initialisedCustomers);
             context.SaveChanges();
 
             base.Seed(context);
