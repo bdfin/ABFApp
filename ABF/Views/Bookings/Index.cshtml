@@ -77,8 +77,8 @@
             </td>
             <td>
                 <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                    <input name="eventId" type="text" class="eId" value=@item.Event.Id>
-                    <input name="quantity" type="text" class="store" value="0" />
+                    <input name="eventId" type="hidden" class="eId" value=@item.Event.Id>
+                    <input name="quantity" type="hidden" class="store" value="0" />
                     <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
                         Add to Basket
                     </button>
