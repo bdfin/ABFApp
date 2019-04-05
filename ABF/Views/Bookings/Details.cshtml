@@ -1,15 +1,21 @@
 ﻿@model ABF.ViewModels.EventDetailsViewModel
 @{
     ViewBag.Title = "Details";
+
 }
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 <table id="infoheader">
     <tr>
         <td rowspan="5" style="width:280px;">
             @if (Model.Event.ImageId != 0)
-             {
+            {
                 <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
-             }
+            }
         </td>
 
         <td style="width:55%">
@@ -17,22 +23,46 @@
         </td>
 
         <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
-            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br/>
-            <p class="button btn-dark button-lg">-  0  +</p>
-            <p class="button btn-light button-lg">Add To Basket</p>
-            
+            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
+        </td>
+        <td>
+            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>
+        </td>
+        <td>
+            <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
+        </td>
+        <td>
+            <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
+        </td>
+        <td>
+            <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
+                <input name="eventId" type="text" class="eId" value=@Model.Event.Id />
+                <input name="quantity" type="text" class="store" value="0" />
+                <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                    Add to Basket
+                </button>
+
+            </form>
+        </td>
+
+
+
+        <td>
+            <!--  <i class="fas fa-minus-square"</i> -->
+            <!-- <p class="button btn-dark button-lg">-  0  +</p> -->
             @if (Model.AddOns.Count > 0)
             {
                 <ul>
                     @foreach (var item in Model.AddOns)
-                     {
+                    {
                         <li style="list-style:none; text-align:right">
                             @item.Name - <b>£@item.Price</b>
                         </li>
-                     }
+                    }
                 </ul>
                 <p>(add tickets to basket first)</p>
             }
+
         </td>
     </tr>
 
@@ -59,7 +89,7 @@
         @if (Model.AddOns.Count > 0)
         {
             <td style="background-color:aliceblue">
-               
+
                 <ul style="list-style:none">
                     <li>
                         <b><u>Extras Available:</u></b>
@@ -72,7 +102,7 @@
                     }
                 </ul>
             </td>
-         }
+        }
     </tr>
 
 
@@ -98,7 +128,7 @@
                         <script>
                             function myMap() {
 
-                                
+
                                 var mapProp =
                                 {
                                     center: new google.maps.LatLng(@Model.Location.LatLong),
@@ -124,9 +154,9 @@
                 <tr>
                     <td colspan="2">
                         <address style="text-align:right">
-                        <b>@Model.Location.Name</b><br/>
-                        @Model.Location.Address1, @Model.Location.Address2 <br />
-                        <b>@Model.Location.PostCode</b>
+                            <b>@Model.Location.Name</b><br />
+                            @Model.Location.Address1, @Model.Location.Address2 <br />
+                            <b>@Model.Location.PostCode</b>
                         </address>
                     </td>
                 </tr>
@@ -142,7 +172,7 @@
 
                 <tr>
                     <td>
-                        <img src="~/Content/MapIcons/Disability_Friendly-512.png" width="30"/>
+                        <img src="~/Content/MapIcons/Disability_Friendly-512.png" width="30" />
                     </td>
                     <td>
                         @if (!Model.Location.DisabledAccess)
@@ -167,9 +197,7 @@
                     <td style="width:250px">
                         <h5><b>External Links:</b></h5>
                     </td>
-                    <td>
-
-                    </td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -196,4 +224,42 @@
 </table>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
+
+<script>
+
+
+    // when any element with the 'add' class is clicked....
+    $('.add').click(function () {
+
+        // if value of 'field' class in previous TD is valid
+        if (!isNaN($(this).parent().prev().children(".field").val())) {
+            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
+            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
+            // prev()             = find the previous occurence of the <td> tag (in this case)
+            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <input>
+            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
+            // val()              = get the value of the element
+
+            $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val()+1);
+            $(this).parent().next().children(".addform").children(".store").val($(this).parent().prev().children(".field").val());
+        }
+        else {
+            $(this).parent().prev().children(".field").val(0);
+            $(this).parent().next().children(".addform").children(".store").val(0);
+        }
+    });
+
+
+    $('.sub').click(function () {
+        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0)) {
+            $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
+            $(this).parent().next().next().next().children(".addform").children(".store").val(+$(this).parent().next().children(".field").val());
+        }
+        else {
+            $(this).parent().next().children(".field").val(0);
+            $(this).parent().next().next().next().children(".addform").children(".store").val(0);
+        }
+    });
+
+
+</script>
