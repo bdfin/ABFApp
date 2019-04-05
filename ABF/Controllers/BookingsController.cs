@@ -87,42 +87,6 @@ namespace ABF.Controllers
 
         public ActionResult Basket()
         {
-            if (Session["Tix"] == null)
-            {
-                return View("BasketEmpty");
-            }
-            else
-            {
-                // empty list ready to be passed to view
-                var basketviewmodel = new List<BasketViewModel>();
-
-                // get Session["tix"] and store in Dictionary
-                Dictionary<int, int> event_ticket = new Dictionary<int, int>();
-                event_ticket = (Dictionary<int, int>)Session["Tix"];
-
-                if (event_ticket.Count == 0)
-                {
-                    return View("BasketEmpty");
-                }
-                else
-                {
-                    // populate viewmodel list for view
-                    foreach (KeyValuePair<int, int> e in event_ticket)
-                    {
-                        BasketViewModel basketentry = new BasketViewModel();
-                        basketentry.Event = eventService.GetEvent(e.Key);
-                        basketentry.LocationName = locationService.GetLocation(basketentry.Event.LocationId).Name;
-                        basketentry.Quantity = e.Value;
-                        basketviewmodel.Add(basketentry);
-                    }
-
-                    return View(basketviewmodel);
-                }
-            }
-        }
-
-        public ActionResult BasketwithAddOns()
-        {
             if (Session["Tix"] == null && (Session["Membership"] == null))
             {
                 return View("BasketEmpty");
@@ -157,14 +121,14 @@ namespace ABF.Controllers
                 if (Session["AddOns"] != null)
                 {
                     // get Session["AddOns"] and store it in Dictionary
-                    var addondictionary = new Dictionary<int, int>();
-                    addondictionary = (Dictionary<int, int>)Session["AddOns"];
+                    var addondictionary = new Dictionary<AddOn, int>();
+                    addondictionary = (Dictionary<AddOn, int>)Session["AddOns"];
 
                     // populate dictionary of addons
                     var fulladdons = new Dictionary<AddOn, int>();
-                    foreach (KeyValuePair<int, int> a in addondictionary)
+                    foreach (KeyValuePair<AddOn, int> a in addondictionary)
                     {
-                        var thisaddon = addOnService.GetAddOn(a.Key);
+                        var thisaddon = addOnService.GetAddOn(a.Key.Id);
                         fulladdons.Add(thisaddon, a.Value);
                     }
 

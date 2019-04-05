@@ -1,4 +1,5 @@
-﻿using ABF.Service.Services;
+﻿using ABF.Data.ABFDbModels;
+using ABF.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +71,7 @@ namespace ABF.Controllers
 
         public void AddMembership(int membershipId)
         {
+            // NEED TO IMPLEMENT:
             // if user already has membership in basket, can not add another - must delete from basket
 
             var ms = new MembershipTypeService();
@@ -81,6 +83,23 @@ namespace ABF.Controllers
             
 
         }
- 
+
+        public void AddAddOn(int Id)
+        {
+            var aos = new AddOnService();
+            var AddOnList = new Dictionary<AddOn, int>();
+
+            if (Session["AddOns"] != null)
+            {
+                AddOnList = (Dictionary<AddOn, int>) Session["AddOns"];
+            }
+        
+            // FOR TESTING PURPOSES: Only add a single add on (quantity 1) at a time
+            AddOnList.Add(aos.GetAddOn(Id), 1);
+
+            Session["AddOns"] = AddOnList;
+
+        }
+
     }
 }
