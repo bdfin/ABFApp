@@ -9,9 +9,10 @@ namespace ABF.ViewModels
 {
     public class EventListViewModel
     {
-        public Event thisevent { get; set; }
-
-        public Location thislocation { get; set; }
+        public Event Event { get; set; }
+        public Location Location { get; set; }
+        public Image Image { get; set; }
+        public IList<AddOn> AddOns { get; set; }
 
     }
 }

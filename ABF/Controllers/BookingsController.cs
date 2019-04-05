@@ -40,8 +40,8 @@ namespace ABF.Controllers
 
                 var viewModel = new EventListViewModel
                 {
-                    thisevent = e,
-                    thislocation = l
+                    Event = e,
+                    Location = l
                 };
 
                 viewModelList.Add(viewModel);
@@ -49,8 +49,8 @@ namespace ABF.Controllers
 
             var datelist = eventService.GetUniqueDates();
 
-            indexview.events = viewModelList;
-            indexview.datelist = datelist.ToList();
+            indexview.Events = viewModelList;
+            indexview.Datelist = datelist.ToList();
 
             return View(indexview);
         }
