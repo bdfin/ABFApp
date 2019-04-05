@@ -535,7 +535,7 @@ namespace ABF.Data.ABFDbModels
                     Id = 1,
                     Type = "Standard",
                     Expiry = true
-                    
+
                 },
 
                 new MembershipType
@@ -546,10 +546,229 @@ namespace ABF.Data.ABFDbModels
                 }
             };
 
+            //Add-on seed
+            IList<AddOn> initialisedAddOns = new List<AddOn>
+            {
+                new AddOn
+                {
+                    Id= 1,
+                    Name= "Novelty Bag",
+                    Description= "Novelty Peter Rabbit fabric bag signed by Beatrix Potter. White background with blue seams. 10L in size." ,
+                    Quantity= 20,
+                    Price= 15,
+                    EventId= 1,
+                },
+
+                new AddOn
+                {
+
+                    Id = 2,
+                    Name = "Appledore T-Shirt",
+                    Description = "Brighten up your summer with this limited addition Appledore T-shirt. Sure to make all of your friends jealous.",
+                    Quantity = 40,
+                    Price = 20,
+                    EventId = 6,
+                },
+
+                new AddOn
+                {
+
+                    Id = 3,
+                    Name = "Novelty Beer Stein",
+                    Description = "Signed by Barry himself, stand ut from the croud with this hand-made stein.",
+                    Quantity = 15,
+                    Price = 10,
+                    EventId = 11,
+
+                },
+
+                new AddOn
+                {
+
+                    Id = 4,
+                    Name = "Clay Making Kit",
+                    Description = "Includes 3 500g blocks of clay, 300ml of Glaze and a colour pain pallet.",
+                    Quantity = 4,
+                    Price = 15,
+                    EventId = 8,
+
+                },
+
+                new AddOn
+                {
+
+                    Id = 5,
+                    Name = "Signed Book",
+                    Description = "Get yourself a book signed by Jeremy Vine himself and a chance to visit him personally.",
+                    Quantity = 90,
+                    Price = 22,
+                    EventId = 2,
+
+                },
+
+                new AddOn
+                {
+
+                    Id = 6,
+                    Name = "Slime Making Kit",
+                    Description = "Make your own slime! Includes several different colours.",
+                    Quantity = 10,
+                    Price = 12,
+                    EventId = 4,
+                },
+
+             };
+
+            IList<Customer> InitialisedCustomers = new List<Customer>
+            {
+                new Customer
+                {
+                    Id= 1,
+                    UserId= "1",
+                    Name= "Lucy Stalker",
+                    Address1= "123 Avenue",
+                    Address2= "London",
+                    Address3= "",
+                    PostCode= "EC123LZ",
+                    Email= "Lucy.Stalker@test.com",
+                    PhoneNumber= "123456123458" ,
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 2,
+                    UserId= "2",
+                    Name= "Samantha Squire" ,
+                    Address1= "12 Road Street",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S215GN",
+                    Email= "sammysquire@test.com",
+                    PhoneNumber= "01149804582",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 3,
+                    UserId= "3",
+                    Name= "Marcus Pledge",
+                    Address1= "1 Castle Lane",
+                    Address2= "Floor 3",
+                    Address3= "Doncaster",
+                    PostCode= "D6JHS8",
+                    Email= "the.pledge.m@test.com",
+                    PhoneNumber= "01893920863",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 4,
+                    UserId= "4",
+                    Name= "Amy White",
+                    Address1= "52 Brooke Ln",
+                    Address2= "Leeds",
+                    Address3= "",
+                    PostCode= "LS8709K",
+                    Email= "a.white@test.com",
+                    PhoneNumber= "01757889365",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 5,
+                    UserId= "5",
+                    Name= "Tinker Bell",
+                    Address1= "12 Boat Line",
+                    Address2= "Pixie Street",
+                    Address3= "Neverland",
+                    PostCode= "NL89HK2",
+                    Email= "Tinkerbell@test.com",
+                    PhoneNumber= "7777778990",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 6,
+                    UserId= "6",
+                    Name= "Peter Pahn",
+                    Address1= "12 Boat Line",
+                    Address2= "Pixie Street",
+                    Address3= "Neverland",
+                    PostCode= "NL89HK2",
+                    Email= "PeterPan@test.com",
+                    PhoneNumber= "666789219274",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 7,
+                    UserId= "7",
+                    Name= "Andrew Cole",
+                    Address1= "67 Walkers Lane",
+                    Address2= "Selby",
+                    Address3= "North Yorkshire",
+                    PostCode= "YO89KO",
+                    Email= "a.cole@test.com",
+                    PhoneNumber= "01787639223" ,
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 8,
+                    UserId= "8",
+                    Name= "Eenie Miney" ,
+                    Address1= "2 Mousley Close",
+                    Address2= "Edinborough",
+                    Address3= "",
+                    PostCode= "EH13LK",
+                    Email= "Eenie.meenie.miney.m@tst.com",
+                    PhoneNumber= "123490987768",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 9,
+                    UserId= "9",
+                    Name= "Dave Bob",
+                    Address1= "23 Robley Lane",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S29OL",
+                    Email= "Dave.bb@test.com",
+                    PhoneNumber= "88975461209",
+                    MembershipTypeId= 1,
+                },
+
+                new Customer
+                {
+                    Id= 10,
+                    UserId= "10",
+                    Name= "Chelsea Lou",
+                    Address1= "19 Floral Path",
+                    Address2= "Sheffield",
+                    Address3= "",
+                    PostCode= "S18RF",
+                    Email= "chelsea.lou@test.com",
+                    PhoneNumber= "0985672983",
+                    MembershipTypeId= 1,
+                },
+            };
+
+
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
             context.Images.Add(initialisedImage);
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
+            context.AddOns.AddRange(initialisedAddOns);
+           // context.Customers.AddRange(initialisedCustomers);
             context.SaveChanges();
 
             base.Seed(context);
