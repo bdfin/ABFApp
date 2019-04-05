@@ -520,6 +520,19 @@ namespace ABF.Data.ABFDbModels
                }
             };
 
+            // Add-On seed (Dan has added one to test basket features)
+            IList<AddOn> initialisedAddOns = new List<AddOn>
+            {
+                new AddOn()
+                {
+                    Id = 1,
+                    Name = "Test Add On",
+                    Description = "A test add-on so that Dan can do some basket stuff!",
+                    EventId = 1,
+                    Price = 5.00M
+                }
+            };
+
             // Image seed
             Image initialisedImage = new Image
             {
@@ -552,6 +565,7 @@ namespace ABF.Data.ABFDbModels
             context.Images.Add(initialisedImage);
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
+            context.AddOns.AddRange(initialisedAddOns);
             context.SaveChanges();
 
             base.Seed(context);
