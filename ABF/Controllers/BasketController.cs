@@ -1,4 +1,5 @@
-﻿using ABF.Service.Services;
+﻿using ABF.Data.ABFDbModels;
+using ABF.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ABF.Controllers
         // GET: Basket
         public ActionResult Index()
         {
-            return View();
+            return View("Basketwithaddons", "Bookings");
         }
 
         public ActionResult AddToBasket(int eventId, int quantity)
@@ -61,8 +62,6 @@ namespace ABF.Controllers
             return View("AddtoBasket");
         }
 
-
-
         public ActionResult Membership()
         {
             return View();
@@ -80,6 +79,54 @@ namespace ABF.Controllers
             ViewBag.Message = "membership type " + membershipId + " has been added to basket";
 
             return View ("AddtoBasket");
+
+        }
+
+        public ActionResult AddAddOns(int addonId, int quantity)
+        {
+            if (quantity == 0)
+            {
+                ViewBag.Message = "Quantity = 0";
+                // do nothing
+            }
+            else
+            {
+                var modeldict = new Dictionary<AddOn, int>();
+                var modelint = new Dictionary<int, int>();
+                var aos = new AddOnService();
+
+                // if this is the first add-on selected
+                if (Session["AddOns"] == null)
+                {
+                    modeldict.Add(aos.GetAddOn(addonId), quantity);
+                    Session["AddOns"] = modeldict;
+                    ViewBag.Message = "New Basket created and add ons added";
+                }
+
+                // if this is NOT the first add-on selected
+                else
+                {
+                    modeldict = (Dictionary<AddOn, int>)Session["AddOns"];
+
+                    // if this add-on already exists in the session
+                    var thisaddon = aos.GetAddOn(addonId);
+
+                    if (modeldict.ContainsKey(thisaddon))
+                    {
+                        modeldict[thisaddon] += quantity;
+                        ViewBag.Message = "Add on already in basket, quantity updated";
+                    }
+                    // if this is a new add on
+                    else
+                    {
+                        modeldict.Add(thisaddon, quantity);
+                        Session["AddOns"] = modeldict;
+                        ViewBag.Message = "New add on and quantity added";
+                    }
+                }
+            }
+
+            return View("AddtoBasket");
 
         }
  

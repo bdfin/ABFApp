@@ -157,18 +157,10 @@ namespace ABF.Controllers
                 if (Session["AddOns"] != null)
                 {
                     // get Session["AddOns"] and store it in Dictionary
-                    var addondictionary = new Dictionary<int, int>();
-                    addondictionary = (Dictionary<int, int>)Session["AddOns"];
+                    var addondictionary = new Dictionary<AddOn, int>();
+                    addondictionary = (Dictionary<AddOn, int>)Session["AddOns"];
 
-                    // populate dictionary of addons
-                    var fulladdons = new Dictionary<AddOn, int>();
-                    foreach (KeyValuePair<int, int> a in addondictionary)
-                    {
-                        var thisaddon = addOnService.GetAddOn(a.Key);
-                        fulladdons.Add(thisaddon, a.Value);
-                    }
-
-                    fullbasketviewmodel.addontickets = fulladdons;
+                    fullbasketviewmodel.addontickets = addondictionary;
                 }
 
                 if (Session["Membership"] != null)

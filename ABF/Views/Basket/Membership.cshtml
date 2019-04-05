@@ -7,7 +7,13 @@
 <p>Make sure this can't be clicked until the user is logged it</p>
 <p>Also if user is already memeber, can not add new membership until old one expires</p>
 
-<h2>Membership stuff will go here</h2>
+<h2>Membership information will go here</h2>
 
 @Html.ActionLink("Add standard membership to basket", "AddMembership", "Basket", new {membershipId = 1 }, null)
+<br/>
 
+@Html.ActionLink("Add a single add-on 1 to basket", "AddAddOns", "Basket", new {AddOnId = 1, quantity = 1 }, null)
+<br />
+
+@Html.ActionLink("Add a couple of add-on 1s to basket", "AddAddOns", "Basket", new {addonId = 1, quantity = 2 }, null)
+<br />
