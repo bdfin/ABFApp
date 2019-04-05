@@ -44,40 +44,35 @@
                     @subtotal
                 </td>
             </tr>
+
+            <tr>
+                @{
+                    if (Model.addontickets != null)
+                    {
+                        foreach (var ao in Model.addontickets)
+                        {
+                            if (ao.Key.EventId == item.Event.Id)
+                            {
+                                <td></td>
+                                <td colspan="2"><b>Add-On</b>@ao.Key.Name</td>
+                                <td colspan="3"></td>
+                                <td>£@ao.Key.Price</td>
+                                <td>@ao.Value</td>
+                                <td>
+                                    @{ var x = ao.Key.Price * ao.Value; }
+                                    £@x
+                                </td>
+                            }
+
+                        }
+                    }
+                }
+            </tr>
         }
 
     </table>
 }
 <hr/>
-
-<p>Add Ons will appear here if you have any</p>
-@if (addons != null && addons.Count > 0)
-{
-    <h3>Extras</h3>
-    <table>
-        <tr>
-            <th>Event Id</th>
-            <th>Add On</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
-
-        @foreach (var addon in addons)
-        {
-            <tr>
-                <td>@addon.Key.EventId</td>
-                <td>@addon.Key.Name</td>
-                <td>@addon.Key.Price</td>
-                <td>@addon.Value</td>
-                <td>
-                    @{ var subtotal = addon.Key.Price * addon.Value; }
-                    @subtotal
-                </td>
-            </tr>
-        }
-    </table>
-}
 
 
 <hr/>
