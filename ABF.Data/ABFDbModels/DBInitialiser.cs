@@ -535,7 +535,7 @@ namespace ABF.Data.ABFDbModels
                     Id = 1,
                     Type = "Standard",
                     Expiry = true
-                    
+
                 },
 
                 new MembershipType
@@ -545,6 +545,81 @@ namespace ABF.Data.ABFDbModels
                     Expiry = false
                 }
             };
+
+            //Add-on seed
+            IList<AddOn> initialisedAddOns = new List<AddOn>
+            {
+                new AddOn
+                {
+                    Id= 1,
+                    Name= "Novelty Bag",
+                    Description= "Novelty Peter Rabbit fabric bag signed by Beatrix Potter. White background with blue seams. 10L in size." ,
+                    Quantity= 20,
+                    Price= 15,
+                    EventId= 1,
+                },
+
+                new AddOn
+                {
+
+                    Id = 2,
+                    Name = "Appledore T-Shirt",
+                    Description = "Brighten up your summer with this limited addition Appledore T-shirt. Sure to make all of your friends jealous.",
+                    Quantity = 40,
+                    Price = 20,
+                    EventId = 6,
+                },
+
+                new AddOn
+                {
+
+                    Id = 3,
+                    Name = "Novelty Beer Stein",
+                    Description = "Signed by Barry himself, stand ut from the croud with this hand-made stein.",
+                    Quantity = 15,
+                    Price = 10,
+                    EventId = 11,
+
+                },
+
+                new AddOn
+                {
+
+                    Id = 4,
+                    Name = "Clay Making Kit",
+                    Description = "Includes 3 500g blocks of clay, 300ml of Glaze and a colour pain pallet.",
+                    Quantity = 4,
+                    Price = 15,
+                    EventId = 8,
+
+                },
+
+                new AddOn
+                {
+
+                    Id = 5,
+                    Name = "Signed Book",
+                    Description = "Get yourself a book signed by Jeremy Vine himself and a chance to visit him personally.",
+                    Quantity = 90,
+                    Price = 22,
+                    EventId = 2,
+
+                },
+
+                new AddOn
+                {
+
+
+                    Id = 6,
+                    Name = "Slime Making Kit",
+                    Description = "Make your own slime! Includes several different colours.",
+                    Quantity = 10,
+                    Price = 12,
+                    EventId = 4,
+                },
+
+        };
+
 
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
             context.Images.Add(initialisedImage);
