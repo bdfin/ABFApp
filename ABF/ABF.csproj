@@ -617,7 +617,6 @@
     <Content Include="Views\AdminTicket\EventTickets.cshtml" />
     <Content Include="Views\AdminTicket\AllTicketQuantities.cshtml" />
     <Content Include="Views\AdminTicket\EventQuantity.cshtml" />
-    <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Bookings\BasketEmpty.cshtml" />
     <Content Include="Views\Home\ContactSent.cshtml" />
     <Content Include="Views\Shared\Info.cshtml" />
@@ -626,7 +625,7 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />
-    <Content Include="Views\Bookings\BasketwithAddOns.cshtml" />
+    <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Basket\Membership.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -91,36 +91,33 @@ namespace ABF.Controllers
             }
             else
             {
-                var modeldict = new Dictionary<AddOn, int>();
                 var modelint = new Dictionary<int, int>();
                 var aos = new AddOnService();
 
                 // if this is the first add-on selected
                 if (Session["AddOns"] == null)
                 {
-                    modeldict.Add(aos.GetAddOn(addonId), quantity);
-                    Session["AddOns"] = modeldict;
+                    modelint.Add(addonId, quantity);
+                    Session["AddOns"] = modelint;
                     ViewBag.Message = "New Basket created and add ons added";
                 }
 
                 // if this is NOT the first add-on selected
                 else
                 {
-                    modeldict = (Dictionary<AddOn, int>)Session["AddOns"];
+                    modelint = (Dictionary<int, int>)Session["AddOns"];
 
                     // if this add-on already exists in the session
-                    var thisaddon = aos.GetAddOn(addonId);
-
-                    if (modeldict.ContainsKey(thisaddon))
+                    if (modelint.ContainsKey(addonId))
                     {
-                        modeldict[thisaddon] += quantity;
+                        modelint[addonId] += quantity;
                         ViewBag.Message = "Add on already in basket, quantity updated";
                     }
                     // if this is a new add on
                     else
                     {
-                        modeldict.Add(thisaddon, quantity);
-                        Session["AddOns"] = modeldict;
+                        modelint.Add(addonId, quantity);
+                        Session["AddOns"] = modelint;
                         ViewBag.Message = "New add on and quantity added";
                     }
                 }

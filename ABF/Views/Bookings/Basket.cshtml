@@ -1,93 +1,102 @@
-﻿@model IEnumerable<ABF.ViewModels.BasketViewModel>
+﻿@model ABF.ViewModels.FullBasketViewModel
 
 @{
-    ViewBag.Title = "Basket";
+    ViewBag.Title = "BasketwithAddOns";
+
+    var addons = Model.addontickets;
+    var events = Model.eventtickets;
+    var member = Model.Membership;
+
 }
 
-<h2>@ViewBag.Message</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            Event
-        </th>
-        <th>
-            Author
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Time
-        </th>
-        <th>
-           Venue
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-            Total
-        </th>
-    </tr>
-
-    @{ decimal grandtotal = 0; }
-
-@foreach (var item in Model)
+<h2>Full Basket (With Add-Ons)</h2>
+<hr/>
+<p>tickets will appear here if you have any</p>
+@if(events!=null&&events.Count>0)
 {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Event.Date)
-        </td>
-        <td>
-            @{ string times = item.Event.StartTime.ToString("HH:mm") + " - " + item.Event.EndTime.ToString("HH:mm"); }
-            @Html.DisplayFor(modelItem => times)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationName)
-        </td>
-        <td>
-            £@Html.DisplayFor(modelItem => item.Event.TicketPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @{ decimal price = item.Event.TicketPrice * item.Quantity;
-                grandtotal += price; }
-            £@price
-        </td>
-    </tr>
+    <h3>Tickets:</h3>
+    <table>
+        <tr>
+            <th>Event ID</th>
+            <th>Event</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+
+        @foreach (var item in events)
+        {
+            <tr>
+                <td>@item.Event.Id</td>
+                <td>@item.Event.Name</td>
+                <td>@item.Event.Author</td>
+                <td>@item.Event.Date.ToString("dd MMM")</td>
+                <td>@item.Event.StartTime.ToString("HH:mm")</td>
+                <td>@item.LocationName</td>
+                <td>@item.Event.TicketPrice</td>
+                <td>@item.Quantity</td>
+                <td>
+                    @{ var subtotal = @item.Event.TicketPrice * @item.Quantity; }
+                    @subtotal
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+<hr/>
+
+<p>Add Ons will appear here if you have any</p>
+@if (addons != null && addons.Count > 0)
+{
+    <h3>Extras</h3>
+    <table>
+        <tr>
+            <th>Event Id</th>
+            <th>Add On</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+
+        @foreach (var addon in addons)
+        {
+            <tr>
+                <td>@addon.Key.EventId</td>
+                <td>@addon.Key.Name</td>
+                <td>@addon.Key.Price</td>
+                <td>@addon.Value</td>
+                <td>
+                    @{ var subtotal = addon.Key.Price * addon.Value; }
+                    @subtotal
+                </td>
+            </tr>
+        }
+    </table>
 }
 
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td colspan="2"><b>Grand Total</b></td>
-        <td><b>£@grandtotal</b></td>
-    </tr>
 
-</table>
-
-@{ if (User.IsInRole("User"))
-    {
-        <button>Checkout</button>
-    }
-    else
-    {
-        <button>Checkout as Guest</button>
-        <button>Login/Register</button>
-        }
-    }
+<hr/>
+<p>Membership will appear here if one is in the basket</p>
+@if (member != null)
+{
+    <h3>Membership</h3>
+    <table>
+        <tr>
+            <th>Membership Type</th>
+            <th>Valid From</th>
+            <th>Expires</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            <td>@member.Type</td>
+            <td>@DateTime.Today.ToString("dd MMM yyyy")</td>
+            <td>31 Dec @DateTime.Today.ToString("yyyy")</td>
+            <td>£@member.Price</td>
+        </tr>
+    </table>
+}
