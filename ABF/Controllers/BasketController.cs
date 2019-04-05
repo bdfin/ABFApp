@@ -11,9 +11,11 @@ namespace ABF.Controllers
     public class BasketController : Controller
     {
         private BasketService basketService;
+        private AddOnService addonService;
         public BasketController()
         {
             basketService = new BasketService();
+            addonService = new AddOnService();
 
         }
 
@@ -78,21 +80,28 @@ namespace ABF.Controllers
 
             ViewBag.Message = "membership type " + membershipId + " has been added to basket";
 
-            return View ("AddtoBasket");
+            return View("AddtoBasket");
 
         }
 
         public ActionResult AddAddOns(int addonId, int quantity)
         {
-            if (quantity == 0)
+            // CHECK IF EVENT IS IN BASKET
+            var eventsinbasket = (Dictionary<int, int>)Session["Tix"];      
+
+            if (Session["Tix"] == null || !eventsinbasket.ContainsKey(addonService.GetAddOn(addonId).EventId))
+            {
+                ViewBag.Message = "You must have a ticket in the basket for this event before you can buy add-ons.";
+                return View("Error");
+            }
+            else if (quantity == 0)
             {
                 ViewBag.Message = "Quantity = 0";
-                // do nothing
+                return View("Error");
             }
             else
             {
                 var modelint = new Dictionary<int, int>();
-                var aos = new AddOnService();
 
                 // if this is the first add-on selected
                 if (Session["AddOns"] == null)
@@ -105,10 +114,9 @@ namespace ABF.Controllers
                 // if this is NOT the first add-on selected
                 else
                 {
-                    modelint = (Dictionary<int, int>)Session["AddOns"];
 
                     // if this add-on already exists in the session
-                    if (modelint.ContainsKey(addonId))
+                    if (eventsinbasket.ContainsKey(addonId))
                     {
                         modelint[addonId] += quantity;
                         ViewBag.Message = "Add on already in basket, quantity updated";
@@ -121,11 +129,8 @@ namespace ABF.Controllers
                         ViewBag.Message = "New add on and quantity added";
                     }
                 }
+                return View("AddtoBasket");
             }
-
-            return View("AddtoBasket");
-
         }
- 
     }
 }

@@ -84,7 +84,7 @@
 {
     <table class="table">
         <tr class="table-warning">
-            <td><b>ABF Membership:</b>  @Model.Membership.Type. <b>&nbsp; Expires:</b> 31 Decimal @DateTime.Today.ToString("yyyy")</td>
+            <td><b>ABF Membership:</b>  @Model.Membership.Type. <b>&nbsp; Expires:</b> 31 Dec @DateTime.Today.ToString("yyyy")</td>
             <td style="text-align:right">
             £@Model.Membership.Price
             @{ grandtotal = grandtotal + Model.Membership.Price; }
