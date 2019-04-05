@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Protocols;
 
 namespace ABF.Controllers
 {
@@ -71,17 +72,23 @@ namespace ABF.Controllers
 
         public ActionResult AddMembership(int membershipId)
         {
-            // if user already has membership in basket, can not add another - must delete from basket
+            if (Session["Membership"] != null)
+            {
+                ViewBag.Message ="You already have a Membership in your Basket. " +
+                                 "To change your membership choice you must delete this from the basket first.";
+                return View("Error");
+            }
+            else
+            {
+                var ms = new MembershipTypeService();
+                var membershiptype = ms.GetMembershipType(membershipId);
 
-            var ms = new MembershipTypeService();
-            var membershiptype = ms.GetMembershipType(membershipId);
+                Session["Membership"] = membershiptype;
 
-            Session["Membership"] = membershiptype;
+                ViewBag.Message = "membership type " + membershipId + " has been added to basket";
 
-            ViewBag.Message = "membership type " + membershipId + " has been added to basket";
-
-            return View("AddtoBasket");
-
+                return View("AddtoBasket");
+            }
         }
 
         public ActionResult AddAddOns(int addonId, int quantity)
