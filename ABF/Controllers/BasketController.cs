@@ -121,7 +121,7 @@ namespace ABF.Controllers
                 // if this is NOT the first add-on selected
                 else
                 {
-
+                
                     // if this add-on already exists in the session
                     if (eventsinbasket.ContainsKey(addonId))
                     {
@@ -131,6 +131,7 @@ namespace ABF.Controllers
                     // if this is a new add on
                     else
                     {
+                        modelint = (Dictionary<int, int>) Session["AddOns"];
                         modelint.Add(addonId, quantity);
                         Session["AddOns"] = modelint;
                         ViewBag.Message = "New add on and quantity added";
