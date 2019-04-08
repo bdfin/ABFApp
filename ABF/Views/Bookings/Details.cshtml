@@ -32,8 +32,8 @@
             <br/>
 
             <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                <input name="eventId" type="text" class="eId" value=@Model.Event.Id />
-                <input name="quantity" type="text" class="store" value="0" />
+                <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
+                <input name="quantity" type="hidden" class="store" value="0" />
                 <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
                     Add to Basket
                 </button>
@@ -54,8 +54,8 @@
                             <br/>
 
                             <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
-                                <input name="addonId" type="text" class="eId" value=@item.Id />
-                                <input name="quantity" type="text" class="store" value="0" />
+                                <input name="addonId" type="hidden" class="eId" value=@item.Id />
+                                <input name="quantity" type="hidden" class="store" value="0" />
                                 <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
                                     Add
                                 </button>

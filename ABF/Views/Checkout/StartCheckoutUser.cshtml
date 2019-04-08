@@ -1,0 +1,101 @@
+﻿@using System.Web.ModelBinding
+@model ABF.Data.ABFDbModels.Customer
+
+@{
+    ViewBag.Title = "StartCheckoutUser";
+}
+
+<h2>Checkout with Registered Account</h2>
+<br/>
+
+
+<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout", null)">
+    <div class="col-sm">
+        <h4>Your Details</h4>
+        <table class="table-responsive-md">
+            <tr>
+                <td class="label">Name</td>
+                <td><input name="name" type="text" value="@Model.Name"/></td>
+            </tr>
+            <tr>
+                <td class="label">House Number/Name</td>
+                <td><input name="address1" type="text" value="@Model.Address1"/></td>
+            </tr>
+            <tr>
+                <td class="label">Street Name</td>
+                <td><input name="address2" type="text" value="@Model.Address2"/></td>
+            </tr>
+            <tr>
+                <td class="label">Town</td>
+                <td><input name="address3" type="text" value="@Model.Address3"/></td>
+            </tr>
+            <tr>
+                <td class="label">PostCode</td>
+                <td><input name="postcode" type="text" value="@Model.PostCode"/></td>
+            </tr>
+            <tr>
+                <td class="label">Email</td>
+                <td><input name="email" type="email" value="@Model.Email"/></td>
+            </tr>
+            <tr>
+                <td class="label">Telephone</td>
+                <td><input name="phone" type="tel" value="@Model.PhoneNumber"/></td>
+            </tr>
+        </table>
+    </div>
+    <hr/>
+    <div class="col-sm">
+        <h4>Payment Details</h4>
+        <table class="table-responsive-md">
+            <tr>
+                <td>Card Number</td>
+                <td><input name="cc" type="text" placeholder="1234 5678 9012 3456" /></td>
+            </tr>
+            <tr>
+                <td>Expiry Date</td>
+                <td><input name="expdate" type="text" placeholder="12 / 34" /></td>
+            </tr>
+            <tr>
+                <td>Security Code</td>
+                <td><input name="seccode" type="text" placeholder="987" /></td>
+            </tr>
+            <tr>
+                <td>Cardholder Name</td>
+                <td><input name="cardname" type="text" placeholder="Full Name" /></td>
+            </tr>
+            <tr>
+                <td>Registered PostCode</td>
+                <td><input name="cardpc" type="text" placeholder="AA12 3BC" /></td>
+            </tr>
+            <tr>
+                <td>Method of Delivery</td>
+                <td>
+                    <div class="form-group">
+                        <select class="form-control" id="deliverymethod">
+                            <option>Tickets By Email</option>
+                            <option>Royal Mail Post</option>
+                            <option>Collection from Box Office</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+            
+            
+            
+            
+            
+            
+
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Checkout</button>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+</form>
+
+
+

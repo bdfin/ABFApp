@@ -13,26 +13,26 @@
 <h2>Your Basket</h2>
 <hr />
 @if (events != null && events.Count > 0)
- {
+{
     <table class="table">
         <thead class="thead-dark">
-        <tr>
-            <th>Event</th>
-            <th>Author</th>
-            <th>Date</th>
-            <th>Start Time</th>
-            <th>Location</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-        </tr>
+            <tr>
+                <th>Event</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Location</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
 
         </thead>
 
         <tr><td> </td></tr>
 
         @foreach (var item in events)
-         {
+        {
             <tr class="table-primary">
                 <td><b>@item.Event.Name</b></td>
                 <td>@item.Event.Author</td>
@@ -75,28 +75,41 @@
             }
 
             <tr><td> </td></tr>
-         }
+        }
     </table>
- }
+}
 
 
 @if (Model.Membership != null)
 {
     <table class="table">
         <tr class="table-warning">
-            <td><b>ABF Membership:</b>  @Model.Membership.Type. <b>&nbsp; Expires:</b> 31 Dec @DateTime.Today.ToString("yyyy")</td>
+            <td><b>ABF Membership:</b> @Model.Membership.Type. <b>&nbsp; Expires:</b> 31 Dec @DateTime.Today.ToString("yyyy")</td>
             <td style="text-align:right">
-            £@Model.Membership.Price
-            @{ grandtotal = grandtotal + Model.Membership.Price; }
+                £@Model.Membership.Price
+                @{ grandtotal = grandtotal + Model.Membership.Price; }
         </tr>
-       
+
     </table>
 }
-                
+
 <table class="table">
     <tr>
         <td class="table-secondary" style="text-align:right; font-size:larger"><b>Total: &nbsp; &nbsp; &nbsp; £@grandtotal</b></td>
     </tr>
 
 </table>
+
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <input type="button" class="bg-success" value="Checkout" onclick="@("window.location.href='" + @Url.Action("StartCheckoutUser", "Checkout") + "'");" />
+}
+else
+{
+    <input type="button" class="bg-secondary" value="Checkout as Guest" onclick="@("window.location.href='" + @Url.Action("StartCheckoutGuest", "Checkout") + "'");" />
+    <input type="button" class="bg-info" value="Register/Login" onclick="@("window.location.href='" + @Url.Action("Login", "Account") + "'");" />
+}
 
