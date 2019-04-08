@@ -17,7 +17,7 @@ namespace ABF.Data.ABFDbModels
             {
                 new Location()
                 {
-                    Id = 0,
+                    Id = 1,
                     Name = "St Mary's Church",
                     Address1 = "Churchfield Road",
                     Address2 = "Appledore",
@@ -30,7 +30,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 1,
+                    Id = 2,
                     Name = "St Mary's Hall",
                     Address1 = "Churchfield Road",
                     Address2 = "Appledore",
@@ -43,7 +43,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 2,
+                    Id = 3,
                     Name = "Blue Lights Hall",
                     Address1 = "Vernons Lane",
                     Address2 = "Appledore",
@@ -55,7 +55,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 3,
+                    Id = 4,
                     Name = "Baptist Chapel",
                     Address1 = "Meeting Street",
                     Address2 = "Appledore",
@@ -68,7 +68,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 4,
+                    Id = 5,
                     Name = "Library Room",
                     Address1 = "The Quay",
                     Address2 = "Appledore",
@@ -81,7 +81,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 5,
+                    Id = 6,
                     Name = "Docton Court Gallery",
                     Address1 = "Myrtle Street",
                     Address2 = "Appledore",
@@ -94,7 +94,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 6,
+                    Id = 7,
                     Name = "Seagate Hotel",
                     Address1 = "The Quay",
                     Address2 = "Appledore",
@@ -106,7 +106,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 7,
+                    Id = 8,
                     Name = "Community Hall",
                     Address1 = "New Quay Street",
                     Address2 = "Appledore",
@@ -118,7 +118,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 8,
+                    Id = 9,
                     Name = "Sandy Brown's Gallery",
                     Address1 = "Marine Parade",
                     Address2 = "Appledore",
@@ -130,7 +130,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 9,
+                    Id = 10,
                     Name = "Suzie's Tea Room",
                     Address1 = "Market Street",
                     Address2 = "Appledore",
@@ -143,7 +143,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 10,
+                    Id = 11,
                     Name = "The Champ",
                     Address1 = "Meeting Street",
                     Address2 = "Appledore",
@@ -155,7 +155,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 11,
+                    Id = 12,
                     Name = "The Beaver",
                     Address1 = "Irsha Street",
                     Address2 = "Appledore",
@@ -167,7 +167,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 12,
+                    Id = 13,
                     Name = "Kingsley School Hall",
                     Address1 = "Northdown Road",
                     Address2 = "Bideford",
@@ -179,7 +179,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Location()
                 {
-                    Id = 13,
+                    Id = 14,
                     Name = "The Royal George",
                     Address1 = "Irsha Street",
                     Address2 = "Appledore",
@@ -196,7 +196,7 @@ namespace ABF.Data.ABFDbModels
             {
                new Event()
                 {
-                    Id = 0,
+                    Id = 1,
                     Date = new DateTime(2019,9,21),
                     StartTime = new DateTime(2019,9,21),
                     EndTime = new DateTime(2019,9,21),
@@ -212,7 +212,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 80,
                     TicketPrice = 10,
                     IsMemberOnly = false,
-                    LocationId = 0,
+                    LocationId = 1,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -221,7 +221,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 1,
+                    Id = 2,
                     Date = new DateTime(2019,9,21),
                     StartTime = new DateTime(2019,9,21),
                     EndTime = new DateTime(2019,9,21),
@@ -237,7 +237,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 8,
                     IsMemberOnly = false,
-                    LocationId = 1,
+                    LocationId = 2,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -246,7 +246,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 2,
+                    Id = 3,
                     Date = new DateTime(2019,9,22),
                     StartTime = new DateTime(2019,9,22),
                     EndTime = new DateTime(2019,9,22),
@@ -262,7 +262,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 230,
                     TicketPrice = 10,
                     IsMemberOnly = true,
-                    LocationId = 2,
+                    LocationId = 3,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -271,7 +271,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 3,
+                    Id = 4,
                     Date = new DateTime(2019,9,23),
                     StartTime = new DateTime(2019,9,23),
                     EndTime = new DateTime(2019,9,23),
@@ -287,7 +287,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 230,
                     TicketPrice = 12,
                     IsMemberOnly = false,
-                    LocationId = 3,
+                    LocationId = 4,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -296,7 +296,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 4,
+                    Id = 5,
                     Date = new DateTime(2019,9,23),
                     StartTime = new DateTime(2019,9,23),
                     EndTime = new DateTime(2019,9,23),
@@ -312,7 +312,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 5,
                     IsMemberOnly = false,
-                    LocationId = 4,
+                    LocationId = 5,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -321,7 +321,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 5,
+                    Id = 6,
                     Date = new DateTime(2019,9,24),
                     StartTime = new DateTime(2019,9,24),
                     EndTime = new DateTime(2019,9,24),
@@ -337,7 +337,7 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 80,
                     TicketPrice = 10,
                     IsMemberOnly = true,
-                    LocationId = 5,
+                    LocationId = 6,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
@@ -346,7 +346,7 @@ namespace ABF.Data.ABFDbModels
 
                new Event()
                 {
-                    Id = 6,
+                    Id = 7,
                     Date = new DateTime(2019,9,24),
                     StartTime = new DateTime(2019,9,24),
                     EndTime = new DateTime(2019,9,24),
@@ -362,16 +362,16 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 140,
                     TicketPrice = 6,
                     IsMemberOnly = false,
-                    LocationId = 6,
+                    LocationId = 7,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
                 },
 
-                new Event()
+               new Event()
                  {
-                        Id = 7,
+                        Id = 8,
                         Date = new DateTime(2019,9,25),
                         StartTime = new DateTime(2019,9,25),
                         EndTime = new DateTime(2019,9,25),
@@ -387,16 +387,16 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 40,
                         TicketPrice = 8,
                         IsMemberOnly = false,
-                        LocationId = 7,
+                        LocationId = 8,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
                  },
 
-                new Event()
+               new Event()
                   {
-                        Id = 8,
+                        Id = 9,
                         Date = new DateTime(2019,9,25),
                         StartTime = new DateTime(2019,9,25),
                         EndTime = new DateTime(2019,9,25),
@@ -412,16 +412,16 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 7,
                         TicketPrice = 40,
                         IsMemberOnly = false,
-                        LocationId = 8,
+                        LocationId = 9,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
                   },
 
-                new Event()
+               new Event()
                    {
-                        Id = 9,
+                        Id = 10,
                         Date = new DateTime(2019,9,26),
                         StartTime = new DateTime(2019,9,26),
                         EndTime = new DateTime(2019,9,26),
@@ -437,16 +437,16 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 30,
                         TicketPrice = 8,
                         IsMemberOnly = false,
-                        LocationId = 9,
+                        LocationId = 10,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
                    },
 
-                new Event()
+               new Event()
                {
-                        Id = 10,
+                        Id = 11,
                         Date = new DateTime(2019,9,26),
                         StartTime = new DateTime(2019,9,26),
                         EndTime = new DateTime(2019,9,26),
@@ -462,16 +462,16 @@ namespace ABF.Data.ABFDbModels
                         Capacity = 220,
                         TicketPrice = 8,
                         IsMemberOnly = false,
-                        LocationId = 10,
+                        LocationId = 11,
                         ImageId = 1,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
                },
 
-                new Event()
+               new Event()
                {
-                    Id = 11,
+                    Id = 12,
                     Date = new DateTime(2019,9,27),
                     StartTime = new DateTime(2019,9,27),
                     EndTime = new DateTime(2019,9,27),
@@ -487,16 +487,16 @@ namespace ABF.Data.ABFDbModels
                     Capacity = 40,
                     TicketPrice = 8,
                     IsMemberOnly = false,
-                    LocationId = 11,
+                    LocationId = 12,
                     ImageId = 1,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
                },
 
-                new Event()
+               new Event()
                {
-                   Id = 12,
+                   Id = 13,
                    Date = new DateTime(2019,9,27),
                    StartTime = new DateTime(2019,9,27),
                    EndTime = new DateTime(2019,9,27),
@@ -512,7 +512,7 @@ namespace ABF.Data.ABFDbModels
                    Capacity = 230,
                    TicketPrice = 10,
                    IsMemberOnly = false,
-                   LocationId = 12,
+                   LocationId = 13,
                    ImageId = 1,
                    BookUrl ="Link goes here",
                    AuthorUrl="Link goes here",
@@ -553,12 +553,12 @@ namespace ABF.Data.ABFDbModels
             {
                 new AddOn
                 {
-                    Id= 1,
+                    Id = 1,
                     Name= "Novelty Bag",
                     Description= "Novelty Peter Rabbit fabric bag signed by Beatrix Potter. White background with blue seams. 10L in size." ,
                     Quantity= 20,
                     Price= 15,
-                    EventId= 1,
+                    EventId= 2,
                 },
 
                 new AddOn
@@ -569,7 +569,7 @@ namespace ABF.Data.ABFDbModels
                     Description = "Brighten up your summer with this limited addition Appledore T-shirt. Sure to make all of your friends jealous.",
                     Quantity = 40,
                     Price = 20,
-                    EventId = 6,
+                    EventId = 7,
                 },
 
                 new AddOn
@@ -580,7 +580,7 @@ namespace ABF.Data.ABFDbModels
                     Description = "Signed by Barry himself, stand ut from the croud with this hand-made stein.",
                     Quantity = 15,
                     Price = 10,
-                    EventId = 11,
+                    EventId = 12,
 
                 },
 
@@ -592,7 +592,7 @@ namespace ABF.Data.ABFDbModels
                     Description = "Includes 3 500g blocks of clay, 300ml of Glaze and a colour pain pallet.",
                     Quantity = 4,
                     Price = 15,
-                    EventId = 8,
+                    EventId = 9,
 
                 },
 
@@ -604,7 +604,7 @@ namespace ABF.Data.ABFDbModels
                     Description = "Get yourself a book signed by Jeremy Vine himself and a chance to visit him personally.",
                     Quantity = 90,
                     Price = 22,
-                    EventId = 2,
+                    EventId = 3,
 
                 },
 
@@ -616,7 +616,7 @@ namespace ABF.Data.ABFDbModels
                     Description = "Make your own slime! Includes several different colours.",
                     Quantity = 10,
                     Price = 12,
-                    EventId = 4,
+                    EventId = 5,
                 },
 
              };
@@ -625,7 +625,7 @@ namespace ABF.Data.ABFDbModels
             {
                 new Customer
                 {
-                    Id= 1,
+                    Id = 1,
                     UserId= "1",
                     Name= "Lucy Stalker",
                     Address1= "123 Avenue",
@@ -634,7 +634,6 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
-                    //MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -704,7 +703,6 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "NL89HK2",
                     Email= "PeterPan@test.com",
                     PhoneNumber= "666789219274",
-                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -732,7 +730,6 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EH13LK",
                     Email= "Eenie.meenie.miney.m@tst.com",
                     PhoneNumber= "123490987768",
-                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -763,7 +760,6 @@ namespace ABF.Data.ABFDbModels
                     MembershipTypeId= 1,
                 },
             };
-
 
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
             context.Images.Add(initialisedImage);
