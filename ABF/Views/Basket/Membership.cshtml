@@ -4,14 +4,21 @@
 
 @ViewBag.Message
 
-<h5>If user is already a member, block them from buying new membership until old one expires.<br/>Hopefully Beau is implementing an easy check to see if user is 'valid' or expired</h5>
+@*If user is already a member, block them from buying new membership until old one expires.<br/>Hopefully Beau is implementing an easy check to see if user is 'valid' or expired. *@
 
-<h2>Membership information will go here (Tash)</h2>
+<body class="membership-bg">
+<div class="jumbotron box-colour">
+<h2>Membership</h2>
+<p>If you would like to support our charity, you can become a Friend of the Festival for an annual fee of £20. This not only supports the work that we do but also provides you with early access to ticket bookings, Friends exclusive events and a 10% discount at our Waterstones Festival bookshop.</p>
+
+
 
 @if (User.Identity.IsAuthenticated)
 {
     @Html.ActionLink("Add standard membership to basket", "AddMembership", "Basket", new {membershipId = 1 }, null)
+
 }
+
 else
 {
     <div class="bg-warning">
@@ -19,17 +26,23 @@ else
         <p>
             Please
             @Html.ActionLink("Login", "Login", "Account")
-            or 
-            @Html.ActionLink("Register", "Register", "Account") 
+            or
+            @Html.ActionLink("Register", "Register", "Account")
             a new account to purchase a membership.
         </p>
-        
+
     </div>
 }
 
-<hr/>
+<br /><br />
+<h2>Renewal</h2>
+<p>If you were a Friend of the Festival in 2018, your email address (username) and password have not changed, simply log on, check your details and pay for your membership renewal. You will be sent an email confirming your purchase and new for 2019, you will be allocated a membership number and an electronic membership card. If you have forgotten your password, simply follow the password reset button. If you need help, call our Box Office on 01237 424 949.</p>
 
-<div class="bg-light">
+    </div>
+
+</hr>
+
+<div class="bg-transparent">
     <h2>Dan's Test Buttons (will be deleted later)</h2>
     @Html.ActionLink("Add a single add-on 1 to basket", "AddAddOns", "Basket", new {AddOnId = 1, quantity = 1 }, null)
     <br />
@@ -37,3 +50,4 @@ else
     @Html.ActionLink("Add a couple of add-on 1s to basket", "AddAddOns", "Basket", new {addonId = 1, quantity = 2 }, null)
     <br />
 </div>
+    </body>

@@ -96,5 +96,11 @@ textarea {
     bottom: -5;
 }
 
-
+.membership-bg {
+    background: url("/Content/SiteImages/Membership background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
