@@ -23,44 +23,33 @@
         </td>
 
         <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
+            <br/>
             <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
-        </td>
-        <td>
+
             <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>
-        </td>
-        <td>
             <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
-        </td>
-        <td>
             <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
-        </td>
-        <td>
+            <br/>
+
             <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                <input name="eventId" type="text" class="eId" value=@Model.Event.Id />
-                <input name="quantity" type="text" class="store" value="0" />
+                <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
+                <input name="quantity" type="hidden" class="store" value="0" />
                 <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
                     Add to Basket
                 </button>
-
             </form>
-        </td>
+            <br/>
 
-
-
-        <td>
-            <!--  <i class="fas fa-minus-square"</i> -->
-            <!-- <p class="button btn-dark button-lg">-  0  +</p> -->
             @if (Model.AddOns.Count > 0)
             {
                 <ul>
                     @foreach (var item in Model.AddOns)
                     {
-                        <li style="list-style:none; text-align:right">
+                        <li style="list-style:none; text-align:center">
                             @item.Name - <b>£@item.Price</b>
                         </li>
                     }
                 </ul>
-                <p>(add tickets to basket first)</p>
             }
 
         </td>
@@ -232,7 +221,7 @@
     $('.add').click(function () {
 
         // if value of 'field' class in previous TD is valid
-        if (!isNaN($(this).parent().prev().children(".field").val())) {
+        if (!isNaN($(this).parent().children(".field").val())) {
             // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
             // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
             // prev()             = find the previous occurence of the <td> tag (in this case)
@@ -240,24 +229,24 @@
             // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
             // val()              = get the value of the element
 
-            $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val()+1);
-            $(this).parent().next().children(".addform").children(".store").val($(this).parent().prev().children(".field").val());
+            $(this).parent().children(".field").val(+$(this).parent().children(".field").val()+1);
+            $(this).parent().children(".addform").children(".store").val($(this).parent().children(".field").val());
         }
         else {
-            $(this).parent().prev().children(".field").val(0);
-            $(this).parent().next().children(".addform").children(".store").val(0);
+            $(this).parent().children(".field").val(0);
+            $(this).parent().children(".addform").children(".store").val(0);
         }
     });
 
 
     $('.sub').click(function () {
-        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0)) {
-            $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
-            $(this).parent().next().next().next().children(".addform").children(".store").val(+$(this).parent().next().children(".field").val());
+        if ((!isNaN($(this).parent().children(".field").val())) && ($(this).parent().children(".field").val() > 0)) {
+            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() - 1);
+            $(this).parent().children(".addform").children(".store").val(+$(this).parent().children(".field").val());
         }
         else {
-            $(this).parent().next().children(".field").val(0);
-            $(this).parent().next().next().next().children(".addform").children(".store").val(0);
+            $(this).parent().children(".field").val(0);
+            $(this).parent().children(".addform").children(".store").val(0);
         }
     });
 
