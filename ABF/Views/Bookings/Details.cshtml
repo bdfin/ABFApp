@@ -5,7 +5,6 @@
 }
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
@@ -23,13 +22,13 @@
         </td>
 
         <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
-            <br/>
+            <br />
             <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
 
-            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>
-            <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
+            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>&nbsp;&nbsp;
+            <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />&nbsp;&nbsp;
             <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
-            <br/>
+            <br />
 
             <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
                 <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
@@ -38,7 +37,7 @@
                     Add to Basket
                 </button>
             </form>
-            <br/>
+            <br />
 
             @if (Model.AddOns.Count > 0)
             {
@@ -48,10 +47,10 @@
                         <li style="list-style:none; text-align:center">
                             @item.Name - <b>£@item.Price</b>
 
-                            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>
-                            <input name="quantity" type="text" id="@item.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
+                            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>&nbsp;&nbsp;
+                            <input name="quantity" type="text" id="@item.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />&nbsp;&nbsp;
                             <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
-                            <br/>
+                            <br />
 
                             <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
                                 <input name="addonId" type="hidden" class="eId" value=@item.Id />
@@ -126,31 +125,7 @@
         <td rowspan="3" style="width:35%;background-color:#f4814b">
             <table id="locationmap">
                 <tr>
-                    <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px">
-                        <script>
-                            function myMap() {
-
-
-                                var mapProp =
-                                {
-                                    center: new google.maps.LatLng(@Model.Location.LatLong),
-                                    zoom: 16,
-                                    mapTypeControl: false
-                                };
-
-                                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-                                //Set the locations of the places of interest
-                                var venue_location = new google.maps.Marker(
-                                    {
-                                        position: new google.maps.LatLng(@Model.Location.LatLong),
-                                    });
-
-                                // plot the locations on the map
-                                venue_location.setMap(map);
-                            }
-                        </script>
-                    </td>
+                    <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px></td>
                 </tr>
 
                 <tr>
@@ -242,7 +217,7 @@
             // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
             // val()              = get the value of the element
 
-            $(this).parent().children(".field").val(+$(this).parent().children(".field").val()+1);
+            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() + 1);
             $(this).parent().children(".addform").children(".store").val($(this).parent().children(".field").val());
         }
         else {
@@ -265,3 +240,28 @@
 
 
 </script>
+
+
+<script>
+    function myMap()
+    {
+        var mapProp = {
+            center: new google.maps.LatLng(@Model.Location.LatLong),
+            zoom: 16,
+            mapTypeControl: false
+        };
+
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+        //Set the locations of the places of interest
+        var venue_location = new google.maps.Marker(
+            {
+                position: new google.maps.LatLng(@Model.Location.LatLong),
+            });
+
+        // plot the locations on the map
+        venue_location.setMap(map);
+    }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>
