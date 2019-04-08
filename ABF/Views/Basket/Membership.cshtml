@@ -16,8 +16,14 @@ else
 {
     <div class="bg-warning">
         <p>You must be logged in to buy a Membership online.<br/>It will automatically be added to your customer account.</p>
-        <p>Please Login or Register a new account using the links above.</p>
-        <h5>Tash, please replace the instructions in the line above with links to the login/register page</h5>
+        <p>
+            Please
+            @Html.ActionLink("Login", "Login", "Account")
+            or 
+            @Html.ActionLink("Register", "Register", "Account") 
+            a new account to purchase a membership.
+        </p>
+        
     </div>
 }
 
