@@ -144,7 +144,7 @@ namespace ABF.Controllers
         public ActionResult ClearBasket()
         {
             Session.Abandon();
-            return View("Basket", "Bookings");
+            return RedirectToAction("Basket", "Bookings");
         }
 
         public ActionResult DeleteBasketTix(int id)
@@ -160,13 +160,13 @@ namespace ABF.Controllers
             var addondictionary = (Dictionary<int, int>)Session["AddOns"];
             addondictionary.Remove(id);
             Session["AddOns"] = addondictionary;
-            return View("Basket", "Bookings");
+            return RedirectToAction("Basket", "Bookings");
         }
 
         public ActionResult DeleteBasketMembership()
         {
             Session["Membership"] = null;
-            return View("Index");
+            return RedirectToAction("Basket", "Bookings");
         }
 
     }
