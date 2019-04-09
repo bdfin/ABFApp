@@ -16,16 +16,17 @@
 {
     <table class="table">
         <thead class="thead-dark">
-            <tr>
-                <th>Event</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Location</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-            </tr>
+        <tr>
+            <th> </th>
+            <th>Event</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
 
         </thead>
 
@@ -34,6 +35,7 @@
         @foreach (var item in events)
         {
             <tr class="table-primary">
+                <td>@Html.ActionLink("Delete", "DeleteBasketTix", "Basket", new {id = item.Event.Id}, null)</td>
                 <td><b>@item.Event.Name</b></td>
                 <td>@item.Event.Author</td>
                 <td>@item.Event.Date.ToString("ddd dd MMM")</td>

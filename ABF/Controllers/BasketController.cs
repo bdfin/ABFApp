@@ -23,7 +23,7 @@ namespace ABF.Controllers
         // GET: Basket
         public ActionResult Index()
         {
-            return View("Basketwithaddons", "Bookings");
+            return View("Basket", "Bookings");
         }
 
         public ActionResult AddToBasket(int eventId, int quantity)
@@ -140,5 +140,34 @@ namespace ABF.Controllers
                 return View("AddtoBasket");
             }
         }
+
+        public ActionResult ClearBasket()
+        {
+            Session.Abandon();
+            return View("Basket", "Bookings");
+        }
+
+        public ActionResult DeleteBasketTix(int id)
+        {
+            var eventdictionary = (Dictionary<int, int>) Session["Tix"];
+            eventdictionary.Remove(id);
+            Session["Tix"] = eventdictionary;
+            return RedirectToAction("Basket", "Bookings");
+        }
+
+        public ActionResult DeleteBasketAddOn(int id)
+        {
+            var addondictionary = (Dictionary<int, int>)Session["AddOns"];
+            addondictionary.Remove(id);
+            Session["AddOns"] = addondictionary;
+            return View("Basket", "Bookings");
+        }
+
+        public ActionResult DeleteBasketMembership()
+        {
+            Session["Membership"] = null;
+            return View("Index");
+        }
+
     }
 }
