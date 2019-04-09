@@ -35,7 +35,6 @@ namespace ABF.Controllers
             return View("StartCheckout");
         }
 
-
         [HttpPost]
         public ActionResult Submit()
         {
