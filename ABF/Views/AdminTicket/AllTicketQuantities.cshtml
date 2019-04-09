@@ -1,23 +1,38 @@
-﻿@model Dictionary<int, int>
+﻿@model Dictionary<ABF.Data.ABFDbModels.Event, int>
 
 @{
-    ViewBag.Title = "Event IDs and Tickets Sold";
+    ViewBag.Title = "AllTicketQuantities";
 }
 
-<h2>Event IDs and Tickets sold</h2>
-<table>
-    <tr>
-        <th>Event ID</th>
-        <th>Tickets Sold</th>
-    </tr>
+<h2>Ticket Sales</h2>
 
-    @foreach (KeyValuePair<int, int> singleevent in Model)
+<table class="table">
+    <thead class="thead-dark">
+        <tr class="thead-dark">
+            <th scope="col">Event Id</th>
+            <th scope="col">Event Name</th>
+            <th scope="col">Capacity</th>
+            <th scope="col">Ticket Sales</th>
+            <th scope="col">Availability</th>
+            <th scope="col">% Sold</th>
+        </tr>
+    </thead>
+
+    @foreach (var e in Model)
     {
         <tr>
-            <td>@singleevent.Key</td>
-            <td>@singleevent.Value</td>
+            <td>@e.Key.Id</td>
+            <td>@e.Key.Name</td>
+            <td>@e.Key.Capacity</td>
+            <td>@e.Value</td>
+            <td>
+                @{ var avail = e.Key.Capacity - e.Value; }
+                @avail
+            </td>
+            <td>
+                @{ decimal perc = e.Value / e.Key.Capacity; }
+                @perc
+            </td>
         </tr>
     }
 </table>
-
-
