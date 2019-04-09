@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
+using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
@@ -41,9 +42,11 @@ namespace ABF.Controllers.Admin
         {
             // get the dictionary of eventids and tickets sold
             var ticketquantities = ticketService.GetTicketSalesQuantitiesForAllEvents();
+            var addonquantities = ticketService.GetAddOnSalesQuantitiesForAllEvents();
 
             // set up new dictionary of events and tickets sold
             var eventandquantitysold = new Dictionary<Event, int>();
+            var addonandquantitysold = new Dictionary<AddOn, int>();
 
             // get all the events
             var allevents = eventService.GetEvents();
@@ -61,17 +64,41 @@ namespace ABF.Controllers.Admin
                 }
             }
 
+            // get all the addons
+            var alladdons = addonService.GetAllAddOns();
+
+            // add each addon and the tickets sold to new dictionary
+            foreach (AddOn a in alladdons)
+            {
+                if (addonquantities.ContainsKey(a.Id))
+                {
+                    addonandquantitysold.Add(a, addonquantities[a.Id]);
+                }
+                else
+                {
+                    addonandquantitysold.Add(a, 0);
+                }
+            }
+
+            var salesdata = new StockQuantities()
+            {
+                events = eventandquantitysold,
+                addons = addonandquantitysold
+            };
+
             // pass new dictionary to view
-            return View(eventandquantitysold);
+            return View(salesdata);
         }
 
         public ActionResult GetAllAvailabilities()
         {
-            // get the tickets sales
+            // get the tickets and add-on sales numbers (Dictionary<Id,quantity>)
             var ticketquantities = ticketService.GetTicketSalesQuantitiesForAllEvents();
+            var addonquantities = ticketService.GetAddOnSalesQuantitiesForAllEvents();
 
-            // set up new dictionary to store the available number of tickets per event
+            // set up new dictionary to store the available number of tickets or addons per event
             var ticketavailabilities = new Dictionary<int, int>();
+            var addonavailabilities = new Dictionary<int, int>();
 
             // get all the events
             var allevents = eventService.GetEvents();
@@ -86,6 +113,22 @@ namespace ABF.Controllers.Admin
                 else
                 {
                     ticketavailabilities.Add(e.Id, e.Capacity);
+                }
+            }
+
+            // get all the addons
+            var alladdons = addonService.GetAllAddOns();
+
+            // iterate through addons, calculating availability
+            foreach (var a in alladdons)
+            {
+                if (addonquantities.ContainsKey(a.Id))
+                {
+                    addonavailabilities.Add(a.Id, (a.Quantity - addonquantities[a.Id]));
+                }
+                else
+                {
+                    addonavailabilities.Add(a.Id, a.Quantity);
                 }
             }
 

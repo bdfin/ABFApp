@@ -20,10 +20,12 @@ namespace ABF.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private CustomerService customerService;
+        private ABFDbContext db;
 
         public AccountController()
         {
             customerService = new CustomerService();
+            db = new ABFDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -194,6 +196,8 @@ namespace ABF.Controllers
                     };
 
                     customerService.CreateCustomer(customer);
+                    db.SaveChanges();
+                    
 
                     // Sets default user type to basic 'Customer'
                     await UserManager.AddToRolesAsync(user.Id, "User");

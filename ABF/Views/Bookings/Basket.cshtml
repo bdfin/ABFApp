@@ -9,8 +9,8 @@
     decimal grandtotal = 0;
 
 }
-
 <h2>Your Basket</h2>
+<button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
 <hr />
 @if (Model.Membership != null)
 {
@@ -23,7 +23,6 @@
                 £@Model.Membership.Price
                 @{ grandtotal = grandtotal + Model.Membership.Price; }
         </tr>
-
     </table>
 }
 
@@ -113,11 +112,11 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <input type="button" class="bg-success" value="Checkout" onclick="@("window.location.href='" + @Url.Action("StartCheckoutUser", "Checkout") + "'");" />
+    <input type="button" class="btn-lg btn-outline-success" value="Checkout" onclick="@("window.location.href='" + @Url.Action("StartCheckoutUser", "Checkout") + "'");" />
 }
 else
 {
-    <input type="button" class="bg-secondary" value="Checkout as Guest" onclick="@("window.location.href='" + @Url.Action("StartCheckoutGuest", "Checkout") + "'");" />
-    <input type="button" class="bg-info" value="Register/Login" onclick="@("window.location.href='" + @Url.Action("Login", "Account") + "'");" />
+    <input type="button" class="btn-lg btn-outline-secondary" value="Checkout as Guest" onclick="@("window.location.href='" + @Url.Action("StartCheckoutGuest", "Checkout") + "'");" />
+    <input type="button" class="btn-lg btn-outline-info" value="Register/Login" onclick="@("window.location.href='" + @Url.Action("Login", "Account") + "'");" />
 }
 
