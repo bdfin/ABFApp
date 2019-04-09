@@ -18,6 +18,8 @@ namespace ABF.Data.ABFDbModels
 
         public int PaymentId { get; set; }
 
+        public string Delivery { get; set; }
+
         public virtual Payment Payment { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }

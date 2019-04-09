@@ -12,6 +12,8 @@ namespace ABF.Data.ABFDbModels
 
         public string Method { get; set; }
 
+        public decimal Amount {get; set;}
+       
         public virtual IList<Order> Orders { get; set; }
     }
 }
