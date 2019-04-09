@@ -11,6 +11,8 @@
         <tr class="thead-dark">
             <th scope="col">Event Id</th>
             <th scope="col">Event Name</th>
+            <th scope="col">Event Author</th>
+            <th scope="col">Event Date</th>
             <th scope="col">Capacity</th>
             <th scope="col">Ticket Sales</th>
             <th scope="col">Availability</th>
@@ -23,10 +25,18 @@
         <tr>
             <td>@e.Key.Id</td>
             <td>@e.Key.Name</td>
+            <td>@e.Key.Author</td>
+            <td>@e.Key.Date.ToString("ddd dd MMM")</td>
             <td>@e.Key.Capacity</td>
             <td>@e.Value</td>
             <td>
-                @{ var avail = e.Key.Capacity - e.Value; }
+                @{
+                    var avail = (e.Key.Capacity - e.Value).ToString();
+                    if (avail == "0")
+                    {
+                        avail = "Sold Out";
+                    }
+                }
                 @avail
             </td>
             <td>

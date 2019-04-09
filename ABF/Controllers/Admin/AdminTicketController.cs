@@ -65,6 +65,40 @@ namespace ABF.Controllers.Admin
             return View(eventandquantitysold);
         }
 
+        public ActionResult GetAllAvailabilities()
+        {
+            // get the tickets sales
+            var ticketquantities = ticketService.GetTicketSalesQuantitiesForAllEvents();
+
+            // set up new dictionary to store the available number of tickets per event
+            var ticketavailabilities = new Dictionary<int, int>();
+
+            // get all the events
+            var allevents = eventService.GetEvents();
+
+            // iterate through events, calculating availability
+            foreach (var e in allevents)
+            {
+                if (ticketquantities.ContainsKey(e.Id))
+                {
+                    ticketavailabilities.Add(e.Id, (e.Capacity - ticketquantities[e.Id]));
+                }
+                else
+                {
+                    ticketavailabilities.Add(e.Id, e.Capacity);
+                }
+            }
+
+            return View(ticketavailabilities);
+        }
+
+        public int GetAvailability(int id)
+        {
+            var ticketssold = ticketService.GetTicketSalesQuantityForEvent(id);
+            var availability = eventService.GetEvent(id).Capacity - ticketssold;
+            return availability;
+        }
+
         public ActionResult EventQuantity(int id)
         {
             var eventquantity = ticketService.GetTicketSalesQuantityForEvent(id);
