@@ -1,4 +1,4 @@
-﻿
+﻿@model decimal
 @{
     ViewBag.Title = "StartCheckoutGuest";
 }
@@ -6,7 +6,7 @@
 <h2>Checkout As Guest</h2>
 <br/>
 
-
+<h1>Grand Total £@Model</h1>
 <form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout")">
     <div class="col-sm">
         <h4>Your Details</h4>

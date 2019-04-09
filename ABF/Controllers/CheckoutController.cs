@@ -33,9 +33,49 @@ namespace ABF.Controllers
 
         public ActionResult StartCheckoutGuest()
         {
-            return View("StartCheckout");
+            Session["GrandTotal"] = this.calculategrandtotal();
+         
+            return View("StartCheckout",this.calculategrandtotal());
         }
 
+        protected decimal calculategrandtotal()
+        {
+           EventService es = new EventService();
+           AddOnService aos = new AddOnService();
+           MembershipTypeService mts = new MembershipTypeService();
+            decimal grandtotal = 0;
+
+
+            if (Session["Tix"] != null)
+            {
+                var alltix = (Dictionary<int, int>)Session["Tix"];
+                foreach (KeyValuePair<int, int> singletix in alltix)
+                {
+                    var price = es.GetEvent(singletix.Key).TicketPrice;
+                    var subtotal = price * singletix.Value;
+                    grandtotal += subtotal;
+                }
+
+            }
+
+            if (Session["AddOns"] != null)
+            {
+                var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                {
+                    var price = aos.GetAddOn(singleaddon.Key).Price;
+                    var subtotal = price * singleaddon.Value;
+                    grandtotal += subtotal;
+                }
+            }
+
+            if(Session["Membership"] != null)
+            {
+                grandtotal += mts.GetMembershipType((int)Session["Membership"]).Price;
+            }
+               
+            return grandtotal;
+        }
 
         [HttpPost]
         public ActionResult Submit(string name, string address1, string address2, string address3, string postcode, string email, string phone)
