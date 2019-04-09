@@ -177,9 +177,15 @@ namespace ABF.Controllers
         public ActionResult DeleteBasketAddOn(int id)
         {
             var addondictionary = (Dictionary<int, int>)Session["AddOns"];
-            addondictionary.Remove(id);
-            Session["AddOns"] = addondictionary;
-
+            if (addondictionary.Count > 1)
+            {
+                addondictionary.Remove(id);
+                Session["AddOns"] = addondictionary;
+            }
+            else
+            {
+                Session["AddOns"] = null;
+            }
             return RedirectToAction("Basket", "Bookings");
         }
 
