@@ -24,5 +24,11 @@ namespace ABF.Service.Services
 
         }
 
+        public int GetOrderId(string PaymentId, string CustomerId)
+
+        {
+           return orderDAO.GetOrderId(PaymentId, CustomerId);
+        }
+
     }
 }

@@ -25,5 +25,15 @@ namespace ABF.Data.DAO
 
         }
 
+        public int GetOrderId(string PaymentId, string CustomerId)
+        {
+            var orderId = from order in _context.Orders
+                          where order.PaymentId == PaymentId
+                          && order.CustomerId == CustomerId
+                          select order.Id;
+
+            return orderId.First();
+        }
+
     }
 }
