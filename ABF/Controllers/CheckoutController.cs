@@ -40,14 +40,22 @@ namespace ABF.Controllers
         [HttpPost]
         public ActionResult Submit()
         {
+             ABFDbContext db;
+             db = new ABFDbContext();
+
+            PaymentService ps;
+            ps = new PaymentService();
+
 
             var payment = new Payment()
             {
-
+                Method = "card",
+                Amount = 20
 
             };
 
-            
+            ps.CreatePayment(payment);
+            db.SaveChanges();  
             
             
             // all the logic goes here

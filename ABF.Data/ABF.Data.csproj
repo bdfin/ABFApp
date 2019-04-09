@@ -71,6 +71,7 @@
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\LocationDAO.cs" />
     <Compile Include="DAO\MembershipTypeDAO.cs" />
+    <Compile Include="DAO\PaymentDAO.cs" />
     <Compile Include="DAO\TicketDAO.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -9,7 +9,7 @@
 <br/>
 
 
-<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout", null)">
+<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout",null)" >
     <div class="col-sm">
         <h4>Your Details</h4>
         <table class="table-responsive-md">
@@ -79,7 +79,18 @@
                     </div>
                 </td>
             </tr>
-            
+            <tr>
+                <td>Payment Method</td>
+                <td>
+                    <div class="form-group">
+                        <select class="form-control" id="paymentmethod" name="paymentmethod">
+                            <option value="card">Card</option>
+                            <option value="cash">Cash on Collection</option>
+                            <option value="cheque">Postal Cheque</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
             
             
             

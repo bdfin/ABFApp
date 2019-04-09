@@ -638,6 +638,7 @@
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Checkout\StartCheckout.cshtml" />
     <Content Include="Views\Checkout\StartCheckoutUser.cshtml" />
+    <Content Include="Views\Checkout\Submit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
