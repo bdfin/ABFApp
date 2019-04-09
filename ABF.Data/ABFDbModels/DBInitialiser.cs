@@ -517,6 +517,15 @@ namespace ABF.Data.ABFDbModels
                    BookUrl ="Link goes here",
                    AuthorUrl="Link goes here",
 
+               },
+               
+               new Event()
+               {
+                   Id = 999999999,
+                   Name = "Constructor Event",
+                   Capacity = 0,
+                   LocationId = 1,
+                   ImageId = 1,
                }
             };
 
@@ -551,6 +560,13 @@ namespace ABF.Data.ABFDbModels
             //Add-on seed
             IList<AddOn> initialisedAddOns = new List<AddOn>
             {
+                new AddOn
+                {
+                    Id = 999999999,
+                    Name= "Constructor AddOn",
+                    Quantity= 0,
+                    EventId= 999999999,
+                },
                 new AddOn
                 {
                     Id = 1,

@@ -12,7 +12,7 @@ namespace ABF.Data.ABFDbModels
 
         public int EventId { get; set; }
 
-        public int? AddOnId { get; set; }
+        public int AddOnId { get; set; }
 
         public int OrderId { get; set; }
 

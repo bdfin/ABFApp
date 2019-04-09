@@ -158,8 +158,7 @@ namespace ABF.Controllers
                         {
                             Id = ticketId,
                             EventId = singletix.Key,
-                            OrderId =orderId,
-                            AddOnId = null,
+                            OrderId = orderId,
                            
                         };
 
