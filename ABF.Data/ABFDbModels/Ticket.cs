@@ -10,9 +10,9 @@ namespace ABF.Data.ABFDbModels
     {
         public string Id { get; set; }
 
-        public int EventId { get; set; }
+        public int? EventId { get; set; }
 
-        public int AddOnId { get; set; }
+        public int? AddOnId { get; set; }
 
         public int OrderId { get; set; }
 
