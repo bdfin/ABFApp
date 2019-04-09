@@ -1,7 +1,9 @@
-﻿@model Dictionary<ABF.Data.ABFDbModels.Event, int>
+﻿@model ABF.ViewModels.StockQuantities
 
 @{
-    ViewBag.Title = "AllTicketQuantities";
+    ViewBag.Title = "All Ticket Quantities";
+    var events = Model.events;
+    var addons = Model.addons;
 }
 
 <h2>Ticket Sales</h2>
@@ -20,9 +22,9 @@
         </tr>
     </thead>
 
-    @foreach (var e in Model)
+    @foreach (var e in events)
     {
-        <tr>
+        <tr class="table-primary" style="padding-top:5px">
             <td>@e.Key.Id</td>
             <td>@e.Key.Name</td>
             <td>@e.Key.Author</td>
@@ -44,5 +46,34 @@
                 @perc
             </td>
         </tr>
+
+
+        foreach (var a in addons)
+         {
+             <tr class="table-light">
+                 @if (a.Key.EventId == e.Key.Id)
+                 {
+                     <td></td>
+                     <td>+ Add On: </td>
+                     <td colspan="2">@a.Key.Id: @a.Key.Name</td>
+                     <td>@a.Key.Quantity</td>
+                     <td>@a.Value</td>
+                     <td>
+                         @{
+                             var AOavail = (a.Key.Quantity - a.Value).ToString();
+                             if (AOavail == "0")
+                             {
+                                 AOavail = "Sold Out";
+                             }
+                         }
+                         @AOavail
+                     </td>
+                     <td>
+                         @{ decimal AOperc = a.Value / a.Key.Quantity; }
+                         @AOperc
+                     </td>
+                 }
+             </tr>
+         }
     }
-</table>
+    </table>

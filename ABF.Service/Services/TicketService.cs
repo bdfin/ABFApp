@@ -32,9 +32,19 @@ namespace ABF.Service.Services
           return _ticketSalesDAO.GetTicketSalesQuantitiesForAllEvents();
         }
 
+        public Dictionary<int, int> GetAddOnSalesQuantitiesForAllEvents()
+        {
+          return _ticketSalesDAO.GetAddOnSalesQuantitiesForAllEvents();
+        }
+
         public int GetTicketSalesQuantityForEvent(int id)
         {
             return _ticketSalesDAO.GetTicketSalesQuantityForEvent(id);
+        }
+
+        public int GetAddOnSalesQuantityForEvent(int id)
+        {
+            return _ticketSalesDAO.GetAddOnSalesQuantityForEvent(id);
         }
     }
 }
