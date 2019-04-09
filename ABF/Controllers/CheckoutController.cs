@@ -38,26 +38,51 @@ namespace ABF.Controllers
 
 
         [HttpPost]
-        public ActionResult Submit()
+        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode, string email, string phone)
         {
              ABFDbContext db;
              db = new ABFDbContext();
 
+            //Make a new payment
             PaymentService ps;
             ps = new PaymentService();
 
-
+            string paymentid = Guid.NewGuid().ToString();
             var payment = new Payment()
             {
+                Id = paymentid, 
                 Method = "card",
                 Amount = 20
 
             };
 
             ps.CreatePayment(payment);
-            db.SaveChanges();  
-            
-            
+            db.SaveChanges();
+
+            //Create Customer Class
+
+
+            CustomerService cs;
+            cs = new CustomerService();
+
+            string customerid = Guid.NewGuid().ToString();
+
+            var customer = new Customer()
+            {
+                Id = customerid,
+                Name = name,
+                Address1 = address1,
+                Address2 = address2,
+                Address3 = address3,
+                PostCode = postcode,
+                Email = email,
+                PhoneNumber = phone,
+            };
+
+            cs.CreateCustomer(customer);
+            db.SaveChanges();
+
+
             // all the logic goes here
             return View();
         }

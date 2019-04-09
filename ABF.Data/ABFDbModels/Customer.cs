@@ -9,7 +9,7 @@ namespace ABF.Data.ABFDbModels
 {
     public class Customer
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string UserId { get; set; }
 

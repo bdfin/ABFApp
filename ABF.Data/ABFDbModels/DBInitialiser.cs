@@ -625,7 +625,7 @@ namespace ABF.Data.ABFDbModels
             {
                 new Customer
                 {
-                    Id = 1,
+                    Id = "1",
                     UserId= "1",
                     Name= "Lucy Stalker",
                     Address1= "123 Avenue",
@@ -638,7 +638,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 2,
+                    Id= "2",
                     UserId= "2",
                     Name= "Samantha Squire" ,
                     Address1= "12 Road Street",
@@ -652,7 +652,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 3,
+                    Id= "3",
                     UserId= "3",
                     Name= "Marcus Pledge",
                     Address1= "1 Castle Lane",
@@ -666,7 +666,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 4,
+                    Id= "4",
                     UserId= "4",
                     Name= "Amy White",
                     Address1= "52 Brooke Ln",
@@ -680,7 +680,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 5,
+                    Id= "5",
                     UserId= "5",
                     Name= "Tinker Bell",
                     Address1= "12 Boat Line",
@@ -694,7 +694,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 6,
+                    Id= "6",
                     UserId= "6",
                     Name= "Peter Pahn",
                     Address1= "12 Boat Line",
@@ -707,7 +707,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 7,
+                    Id= "7",
                     UserId= "7",
                     Name= "Andrew Cole",
                     Address1= "67 Walkers Lane",
@@ -721,7 +721,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 8,
+                    Id= "8",
                     UserId= "8",
                     Name= "Eenie Miney" ,
                     Address1= "2 Mousley Close",
@@ -734,7 +734,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 9,
+                    Id= "9",
                     UserId= "9",
                     Name= "Dave Bob",
                     Address1= "23 Robley Lane",
@@ -748,7 +748,7 @@ namespace ABF.Data.ABFDbModels
 
                 new Customer
                 {
-                    Id= 10,
+                    Id= "10",
                     UserId= "10",
                     Name= "Chelsea Lou",
                     Address1= "19 Floral Path",

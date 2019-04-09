@@ -14,9 +14,9 @@ namespace ABF.Data.ABFDbModels
 
         public DateTime Time { get; set; }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
-        public int PaymentId { get; set; }
+        public string PaymentId { get; set; }
 
         public string Delivery { get; set; }
 
