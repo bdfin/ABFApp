@@ -149,9 +149,28 @@ namespace ABF.Controllers
 
         public ActionResult DeleteBasketTix(int id)
         {
+            // remove tickets from session  
             var eventdictionary = (Dictionary<int, int>) Session["Tix"];
             eventdictionary.Remove(id);
             Session["Tix"] = eventdictionary;
+
+            //check if any add-ons exist and delete those too
+            var addondictionary = (Dictionary<int, int>) Session["AddOns"];
+            int needtodelete = 0;
+
+            foreach (KeyValuePair<int, int> addon in addondictionary)
+            {
+                if (addonService.GetAddOn(addon.Key).EventId == id)
+                {
+                    needtodelete = addon.Key;
+                }
+            }
+            if (needtodelete != 0)
+            {
+                addondictionary.Remove(needtodelete);
+            }
+            Session["AddOns"] = addondictionary;
+
             return RedirectToAction("Basket", "Bookings");
         }
 
@@ -160,6 +179,7 @@ namespace ABF.Controllers
             var addondictionary = (Dictionary<int, int>)Session["AddOns"];
             addondictionary.Remove(id);
             Session["AddOns"] = addondictionary;
+
             return RedirectToAction("Basket", "Bookings");
         }
 
