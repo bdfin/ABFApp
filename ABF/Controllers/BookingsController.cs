@@ -4,9 +4,11 @@ using ABF.Service.Services;
 using ABF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Controllers.Admin;
 
 namespace ABF.Controllers
 {
@@ -16,6 +18,7 @@ namespace ABF.Controllers
         private EventService eventService;
         private ImageService imageService;
         private AddOnService addOnService;
+        private AdminTicketController adminticketcontroller;
 
         public BookingsController()
         {
@@ -23,6 +26,7 @@ namespace ABF.Controllers
             eventService = new EventService();
             imageService = new ImageService();
             addOnService = new AddOnService();
+            adminticketcontroller = new AdminTicketController();
         }
 
         // GET: Bookings
@@ -33,15 +37,32 @@ namespace ABF.Controllers
             var viewModelList = new List<EventListViewModel>();
             var indexview = new EventIndexViewModel();
 
+            // construct a list of all event Ids which have add-ons
+            var ao = addOnService.GetAllAddOns();
+            var eventswithaddons = new List<int>();
+            foreach (var addon in ao)
+            {
+                eventswithaddons.Add(addon.EventId);
+            }
+
             foreach (Event Singleevent in eList)
             {
                 var e = Singleevent;
                 var l = locationService.GetLocation(e.LocationId);
+                var a = adminticketcontroller.GetAvailability(e.Id);
+                var hasao = false;
 
+                if (eventswithaddons.Contains(e.Id))
+                {
+                    hasao = true;
+                }
+                
                 var viewModel = new EventListViewModel
                 {
                     Event = e,
-                    Location = l
+                    Location = l,
+                    availability = a,
+                    hasAddOn = hasao,  
                 };
 
                 viewModelList.Add(viewModel);

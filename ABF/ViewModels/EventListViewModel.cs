@@ -13,6 +13,8 @@ namespace ABF.ViewModels
         public Location Location { get; set; }
         public Image Image { get; set; }
         public IList<AddOn> AddOns { get; set; }
+        public int availability { get; set; }
+        public bool hasAddOn { get; set; }
 
     }
 }
