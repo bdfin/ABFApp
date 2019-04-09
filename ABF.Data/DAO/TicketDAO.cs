@@ -75,9 +75,9 @@ namespace ABF.Data.DAO
         }
 
 
-        public Dictionary<int, int> GetAddOnSalesQuantitiesForAllEvents()
+     /*   public Dictionary<int, int> GetAddOnSalesQuantitiesForAllEvents()
         {
-            // make a list of all the addonIds which tickets have been sold for
+            make a list of all the addonIds which tickets have been sold for
             IQueryable<int> addonIDs;
             addonIDs = from ticket
                       in _context.Tickets
@@ -110,7 +110,7 @@ namespace ABF.Data.DAO
             return addon_tickets;
         }
 
-
+    */
         public int GetTicketSalesQuantityForEvent(int id)
         {
             int ticketcount;
@@ -141,5 +141,13 @@ namespace ABF.Data.DAO
             return addoncount;
         }
 
+
+        public void CreateTicket(Ticket ticket)
+            {
+
+            _context.Tickets.Add(ticket);
+            _context.SaveChanges();
+
+        }
     }
 }

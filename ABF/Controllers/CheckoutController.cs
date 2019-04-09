@@ -84,6 +84,9 @@ namespace ABF.Controllers
              ABFDbContext db;
              db = new ABFDbContext();
 
+            OrderService orderService = new OrderService();
+            TicketService ticketService = new TicketService();
+
             //Make a new payment
             PaymentService ps;
             ps = new PaymentService();
@@ -138,13 +141,39 @@ namespace ABF.Controllers
                 };
             os.CreateOrder(order);
             db.SaveChanges();
-               
 
-            
+            var TicketList = new List<Ticket>();
+
+            var orderId = orderService.GetOrderId(paymentid, customerid);
+
+            if (Session["Tix"] != null)
+            {
+                var alltix = (Dictionary<int, int>)Session["Tix"];
+                foreach (KeyValuePair<int, int> singletix in alltix)
+                {
+                    for (int i = 0; i < singletix.Value; i++) 
+                    {
+                        var ticketId = Guid.NewGuid().ToString();
+                        var ticket = new Ticket()
+                        {
+                            Id = ticketId,
+                            EventId = singletix.Key,
+                            OrderId =orderId,
+                            AddOnId = null,
+                           
+                        };
+
+                        ticketService.CreateTicket(ticket);
+                        db.SaveChanges();
+                        TicketList.Add(ticket);
+                    }
+                }
+
+            };
 
 
             // all the logic goes here
-            return View();
+            return View(TicketList);
         }
     }
 

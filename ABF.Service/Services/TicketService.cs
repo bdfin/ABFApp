@@ -46,5 +46,11 @@ namespace ABF.Service.Services
         {
             return _ticketSalesDAO.GetAddOnSalesQuantityForEvent(id);
         }
+
+        public void CreateTicket(Ticket ticket)
+        {
+            _ticketSalesDAO.CreateTicket(ticket);
+        }
     }
+
 }

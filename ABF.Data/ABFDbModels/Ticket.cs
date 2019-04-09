@@ -8,11 +8,11 @@ namespace ABF.Data.ABFDbModels
 {
     public class Ticket
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public int EventId { get; set; }
 
-        public int AddOnId { get; set; }
+        public int? AddOnId { get; set; }
 
         public int OrderId { get; set; }
 
