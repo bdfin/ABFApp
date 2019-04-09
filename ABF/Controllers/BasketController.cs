@@ -30,8 +30,8 @@ namespace ABF.Controllers
         {
             if (quantity == 0)
             {
-                ViewBag.Message = "Quantity = 0";
-                // do nothing
+                ViewBag.Message = "Can't add 0 tickets to Basket";
+                return RedirectToAction("Basket", "Bookings");
             }
             else
             {
@@ -41,7 +41,6 @@ namespace ABF.Controllers
                 {
                     model.Add(eventId, quantity);
                     Session["Tix"] = model;
-                    ViewBag.Message = "New Basket created and tickets added";
                 }
 
                 else
@@ -51,18 +50,16 @@ namespace ABF.Controllers
                     if (model.ContainsKey(eventId))
                     {
                         model[eventId] += quantity;
-                        ViewBag.Message = "Event aready in basket, quantity updated";
                     }
                     else
                     {
                         model.Add(eventId, quantity);
                         Session["Tix"] = model;
-                        ViewBag.Message = "New event and quantity of tickets added";
                     }
                 }
+                return RedirectToAction("Basket", "Bookings");
             }
 
-            return View("AddtoBasket");
         }
 
         public ActionResult Membership()
@@ -82,12 +79,8 @@ namespace ABF.Controllers
             {
                 var ms = new MembershipTypeService();
                 var membershiptype = ms.GetMembershipType(membershipId);
-
                 Session["Membership"] = membershiptype;
-
-                ViewBag.Message = "membership type " + membershipId + " has been added to basket";
-
-                return View("AddtoBasket");
+                return RedirectToAction("Basket", "Bookings");
             }
         }
 
@@ -115,7 +108,6 @@ namespace ABF.Controllers
                 {
                     modelint.Add(addonId, quantity);
                     Session["AddOns"] = modelint;
-                    ViewBag.Message = "New Basket created and add ons added";
                 }
 
                 // if this is NOT the first add-on selected
@@ -126,7 +118,6 @@ namespace ABF.Controllers
                     if (eventsinbasket.ContainsKey(addonId))
                     {
                         modelint[addonId] += quantity;
-                        ViewBag.Message = "Add on already in basket, quantity updated";
                     }
                     // if this is a new add on
                     else
@@ -134,10 +125,9 @@ namespace ABF.Controllers
                         modelint = (Dictionary<int, int>) Session["AddOns"];
                         modelint.Add(addonId, quantity);
                         Session["AddOns"] = modelint;
-                        ViewBag.Message = "New add on and quantity added";
                     }
                 }
-                return View("AddtoBasket");
+                return RedirectToAction("Basket", "Bookings");
             }
         }
 
@@ -177,9 +167,15 @@ namespace ABF.Controllers
         public ActionResult DeleteBasketAddOn(int id)
         {
             var addondictionary = (Dictionary<int, int>)Session["AddOns"];
-            addondictionary.Remove(id);
-            Session["AddOns"] = addondictionary;
-
+            if (addondictionary.Count > 1)
+            {
+                addondictionary.Remove(id);
+                Session["AddOns"] = addondictionary;
+            }
+            else
+            {
+                Session["AddOns"] = null;
+            }
             return RedirectToAction("Basket", "Bookings");
         }
 
