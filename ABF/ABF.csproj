@@ -416,6 +416,7 @@
     <Content Include="Content\SiteImages\appledore-book-festival-logo-shadow.png" />
     <Content Include="Content\SiteImages\appledore-book-festival-logo.png" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
+    <Content Include="Content\SiteImages\Membership background.jpg" />
     <Content Include="Content\SiteImages\navbar-basket.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
