@@ -122,9 +122,30 @@ namespace ABF.Controllers
             cs.CreateCustomer(customer);
             db.SaveChanges();
 
+           
+            
+                OrderService os;
+                os = new OrderService();
+
+                var order = new Order()
+                {
+                    Date = DateTime.Today,
+                    Time = DateTime.Now,
+                    CustomerId = customerid,
+                    PaymentId = paymentid,
+                    Delivery = "email"
+                };
+            os.CreateOrder(order);
+            db.SaveChanges();
+               
+
+            
+
 
             // all the logic goes here
             return View();
         }
     }
+
+    
 }
