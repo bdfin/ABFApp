@@ -175,8 +175,10 @@ namespace ABF.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userguid = Guid.NewGuid().ToString();
                 var user = new ApplicationUser
                 {
+                    Id = userguid,
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
@@ -192,7 +194,7 @@ namespace ABF.Controllers
                         Name = model.Name,
                         Email = model.Email,
                         PostCode = model.PostCode,
-                        UserId = user.Id
+                        UserId = userguid
                     };
 
                     customerService.CreateCustomer(customer);
@@ -546,6 +548,6 @@ namespace ABF.Controllers
             return callbackUrl;
         }
 
-        
+      
     }
 }

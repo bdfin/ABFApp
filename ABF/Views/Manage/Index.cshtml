@@ -7,67 +7,101 @@
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <p>Click <b>here</b> to view your account details.</p>
 
-    <h4>Change your account settings</h4>
     <hr />
 
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
+    <form method="post" class="customerdetails" action="@Url.Action("updateCustomerDetails")">
+        <div class="col-sm">
+            <h4>Your Details</h4>
+            <table class="table-responsive-md">
+                <tr>
+                    <td class="label">Name</td>
+                    <td><input name="name" type="text" value="@Model.customer.Name" /></td>
+                </tr>
+                <tr>
+                    <td class="label">House Number/Name</td>
+                    <td><input name="address1" type="text" value="@Model.customer.Address1" /></td>
+                </tr>
+                <tr>
+                    <td class="label">Street Name</td>
+                    <td><input name="address2" type="text" value="@Model.customer.Address2" /></td>
+                </tr>
+                <tr>
+                    <td class="label">Town</td>
+                    <td><input name="address3" type="text" value="@Model.customer.Address3" /></td>
+                </tr>
+                <tr>
+                    <td class="label">PostCode</td>
+                    <td><input name="postcode" type="text" value="@Model.customer.PostCode" /></td>
+                </tr>
+                <tr>
+                    <td class="label">Email</td>
+                    <td><input name="email" type="email" value="@Model.customer.Email" /></td>
+                </tr>
+                <tr>
+                    <td class="label">Telephone</td>
+                    <td><input name="phone" type="tel" value="@Model.customer.PhoneNumber" /></td>
+                </tr>
+            </table>
+        </div>
+        <hr />
+
+        <dl class="dl-horizontal">
+            <dt>Password:</dt>
             <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
+                [
+                @if (Model.HasPassword)
                 {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
+                    @Html.ActionLink("Change your password", "ChangePassword")
                 }
                 else
                 {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    @Html.ActionLink("Create", "SetPassword")
                 }
+                ]
             </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            @if (Model.TwoFactor)
+            <dt>External Logins:</dt>
+            <dd>
+                @Model.Logins.Count [
+                @Html.ActionLink("Manage", "ManageLogins") ]
+            </dd>
+            @*
+                Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+                 See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+                 Uncomment the following block after you have set up two-factor authentication
+            *@
+            @*
+                <dt>Phone Number:</dt>
+                <dd>
+                    @(Model.PhoneNumber ?? "None")
+                    @if (Model.PhoneNumber != null)
+                    {
+                        <br />
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
+                        using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                        }
+                    }
+                    else
+                    {
+                        <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                    }
+                </dd>
+            *@
+            <dt>Two-Factor Authentication:</dt>
+            <dd>
+                @if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
+                            <input type="submit" value="Disable" class="btn btn-link" />
                         </text>
                     }
                 }
@@ -77,10 +111,10 @@
                     {
                         @Html.AntiForgeryToken()
                         <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
+                            <input type="submit" value="Enable" class="btn btn-link" />
                         </text>
                     }
                 }
-        </dd>
-    </dl>
+            </dd>
+        </dl>
 </div>
