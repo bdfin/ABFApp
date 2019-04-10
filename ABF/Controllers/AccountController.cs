@@ -175,8 +175,11 @@ namespace ABF.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userId = Guid.NewGuid().ToString();
+
                 var user = new ApplicationUser
                 {
+                    Id = userId,
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
@@ -187,12 +190,15 @@ namespace ABF.Controllers
 
                 if (result.Succeeded)
                 {
+                    string customerId = Guid.NewGuid().ToString();
+
                     var customer = new Customer
                     {
+                        Id = customerId,
                         Name = model.Name,
                         Email = model.Email,
                         PostCode = model.PostCode,
-                        UserId = user.Id
+                        UserId = userId
                     };
 
                     customerService.CreateCustomer(customer);
