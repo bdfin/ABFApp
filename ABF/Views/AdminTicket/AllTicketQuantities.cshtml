@@ -42,8 +42,8 @@
                 @avail
             </td>
             <td>
-                @{ decimal perc = e.Value / e.Key.Capacity; }
-                @perc
+                @{ decimal perc = ((e.Value*100)/e.Key.Capacity); }
+                @perc%
             </td>
         </tr>
 
@@ -69,8 +69,8 @@
                          @AOavail
                      </td>
                      <td>
-                         @{ decimal AOperc = a.Value / a.Key.Quantity; }
-                         @AOperc
+                         @{ decimal AOperc = (a.Value*100) / a.Key.Quantity; }
+                         @AOperc%
                      </td>
                  }
              </tr>
