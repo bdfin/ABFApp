@@ -87,7 +87,7 @@ namespace ABF.Controllers
             OrderService orderService = new OrderService();
             TicketService ticketService = new TicketService();
 
-            //Make a new payment
+            //----------------- Make a new payment
             PaymentService ps;
             ps = new PaymentService();
 
@@ -103,9 +103,8 @@ namespace ABF.Controllers
             ps.CreatePayment(payment);
             db.SaveChanges();
 
-            //Create Customer Class
 
-
+            //-------------- Create Customer Class
             CustomerService cs;
             cs = new CustomerService();
 
@@ -127,21 +126,24 @@ namespace ABF.Controllers
             db.SaveChanges();
 
            
-            
-                OrderService os;
-                os = new OrderService();
+            //---------------- create a new order
+            OrderService os;
+            os = new OrderService();
 
-                var order = new Order()
-                {
-                    Date = DateTime.Today,
-                    Time = DateTime.Now,
-                    CustomerId = customerid,
-                    PaymentId = paymentid,
-                    Delivery = "email"
-                };
+            var order = new Order()
+            {
+                Date = DateTime.Today,
+                Time = DateTime.Now,
+                CustomerId = customerid,
+                PaymentId = paymentid,
+                Delivery = "email"
+            };
             os.CreateOrder(order);
             db.SaveChanges();
 
+
+
+            //------------ Create tickets for each item
             var TicketList = new List<Ticket>();
 
             var orderId = orderService.GetOrderId(paymentid, customerid);
@@ -169,6 +171,32 @@ namespace ABF.Controllers
                 }
 
             };
+
+            if (Session["AddOns"] != null)
+            {
+                var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                {
+                    for (int i = 0; i < singleaddon.Value; i++) 
+                    {
+                        var ticketId = Guid.NewGuid().ToString();
+                        var ticket = new Ticket()
+                        {
+                            Id = ticketId,
+                            AddOnId = singleaddon.Key,
+                            OrderId = orderId,
+                           
+                        };
+
+                        ticketService.CreateTicket(ticket);
+                        db.SaveChanges();
+                        TicketList.Add(ticket);
+                    }
+                }
+
+            };
+
+
 
 
             // all the logic goes here
