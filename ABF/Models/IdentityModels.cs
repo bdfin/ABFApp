@@ -68,6 +68,15 @@ namespace ABF.Models
                 manager.Create(role);
             }
 
+            if (!context.Roles.Any(r => r.Name == "Member"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Member" };
+
+                manager.Create(role);
+            }
+
             if (!context.Roles.Any(r => r.Name == "User"))
             {
                 var store = new RoleStore<IdentityRole>(context);
@@ -91,6 +100,7 @@ namespace ABF.Models
 
                 manager.Create(user, "admin123");
                 manager.AddToRole(user.Id, "Admin");
+                manager.AddToRole(user.Id, "Member");
             }
 
             if (!context.Users.Any(u => u.UserName == "boxoffice"))
