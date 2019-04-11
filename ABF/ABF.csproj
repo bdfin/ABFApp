@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\FullBasketViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
+    <Compile Include="ViewModels\TicketListViewModel.cs" />
     <Compile Include="ViewModels\UserCheckoutViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
