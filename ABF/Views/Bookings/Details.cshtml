@@ -25,7 +25,7 @@
             <br />
             <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
 
-            @{if (User.IsInRole("Member"))
+            @{if (User.IsInRole("Member") || !Model.Event.IsMemberOnly)
                 {
                     <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
                     <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />;
@@ -114,11 +114,7 @@
             </td>
         }
     </tr>
-
-
-
 </table>
-
 <hr />
 
 <table id="maincontent">

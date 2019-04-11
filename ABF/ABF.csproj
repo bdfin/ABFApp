@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\FullBasketViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
+    <Compile Include="ViewModels\UserCheckoutViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -639,7 +640,7 @@
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Checkout\StartCheckout.cshtml" />
     <Content Include="Views\Checkout\StartCheckoutUser.cshtml" />
-    <Content Include="Views\Checkout\Submit.cshtml" />
+    <Content Include="Views\Checkout\OrderSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

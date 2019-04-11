@@ -1,0 +1,26 @@
+﻿@model IList<ABF.Data.ABFDbModels.Ticket>
+@{
+    ViewBag.Title = "Submit";
+}
+
+<h1>Order Confirmed!</h1>
+
+<h3>Here's a list of your tickets (for testing purposes)</h3>
+
+<table class="table">
+    <tr>
+        <th>Ticket ID</th>
+        <th>Event Id</th>
+        <th>Add On Id</th>
+    </tr>
+    
+    @foreach (var ticket in Model)
+    {
+        <tr>
+            <td>@ticket.Id</td>
+            <td>@ticket.EventId</td>
+            <td>@ticket.AddOnId</td>
+        </tr>
+    }
+</table>
+

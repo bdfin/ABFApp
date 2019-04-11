@@ -1,112 +1,133 @@
 ﻿@using System.Web.ModelBinding
-@model ABF.Data.ABFDbModels.Customer
+@model ABF.ViewModels.UserCheckoutViewModel
 
 @{
     ViewBag.Title = "StartCheckoutUser";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<h2>Checkout with Registered Account</h2>
-<br/>
+<h2>Checkout</h2>
+<hr />
 
+<form method="post" class="customerdetails" action="@Url.Action("SubmitUser", "Checkout")">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>Delivery Address</h4>
+                <table class="table-responsive-md">
+                    <tr>
+                        <td class="label">Name</td>
+                        <td><input class="form-control form-control-lg" name="name" type="text" value="@Model.customer.Name" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">House Number/Name</td>
+                        <td><input class="form-control form-control-lg" name="address1" type="text" value="@Model.customer.Address1" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Street Name</td>
+                        <td><input class="form-control form-control-lg" name="address2" type="text" value="@Model.customer.Address2" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Town</td>
+                        <td><input class="form-control form-control-lg" name="address3" type="text" value="@Model.customer.Address3" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">PostCode</td>
+                        <td><input class="form-control form-control-lg" name="postcode" type="text" value="@Model.customer.PostCode" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email</td>
+                        <td><input class="form-control form-control-lg" name="email" type="email" value="@Model.customer.Email" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Telephone</td>
+                        <td><input class="form-control form-control-lg" name="phone" type="tel" value="@Model.customer.PhoneNumber" /></td>
+                    </tr>
+                    <tr><td>&nbsp;</td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="checkbox" name="updatedetails" value="update"><b>&nbsp;Save/Update my registered contact details</b>
+                        </td>
+                    </tr>
 
-<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout",null)" >
-    <div class="col-sm">
-        <h4>Your Details</h4>
-        <table class="table-responsive-md">
-            <tr>
-                <td class="label">Name</td>
-                <td><input name="name" type="text" value="@Model.Name"/></td>
-            </tr>
-            <tr>
-                <td class="label">House Number/Name</td>
-                <td><input name="address1" type="text" value="@Model.Address1"/></td>
-            </tr>
-            <tr>
-                <td class="label">Street Name</td>
-                <td><input name="address2" type="text" value="@Model.Address2"/></td>
-            </tr>
-            <tr>
-                <td class="label">Town</td>
-                <td><input name="address3" type="text" value="@Model.Address3"/></td>
-            </tr>
-            <tr>
-                <td class="label">PostCode</td>
-                <td><input name="postcode" type="text" value="@Model.PostCode"/></td>
-            </tr>
-            <tr>
-                <td class="label">Email</td>
-                <td><input name="email" type="email" value="@Model.Email"/></td>
-            </tr>
-            <tr>
-                <td class="label">Telephone</td>
-                <td><input name="phone" type="tel" value="@Model.PhoneNumber"/></td>
-            </tr>
-        </table>
-    </div>
-    <hr/>
-    <div class="col-sm">
-        <h4>Payment Details</h4>
-        <table class="table-responsive-md">
-            <tr>
-                <td>Card Number</td>
-                <td><input name="cc" type="text" placeholder="1234 5678 9012 3456" /></td>
-            </tr>
-            <tr>
-                <td>Expiry Date</td>
-                <td><input name="expdate" type="text" placeholder="12 / 34" /></td>
-            </tr>
-            <tr>
-                <td>Security Code</td>
-                <td><input name="seccode" type="text" placeholder="987" /></td>
-            </tr>
-            <tr>
-                <td>Cardholder Name</td>
-                <td><input name="cardname" type="text" placeholder="Full Name" /></td>
-            </tr>
-            <tr>
-                <td>Registered PostCode</td>
-                <td><input name="cardpc" type="text" placeholder="AA12 3BC" /></td>
-            </tr>
-            <tr>
-                <td>Method of Delivery</td>
-                <td>
-                    <div class="form-group">
-                        <select class="form-control" id="deliverymethod">
-                            <option>Tickets By Email</option>
-                            <option>Royal Mail Post</option>
-                            <option>Collection from Box Office</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Payment Method</td>
-                <td>
-                    <div class="form-group">
-                        <select class="form-control" id="paymentmethod" name="paymentmethod">
-                            <option value="card">Card</option>
-                            <option value="cash">Cash on Collection</option>
-                            <option value="cheque">Postal Cheque</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
-            
-            
-            
-            
-            
+                </table>
+            </div>
 
-            <tr>
-                <td colspan="2">
-                    <button type="submit">Checkout</button>
-                </td>
-            </tr>
+            <div class="col-sm-6">
+                <h4>Payment and Delivery</h4>
+                <table style="width:100%">
+                    <tr>
+                        <td><b>Payment Method</b></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control" id="paymentmethod" name="paymentmethod">
+                                    <option value="">Select...</option>
+                                    <option value="cardemail">Pay Now - Email My Tickets</option>
+                                    <option value="cardpost">Pay Now - Post My Tickets</option>
+                                    <option value="cardcollect">Pay Now - Collect From Box Office</option>
+                                    <option value="latercollect">Pay Later - Collect From Box Office</option>
+                                    <option value="cheque">Send a Cheque - Post My Tickets </option>
+                                </select>
 
-        </table>
-
+                                <br />
+                                <div>
+                                    <p class="alert-light" id="paymentText"></p>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">
+                            <hr />
+                            <h5>Basket Total <b>£ @(Model.tickettotal - (decimal)1.50)</b></h5>
+                            <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
+                            <hr />
+                            <h5>Total <b>£ @Model.tickettotal </b></h5>
+                            <hr />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn-lg button btn-info">Checkout</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <hr />
+        </div>
     </div>
 </form>
 
-
-
+<script>
+    $(function () {
+        $("#paymentmethod").on("change", function () {
+            switch ($(this).val()) {
+                case "cardemail":
+                    $("#paymentText").html("Card Services API, such as Stripe or Paypal would go here. " +
+                        "<br/>Tickets will be emailed to the email address you have provided on this page.");
+                    break;
+                case "cardpost":
+                    $("#paymentText").html("Card Services API, such as Stripe or Paypal would go here. " +
+                        "<br/>Tickets will be posted to the address you have provided on this page.");
+                    break;
+                case "cardcollect":
+                    $("#paymentText").html("Card Services API, such as Stripe or Paypal would go here. " +
+                        "<br/>Tickets will be held at the Box Office for Collection before the Festival.");
+                    break;
+                case "collect":
+                    $("#paymentText").html("Collection and payment must be made at the Box Office with 5 working days of placing this order." +
+                        "<br/>If no payment or contact has been made after 5 working days, " +
+                        "your order will be cancelled and the tickets returned to stock.");
+                    break;
+                case "cheque":
+                    $("#paymentText").html("Cheques should be payable to <b>Appledore Book Festival</b> " +
+                        "and sent to the Box Office within 5 working days.<br/>" +
+                        "<br/>Tickets will be posted to the address you have provided on this page after the cheque has successfully cleared.");
+                    break;
+            }
+        });
+    });
+</script>
