@@ -205,11 +205,8 @@ namespace ABF.Controllers
                     db.SaveChanges();
                     
 
-                    // Sets default user type to basic 'Customer'
+                    // Sets default user type to basic 'User'
                     await UserManager.AddToRolesAsync(user.Id, "User");
-
-                    //COMMENT THIS ONE LINE OUT IF YOU WANT TO HAVE A USER'S EMAIL ADDRESS CONFIRMED BEFORE ALLOWING LOG IN
-                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // these two lines create a confirmation code and toeken
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "Confirm your account");
@@ -552,6 +549,15 @@ namespace ABF.Controllers
             return callbackUrl;
         }
 
-        
+
+
+        // POST: /Account/AddMember
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task AddMember(string userId, string role)
+        {
+            await UserManager.AddToRolesAsync(userId, role);
+        }
     }
 }

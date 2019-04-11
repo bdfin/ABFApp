@@ -349,5 +349,21 @@ namespace ABF
             return View(usersWithRoles);
         }
 
+
+        public async Task<ActionResult> AddRoleToUserAsync(string userId)
+        {
+            var result = await UserManager.AddToRoleAsync(userId, "Member");
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", result.Errors.First());
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+
+        }
     }
 }
