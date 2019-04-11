@@ -64,7 +64,6 @@ namespace ABF.Controllers
             MembershipTypeService mts = new MembershipTypeService();
             decimal grandtotal = 0;
 
-
             if (Session["Tix"] != null)
             {
                 var alltix = (Dictionary<int, int>) Session["Tix"];
@@ -74,7 +73,6 @@ namespace ABF.Controllers
                     var subtotal = price * singletix.Value;
                     grandtotal += subtotal;
                 }
-
             }
 
             if (Session["AddOns"] != null)
@@ -94,6 +92,9 @@ namespace ABF.Controllers
                 grandtotal += membershipprice;
             }
 
+            // Add the p&p fee
+            grandtotal += (decimal)1.50;
+
             return grandtotal;
         }
 
@@ -109,13 +110,27 @@ namespace ABF.Controllers
 
             PaymentService ps;
             ps = new PaymentService();
-
             string paymentid = Guid.NewGuid().ToString();
+            var pmethod = "";
+            switch (paymentmethod)
+            {
+                case "cardcollect":
+                case "cardpost":
+                case "cardemail":
+                    pmethod = "card";
+                    break;
+                case "collect":
+                    pmethod = "on collection";
+                    break;
+                case "cheque":
+                    pmethod = "cheque";
+                    break;
+            }
             var payment = new Payment()
             {
                 Id = paymentid,
-                Method = paymentmethod,
-                Amount = 20
+                Method = pmethod,
+                Amount = this.calculategrandtotal()
 
             };
 
@@ -242,7 +257,6 @@ namespace ABF.Controllers
             return View("OrderSuccess", TicketList);
         }
 
-
         [HttpPost]
         public ActionResult SubmitUser(string name, string address1, string address2, string address3, string postcode,
             string email, string phone, string paymentmethod, string updatedetails)
@@ -255,14 +269,27 @@ namespace ABF.Controllers
 
             PaymentService ps;
             ps = new PaymentService();
-
             string paymentid = Guid.NewGuid().ToString();
+            var pmethod = "";
+            switch (paymentmethod)
+            {
+                case "cardcollect":
+                case "cardpost":
+                case "cardemail":
+                    pmethod = "card";
+                    break;
+                case "collect":
+                    pmethod = "on collection";
+                    break;
+                case "cheque":
+                    pmethod = "cheque";
+                    break;
+            }
             var payment = new Payment()
             {
                 Id = paymentid,
-                Method = paymentmethod,
-                Amount = 20
-
+                Method = pmethod,
+                Amount = this.calculategrandtotal()
             };
 
             ps.CreatePayment(payment);

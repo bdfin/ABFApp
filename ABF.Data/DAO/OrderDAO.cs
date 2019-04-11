@@ -45,5 +45,14 @@ namespace ABF.Data.DAO
             return order.First();
         }
 
+        public IEnumerable<Order> getOrders()
+        {
+            var orders = from order 
+                        in _context.Orders
+                        select order;
+
+            return orders;
+        }
+
     }
 }

@@ -187,6 +187,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InitAdminController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UsersAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,6 +216,7 @@
     <Compile Include="ViewModels\EventIndexViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\FullBasketViewModel.cs" />
+    <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
     <Compile Include="ViewModels\TicketListViewModel.cs" />
     <Compile Include="ViewModels\UserCheckoutViewModel.cs" />
@@ -642,6 +644,7 @@
     <Content Include="Views\Checkout\StartCheckout.cshtml" />
     <Content Include="Views\Checkout\StartCheckoutUser.cshtml" />
     <Content Include="Views\Checkout\OrderSuccess.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

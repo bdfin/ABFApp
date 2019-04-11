@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ABF.ViewModels.OrderListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+<hr />
+
+<table class="table table-hover table-bordered table-condensed" id="OrdersTable">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Date/Time</th>
+            <th>Customer Name</th>
+            <th>Delivery</th>
+            <th>Payment</th>
+            <th>Price</th>
+            <th>Functions</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.orderId)</td>
+            <td>@item.orderDate.ToString("dd-MM-yyyy"), @item.orderTime.ToString("HH:mm")</td>
+            <td>@Html.DisplayFor(modelItem => item.customerName)</td>
+            <td>@Html.DisplayFor(modelItem => item.deliveryMethod)</td>
+            <td>@Html.DisplayFor(modelItem => item.paymentMethod)</td>
+            <td><b>£ @Html.DisplayFor(modelItem => item.price)</b></td>
+            <td><b>Get Tickets</b></td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#OrdersTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+}
