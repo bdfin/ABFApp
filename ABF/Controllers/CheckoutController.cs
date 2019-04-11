@@ -34,9 +34,11 @@ namespace ABF.Controllers
 
         public ActionResult StartCheckoutGuest()
         {
-            Session["GrandTotal"] = this.calculategrandtotal();
+            var tickettotal = this.calculategrandtotal() + (decimal)1.50;
+
+            Session["GrandTotal"] = tickettotal;
          
-            return View("StartCheckout",this.calculategrandtotal());
+            return View("StartCheckout", tickettotal);
         }
 
         protected decimal calculategrandtotal()
@@ -79,15 +81,14 @@ namespace ABF.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode, string email, string phone)
+        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode, 
+            string email, string phone, string paymentmethod)
         {
-             ABFDbContext db;
-             db = new ABFDbContext();
-
+            ABFDbContext db = new ABFDbContext();
             OrderService orderService = new OrderService();
             TicketService ticketService = new TicketService();
 
-            //----------------- Make a new payment
+            #region //----------------- Make a new payment
             PaymentService ps;
             ps = new PaymentService();
 
@@ -95,21 +96,17 @@ namespace ABF.Controllers
             var payment = new Payment()
             {
                 Id = paymentid, 
-                Method = "card",
+                Method = paymentmethod,
                 Amount = 20
 
             };
 
             ps.CreatePayment(payment);
             db.SaveChanges();
-
-
-            //-------------- Create Customer Class
-            CustomerService cs;
-            cs = new CustomerService();
-
+            #endregion
+            #region //-------------- Create Customer Class
+            CustomerService cs = new CustomerService();
             string customerid = Guid.NewGuid().ToString();
-
             var customer = new Customer()
             {
                 Id = customerid,
@@ -124,11 +121,22 @@ namespace ABF.Controllers
 
             cs.CreateCustomer(customer);
             db.SaveChanges();
-
-           
-            //---------------- create a new order
-            OrderService os;
-            os = new OrderService();
+            #endregion
+            #region//---------------- create a new order
+            OrderService os = new OrderService();
+            var deliverymethod = "";
+            if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+            {
+                deliverymethod = "post";
+            }
+            else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+            {
+                deliverymethod = "collect";
+            }
+            else
+            {
+                deliverymethod = "email";
+            }
 
             var order = new Order()
             {
@@ -136,14 +144,12 @@ namespace ABF.Controllers
                 Time = DateTime.Now,
                 CustomerId = customerid,
                 PaymentId = paymentid,
-                Delivery = "email"
+                Delivery = deliverymethod
             };
             os.CreateOrder(order);
             db.SaveChanges();
-
-
-
-            //------------ Create tickets for each item
+            #endregion
+            #region //------------ Create tickets for each item
             var TicketList = new List<Ticket>();
 
             var orderId = orderService.GetOrderId(paymentid, customerid);
@@ -195,7 +201,7 @@ namespace ABF.Controllers
                 }
 
             };
-
+            #endregion
 
 
 
