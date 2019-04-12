@@ -20,10 +20,12 @@ namespace ABF.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private CustomerService customerService;
+        private ABFDbContext db;
 
         public AccountController()
         {
             customerService = new CustomerService();
+            db = new ABFDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -173,8 +175,11 @@ namespace ABF.Controllers
         {
             if (ModelState.IsValid)
             {
+                string userId = Guid.NewGuid().ToString();
+
                 var user = new ApplicationUser
                 {
+                    Id = userId,
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
@@ -185,32 +190,30 @@ namespace ABF.Controllers
 
                 if (result.Succeeded)
                 {
+                    string customerId = Guid.NewGuid().ToString();
+
                     var customer = new Customer
                     {
+                        Id = customerId,
                         Name = model.Name,
                         Email = model.Email,
                         PostCode = model.PostCode,
-                        UserId = user.Id
+                        UserId = userId
                     };
 
                     customerService.CreateCustomer(customer);
+                    db.SaveChanges();
+                    
 
-                    // Sets default user type to basic 'Customer'
+                    // Sets default user type to basic 'User'
                     await UserManager.AddToRolesAsync(user.Id, "User");
-
-                    //COMMENT THIS ONE LINE OUT IF YOU WANT TO HAVE A USER'S EMAIL ADDRESS CONFIRMED BEFORE ALLOWING LOG IN
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // these two lines create a confirmation code and toeken
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "Confirm your account");
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-                    // send the confirmation email to the email address
-                    SMTPEmail.SendEmail(user.Email, "ABF: Confirm your email address", 
-                        "Please confirm your account by clicking this link below:/n" + callbackUrl);
-
                     // return a message to the user
-                    ViewBag.Message = "Please check your email and confirm your email account by clicking on the link you have been sent.";
+                    ViewBag.Message = "Please check your email and click on the link you have been sent to confirm your email address.";
                     return View("Info");
                 }
                 AddErrors(result);
@@ -544,6 +547,17 @@ namespace ABF.Controllers
             SMTPEmail.SendEmail(useremail, "ABF: " + subject, "Please confirm your account by clicking the link below:\n" + callbackUrl);
 
             return callbackUrl;
+        }
+
+
+
+        // POST: /Account/AddMember
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task AddMember(string userId, string role)
+        {
+            await UserManager.AddToRolesAsync(userId, role);
         }
     }
 }

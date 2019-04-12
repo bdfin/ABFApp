@@ -23,7 +23,7 @@ namespace ABF.Service.Services
             return customerDAO.GetCustomers();
         }
 
-        public Customer GetCustomer(int id)
+        public Customer GetCustomer(string id)
         {
             return customerDAO.GetCustomer(id);
         }
@@ -47,5 +47,7 @@ namespace ABF.Service.Services
         {
             customerDAO.DeleteCustomer(customer);
         }
+
+
     }
 }

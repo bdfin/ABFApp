@@ -16,6 +16,8 @@ namespace ABF.Data.ABFDbModels
 
         public bool Expiry { get; set; }
 
+        public decimal Price { get; set; }
+
         public virtual IList<Customer> Customers { get; set; }
     }
 }

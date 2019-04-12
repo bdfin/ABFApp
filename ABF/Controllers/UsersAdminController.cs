@@ -222,13 +222,24 @@ namespace ABF
                 user.Name = editUser.Name;
                 user.PostCode = editUser.PostCode;
 
-                var customer = customerService.GetCustomerByUserId(user.Id);
+                try
+                {
+                    var customer = customerService.GetCustomerByUserId(user.Id);
 
-                customer.Email = editUser.Email;
-                customer.Name = editUser.Name;
-                customer.PostCode = editUser.PostCode;
+                    customer.Email = editUser.Email;
+                    customer.Name = editUser.Name;
+                    customer.PostCode = editUser.PostCode;
 
-                customerService.UpdateCustomer(customer);
+                    customerService.UpdateCustomer(customer);
+                }
+                catch
+                {
+                    // do nothing
+                }
+                finally
+                {
+                    // also do nothing??
+                }
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);
 
@@ -284,20 +295,29 @@ namespace ABF
                 }
 
                 var user = await UserManager.FindByIdAsync(id);
-                var customer = customerService.GetCustomerByUserId(id);
 
-                if (user == null && customer == null)
+                try
                 {
-                    return HttpNotFound();
+                    var customer = customerService.GetCustomerByUserId(id);
+
+                    if (user == null && customer == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    customerService.DeleteCustomer(customer);
                 }
+                catch
+                {
+                    //do nothing                    
+                }
+                
                 var result = await UserManager.DeleteAsync(user);
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", result.Errors.First());
                     return View();
                 }
-
-                customerService.DeleteCustomer(customer);
 
                 return RedirectToAction("Index");
             }
@@ -327,6 +347,23 @@ namespace ABF
                                       Role = string.Join(",", p.RoleNames)
                                   });
             return View(usersWithRoles);
+        }
+
+
+        public async Task<ActionResult> AddRoleToUserAsync(string userId)
+        {
+            var result = await UserManager.AddToRoleAsync(userId, "Member");
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", result.Errors.First());
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+
         }
     }
 }

@@ -14,21 +14,19 @@
 <br />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-
-<input type="text" id="myInput" onkeyup="doSearch()" placeholder="Search...">
-
 <table class="table" id="eventsTable">
-    <tr id="tableheader">
-        <th style="display:none">ID</th>
 
+    <tr id="tableheader">
+        <th> </th>
+        <th style="display:none">ID</th>
         <th>Title</th>
         <th>Author</th>
         <th style="display:none">Hidden Date</th>
         <th>Date</th>
         <th>Time</th>
-        <th>Price</th>
         <th>Venue</th>
-        <th style="display:none">Hidden Topics</th>
+        <th>Avail.</th>
+        <th>Price</th>
         <th colspan="4" style="text-align:center">Tickets</th>
     </tr>
 
@@ -36,71 +34,67 @@
     {
         var fulldate = item.Event.Date.ToString("ddMMMyyyy");
         var date = item.Event.Date.ToString("ddd dd MMM").ToString();
-        var times = item.Event.StartTime.ToString("HH:mm") + " - " + item.Event.EndTime.ToString("HH:mm");
 
-    <tr id="tabledata">
-        <td>
-            @if (item.Event.IsMemberOnly)
+        <tr id="tabledata">
+            <td>
+                @if (item.Event.IsMemberOnly)
+                {
+                    <img src="~/Content/MapIcons/vipIcon.png" width="20" alt="Add Ons Available"/>
+                }
+                @if (item.hasAddOn)
+                {
+                    <img src="~/Content/MapIcons/addonicon.png" width="20" alt="Members Exclusive Event"/>
+                }
+            </td>
+            <td>@Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})</td>
+            <td>@item.Event.Author</td>
+            <td style="display:none">@fulldate</td>
+            <td style="white-space:nowrap">@date</td>
+            <td style="white-space:nowrap">@item.Event.StartTime.ToString("HH:mm")</td>
+            <td>@item.Location.Name</td>
+            <td>@item.availability</td>
+            <td>£@item.Event.TicketPrice</td>
+
+            <td id="eventId" style="display:none">
+                <p>@item.Event.Id</p> </td>
+
+            @if (item.Event.IsMemberOnly && !User.IsInRole("Member"))
             {
-                <img src="~/Content/MapIcons/vipIcon.png" width="25" alt="Members Exclusive Event" />
-            }
-        </td>
-        <td>@Html.ActionLink(item.Event.Name, "Details", new { id = item.Event.Id })</td>
-        <td>@item.Event.Author</td>
-        <td style="display:none">@fulldate</td>
-        <td style="white-space:nowrap">@date</td>
-        <td style="white-space:nowrap">@times</td>
-        <td>£@item.Event.TicketPrice</td>
-        <td>@item.Location.Name</td>
-        <td style="display:none">All the topics go here</td>
-        <td id="eventId" style="display:none"><p>@item.Event.Id</p> </td>
-
-        @if (item.Event.IsMemberOnly && !User.IsInRole("Member"))
-        {
-            <td colspan="4">
-                <button style="width:250px; background-color:rgba(255, 0, 0, 0.82); border-radius:10px; text-align:center">
-                    Members Exclusive Event<br />
-                    <sub>Log In or click <b>here</b> for information</sub>
-                </button>
-            </td>
-        }
-        else
-        {
-            <td>
-                <button name="button" type="button" class="sub btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">-</button>
-            </td>
-            <td>
-                <input name="quantity" type="text" id="@item.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
-            </td>
-            <td>
-                <button name="button" type="button" class="add btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">+</button>
-            </td>
-            <td>
-                <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                    <input name="eventId" type="text" class="eId" value=@item.Event.Id>
-                    <input name="quantity" type="text" class="store" value="0" />
-                    <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
-                        Add to Basket
+                <td colspan="4">
+                    <button class="bg-light" style="width:250px; border-radius:10px; text-align:center">
+                        Members Event<br/>
+                        <sub>Log In or click <b>here</b> for information</sub>
                     </button>
-                </form>
-            </td>
-        }
-    </tr>
-                
-        
+                </td>
+            }
+            else
+            {
+                <td>
+                    <button name="button" type="button" class="sub btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">-</button>
+                </td>
+                <td>
+                    <input name="quantity" type="text" id="@item.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black"/>
+                </td>
+                <td>
+                    <button name="button" type="button" class="add btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">+</button>
+                </td>
+                <td>
+                    <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
+                        <input name="eventId" type="hidden" class="eId" value=@item.Event.Id>
+                        <input name="quantity" type="hidden" class="store" value="0"/>
+                        <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
+                            Add to Basket
+                        </button>
+                    </form>
+                </td>
+            }
+        </tr>
     }
-
-  
-
 </table>
 <script>
-
     // search function for filtering data by day.
     function doSearch(searchText) {
         var searchTextUp = searchText.toUpperCase();
-
-    function doSearch() {
-        var searchText = document.getElementById('myInput').value.toUpperCase();
         var targetTable = document.getElementById('eventsTable');
         var targetTableColCount;
 
@@ -115,7 +109,6 @@
             }
 
             //Process data rows. (rowIndex >= 1)
-
             // The date column (3) is the only one being searched
             for (var colIndex = 0; colIndex < targetTableColCount; colIndex++) {
                 rowData += targetTable.rows.item(rowIndex).cells.item(colIndex).textContent;
@@ -133,14 +126,14 @@
         }
     }
 </script>
+
 <script>
 
     // when any element with the 'add' class is clicked....
     $('.add').click(function () {
 
         // if value of 'field' class in previous TD is valid
-        if (!isNaN($(this).parent().prev().children(".field").val()))
-        {
+        if (!isNaN($(this).parent().prev().children(".field").val())) {
             // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
             // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
             // prev()             = find the previous occurence of the <td> tag (in this case)

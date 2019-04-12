@@ -43,7 +43,7 @@ namespace ABF.Controllers
 
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
-            if (viewModel.Customer.Id == 0)
+            if (viewModel.Customer.Id == "0")
             {
                 customerService.CreateCustomer(viewModel.Customer);
 
@@ -58,7 +58,7 @@ namespace ABF.Controllers
         }
 
         [Route("Admin/Customers/Edit/{id}")]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             var membershipTypes = membershipTypeService.GetMembershipTypes();
             var customer = customerService.GetCustomer(id);
@@ -72,20 +72,20 @@ namespace ABF.Controllers
             return View("CustomerForm", viewModel);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             return View(customerService.GetCustomer(id));
         }
 
         [Route("Admin/Customers/Delete/{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             return View(customerService.GetCustomer(id));
         }
 
 
         [HttpPost]
-        public ActionResult DeleteCustomer(int id)
+        public ActionResult DeleteCustomer(string id)
         {
             var customer = customerService.GetCustomer(id);
             customerService.DeleteCustomer(customer);

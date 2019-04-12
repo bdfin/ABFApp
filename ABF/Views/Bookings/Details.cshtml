@@ -1,15 +1,20 @@
 ﻿@model ABF.ViewModels.EventDetailsViewModel
 @{
     ViewBag.Title = "Details";
+
 }
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 
 <table id="infoheader">
     <tr>
         <td rowspan="5" style="width:280px;">
             @if (Model.Event.ImageId != 0)
-             {
+            {
                 <img src="@Url.Content(Model.Image.ImagePath)" width="250" />
-             }
+            }
         </td>
 
         <td style="width:55%">
@@ -17,22 +22,57 @@
         </td>
 
         <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
-            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br/>
-            <p class="button btn-dark button-lg">-  0  +</p>
-            <p class="button btn-light button-lg">Add To Basket</p>
-            
-            @if (Model.AddOns.Count > 0)
-            {
-                <ul>
-                    @foreach (var item in Model.AddOns)
-                     {
-                        <li style="list-style:none; text-align:right">
-                            @item.Name - <b>£@item.Price</b>
-                        </li>
-                     }
-                </ul>
-                <p>(add tickets to basket first)</p>
+            <br />
+            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
+
+            @{if (User.IsInRole("Member") || !Model.Event.IsMemberOnly)
+                {
+                    <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
+                    <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />;
+                    <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
+                    <br />
+
+                    <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
+                        <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
+                        <input name="quantity" type="hidden" class="store" value="0" />
+                        <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                            Add to Basket
+                        </button>
+                    </form>
+                    <br />
+
+                    if (Model.AddOns.Count > 0)
+                    {
+                        <ul>
+                            @foreach (var item in Model.AddOns)
+                            {
+                                <li style="list-style:none; text-align:center">
+                                    @item.Name - <b>£@item.Price</b>
+
+                                    <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>&nbsp;&nbsp;
+                                    <input name="quantity" type="text" id="@item.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />&nbsp;&nbsp;
+                                    <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
+                                    <br />
+
+                                    <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
+                                        <input name="addonId" type="hidden" class="eId" value=@item.Id />
+                                        <input name="quantity" type="hidden" class="store" value="0" />
+                                        <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                                            Add
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
+                }
+              else
+              {
+                  <p><b>Members Exclusive Event</b></p>
+                  <p>If you are a member, please Login to enable ticket purchase for this event.</p>
+              }
             }
+
         </td>
     </tr>
 
@@ -59,7 +99,7 @@
         @if (Model.AddOns.Count > 0)
         {
             <td style="background-color:aliceblue">
-               
+
                 <ul style="list-style:none">
                     <li>
                         <b><u>Extras Available:</u></b>
@@ -67,18 +107,14 @@
                     @foreach (var item in Model.AddOns)
                     {
                         <li>
-                            <b>@item.Name</b>: @item.Description
+                            <b>£@item.Price - @item.Name</b>: @item.Description
                         </li>
                     }
                 </ul>
             </td>
-         }
+        }
     </tr>
-
-
-
 </table>
-
 <hr />
 
 <table id="maincontent">
@@ -94,39 +130,15 @@
         <td rowspan="3" style="width:35%;background-color:#f4814b">
             <table id="locationmap">
                 <tr>
-                    <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px">
-                        <script>
-                            function myMap() {
-
-                                
-                                var mapProp =
-                                {
-                                    center: new google.maps.LatLng(@Model.Location.LatLong),
-                                    zoom: 16,
-                                    mapTypeControl: false
-                                };
-
-                                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-                                //Set the locations of the places of interest
-                                var venue_location = new google.maps.Marker(
-                                    {
-                                        position: new google.maps.LatLng(@Model.Location.LatLong),
-                                    });
-
-                                // plot the locations on the map
-                                venue_location.setMap(map);
-                            }
-                        </script>
-                    </td>
+                    <td id="googleMap" colspan="2" style="height:250px; width:200px; margin-left:10px></td>
                 </tr>
 
                 <tr>
                     <td colspan="2">
                         <address style="text-align:right">
-                        <b>@Model.Location.Name</b><br/>
-                        @Model.Location.Address1, @Model.Location.Address2 <br />
-                        <b>@Model.Location.PostCode</b>
+                            <b>@Model.Location.Name</b><br />
+                            @Model.Location.Address1, @Model.Location.Address2 <br />
+                            <b>@Model.Location.PostCode</b>
                         </address>
                     </td>
                 </tr>
@@ -142,7 +154,7 @@
 
                 <tr>
                     <td>
-                        <img src="~/Content/MapIcons/Disability_Friendly-512.png" width="30"/>
+                        <img src="~/Content/MapIcons/Disability_Friendly-512.png" width="30" />
                     </td>
                     <td>
                         @if (!Model.Location.DisabledAccess)
@@ -167,9 +179,7 @@
                     <td style="width:250px">
                         <h5><b>External Links:</b></h5>
                     </td>
-                    <td>
-
-                    </td>
+                    <td></td>
                 </tr>
 
                 <tr>
@@ -195,5 +205,68 @@
     </tr>
 </table>
 
+
+
+<script>
+
+
+    // when any element with the 'add' class is clicked....
+    $('.add').click(function () {
+
+        // if value of 'field' class in previous TD is valid
+        if (!isNaN($(this).parent().children(".field").val())) {
+            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
+            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
+            // prev()             = find the previous occurence of the <td> tag (in this case)
+            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <input>
+            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
+            // val()              = get the value of the element
+
+            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() + 1);
+            $(this).parent().children(".addform").children(".store").val($(this).parent().children(".field").val());
+        }
+        else {
+            $(this).parent().children(".field").val(0);
+            $(this).parent().children(".addform").children(".store").val(0);
+        }
+    });
+
+
+    $('.sub').click(function () {
+        if ((!isNaN($(this).parent().children(".field").val())) && ($(this).parent().children(".field").val() > 0)) {
+            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() - 1);
+            $(this).parent().children(".addform").children(".store").val(+$(this).parent().children(".field").val());
+        }
+        else {
+            $(this).parent().children(".field").val(0);
+            $(this).parent().children(".addform").children(".store").val(0);
+        }
+    });
+
+
+</script>
+
+
+<script>
+    function myMap()
+    {
+        var mapProp = {
+            center: new google.maps.LatLng(@Model.Location.LatLong),
+            zoom: 16,
+            mapTypeControl: false
+        };
+
+        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+        //Set the locations of the places of interest
+        var venue_location = new google.maps.Marker(
+            {
+                position: new google.maps.LatLng(@Model.Location.LatLong),
+            });
+
+        // plot the locations on the map
+        venue_location.setMap(map);
+    }
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBZjX96xNoeARC3mo2WLQHsJbwDJsV5PdM&callback=myMap"></script>

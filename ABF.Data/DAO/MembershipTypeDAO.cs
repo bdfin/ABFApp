@@ -26,5 +26,18 @@ namespace ABF.Data.DAO
 
             return membershipTypes.ToList();
         }
+
+        public MembershipType GetMembershipType(int id)
+        {
+            IQueryable<MembershipType> _memtype = 
+                from m
+                in _context.MembershipTypes
+                where m.Id == id
+                select m;
+
+            var memtype = _memtype.First();
+
+            return memtype;
+        }
     }
 }

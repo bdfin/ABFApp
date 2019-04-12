@@ -12,70 +12,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md">
-                    <script>
-                        function myMap() {
-                            var mapProp = {
-                                center: new google.maps.LatLng(51.054514, -4.194),
-                                zoom: 16,
-                                mapTypeControl: false
-                            };
-                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-
-                            //Set the locations of the places of interest
-                            var loc_stmaryshall = new google.maps.Marker({
-                                position: new google.maps.LatLng(51.055187, -4.193109),
-                                icon: "/Content/MapIcons/letter_a.png"
-                            });
-                            var loc_stmaryschurch = new google.maps.Marker({
-                                position: new google.maps.LatLng(51.054869, -4.192689),
-                                icon: "/Content/MapIcons/letter_b.png"
-                            });
-                            var loc_doctoncourt = new google.maps.Marker({
-                                position: new google.maps.LatLng(51.051804, -4.192091),
-                                icon: "/Content/MapIcons/letter_c.png"
-                            });
-                            var loc_baptistchapel = new google.maps.Marker({
-                                position: new google.maps.LatLng(51.054134, -4.191923),
-                                icon: "/Content/MapIcons/letter_d.png"
-                            });
-
-                            // set the content of the information pop-ups
-                            var infowindow_stmaryshall = new google.maps.InfoWindow({
-                                content: "Book Festival HQ - St Mary's Hall"
-                            });
-                            var infowindow_stmaryschurch = new google.maps.InfoWindow({
-                                content: "Venue - St Mary's Church"
-                            });
-                            var infowindow_doctoncourt = new google.maps.InfoWindow({
-                                content: "Box Office - Docton Court Gallery"
-                            });
-                            var infowindow_baptistchapel = new google.maps.InfoWindow({
-                                content: "Venue - Baptist Chapel"
-                            });
-
-                            // plot the locations on the map
-                            loc_stmaryshall.setMap(map);
-                            loc_stmaryschurch.setMap(map);
-                            loc_doctoncourt.setMap(map);
-                            loc_baptistchapel.setMap(map);
-
-                            // event handlers for displaying the information pop-ups
-                            google.maps.event.addListener(loc_stmaryshall, 'click', function () {
-                                infowindow_stmaryshall.open(map, loc_stmaryshall);
-                            });
-                            google.maps.event.addListener(loc_stmaryschurch, 'click', function () {
-                                infowindow_stmaryschurch.open(map, loc_stmaryschurch);
-                            });
-                            google.maps.event.addListener(loc_doctoncourt, 'click', function () {
-                                infowindow_doctoncourt.open(map, loc_doctoncourt);
-                            });
-                            google.maps.event.addListener(loc_baptistchapel, 'click', function () {
-                                infowindow_baptistchapel.open(map, loc_baptistchapel);
-                            });
-
-                        }
-                    </script>
-
                     @* show the Google Map*@
                     <div id="googleMap" style="height:500px;"></div>
                 </div>
@@ -155,6 +91,70 @@
                                 else
                                     targetTable.rows.item(rowIndex).style.display = 'table-row';
                             }
+                        }
+                    </script>
+
+                    <script>
+                        function myMap() {
+                            var mapProp = {
+                                center: new google.maps.LatLng(51.054514, -4.194),
+                                zoom: 16,
+                                mapTypeControl: false
+                            };
+                            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                            //Set the locations of the places of interest
+                            var loc_stmaryshall = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.055187, -4.193109),
+                                icon: "/Content/MapIcons/letter_a.png"
+                            });
+                            var loc_stmaryschurch = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.054869, -4.192689),
+                                icon: "/Content/MapIcons/letter_b.png"
+                            });
+                            var loc_doctoncourt = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.051804, -4.192091),
+                                icon: "/Content/MapIcons/letter_c.png"
+                            });
+                            var loc_baptistchapel = new google.maps.Marker({
+                                position: new google.maps.LatLng(51.054134, -4.191923),
+                                icon: "/Content/MapIcons/letter_d.png"
+                            });
+
+                            // set the content of the information pop-ups
+                            var infowindow_stmaryshall = new google.maps.InfoWindow({
+                                content: "Book Festival HQ - St Mary's Hall"
+                            });
+                            var infowindow_stmaryschurch = new google.maps.InfoWindow({
+                                content: "Venue - St Mary's Church"
+                            });
+                            var infowindow_doctoncourt = new google.maps.InfoWindow({
+                                content: "Box Office - Docton Court Gallery"
+                            });
+                            var infowindow_baptistchapel = new google.maps.InfoWindow({
+                                content: "Venue - Baptist Chapel"
+                            });
+
+                            // plot the locations on the map
+                            loc_stmaryshall.setMap(map);
+                            loc_stmaryschurch.setMap(map);
+                            loc_doctoncourt.setMap(map);
+                            loc_baptistchapel.setMap(map);
+
+                            // event handlers for displaying the information pop-ups
+                            google.maps.event.addListener(loc_stmaryshall, 'click', function () {
+                                infowindow_stmaryshall.open(map, loc_stmaryshall);
+                            });
+                            google.maps.event.addListener(loc_stmaryschurch, 'click', function () {
+                                infowindow_stmaryschurch.open(map, loc_stmaryschurch);
+                            });
+                            google.maps.event.addListener(loc_doctoncourt, 'click', function () {
+                                infowindow_doctoncourt.open(map, loc_doctoncourt);
+                            });
+                            google.maps.event.addListener(loc_baptistchapel, 'click', function () {
+                                infowindow_baptistchapel.open(map, loc_baptistchapel);
+                            });
+
                         }
                     </script>
                 </div>

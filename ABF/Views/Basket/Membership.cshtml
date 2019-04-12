@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Membership";
+}
+
+@ViewBag.Message
+
+<body class="membership-bg">
+<div class="jumbotron box-colour">
+<h2>Membership</h2>
+<p>If you would like to support our charity, you can become a Friend of the Festival for an annual fee of £20. This not only supports the work that we do but also provides you with early access to ticket bookings, Friends exclusive events and a 10% discount at our Waterstones Festival bookshop.</p>
+
+@if (User.IsInRole("Member"))
+{
+    <div class="bg-warning">
+        <h4>You are already an Appledore Book Festival member.</h4>
+        <p>If you are trying to renew your Membership, please wait until you have received an email from us, stating that renewals are available.</p>
+    </div>
+}
+
+else if (User.Identity.IsAuthenticated)
+{
+    @Html.ActionLink("Add standard membership to basket", "AddMembership", "Basket", new {membershipId = 1 }, null)
+}
+
+else
+{
+    <div class="bg-warning">
+        <p>You must be logged in to buy a Membership online.<br/>It will automatically be added to your customer account.</p>
+        <p>
+            Please
+            @Html.ActionLink("Login", "Login", "Account")
+            or
+            @Html.ActionLink("Register", "Register", "Account")
+            a new account to purchase a membership.
+        </p>
+
+    </div>
+}
+
+<br /><br />
+<h2>Renewal</h2>
+<p>If you were a Friend of the Festival in 2018, your email address (username) and password have not changed, simply log on, check your details and pay for your membership renewal. You will be sent an email confirming your purchase and new for 2019, you will be allocated a membership number and an electronic membership card. If you have forgotten your password, simply follow the password reset button. If you need help, call our Box Office on 01237 424 949.</p>
+
+    </div>
+</body>

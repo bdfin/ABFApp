@@ -30,7 +30,7 @@ namespace ABF.Data.DAO
         }
 
 
-        public Customer GetCustomer(int id)
+        public Customer GetCustomer(string id)
         {
             IQueryable<Customer> customer;
 

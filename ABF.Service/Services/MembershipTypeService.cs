@@ -21,5 +21,10 @@ namespace ABF.Service.Services
         {
             return membershipTypeDAO.GetMembershipTypes();
         }
+
+        public MembershipType GetMembershipType(int id)
+        {
+            return membershipTypeDAO.GetMembershipType(id);
+        }
     }
 }

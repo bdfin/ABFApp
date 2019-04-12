@@ -4,9 +4,11 @@ using ABF.Service.Services;
 using ABF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Controllers.Admin;
 
 namespace ABF.Controllers
 {
@@ -16,6 +18,7 @@ namespace ABF.Controllers
         private EventService eventService;
         private ImageService imageService;
         private AddOnService addOnService;
+        private AdminTicketController adminticketcontroller;
 
         public BookingsController()
         {
@@ -23,6 +26,7 @@ namespace ABF.Controllers
             eventService = new EventService();
             imageService = new ImageService();
             addOnService = new AddOnService();
+            adminticketcontroller = new AdminTicketController();
         }
 
         // GET: Bookings
@@ -33,15 +37,32 @@ namespace ABF.Controllers
             var viewModelList = new List<EventListViewModel>();
             var indexview = new EventIndexViewModel();
 
+            // construct a list of all event Ids which have add-ons
+            var ao = addOnService.GetAllAddOns();
+            var eventswithaddons = new List<int>();
+            foreach (var addon in ao)
+            {
+                eventswithaddons.Add(addon.EventId);
+            }
+
             foreach (Event Singleevent in eList)
             {
                 var e = Singleevent;
                 var l = locationService.GetLocation(e.LocationId);
+                var a = adminticketcontroller.GetAvailability(e.Id);
+                var hasao = false;
 
+                if (eventswithaddons.Contains(e.Id))
+                {
+                    hasao = true;
+                }
+                
                 var viewModel = new EventListViewModel
                 {
                     Event = e,
-                    Location = l
+                    Location = l,
+                    availability = a,
+                    hasAddOn = hasao,  
                 };
 
                 viewModelList.Add(viewModel);
@@ -87,26 +108,25 @@ namespace ABF.Controllers
 
         public ActionResult Basket()
         {
-            if (Session["Tix"] == null)
+            if (Session["Tix"] == null && (Session["Membership"] == null))
             {
                 return View("BasketEmpty");
             }
             else
             {
-                // empty list ready to be passed to view
+                // empty full basket view model
+                var fullbasketviewmodel = new FullBasketViewModel();
+
+                // empty list of events ready to be passed to viewmodel
                 var basketviewmodel = new List<BasketViewModel>();
 
-                // get Session["tix"] and store in Dictionary
-                Dictionary<int, int> event_ticket = new Dictionary<int, int>();
+                // get Session["Tix"] and store in Dictionary
+                var event_ticket = new Dictionary<int, int>();
                 event_ticket = (Dictionary<int, int>)Session["Tix"];
 
-                if (event_ticket.Count == 0)
+                if (event_ticket != null)
                 {
-                    return View("BasketEmpty");
-                }
-                else
-                {
-                    // populate viewmodel list for view
+                    // populate events viewmodel list
                     foreach (KeyValuePair<int, int> e in event_ticket)
                     {
                         BasketViewModel basketentry = new BasketViewModel();
@@ -116,12 +136,35 @@ namespace ABF.Controllers
                         basketviewmodel.Add(basketentry);
                     }
 
-                    return View(basketviewmodel);
+                    fullbasketviewmodel.eventtickets = basketviewmodel;
                 }
+
+                if (Session["AddOns"] != null)
+                {
+                    // get Session["AddOns"] and store it in Dictionary
+                    var addondictionary = new Dictionary<AddOn, int>();
+                    var addonint = (Dictionary<int, int>) Session["AddOns"];
+
+                    foreach (var ao in addonint)
+                    {
+                        var fulladdon = addOnService.GetAddOn(ao.Key);
+                        var aoquantity = ao.Value;
+
+                        addondictionary.Add(fulladdon, aoquantity);
+                    }
+
+                    fullbasketviewmodel.addontickets = addondictionary;
+                }
+
+
+
+                if (Session["Membership"] != null)
+                {
+                    fullbasketviewmodel.Membership = (MembershipType)Session["Membership"];
+                }
+
+                return View(fullbasketviewmodel);
             }
-
-
-            //return View("_DateList", Datelist);
         }
     }
 }
