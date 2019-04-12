@@ -38,7 +38,7 @@ namespace ABF.Controllers
                 // do nothing
             }
 
-            var tickettotal = this.calculategrandtotal() + (decimal) 1.50;
+            var tickettotal = this.calculategrandtotal();
             Session["GrandTotal"] = tickettotal;
 
             var usercheckoutviewmodel = new UserCheckoutViewModel()
@@ -52,7 +52,7 @@ namespace ABF.Controllers
 
         public ActionResult StartCheckoutGuest()
         {
-            var tickettotal = this.calculategrandtotal() + (decimal) 1.50;
+            var tickettotal = this.calculategrandtotal();
             Session["GrandTotal"] = tickettotal;
             return View("StartCheckout", tickettotal);
         }
@@ -105,6 +105,7 @@ namespace ABF.Controllers
             ABFDbContext db = new ABFDbContext();
             OrderService orderService = new OrderService();
             TicketService ticketService = new TicketService();
+            var viewModel = new OrderSuccessViewModel();
 
             #region //----------------- Make a new payment
 
@@ -188,6 +189,8 @@ namespace ABF.Controllers
             os.CreateOrder(order);
             db.SaveChanges();
 
+            viewModel.order = order;
+
             #endregion
 
             #region //------------ Create tickets for each item
@@ -217,10 +220,7 @@ namespace ABF.Controllers
                         TicketList.Add(ticket);
                     }
                 }
-
             }
-
-            ;
 
             if (Session["AddOns"] != null)
             {
@@ -246,15 +246,14 @@ namespace ABF.Controllers
 
             }
 
-            ;
-
+            viewModel.tickets = TicketList;
             #endregion
 
             // clear all tickets from the basket!
             Session.Abandon();
 
             // all the logic goes here
-            return View("OrderSuccess", TicketList);
+            return View("OrderSuccess", viewModel);
         }
 
         [HttpPost]
@@ -264,6 +263,7 @@ namespace ABF.Controllers
             ABFDbContext db = new ABFDbContext();
             OrderService orderService = new OrderService();
             TicketService ticketService = new TicketService();
+            var viewModel = new OrderSuccessViewModel();
 
             #region //----------------- Make a new payment
 
@@ -375,6 +375,7 @@ namespace ABF.Controllers
                 Delivery = deliverymethod
             };
             os.CreateOrder(order);
+            viewModel.order = order;
             db.SaveChanges();
 
             #endregion
@@ -435,6 +436,7 @@ namespace ABF.Controllers
 
             }
 
+            viewModel.tickets = TicketList;
             ;
 
             #endregion
@@ -452,7 +454,7 @@ namespace ABF.Controllers
             Session.Abandon();
 
             // all the logic goes here
-            return View("OrderSuccess", TicketList);
+            return View("OrderSuccess", viewModel);
         }
     }
 }

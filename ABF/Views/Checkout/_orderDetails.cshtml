@@ -1,0 +1,34 @@
+﻿@model ABF.Data.ABFDbModels.Order
+
+<div class="bg-info">
+    <h2>Your order number is <b>@Model.Id</b>.</h2>
+    <h5>Order Placed on @Model.Date.ToString("ddd dd MMM") at @Model.Time.ToString("hh:mm").</h5>
+
+    <br />
+    <h4><b>Selected Delivery Method:</b> @Model.Delivery</h4>
+    @{
+        switch (Model.Delivery)
+        {
+            case "collect":
+                <h5>Your tickets will be held at the Box Office until the Festival <b>if you have paid online</b></h5>
+                <p>
+                    If you have not yet paid, your tickets will only be held for <b>5 working days</b>,
+                    after which time - if payment is not received - your order will be cancelled and tickets returned to stock.
+                </p>
+                break;
+            case "post":
+                <h5>Your tickets will be sent by <b>Royal Mail 2nd Class Post</b> once payment has cleared.</h5>
+                <p><u>If you are sending a cheque,</u> please write your <b>order number</b> on the back and send it directly to the Box office. <br/>
+                    Your tickets will only be held for <b>5 working days</b>, after which time - if payment is not received - 
+                    your order will be cancelled and tickets returned to stock.</p>
+                break;
+            case "email":
+                <h5>Your tickets will been emailed to the email address you supplied at checkout.</h5>
+                <p>Please allow a few minutes for this to happen and check your SPAM or Junk box if they have not arrived in an hour.</p>
+                <p><b>If you are a registered customer, you can see your orders and reprint tickets from your Account page.</b></p>
+                break;
+        }
+    }
+</div>
+<hr/>
+
