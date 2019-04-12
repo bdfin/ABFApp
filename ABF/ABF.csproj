@@ -216,6 +216,7 @@
     <Compile Include="ViewModels\EventIndexViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\FullBasketViewModel.cs" />
+    <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
     <Compile Include="ViewModels\OrderSuccessViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
@@ -647,6 +648,7 @@
     <Content Include="Views\Checkout\OrderSuccess.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Checkout\_orderDetails.cshtml" />
+    <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

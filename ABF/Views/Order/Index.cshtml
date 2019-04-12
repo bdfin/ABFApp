@@ -22,13 +22,14 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.orderId)</td>
+            <td><b>@item.orderId</b></td>
             <td>@item.orderDate.ToString("dd-MM-yyyy"), @item.orderTime.ToString("HH:mm")</td>
             <td>@Html.DisplayFor(modelItem => item.customerName)</td>
             <td>@Html.DisplayFor(modelItem => item.deliveryMethod)</td>
             <td>@Html.DisplayFor(modelItem => item.paymentMethod)</td>
             <td><b>£ @Html.DisplayFor(modelItem => item.price)</b></td>
-            <td><b>Get Tickets</b></td>
+            <td><b>Get Tickets</b> | @Html.ActionLink("View Details", "Details", new { id = item.orderId }) |
+            </td>
         </tr>
     }
 
