@@ -44,6 +44,14 @@ namespace ABF.Data.DAO
 
             return order.First();
         }
+        public Order getOrderFromPaymentId(string Id)
+        {
+            var order = from orders in _context.Orders
+                where orders.PaymentId == Id 
+                select orders;
+
+            return order.First();
+        }
 
         public IEnumerable<Order> getOrders()
         {

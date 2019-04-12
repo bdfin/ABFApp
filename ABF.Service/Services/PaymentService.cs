@@ -28,5 +28,11 @@ namespace ABF.Service.Services
         {
             return paymentDAO.GetPayment(Id);
         }
+
+
+        public IList<Payment> GetPayments()
+        {
+            return paymentDAO.GetPayments();
+        }
     }
 }

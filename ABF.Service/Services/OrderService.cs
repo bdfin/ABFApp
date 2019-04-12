@@ -32,6 +32,12 @@ namespace ABF.Service.Services
             return orderDAO.getOrder(Id);
         }
 
+        public Order getOrderFromPaymentId(string Id)
+        {
+            return orderDAO.getOrderFromPaymentId(Id);
+        }
+
+
         public IEnumerable<Order> GetOrders()
         {
             return orderDAO.getOrders();
