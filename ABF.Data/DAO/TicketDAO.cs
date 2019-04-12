@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -75,7 +76,6 @@ namespace ABF.Data.DAO
             return event_tickets;
         }
 
-
         public Dictionary<int, int> GetAddOnSalesQuantitiesForAllEvents()
         {
             // make a list of all the addonIds which tickets have been sold for
@@ -112,7 +112,6 @@ namespace ABF.Data.DAO
             return addon_tickets;
         }
 
-
         public int GetTicketSalesQuantityForEvent(int id)
         {
             int ticketcount;
@@ -143,13 +142,23 @@ namespace ABF.Data.DAO
             return addoncount;
         }
 
-
         public void CreateTicket(Ticket ticket)
             {
 
             _context.Tickets.Add(ticket);
             _context.SaveChanges();
 
+        }
+
+        public IEnumerable<Ticket> GetTicketsForOrder(int id)
+        {
+            var ticketlist = 
+                from ticket 
+                in _context.Tickets
+                where ticket.OrderId==id
+                select ticket;
+
+            return ticketlist;
         }
     }
 }
