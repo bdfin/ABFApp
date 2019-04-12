@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ABF.Controllers.Admin;
+using Microsoft.AspNet.Identity;
 
 namespace ABF.Controllers
 {
@@ -19,6 +20,7 @@ namespace ABF.Controllers
         private ImageService imageService;
         private AddOnService addOnService;
         private AdminTicketController adminticketcontroller;
+        private CustomerService customerService;
 
         public BookingsController()
         {
@@ -26,6 +28,7 @@ namespace ABF.Controllers
             eventService = new EventService();
             imageService = new ImageService();
             addOnService = new AddOnService();
+            customerService = new CustomerService();
             adminticketcontroller = new AdminTicketController();
         }
 
@@ -72,6 +75,17 @@ namespace ABF.Controllers
 
             indexview.Events = viewModelList;
             indexview.Datelist = datelist.ToList();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var customermemberstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
+
+                if (customermemberstate != null)
+                {
+                    indexview.isMember = true;
+                }
+            }
 
             return View(indexview);
         }

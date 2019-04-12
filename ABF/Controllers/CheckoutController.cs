@@ -263,7 +263,7 @@ namespace ABF.Controllers
             ABFDbContext db = new ABFDbContext();
             OrderService orderService = new OrderService();
             TicketService ticketService = new TicketService();
-            var viewModel = new OrderSuccessViewModel();
+            var viewModel = new OrderSuccessViewModel(){ newmember = false};
 
             #region //----------------- Make a new payment
 
@@ -445,8 +445,12 @@ namespace ABF.Controllers
 
             if (Session["Membership"] != null)
             {
-                
-                // add user to role 'member'
+                var newmember = cs.GetCustomer(custId);
+                var requestedmembershiptype = (MembershipType) Session["Membership"];
+                newmember.MembershipTypeId = requestedmembershiptype.Id;           
+                cs.UpdateCustomer(newmember);
+
+                viewModel.newmember = true;
             }
             #endregion
 

@@ -639,7 +639,6 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />
-    <Content Include="Views\Home\Membership.cshtml" />
     <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Basket\Membership.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />

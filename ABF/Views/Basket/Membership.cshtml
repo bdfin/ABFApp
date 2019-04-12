@@ -1,4 +1,6 @@
-﻿@{
+﻿@model bool
+
+@{
     ViewBag.Title = "Membership";
 }
 
@@ -9,7 +11,7 @@
 <h2>Membership</h2>
 <p>If you would like to support our charity, you can become a Friend of the Festival for an annual fee of £20. This not only supports the work that we do but also provides you with early access to ticket bookings, Friends exclusive events and a 10% discount at our Waterstones Festival bookshop.</p>
 
-@if (User.IsInRole("Member"))
+@if (Model)
 {
     <div class="bg-warning">
         <h4>You are already an Appledore Book Festival member.</h4>

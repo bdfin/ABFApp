@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
+using Microsoft.AspNet.Identity;
 
 namespace ABF.Controllers
 {
@@ -13,11 +14,12 @@ namespace ABF.Controllers
     {
         private BasketService basketService;
         private AddOnService addonService;
+        private CustomerService customerService;
         public BasketController()
         {
             basketService = new BasketService();
             addonService = new AddOnService();
-
+            customerService = new CustomerService();
         }
 
         // GET: Basket
@@ -64,7 +66,19 @@ namespace ABF.Controllers
 
         public ActionResult Membership()
         {
-            return View();
+            bool isMember = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var customermembershipstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
+                if (customermembershipstate != null)
+                {
+                    isMember = true;
+                }
+            }
+
+            return View(isMember);
         }
 
         public ActionResult AddMembership(int membershipId)

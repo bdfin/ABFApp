@@ -58,7 +58,7 @@
             <td id="eventId" style="display:none">
                 <p>@item.Event.Id</p> </td>
 
-            @if (item.Event.IsMemberOnly && !User.IsInRole("Member"))
+            @if (item.Event.IsMemberOnly && !Model.isMember)
             {
                 <td colspan="4">
                     <button class="bg-light" style="width:250px; border-radius:10px; text-align:center">
