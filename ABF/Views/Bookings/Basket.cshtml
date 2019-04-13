@@ -5,13 +5,90 @@
 
     var addons = Model.addontickets;
     var events = Model.eventtickets;
+    var Uaddons = Model.UAaddontickets;
+    var Uevents = Model.UAeventtickets;
     var member = Model.Membership;
     decimal grandtotal = 0;
 
 }
+<hr />
+
+@if (Uevents != null)
+{
+    <div class="alert-danger">
+        <p>These <b>event tickets</b> have been removed from your basket as they are no longer available.</p>
+        <table class="table table-danger">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Event</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+
+            </thead>
+
+            @foreach (var item in Uevents)
+            {
+                <tr class="table-danger">
+                    <td>@Html.ActionLink("OK", "DeleteUnavailableTix", "Basket", new { id = item.Key.Id }, null)</td>
+                    <td><b>@Html.ActionLink(item.Key.Name, "Details", new { id = item.Key.Id })</b></td>
+                    <td>@item.Key.Author</td>
+                    <td>@item.Key.Date.ToString("ddd dd MMM")</td>
+                    <td>@item.Key.StartTime.ToString("HH:mm")</td>
+                    <td style="text-align:right">£@item.Key.TicketPrice</td>
+                    <td style="text-align:center">@item.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr/>
+}
+
+@if (Uaddons != null)
+{
+    <div class="alert-danger">
+        <p>These <b>add ons</b> have been removed from your basket as they are no longer available.</p>
+        <table class="table table-danger">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Event</th>
+                <th>Author</th>
+                <th>Add-On</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+
+            </thead>
+
+            @foreach (var item in Uaddons)
+            {
+                <tr class="table-danger">
+                    <td>@Html.ActionLink("OK", "DeleteUnavailableAddOn", "Basket", new { id = item.Key.addon.Id }, null)</td>
+                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id})</b></td>
+                    <td>@item.Key.addonevent.Author</td>
+                    <td>@item.Key.addon.Name</td>
+                    <td>@item.Key.addonevent.Date.ToString("ddd dd MMM")</td>
+                    <td>@item.Key.addonevent.StartTime.ToString("HH:mm")</td>
+                    <td style="text-align:right">£@item.Key.addon.Price</td>
+                    <td style="text-align:center">@item.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr/>
+}
+
 <h2>Your Basket</h2>
 <button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
 <hr />
+
 @if (Model.Membership != null)
 {
     <h4>Membership:</h4>
@@ -51,7 +128,7 @@
         {
             <tr class="table-primary">
                 <td>@Html.ActionLink("Delete", "DeleteBasketTix", "Basket", new { id = item.Event.Id }, null)</td>
-                <td><b>@Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})</b></td>
+                <td><b>@Html.ActionLink(item.Event.Name, "Details", new { id = item.Event.Id })</b></td>
                 <td>@item.Event.Author</td>
                 <td>@item.Event.Date.ToString("ddd dd MMM")</td>
                 <td>@item.Event.StartTime.ToString("HH:mm")</td>
