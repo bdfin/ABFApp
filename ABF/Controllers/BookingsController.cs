@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 using ABF.Controllers.Admin;
@@ -126,7 +127,8 @@ namespace ABF.Controllers
         {
             this.CheckAvailability();
 
-            if (Session["Tix"] == null && (Session["Membership"] == null))
+            if (Session["Tix"] == null && Session["Membership"] == null && Session["UTix"] == null 
+                && Session["UAddOns"] == null && Session["RAddOns"]==null)
             {
                 return View("BasketEmpty");
             }
@@ -210,6 +212,24 @@ namespace ABF.Controllers
                     fullbasketviewmodel.UAaddontickets = UAOviewModel;
                 }
 
+                if (Session["RAddOns"] != null)
+                {
+                    var RAO = (Dictionary<int, int>)Session["RAddOns"];
+                    var RAOviewModel = new Dictionary<AddOnEventViewModel, int>();
+
+                    foreach (KeyValuePair<int, int> e in RAO)
+                    {
+                        var ROEviewModel = new AddOnEventViewModel()
+                        {
+                            addon = addOnService.GetAddOn(e.Key),
+                            addonevent = eventService.GetEvent(addOnService.GetAddOn(e.Key).EventId)
+                        };
+                        RAOviewModel.Add(ROEviewModel, e.Value);
+                    }
+
+                    fullbasketviewmodel.RAaddontickets = RAOviewModel;
+                }
+
 
                 if (Session["Membership"] != null)
                 {
@@ -220,11 +240,11 @@ namespace ABF.Controllers
             }
         }
 
-
-        public void CheckAvailability()
+        public bool CheckAvailability()
         {
-            #region CHECK AVAILABILITY
-            if ((Dictionary<int, int>)Session["AddOns"] != null)
+            bool isChanged = false;
+
+            if (Session["AddOns"] != null)
             {
                 var unavailableAddOns = new Dictionary<int, int>();
                 var availableAddOns = new Dictionary<int, int>();
@@ -250,12 +270,13 @@ namespace ABF.Controllers
                         // calculate number of tickets to move to unavailable and add this to unavailable List
                         var quantityUnavailable = addon.Value - availability;
                         unavailableAddOns.Add(addon.Key, quantityUnavailable);
+                        isChanged = true;
 
                         // check to see if ANY tickets are available, and keep these in available Basket
-                        if (addon.Value - availability > 0)
+                        if (addon.Value - quantityUnavailable > 0)
                         {
                             // keep the number of available tickets in the basket
-                            availableAddOns.Add(addon.Key, availability);
+                            availableAddOns.Add(addon.Key, (addon.Value - quantityUnavailable));
                         }
                     }
 
@@ -266,10 +287,22 @@ namespace ABF.Controllers
                     }
                 }
 
-                Session["AddOns"] = availableAddOns;
+                if (availableAddOns.Count != 0)
+                {
+                    Session["AddOns"] = availableAddOns;
+                }
+                else
+                {
+                    Session["AddOns"] = null;
+                }
+
                 if (unavailableAddOns.Count != 0)
                 {
                     Session["UAddOns"] = unavailableAddOns;
+                }
+                else
+                {
+                    Session["UAddOns"] = null;
                 }
             }
 
@@ -284,10 +317,8 @@ namespace ABF.Controllers
                 {
                     // get Event Data:
                     var Eventcapacity = eventService.GetEvent(tix.Key).Capacity;
-
                     // get Sales Quantity for this Event:
                     var EventSold = ticketService.GetTicketSalesQuantityForEvent(tix.Key);
-
                     //get availability
                     var availability = Eventcapacity - EventSold;
 
@@ -297,12 +328,46 @@ namespace ABF.Controllers
                         // calculate number of tickets to move to unavailable and add this to unavailable List
                         var quantityUnavailable = tix.Value - availability;
                         unavailableTix.Add(tix.Key, quantityUnavailable);
+                        isChanged = true;
 
                         // check to see if ANY tickets are available, and keep these in available Basket
-                        if (tix.Value - availability > 0)
+                        if (tix.Value - quantityUnavailable > 0)
                         {
                             // keep the number of available tickets in the basket
-                            availableTix.Add(tix.Key, availability);
+                            availableTix.Add(tix.Key, (tix.Value - quantityUnavailable));
+                        }
+
+                        // no tickets are available and all will be removed. Check for and remove any add-ons too.
+                        else
+                        {
+                            if (Session["AddOns"] != null)
+                            {
+                                var removedaddons = new Dictionary<int, int>();
+                                var addons = (Dictionary<int, int>) Session["AddOns"];
+
+                                foreach (KeyValuePair<int, int> addon in addons)
+                                {
+                                    if (tix.Key == addOnService.GetAddOn(addon.Key).EventId)
+                                    {
+                                        removedaddons.Add(addon.Key, addon.Value);
+                                    }
+                                }
+
+                                // update the Session Values
+                                if (addons.Count == 0)
+                                {
+                                    Session["AddOns"] = null;
+                                }
+                                else
+                                {
+                                    Session["AddOns"] = addons;
+                                }
+
+                                if (removedaddons.Count != 0)
+                                {
+                                    Session["RAddOns"] = removedaddons;
+                                }
+                            }
                         }
                     }
 
@@ -313,15 +378,142 @@ namespace ABF.Controllers
                     }
                 }
 
-                Session["Tix"] = availableTix;
+                if (availableTix.Count != 0)
+                {
+                    Session["Tix"] = availableTix;
+                }
+                else
+                {
+                    Session["Tix"] = null;
+                }
+
                 if (unavailableTix.Count != 0)
                 {
                     Session["UTix"] = unavailableTix;
                 }
+                else
+                {
+                    Session["UTix"] = null;
+                }
             }
 
-            #endregion
-
+            return isChanged;
         }
+
+        public ActionResult BasketNoCheck()
+        {
+            if (Session["Tix"] == null && Session["Membership"] == null && Session["UTix"] == null
+                && Session["UAddOns"] == null && Session["RAddOns"] == null)
+            {
+                return View("BasketEmpty");
+            }
+
+            else
+            {
+                // empty full basket view model
+                var fullbasketviewmodel = new FullBasketViewModel();
+
+                // empty list of events ready to be passed to viewmodel
+                var basketviewmodel = new List<BasketViewModel>();
+
+                // get Session["Tix"] and store in Dictionary
+                var event_ticket = new Dictionary<int, int>();
+                event_ticket = (Dictionary<int, int>)Session["Tix"];
+
+                if (event_ticket != null)
+                {
+                    // populate events viewmodel list
+                    foreach (KeyValuePair<int, int> e in event_ticket)
+                    {
+                        BasketViewModel basketentry = new BasketViewModel();
+                        basketentry.Event = eventService.GetEvent(e.Key);
+                        basketentry.LocationName = locationService.GetLocation(basketentry.Event.LocationId).Name;
+                        basketentry.Quantity = e.Value;
+                        basketviewmodel.Add(basketentry);
+                    }
+
+                    fullbasketviewmodel.eventtickets = basketviewmodel;
+                }
+
+
+                // check if there are any Unavailable Tix
+                if (Session["UTix"] != null)
+                {
+                    var UT = (Dictionary<int, int>)Session["UTix"];
+                    var UTviewModel = new Dictionary<Event, int>();
+
+                    foreach (KeyValuePair<int, int> e in UT)
+                    {
+                        UTviewModel.Add(eventService.GetEvent(e.Key), e.Value);
+                    }
+
+                    fullbasketviewmodel.UAeventtickets = UTviewModel;
+                }
+
+
+                if (Session["AddOns"] != null)
+                {
+                    // get Session["AddOns"] and store it in Dictionary
+                    var addondictionary = new Dictionary<AddOn, int>();
+                    var addonint = (Dictionary<int, int>)Session["AddOns"];
+
+                    foreach (var ao in addonint)
+                    {
+                        var fulladdon = addOnService.GetAddOn(ao.Key);
+                        var aoquantity = ao.Value;
+
+                        addondictionary.Add(fulladdon, aoquantity);
+                    }
+
+                    fullbasketviewmodel.addontickets = addondictionary;
+                }
+
+                // check if there are any Unavailable AddOns
+                if (Session["UAddOns"] != null)
+                {
+                    var UAO = (Dictionary<int, int>)Session["UAddOns"];
+                    var UAOviewModel = new Dictionary<AddOnEventViewModel, int>();
+
+                    foreach (KeyValuePair<int, int> e in UAO)
+                    {
+                        var AOEviewModel = new AddOnEventViewModel()
+                        {
+                            addon = addOnService.GetAddOn(e.Key),
+                            addonevent = eventService.GetEvent(addOnService.GetAddOn(e.Key).EventId)
+                        };
+                        UAOviewModel.Add(AOEviewModel, e.Value);
+                    }
+
+                    fullbasketviewmodel.UAaddontickets = UAOviewModel;
+                }
+
+                if (Session["RAddOns"] != null)
+                {
+                    var RAO = (Dictionary<int, int>)Session["RAddOns"];
+                    var RAOviewModel = new Dictionary<AddOnEventViewModel, int>();
+
+                    foreach (KeyValuePair<int, int> e in RAO)
+                    {
+                        var ROEviewModel = new AddOnEventViewModel()
+                        {
+                            addon = addOnService.GetAddOn(e.Key),
+                            addonevent = eventService.GetEvent(addOnService.GetAddOn(e.Key).EventId)
+                        };
+                        RAOviewModel.Add(ROEviewModel, e.Value);
+                    }
+
+                    fullbasketviewmodel.RAaddontickets = RAOviewModel;
+                }
+
+
+                if (Session["Membership"] != null)
+                {
+                    fullbasketviewmodel.Membership = (MembershipType)Session["Membership"];
+                }
+
+                return View("Basket", fullbasketviewmodel);
+            }
+        }
+
     }
 }

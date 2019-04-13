@@ -6,6 +6,7 @@
     var addons = Model.addontickets;
     var events = Model.eventtickets;
     var Uaddons = Model.UAaddontickets;
+    var Raddons = Model.RAaddontickets;
     var Uevents = Model.UAeventtickets;
     var member = Model.Membership;
     decimal grandtotal = 0;
@@ -71,6 +72,43 @@
             {
                 <tr class="table-danger">
                     <td>@Html.ActionLink("OK", "DeleteUnavailableAddOn", "Basket", new { id = item.Key.addon.Id }, null)</td>
+                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id})</b></td>
+                    <td>@item.Key.addonevent.Author</td>
+                    <td>@item.Key.addon.Name</td>
+                    <td>@item.Key.addonevent.Date.ToString("ddd dd MMM")</td>
+                    <td>@item.Key.addonevent.StartTime.ToString("HH:mm")</td>
+                    <td style="text-align:right">£@item.Key.addon.Price</td>
+                    <td style="text-align:center">@item.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr/>
+}
+
+@if (Raddons != null)
+{
+    <div class="alert-danger">
+        <p>These <b>add ons</b> have been removed from your basket as you no longer have any associated event tickets.</p>
+        <table class="table table-danger">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Event</th>
+                <th>Author</th>
+                <th>Add-On</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+
+            </thead>
+
+            @foreach (var item in Raddons)
+            {
+                <tr class="table-danger">
+                    <td>@Html.ActionLink("OK", "DeleteUnavailableRAddOn", "Basket", new { id = item.Key.addon.Id }, null)</td>
                     <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id})</b></td>
                     <td>@item.Key.addonevent.Author</td>
                     <td>@item.Key.addon.Name</td>
