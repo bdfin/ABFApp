@@ -14,47 +14,69 @@ namespace ABF.Controllers
 {
     public class CheckoutController : Controller
     {
+        private EventService eventService;
+        private TicketService ticketService;
+        private AddOnService addOnService;
+
+        public CheckoutController()
+        {
+            eventService = new EventService();
+            ticketService = new TicketService();
+            addOnService = new AddOnService();
+        }
+
+
         // GET: Checkout
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Checkout()
-        {
-            return View();
-        }
-
         public ActionResult StartCheckoutUser()
         {
-            var cust = new Customer();
-            try
+            // check the availability, and return to basket if anything needs changing
+            if (this.CheckAvailability())
             {
-                var cs = new CustomerService();
-                cust = cs.GetCustomerByUserId(User.Identity.GetUserId());
+                return RedirectToAction("BasketNoCheck", "Bookings");
             }
-            catch
+            else
             {
-                // do nothing
+                var cust = new Customer();
+                try
+                {
+                    var cs = new CustomerService();
+                    cust = cs.GetCustomerByUserId(User.Identity.GetUserId());
+                }
+                catch
+                {
+                    // do nothing
+                }
+
+                var tickettotal = this.calculategrandtotal();
+                Session["GrandTotal"] = tickettotal;
+
+                var usercheckoutviewmodel = new UserCheckoutViewModel()
+                {
+                    customer = cust,
+                    tickettotal = tickettotal
+                };
+
+                return View("StartCheckoutUser", usercheckoutviewmodel);
             }
-
-            var tickettotal = this.calculategrandtotal();
-            Session["GrandTotal"] = tickettotal;
-
-            var usercheckoutviewmodel = new UserCheckoutViewModel()
-            {
-                customer = cust,
-                tickettotal = tickettotal
-            };
-
-            return View("StartCheckoutUser", usercheckoutviewmodel);
         }
 
         public ActionResult StartCheckoutGuest()
         {
-            var tickettotal = this.calculategrandtotal();
-            Session["GrandTotal"] = tickettotal;
-            return View("StartCheckout", tickettotal);
+            if (this.CheckAvailability())
+            {
+                return RedirectToAction("BasketNoCheck", "Bookings");
+            }
+            else
+            {
+                var tickettotal = this.calculategrandtotal();
+                Session["GrandTotal"] = tickettotal;
+                return View("StartCheckout", tickettotal);
+            }
         }
 
         protected decimal calculategrandtotal()
@@ -66,7 +88,7 @@ namespace ABF.Controllers
 
             if (Session["Tix"] != null)
             {
-                var alltix = (Dictionary<int, int>) Session["Tix"];
+                var alltix = (Dictionary<int, int>)Session["Tix"];
                 foreach (KeyValuePair<int, int> singletix in alltix)
                 {
                     var price = es.GetEvent(singletix.Key).TicketPrice;
@@ -77,7 +99,7 @@ namespace ABF.Controllers
 
             if (Session["AddOns"] != null)
             {
-                var alladdons = (Dictionary<int, int>) Session["AddOns"];
+                var alladdons = (Dictionary<int, int>)Session["AddOns"];
                 foreach (KeyValuePair<int, int> singleaddon in alladdons)
                 {
                     var price = aos.GetAddOn(singleaddon.Key).Price;
@@ -88,7 +110,7 @@ namespace ABF.Controllers
 
             if (Session["Membership"] != null)
             {
-                var membershipprice = ((MembershipType) Session["Membership"]).Price;
+                var membershipprice = ((MembershipType)Session["Membership"]).Price;
                 grandtotal += membershipprice;
             }
 
@@ -102,359 +124,544 @@ namespace ABF.Controllers
         public ActionResult Submit(string name, string address1, string address2, string address3, string postcode,
             string email, string phone, string paymentmethod)
         {
-            ABFDbContext db = new ABFDbContext();
-            OrderService orderService = new OrderService();
-            TicketService ticketService = new TicketService();
-            var viewModel = new OrderSuccessViewModel();
-
-            #region //----------------- Make a new payment
-
-            PaymentService ps;
-            ps = new PaymentService();
-            string paymentid = Guid.NewGuid().ToString();
-            var pmethod = "";
-            switch (paymentmethod)
+            // check the availability, and return to basket if anything needs changing
+            if (this.CheckAvailability())
             {
-                case "cardcollect":
-                case "cardpost":
-                case "cardemail":
-                    pmethod = "card";
-                    break;
-                case "collect":
-                    pmethod = "on collection";
-                    break;
-                case "cheque":
-                    pmethod = "cheque";
-                    break;
-            }
-            var payment = new Payment()
-            {
-                Id = paymentid,
-                Method = pmethod,
-                Amount = this.calculategrandtotal()
-
-            };
-
-            ps.CreatePayment(payment);
-            db.SaveChanges();
-
-            #endregion
-
-            #region //-------------- Create Customer Class
-
-            CustomerService cs = new CustomerService();
-            string customerid = Guid.NewGuid().ToString();
-            var customer = new Customer()
-            {
-                Id = customerid,
-                Name = name,
-                Address1 = address1,
-                Address2 = address2,
-                Address3 = address3,
-                PostCode = postcode,
-                Email = email,
-                PhoneNumber = phone,
-            };
-
-            cs.CreateCustomer(customer);
-            db.SaveChanges();
-
-            #endregion
-
-            #region//---------------- create a new order
-
-            OrderService os = new OrderService();
-            var deliverymethod = "";
-            if (paymentmethod == "cheque" || paymentmethod == "cardpost")
-            {
-                deliverymethod = "post";
-            }
-            else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
-            {
-                deliverymethod = "collect";
+                return RedirectToAction("BasketNoCheck", "Bookings");
             }
             else
             {
-                deliverymethod = "email";
-            }
+                ABFDbContext db = new ABFDbContext();
+                OrderService orderService = new OrderService();
+                TicketService ticketService = new TicketService();
+                var viewModel = new OrderSuccessViewModel();
 
-            var order = new Order()
-            {
-                Date = DateTime.Today,
-                Time = DateTime.Now,
-                CustomerId = customerid,
-                PaymentId = paymentid,
-                Delivery = deliverymethod
-            };
-            os.CreateOrder(order);
-            db.SaveChanges();
+                #region //----------------- Make a new payment
 
-            viewModel.order = order;
-
-            #endregion
-
-            #region //------------ Create tickets for each item
-
-            var TicketList = new List<Ticket>();
-
-            var orderId = orderService.GetOrderId(paymentid, customerid);
-
-            if (Session["Tix"] != null)
-            {
-                var alltix = (Dictionary<int, int>) Session["Tix"];
-                foreach (KeyValuePair<int, int> singletix in alltix)
+                PaymentService ps;
+                ps = new PaymentService();
+                string paymentid = Guid.NewGuid().ToString();
+                var pmethod = "";
+                switch (paymentmethod)
                 {
-                    for (int i = 0; i < singletix.Value; i++)
-                    {
-                        var ticketId = Guid.NewGuid().ToString();
-                        var ticket = new Ticket()
-                        {
-                            Id = ticketId,
-                            EventId = singletix.Key,
-                            OrderId = orderId,
-
-                        };
-
-                        ticketService.CreateTicket(ticket);
-                        db.SaveChanges();
-                        TicketList.Add(ticket);
-                    }
-                }
-            }
-
-            if (Session["AddOns"] != null)
-            {
-                var alladdons = (Dictionary<int, int>) Session["AddOns"];
-                foreach (KeyValuePair<int, int> singleaddon in alladdons)
-                {
-                    for (int i = 0; i < singleaddon.Value; i++)
-                    {
-                        var ticketId = Guid.NewGuid().ToString();
-                        var ticket = new Ticket()
-                        {
-                            Id = ticketId,
-                            AddOnId = singleaddon.Key,
-                            OrderId = orderId,
-
-                        };
-
-                        ticketService.CreateTicket(ticket);
-                        db.SaveChanges();
-                        TicketList.Add(ticket);
-                    }
+                    case "cardcollect":
+                    case "cardpost":
+                    case "cardemail":
+                        pmethod = "card";
+                        break;
+                    case "collect":
+                        pmethod = "on collection";
+                        break;
+                    case "cheque":
+                        pmethod = "cheque";
+                        break;
                 }
 
+                var payment = new Payment()
+                {
+                    Id = paymentid,
+                    Method = pmethod,
+                    Amount = this.calculategrandtotal()
+
+                };
+
+                ps.CreatePayment(payment);
+                db.SaveChanges();
+
+                #endregion
+
+                #region //-------------- Create Customer Class
+
+                CustomerService cs = new CustomerService();
+                string customerid = Guid.NewGuid().ToString();
+                var customer = new Customer()
+                {
+                    Id = customerid,
+                    Name = name,
+                    Address1 = address1,
+                    Address2 = address2,
+                    Address3 = address3,
+                    PostCode = postcode,
+                    Email = email,
+                    PhoneNumber = phone,
+                };
+
+                cs.CreateCustomer(customer);
+                db.SaveChanges();
+
+                #endregion
+
+                #region//---------------- create a new order
+
+                OrderService os = new OrderService();
+                var deliverymethod = "";
+                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+                {
+                    deliverymethod = "post";
+                }
+                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+                {
+                    deliverymethod = "collect";
+                }
+                else
+                {
+                    deliverymethod = "email";
+                }
+
+                var order = new Order()
+                {
+                    Date = DateTime.Today,
+                    Time = DateTime.Now,
+                    CustomerId = customerid,
+                    PaymentId = paymentid,
+                    Delivery = deliverymethod
+                };
+                os.CreateOrder(order);
+                db.SaveChanges();
+
+                viewModel.order = order;
+
+                #endregion
+
+                #region //------------ Create tickets for each item
+
+                var TicketList = new List<Ticket>();
+
+                var orderId = orderService.GetOrderId(paymentid, customerid);
+
+                if (Session["Tix"] != null)
+                {
+                    var alltix = (Dictionary<int, int>)Session["Tix"];
+                    foreach (KeyValuePair<int, int> singletix in alltix)
+                    {
+                        for (int i = 0; i < singletix.Value; i++)
+                        {
+                            var ticketId = Guid.NewGuid().ToString();
+                            var ticket = new Ticket()
+                            {
+                                Id = ticketId,
+                                EventId = singletix.Key,
+                                OrderId = orderId,
+
+                            };
+
+                            ticketService.CreateTicket(ticket);
+                            db.SaveChanges();
+                            TicketList.Add(ticket);
+                        }
+                    }
+                }
+
+                if (Session["AddOns"] != null)
+                {
+                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                    foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                    {
+                        for (int i = 0; i < singleaddon.Value; i++)
+                        {
+                            var ticketId = Guid.NewGuid().ToString();
+                            var ticket = new Ticket()
+                            {
+                                Id = ticketId,
+                                AddOnId = singleaddon.Key,
+                                OrderId = orderId,
+
+                            };
+
+                            ticketService.CreateTicket(ticket);
+                            db.SaveChanges();
+                            TicketList.Add(ticket);
+                        }
+                    }
+
+                }
+
+                viewModel.tickets = TicketList;
+
+                #endregion
+
+                // clear all tickets from the basket!
+                Session.Abandon();
+
+                // all the logic goes here
+                return View("OrderSuccess", viewModel);
             }
-
-            viewModel.tickets = TicketList;
-            #endregion
-
-            // clear all tickets from the basket!
-            Session.Abandon();
-
-            // all the logic goes here
-            return View("OrderSuccess", viewModel);
         }
 
         [HttpPost]
         public ActionResult SubmitUser(string name, string address1, string address2, string address3, string postcode,
             string email, string phone, string paymentmethod, string updatedetails)
         {
-            ABFDbContext db = new ABFDbContext();
-            OrderService orderService = new OrderService();
-            TicketService ticketService = new TicketService();
-            var viewModel = new OrderSuccessViewModel();
-
-            #region //----------------- Make a new payment
-
-            PaymentService ps;
-            ps = new PaymentService();
-            string paymentid = Guid.NewGuid().ToString();
-            var pmethod = "";
-            switch (paymentmethod)
+            // check the availability, and return to basket if anything needs changing
+            if (this.CheckAvailability())
             {
-                case "cardcollect":
-                case "cardpost":
-                case "cardemail":
-                    pmethod = "card";
-                    break;
-                case "collect":
-                    pmethod = "on collection";
-                    break;
-                case "cheque":
-                    pmethod = "cheque";
-                    break;
-            }
-            var payment = new Payment()
-            {
-                Id = paymentid,
-                Method = pmethod,
-                Amount = this.calculategrandtotal()
-            };
-
-            ps.CreatePayment(payment);
-            db.SaveChanges();
-
-            #endregion
-
-            #region //-------------- Update Customer Details if appropriate
-
-            CustomerService cs = new CustomerService();
-            var userId = User.Identity.GetUserId();
-            var custId = "";
-
-            // check they have a customer account linked, if not create one
-            try
-            {
-                // see if a customer account can be found
-                custId = cs.GetCustomerByUserId(userId).Id;
-            }
-            catch
-            {
-                // if customer account does not exist:
-                var newcustomer = new Customer()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    UserId = userId,
-                    Name = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone,
-                };
-                cs.CreateCustomer(newcustomer);
-            }
-
-            // if customer checked the update details box, update details
-            if (updatedetails == "update")
-            {
-                custId = cs.GetCustomerByUserId(userId).Id;
-                var customerupdated = new Customer()
-                {
-                    Id = custId,
-                    Name = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone,
-                };
-                cs.UpdateCustomer(customerupdated);
-            }
-
-            #endregion
-
-            #region//---------------- create a new order
-
-            OrderService os = new OrderService();
-            custId = cs.GetCustomerByUserId(userId).Id;
-
-            var deliverymethod = "";
-            if (paymentmethod == "cheque" || paymentmethod == "cardpost")
-            {
-                deliverymethod = "post";
-            }
-            else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
-            {
-                deliverymethod = "collect";
+                return RedirectToAction("BasketNoCheck", "Bookings");
             }
             else
             {
-                deliverymethod = "email";
-            }
 
-            var order = new Order()
-            {
-                Date = DateTime.Today,
-                Time = DateTime.Now,
-                CustomerId = custId,
-                PaymentId = paymentid,
-                Delivery = deliverymethod
-            };
-            os.CreateOrder(order);
-            viewModel.order = order;
-            db.SaveChanges();
+                ABFDbContext db = new ABFDbContext();
+                OrderService orderService = new OrderService();
+                TicketService ticketService = new TicketService();
+                var viewModel = new OrderSuccessViewModel() { newmember = false };
 
-            #endregion
+                #region //----------------- Make a new payment
 
-            #region //------------ Create tickets for each item
-
-            var TicketList = new List<Ticket>();
-
-            var orderId = orderService.GetOrderId(paymentid, custId);
-
-            if (Session["Tix"] != null)
-            {
-                var alltix = (Dictionary<int, int>) Session["Tix"];
-                foreach (KeyValuePair<int, int> singletix in alltix)
+                PaymentService ps;
+                ps = new PaymentService();
+                string paymentid = Guid.NewGuid().ToString();
+                var pmethod = "";
+                switch (paymentmethod)
                 {
-                    for (int i = 0; i < singletix.Value; i++)
-                    {
-                        var ticketId = Guid.NewGuid().ToString();
-                        var ticket = new Ticket()
-                        {
-                            Id = ticketId,
-                            EventId = singletix.Key,
-                            OrderId = orderId,
-
-                        };
-
-                        ticketService.CreateTicket(ticket);
-                        db.SaveChanges();
-                        TicketList.Add(ticket);
-                    }
+                    case "cardcollect":
+                    case "cardpost":
+                    case "cardemail":
+                        pmethod = "card";
+                        break;
+                    case "collect":
+                        pmethod = "on collection";
+                        break;
+                    case "cheque":
+                        pmethod = "cheque";
+                        break;
                 }
 
-            }
+                var payment = new Payment()
+                {
+                    Id = paymentid,
+                    Method = pmethod,
+                    Amount = this.calculategrandtotal()
+                };
 
-            ;
+                ps.CreatePayment(payment);
+                db.SaveChanges();
+
+                #endregion
+
+                #region //-------------- Update Customer Details if appropriate
+
+                CustomerService cs = new CustomerService();
+                var userId = User.Identity.GetUserId();
+                var custId = "";
+
+                // check they have a customer account linked, if not create one
+                try
+                {
+                    // see if a customer account can be found
+                    custId = cs.GetCustomerByUserId(userId).Id;
+                }
+                catch
+                {
+                    // if customer account does not exist:
+                    var newcustomer = new Customer()
+                    {
+                        Id = Guid.NewGuid().ToString(),
+                        UserId = userId,
+                        Name = name,
+                        Address1 = address1,
+                        Address2 = address2,
+                        Address3 = address3,
+                        PostCode = postcode,
+                        Email = email,
+                        PhoneNumber = phone,
+                    };
+                    cs.CreateCustomer(newcustomer);
+                }
+
+                // if customer checked the update details box, update details
+                if (updatedetails == "update")
+                {
+                    custId = cs.GetCustomerByUserId(userId).Id;
+                    var customerupdated = new Customer()
+                    {
+                        Id = custId,
+                        Name = name,
+                        Address1 = address1,
+                        Address2 = address2,
+                        Address3 = address3,
+                        PostCode = postcode,
+                        Email = email,
+                        PhoneNumber = phone,
+                    };
+                    cs.UpdateCustomer(customerupdated);
+                }
+
+                #endregion
+
+                #region//---------------- create a new order
+
+                OrderService os = new OrderService();
+                custId = cs.GetCustomerByUserId(userId).Id;
+
+                var deliverymethod = "";
+                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+                {
+                    deliverymethod = "post";
+                }
+                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+                {
+                    deliverymethod = "collect";
+                }
+                else
+                {
+                    deliverymethod = "email";
+                }
+
+                var order = new Order()
+                {
+                    Date = DateTime.Today,
+                    Time = DateTime.Now,
+                    CustomerId = custId,
+                    PaymentId = paymentid,
+                    Delivery = deliverymethod
+                };
+                os.CreateOrder(order);
+                viewModel.order = order;
+                db.SaveChanges();
+
+                #endregion
+
+                #region //------------ Create tickets for each item
+
+                var TicketList = new List<Ticket>();
+
+                var orderId = orderService.GetOrderId(paymentid, custId);
+
+                if (Session["Tix"] != null)
+                {
+                    var alltix = (Dictionary<int, int>)Session["Tix"];
+                    foreach (KeyValuePair<int, int> singletix in alltix)
+                    {
+                        for (int i = 0; i < singletix.Value; i++)
+                        {
+                            var ticketId = Guid.NewGuid().ToString();
+                            var ticket = new Ticket()
+                            {
+                                Id = ticketId,
+                                EventId = singletix.Key,
+                                OrderId = orderId,
+
+                            };
+
+                            ticketService.CreateTicket(ticket);
+                            db.SaveChanges();
+                            TicketList.Add(ticket);
+                        }
+                    }
+
+                }
+
+                ;
+
+                if (Session["AddOns"] != null)
+                {
+                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                    foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                    {
+                        for (int i = 0; i < singleaddon.Value; i++)
+                        {
+                            var ticketId = Guid.NewGuid().ToString();
+                            var ticket = new Ticket()
+                            {
+                                Id = ticketId,
+                                AddOnId = singleaddon.Key,
+                                OrderId = orderId,
+
+                            };
+
+                            ticketService.CreateTicket(ticket);
+                            db.SaveChanges();
+                            TicketList.Add(ticket);
+                        }
+                    }
+
+                }
+
+                viewModel.tickets = TicketList;
+                ;
+
+                #endregion
+
+                #region //----------- turn user into member, if Membership was put in basket
+
+                if (Session["Membership"] != null)
+                {
+                    var newmember = cs.GetCustomer(custId);
+                    var requestedmembershiptype = (MembershipType)Session["Membership"];
+                    newmember.MembershipTypeId = requestedmembershiptype.Id;
+                    cs.UpdateCustomer(newmember);
+
+                    viewModel.newmember = true;
+                }
+
+                #endregion
+
+                // clear all tickets from the basket!
+                Session.Abandon();
+
+                // all the logic goes here
+                return View("OrderSuccess", viewModel);
+            }
+        }
+
+        public bool CheckAvailability()
+        {
+            bool isChanged = false;
 
             if (Session["AddOns"] != null)
             {
-                var alladdons = (Dictionary<int, int>) Session["AddOns"];
-                foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                var unavailableAddOns = new Dictionary<int, int>();
+                var availableAddOns = new Dictionary<int, int>();
+
+                //get session Tix (and Add-Ons)
+                var addOnsBasket = (Dictionary<int, int>)Session["AddOns"];
+
+                //iterate through Add Ons dictionary first
+                foreach (KeyValuePair<int, int> addon in addOnsBasket)
                 {
-                    for (int i = 0; i < singleaddon.Value; i++)
+                    // get Addon Data:
+                    var addoncapacity = addOnService.GetAddOn(addon.Key).Quantity;
+
+                    // get Sales Quantity for this addon:
+                    var addonsSold = ticketService.GetAddOnSalesQuantityForEvent(addon.Key);
+
+                    //get availability
+                    var availability = addoncapacity - addonsSold;
+
+                    //check to see if the number of tickets required is more than the available number
+                    if (availability < addon.Value)
                     {
-                        var ticketId = Guid.NewGuid().ToString();
-                        var ticket = new Ticket()
+                        // calculate number of tickets to move to unavailable and add this to unavailable List
+                        var quantityUnavailable = addon.Value - availability;
+                        unavailableAddOns.Add(addon.Key, quantityUnavailable);
+                        isChanged = true;
+
+                        // check to see if ANY tickets are available, and keep these in available Basket
+                        if (addon.Value - quantityUnavailable > 0)
                         {
-                            Id = ticketId,
-                            AddOnId = singleaddon.Key,
-                            OrderId = orderId,
+                            // keep the number of available tickets in the basket
+                            availableAddOns.Add(addon.Key, (addon.Value - quantityUnavailable));
+                        }
+                    }
 
-                        };
-
-                        ticketService.CreateTicket(ticket);
-                        db.SaveChanges();
-                        TicketList.Add(ticket);
+                    // if the required number of tickets IS available:
+                    else
+                    {
+                        availableAddOns.Add(addon.Key, addon.Value);
                     }
                 }
 
+                if (availableAddOns.Count != 0)
+                {
+                    Session["AddOns"] = availableAddOns;
+                }
+                else
+                {
+                    Session["AddOns"] = null;
+                }
+
+                if (unavailableAddOns.Count != 0)
+                {
+                    Session["UAddOns"] = unavailableAddOns;
+                }
+                else
+                {
+                    Session["UAddOns"] = null;
+                }
             }
 
-            viewModel.tickets = TicketList;
-            ;
-
-            #endregion
-
-            #region //----------- turn user into member, if Membership was put in basket
-
-            if (Session["Membership"] != null)
+            if (Session["Tix"] != null)
             {
-                
-                // add user to role 'member'
+                var unavailableTix = new Dictionary<int, int>();
+                var availableTix = new Dictionary<int, int>();
+
+                var tixBasket = (Dictionary<int, int>)Session["Tix"];
+                // iterate through Tix dictionary
+                foreach (KeyValuePair<int, int> tix in tixBasket)
+                {
+                    // get Event Data:
+                    var Eventcapacity = eventService.GetEvent(tix.Key).Capacity;
+                    // get Sales Quantity for this Event:
+                    var EventSold = ticketService.GetTicketSalesQuantityForEvent(tix.Key);
+                    //get availability
+                    var availability = Eventcapacity - EventSold;
+
+                    //check to see if the number of tickets required is more than the available number
+                    if (availability < tix.Value)
+                    {
+                        // calculate number of tickets to move to unavailable and add this to unavailable List
+                        var quantityUnavailable = tix.Value - availability;
+                        unavailableTix.Add(tix.Key, quantityUnavailable);
+                        isChanged = true;
+
+                        // check to see if ANY tickets are available, and keep these in available Basket
+                        if (tix.Value - quantityUnavailable > 0)
+                        {
+                            // keep the number of available tickets in the basket
+                            availableTix.Add(tix.Key, (tix.Value - quantityUnavailable));
+                        }
+
+                        // no tickets are available and all will be removed. Check for and remove any add-ons too.
+                        else
+                        {
+                            if (Session["AddOns"] != null)
+                            {
+                                var removedaddons = new Dictionary<int, int>();
+                                var addons = (Dictionary<int, int>)Session["AddOns"];
+
+                                foreach (KeyValuePair<int, int> addon in addons)
+                                {
+                                    if (tix.Key == addOnService.GetAddOn(addon.Key).EventId)
+                                    {
+                                        removedaddons.Add(addon.Key, addon.Value);
+                                    }
+                                }
+
+                                // update the Session Values
+                                if (addons.Count == 0)
+                                {
+                                    Session["AddOns"] = null;
+                                }
+                                else
+                                {
+                                    Session["AddOns"] = addons;
+                                }
+
+                                if (removedaddons.Count != 0)
+                                {
+                                    Session["RAddOns"] = removedaddons;
+                                }
+                            }
+                        }
+                    }
+
+                    // if the required number of tickets IS available:
+                    else
+                    {
+                        availableTix.Add(tix.Key, tix.Value);
+                    }
+                }
+
+                if (availableTix.Count != 0)
+                {
+                    Session["Tix"] = availableTix;
+                }
+                else
+                {
+                    Session["Tix"] = null;
+                }
+
+                if (unavailableTix.Count != 0)
+                {
+                    Session["UTix"] = unavailableTix;
+                }
+                else
+                {
+                    Session["UTix"] = null;
+                }
             }
-            #endregion
 
-            // clear all tickets from the basket!
-            Session.Abandon();
-
-            // all the logic goes here
-            return View("OrderSuccess", viewModel);
+            return isChanged;
         }
     }
 }

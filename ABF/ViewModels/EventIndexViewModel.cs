@@ -10,5 +10,7 @@ namespace ABF.ViewModels
         public List<EventListViewModel> Events { get; set; }
 
         public List<DateTime> Datelist { get; set; }
+
+        public bool isMember { get; set; }
     }
 }

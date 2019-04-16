@@ -10,5 +10,6 @@ namespace ABF.ViewModels
     {
         public IList<Ticket> tickets { get; set; }
         public Order order { get; set; }
+        public bool newmember { get; set; }
     }
 }

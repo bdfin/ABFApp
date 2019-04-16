@@ -6,18 +6,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
+using Microsoft.AspNet.Identity;
 
 namespace ABF.Controllers
 {
     public class BasketController : Controller
     {
-        private BasketService basketService;
         private AddOnService addonService;
+        private CustomerService customerService;
+        private EventService eventService;
+        private TicketService ticketService;
+
         public BasketController()
         {
-            basketService = new BasketService();
             addonService = new AddOnService();
-
+            customerService = new CustomerService();
+            ticketService = new TicketService();
+            eventService = new EventService();
         }
 
         // GET: Basket
@@ -45,7 +50,7 @@ namespace ABF.Controllers
 
                 else
                 {
-                    model = (Dictionary<int, int>)Session["Tix"];
+                    model = (Dictionary<int, int>) Session["Tix"];
 
                     if (model.ContainsKey(eventId))
                     {
@@ -57,6 +62,7 @@ namespace ABF.Controllers
                         Session["Tix"] = model;
                     }
                 }
+
                 return RedirectToAction("Basket", "Bookings");
             }
 
@@ -64,15 +70,27 @@ namespace ABF.Controllers
 
         public ActionResult Membership()
         {
-            return View();
+            bool isMember = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var customermembershipstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
+                if (customermembershipstate != null)
+                {
+                    isMember = true;
+                }
+            }
+
+            return View(isMember);
         }
 
         public ActionResult AddMembership(int membershipId)
         {
             if (Session["Membership"] != null)
             {
-                ViewBag.Message ="You already have a Membership in your Basket. " +
-                                 "To change your membership choice you must delete this from the basket first.";
+                ViewBag.Message = "You already have a Membership in your Basket. " +
+                                  "To change your membership choice you must delete this from the basket first.";
                 return View("Error");
             }
             else
@@ -87,7 +105,7 @@ namespace ABF.Controllers
         public ActionResult AddAddOns(int addonId, int quantity)
         {
             // CHECK IF EVENT IS IN BASKET
-            var eventsinbasket = (Dictionary<int, int>)Session["Tix"];      
+            var eventsinbasket = (Dictionary<int, int>) Session["Tix"];
 
             if (Session["Tix"] == null || !eventsinbasket.ContainsKey(addonService.GetAddOn(addonId).EventId))
             {
@@ -101,32 +119,31 @@ namespace ABF.Controllers
             }
             else
             {
-                var modelint = new Dictionary<int, int>();
+                var modelint = new Dictionary<int,int>();
 
                 // if this is the first add-on selected
                 if (Session["AddOns"] == null)
                 {
                     modelint.Add(addonId, quantity);
-                    Session["AddOns"] = modelint;
                 }
 
                 // if this is NOT the first add-on selected
                 else
                 {
-                
+                    modelint = (Dictionary<int, int>)Session["AddOns"];
+
                     // if this add-on already exists in the session
-                    if (eventsinbasket.ContainsKey(addonId))
+                    if (modelint.ContainsKey(addonId))
                     {
                         modelint[addonId] += quantity;
                     }
                     // if this is a new add on
                     else
                     {
-                        modelint = (Dictionary<int, int>) Session["AddOns"];
                         modelint.Add(addonId, quantity);
-                        Session["AddOns"] = modelint;
                     }
                 }
+                Session["AddOns"] = modelint;
                 return RedirectToAction("Basket", "Bookings");
             }
         }
@@ -155,10 +172,12 @@ namespace ABF.Controllers
                     needtodelete = addon.Key;
                 }
             }
+
             if (needtodelete != 0)
             {
                 addondictionary.Remove(needtodelete);
             }
+
             Session["AddOns"] = addondictionary;
 
             return RedirectToAction("Basket", "Bookings");
@@ -166,7 +185,7 @@ namespace ABF.Controllers
 
         public ActionResult DeleteBasketAddOn(int id)
         {
-            var addondictionary = (Dictionary<int, int>)Session["AddOns"];
+            var addondictionary = (Dictionary<int, int>) Session["AddOns"];
             if (addondictionary.Count > 1)
             {
                 addondictionary.Remove(id);
@@ -176,6 +195,7 @@ namespace ABF.Controllers
             {
                 Session["AddOns"] = null;
             }
+
             return RedirectToAction("Basket", "Bookings");
         }
 
@@ -185,5 +205,58 @@ namespace ABF.Controllers
             return RedirectToAction("Basket", "Bookings");
         }
 
+        public ActionResult DeleteUnavailableTix(int id)
+        {
+            // get tickets from session  
+            var Ueventdictionary = (Dictionary<int, int>)Session["UTix"];
+            Ueventdictionary.Remove(id);
+            if (Ueventdictionary.Count > 0)
+            {
+                Session["UTix"] = Ueventdictionary;
+            }
+            else
+            {
+                Session["UTix"] = null;
+            }
+
+            return RedirectToAction("Basket", "Bookings");
+        }
+
+        public ActionResult DeleteUnavailableAddOn(int id)
+        {
+            // get tickets from session  
+            var Uaddondictionary = (Dictionary<int, int>)Session["UAddOns"];
+            Uaddondictionary.Remove(id);
+            if (Uaddondictionary.Count > 0)
+            {
+                Session["UAddOns"] = Uaddondictionary;
+            }
+            else
+            {
+                Session["UAddOns"] = null;
+            }
+
+            return RedirectToAction("Basket", "Bookings");
+        }
+
+        public ActionResult DeleteUnavailableRAddOn(int id)
+        {
+            // get tickets from session  
+            var Uaddondictionary = (Dictionary<int, int>)Session["RAddOns"];
+            Uaddondictionary.Remove(id);
+            if (Uaddondictionary.Count > 0)
+            {
+                Session["RAddOns"] = Uaddondictionary;
+            }
+            else
+            {
+                Session["RAddOns"] = null;
+            }
+
+            return RedirectToAction("Basket", "Bookings");
+        }
+
+
     }
 }
+
