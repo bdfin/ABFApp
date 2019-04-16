@@ -84,10 +84,15 @@ namespace ABF.Controllers
         }
 
 
-        public ActionResult updateCustomerDetails(Customer currentCustomer)
+        public ActionResult updateCustomerDetails(IndexViewModel model)
         {
-            customerService.UpdateCustomer(currentCustomer);
+            CustomerService customerservice = new CustomerService();
+            customerservice.UpdateCustomer(model.customer);
+            ViewBag.StatusMessage = "Your Details have been changed.";
             return RedirectToAction("Index", "Manage", null);
+
+
+
 
 
         }

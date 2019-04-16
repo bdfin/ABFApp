@@ -215,12 +215,12 @@ namespace ABF.Controllers
                     // return a message to the user
                     ViewBag.Message = "Please check your email and click on the link you have been sent to confirm your email address.";
 
-                    var customer = new Customer
+                    var customerM = new Customer
                     {
                         Name = model.Name,
                         Email = model.Email,
                         PostCode = model.PostCode,
-                        UserId = userguid
+                        UserId = userId
                     };
 
                     customerService.CreateCustomer(customer);
