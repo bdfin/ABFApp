@@ -71,6 +71,8 @@ namespace ABF.Controllers
             CustomerService customerservice = new CustomerService();
             var userId = User.Identity.GetUserId();
             var thisCustomer = customerservice.GetCustomerByUserId(userId);
+            MembershipTypeService membershiptype = new MembershipTypeService();
+          
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

@@ -14,6 +14,7 @@ namespace ABF.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public Customer customer { get; set; }
+        public MembershipType membershipType { get; set; }
     }
 
     public class ManageLoginsViewModel
