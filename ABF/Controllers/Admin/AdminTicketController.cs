@@ -15,12 +15,16 @@ namespace ABF.Controllers.Admin
         private TicketService ticketService;
         private EventService eventService;
         private AddOnService addonService;
+        private OrderService orderService;
+        private CustomerService customerService;
 
         public AdminTicketController()
         {
             ticketService = new TicketService();
             eventService = new EventService();
             addonService = new AddOnService();
+            orderService = new OrderService();
+            customerService = new CustomerService();
         }
 
         // GET: AdminTicketSales
@@ -34,8 +38,23 @@ namespace ABF.Controllers.Admin
         public ActionResult EventTickets(int id)
         {
             var ticketsforevent = ticketService.GetTicketSalesForEvent(id);
+            var viewModel = new List<TicketListViewModel>();
+            var eventName = eventService.GetEvent(id).Name;
 
-            return View(ticketsforevent);
+            foreach (var ticket in ticketsforevent)
+            {
+                var modelentry = new TicketListViewModel()
+                {
+                    ticketId = ticket.Id,
+                    orderId = ticket.OrderId,
+                    orderDate = orderService.GetOrder(ticket.OrderId).Date,
+                    customerName = customerService.GetCustomer(orderService.GetOrder(ticket.OrderId).CustomerId).Name,
+                    eventName = eventName
+                };
+                viewModel.Add(modelentry);
+            }
+
+            return View(viewModel);
         }
 
         public ActionResult AllTicketQuantities()

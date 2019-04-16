@@ -51,7 +51,7 @@
         {
             <tr class="table-primary">
                 <td>@Html.ActionLink("Delete", "DeleteBasketTix", "Basket", new { id = item.Event.Id }, null)</td>
-                <td><b>@item.Event.Name</b></td>
+                <td><b>@Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})</b></td>
                 <td>@item.Event.Author</td>
                 <td>@item.Event.Date.ToString("ddd dd MMM")</td>
                 <td>@item.Event.StartTime.ToString("HH:mm")</td>

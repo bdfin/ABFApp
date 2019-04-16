@@ -1,36 +1,45 @@
-﻿@model IEnumerable<ABF.Data.ABFDbModels.Ticket>
+﻿@model IEnumerable<ABF.ViewModels.TicketListViewModel>
 
 @{
     ViewBag.Title = "Tickets For Event";
 }
 
 <h2>Ticket Sales for Event</h2>
+<h3>Total Sales: <b>@Model.Count()</b></h3>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EventId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AddOnId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderId)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AddOnId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderId)
-        </td>
-    </tr>
-}
+<table class="table table-hover table-bordered table-condensed" id="ticketsTable">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Event</th>
+            <th>Customer Name</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ticketId</td>
+            <td>@item.orderId</td>
+            <td>@item.orderDate.ToString("dd-MM-yyyy")</td>
+            <td>@item.eventName</td>
+            <td>@item.customerName</td>
+        </tr>
+    }
 
 </table>
+@section scripts{
+    <script>
+        $(function () {
+            $('#ticketsTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+}

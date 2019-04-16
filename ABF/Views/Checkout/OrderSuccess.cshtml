@@ -1,0 +1,29 @@
+﻿@model ABF.ViewModels.OrderSuccessViewModel
+@{
+    ViewBag.Title = "Confirmed!";
+    var ticketlist = Model.tickets;
+    var order = Model.order;
+}
+
+<h1>Order Confirmed!</h1>
+
+@Html.Partial("_orderDetails", order);
+
+<h3>Here's a list of your tickets (for testing purposes)</h3>
+<table class="table">
+    <tr>
+        <th>Ticket ID</th>
+        <th>Event Id</th>
+        <th>Add On Id</th>
+    </tr>
+    
+    @foreach (var ticket in ticketlist)
+    {
+        <tr>
+            <td>@ticket.Id</td>
+            <td>@ticket.EventId</td>
+            <td>@ticket.AddOnId</td>
+        </tr>
+    }
+</table>
+

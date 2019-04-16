@@ -8,7 +8,7 @@
 
 <h2>Ticket Sales</h2>
 
-<table class="table">
+<table class="table table-hover table-bordered table-condensed" id="ticketSales">
     <thead class="thead-dark">
         <tr class="thead-dark">
             <th scope="col">Event Id</th>
@@ -26,7 +26,7 @@
     {
         <tr class="table-primary" style="padding-top:5px">
             <td>@e.Key.Id</td>
-            <td>@e.Key.Name</td>
+            <td><b>@Html.ActionLink(e.Key.Name, "EventTickets", new { id = e.Key.Id })</b></td>
             <td>@e.Key.Author</td>
             <td>@e.Key.Date.ToString("ddd dd MMM")</td>
             <td>@e.Key.Capacity</td>
@@ -42,38 +42,53 @@
                 @avail
             </td>
             <td>
-                @{ decimal perc = e.Value / e.Key.Capacity; }
-                @perc
+                @{ decimal perc = ((e.Value * 100) / e.Key.Capacity); }
+                @perc%
             </td>
         </tr>
 
 
         foreach (var a in addons)
-         {
-             <tr class="table-light">
-                 @if (a.Key.EventId == e.Key.Id)
-                 {
-                     <td></td>
-                     <td>+ Add On: </td>
-                     <td colspan="2">@a.Key.Id: @a.Key.Name</td>
-                     <td>@a.Key.Quantity</td>
-                     <td>@a.Value</td>
-                     <td>
-                         @{
-                             var AOavail = (a.Key.Quantity - a.Value).ToString();
-                             if (AOavail == "0")
-                             {
-                                 AOavail = "Sold Out";
-                             }
-                         }
-                         @AOavail
-                     </td>
-                     <td>
-                         @{ decimal AOperc = a.Value / a.Key.Quantity; }
-                         @AOperc
-                     </td>
-                 }
-             </tr>
-         }
+        {
+            <tr class="table-light">
+                @if (a.Key.EventId == e.Key.Id)
+                {
+                    <td></td>
+                    <td>+ Add On: </td>
+                    <td colspan="2">@a.Key.Id: @a.Key.Name</td>
+                    <td>@a.Key.Quantity</td>
+                    <td>@a.Value</td>
+                    <td>
+                        @{
+                            var AOavail = (a.Key.Quantity - a.Value).ToString();
+                            if (AOavail == "0")
+                            {
+                                AOavail = "Sold Out";
+                            }
+                        }
+                        @AOavail
+                    </td>
+                    <td>
+                        @{ decimal AOperc = (a.Value * 100) / a.Key.Quantity; }
+                        @AOperc%
+                    </td>
+                }
+            </tr>
+        }
     }
-    </table>
+</table>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#ticketSales').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        });
+    </script>
+}  

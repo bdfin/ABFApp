@@ -23,5 +23,10 @@ namespace ABF.Service.Services
             paymentDAO.createpayment(payment);
 
         }
+
+        public Payment GetPayment(string Id)
+        {
+            return paymentDAO.GetPayment(Id);
+        }
     }
 }

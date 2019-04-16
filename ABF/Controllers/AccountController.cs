@@ -175,10 +175,11 @@ namespace ABF.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userguid = Guid.NewGuid().ToString();
+                string userId = Guid.NewGuid().ToString();
+
                 var user = new ApplicationUser
                 {
-                    Id = userguid,
+                    Id = userId,
                     UserName = model.Email,
                     Email = model.Email,
                     Name = model.Name,
@@ -189,11 +190,23 @@ namespace ABF.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Sets default user type to basic 'Customer'
-                    await UserManager.AddToRolesAsync(user.Id, "User");
+                    string customerId = Guid.NewGuid().ToString();
 
-                    //COMMENT THIS ONE LINE OUT IF YOU WANT TO HAVE A USER'S EMAIL ADDRESS CONFIRMED BEFORE ALLOWING LOG IN
-                    // await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var customer = new Customer
+                    {
+                        Id = customerId,
+                        Name = model.Name,
+                        Email = model.Email,
+                        PostCode = model.PostCode,
+                        UserId = userId
+                    };
+
+                    customerService.CreateCustomer(customer);
+                    db.SaveChanges();
+                    
+
+                    // Sets default user type to basic 'User'
+                    await UserManager.AddToRolesAsync(user.Id, "User");
 
                     // these two lines create a confirmation code and toeken
                     string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, user.Email, "Confirm your account");
@@ -548,6 +561,15 @@ namespace ABF.Controllers
             return callbackUrl;
         }
 
-      
+
+
+        // POST: /Account/AddMember
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task AddMember(string userId, string role)
+        {
+            await UserManager.AddToRolesAsync(userId, role);
+        }
     }
 }

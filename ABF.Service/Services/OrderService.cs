@@ -20,14 +20,21 @@ namespace ABF.Service.Services
         public void CreateOrder(Order order)
         {
             orderDAO.CreateOrder(order);
-         
-
         }
 
         public int GetOrderId(string PaymentId, string CustomerId)
-
         {
            return orderDAO.GetOrderId(PaymentId, CustomerId);
+        }
+
+        public Order GetOrder(int Id)
+        {
+            return orderDAO.getOrder(Id);
+        }
+
+        public IEnumerable<Order> GetOrders()
+        {
+            return orderDAO.getOrders();
         }
 
     }
