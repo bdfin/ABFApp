@@ -189,18 +189,6 @@ namespace ABF.Controllers
 
                 if (result.Succeeded)
                 {
-                    var customer = new Customer
-                    {
-                        Name = model.Name,
-                        Email = model.Email,
-                        PostCode = model.PostCode,
-                        UserId = userguid
-                    };
-
-                    customerService.CreateCustomer(customer);
-                    db.SaveChanges();
-                    
-
                     // Sets default user type to basic 'Customer'
                     await UserManager.AddToRolesAsync(user.Id, "User");
 
@@ -213,6 +201,18 @@ namespace ABF.Controllers
 
                     // return a message to the user
                     ViewBag.Message = "Please check your email and click on the link you have been sent to confirm your email address.";
+
+                    var customer = new Customer
+                    {
+                        Name = model.Name,
+                        Email = model.Email,
+                        PostCode = model.PostCode,
+                        UserId = userguid
+                    };
+
+                    customerService.CreateCustomer(customer);
+                    db.SaveChanges();
+
                     return View("Info");
                 }
                 AddErrors(result);
