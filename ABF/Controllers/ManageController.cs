@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ABF.Models;
+using ABF.Service.Services;
+using ABF.Data.ABFDbModels;
 
 namespace ABF.Controllers
 {
@@ -15,10 +17,13 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private CustomerService customerService;
 
         public ManageController()
         {
         }
+
+      
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
@@ -63,16 +68,35 @@ namespace ABF.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
+            CustomerService customerservice = new CustomerService();
             var userId = User.Identity.GetUserId();
+            var thisCustomer = customerservice.GetCustomerByUserId(userId);
+            MembershipTypeService membershiptype = new MembershipTypeService();
+          
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                customer = thisCustomer,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+
+        public ActionResult updateCustomerDetails(IndexViewModel model)
+        {
+            CustomerService customerservice = new CustomerService();
+            customerservice.UpdateCustomer(model.customer);
+            ViewBag.StatusMessage = "Your Details have been changed.";
+            return RedirectToAction("Index", "Manage", null);
+
+
+
+
+
         }
 
         //

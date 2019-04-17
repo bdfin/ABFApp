@@ -51,7 +51,8 @@ namespace ABF.Data.DAO
                        where c.UserId == id
                        select c;
 
-            return customer.ToList().First();
+                return customer.ToList().First();
+
         }
 
         public void CreateCustomer(Customer customer)
