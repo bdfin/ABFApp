@@ -43,7 +43,7 @@ namespace ABF.Controllers
 
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
-            if (viewModel.Customer.Id == "0")
+            if (viewModel.Customer.Id == "0" || viewModel.Customer.Id == null)
             {
                 customerService.CreateCustomer(viewModel.Customer);
 

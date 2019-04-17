@@ -643,6 +643,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
