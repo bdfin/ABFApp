@@ -29,5 +29,14 @@ namespace ABF.Data.DAO
                 where pay.Id == Id select pay;
             return payment.First();
         }
+
+        public IList<Payment> GetPayments()
+        {
+            IQueryable<Payment> payments;
+             payments = from pay in _context.Payments
+                           select pay;
+
+            return payments.ToList();
+        }
     }
 }

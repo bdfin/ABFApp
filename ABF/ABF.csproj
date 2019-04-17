@@ -179,6 +179,7 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
+    <Compile Include="Controllers\Admin\AdminPaymentsController.cs" />
     <Compile Include="Controllers\Admin\AdminTicketController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="ViewModels\FullBasketViewModel.cs" />
     <Compile Include="ViewModels\OrderDetailsViewModel.cs" />
     <Compile Include="ViewModels\OrderListViewModel.cs" />
+    <Compile Include="ViewModels\PaymentIndexViewModel.cs" />
     <Compile Include="ViewModels\OrderSuccessViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
     <Compile Include="ViewModels\TicketListViewModel.cs" />
@@ -647,6 +649,7 @@
     <Content Include="Views\Checkout\StartCheckoutUser.cshtml" />
     <Content Include="Views\Checkout\OrderSuccess.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\AdminPayments\Index.cshtml" />
     <Content Include="Views\Checkout\_orderDetails.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
   </ItemGroup>
