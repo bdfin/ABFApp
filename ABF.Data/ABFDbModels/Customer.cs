@@ -37,7 +37,7 @@ namespace ABF.Data.ABFDbModels
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Membership Type")]
-        public int? MembershipTypeId { get; set; }
+        public int MembershipTypeId { get; set; }
 
         public virtual MembershipType MembershipType { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }

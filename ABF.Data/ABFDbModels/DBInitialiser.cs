@@ -530,6 +530,15 @@ namespace ABF.Data.ABFDbModels
             // MembershipType seed
             IList<MembershipType> initialisedMembershipTypes = new List<MembershipType> {
 
+
+                new MembershipType
+                {
+                    Id = 0,
+                    Type = "Non-Member",
+                    Expiry = false,
+                    Price = 0
+                },
+
                 new MembershipType
                 {
                     Id = 1,
