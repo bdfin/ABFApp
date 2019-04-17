@@ -51,6 +51,11 @@ namespace ABF.Service.Services
         {
             _ticketSalesDAO.CreateTicket(ticket);
         }
+
+        public IEnumerable<Ticket> GetTicketsForOrder(int id)
+        {
+            return _ticketSalesDAO.GetTicketsForOrder(id);
+        }
     }
 
 }

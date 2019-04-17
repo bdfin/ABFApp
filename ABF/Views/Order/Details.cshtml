@@ -1,0 +1,88 @@
+﻿@using ABF.ViewModels
+@model ABF.ViewModels.OrderDetailsViewModel
+@{
+    ViewBag.Title = "Order Details";
+}
+
+<h3>Order Details: <b>@Model.order.Id</b>, placed on @Model.order.Date.ToString("ddd dd MMM") at @Model.order.Time.ToString("HH:mm")</h3>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <table>
+                <thead>
+                    <tr>
+                        <td colspan="2"><h4>Customer Details</h4></td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><b>Name</b></td>
+                    <td>@Model.customer.Name</td>
+                </tr>
+                <tr>
+                    <td><b>Address</b></td>
+                    <td>
+                        @Model.customer.Address1 @Model.customer.Address2,<br />
+                        @Model.customer.Address3,<br />
+                        @Model.customer.PostCode
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Email</b></td>
+                    <td>@Model.customer.Email</td>
+                </tr>
+                <tr>
+                    <td><b>Phone</b></td>
+                    <td>@Model.customer.PhoneNumber</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table>
+                <thead>
+                <tr>
+                    <td colspan="2"><h4>Payment and Delivery</h4></td>
+                </tr>
+                </thead>
+                <tr>
+                    <td><b>Payment Method</b></td>
+                    <td>@Model.payment.Method</td>
+                </tr>
+                <tr>
+                    <td><b>Payment Amount</b></td>
+                    <td>£@Model.payment.Amount</td>
+                </tr>
+                <tr>
+                    <td><b>Delivery Method</b></td>
+                    <td>@Model.order.Delivery</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<div class="container">
+    <h3>Tickets:</h3>
+    <table>
+        <thead>
+        <tr>
+            <td>Ticket ID</td>
+            <td>Event ID</td>
+            <td>AddOn ID</td>
+        </tr>
+        </thead>
+        
+        @foreach (var ticket in Model.ticketlist)
+        {
+            <tr>
+                <td>@ticket.Id</td>
+                <td>@ticket.EventId</td>
+                <td>@ticket.AddOnId</td>
+            </tr>
+        }
+
+    </table>
+</div>

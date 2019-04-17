@@ -12,6 +12,7 @@ namespace ABF.Controllers
     {
         OrderService orderService = new OrderService();
         CustomerService customerService = new CustomerService();
+        TicketService ticketService = new TicketService();
         PaymentService paymentService = new PaymentService();
 
         // GET: Order
@@ -36,6 +37,23 @@ namespace ABF.Controllers
                 viewModel.Add(ol);
             }
             return View(viewModel);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var order = orderService.GetOrder(id);
+            var payment = paymentService.GetPayment(order.PaymentId);
+            var customer = customerService.GetCustomer(order.CustomerId);
+            var ticketlist = ticketService.GetTicketsForOrder(id);
+
+            var details = new OrderDetailsViewModel()
+            {
+                order = order,
+                payment = payment,
+                customer = customer,
+                ticketlist = ticketlist
+            };
+            return View(details);
         }
     }
 }
