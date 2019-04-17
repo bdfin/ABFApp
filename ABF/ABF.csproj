@@ -210,6 +210,7 @@
     <Compile Include="Models\SMTPEmail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AddOnEventViewModel.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
@@ -641,7 +642,6 @@
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\AdminCustomers\CustomerForm.cshtml" />
     <Content Include="Views\AdminCustomers\Details.cshtml" />
-    <Content Include="Views\Home\Membership.cshtml" />
     <Content Include="Views\Bookings\Basket.cshtml" />
     <Content Include="Views\Basket\Membership.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />

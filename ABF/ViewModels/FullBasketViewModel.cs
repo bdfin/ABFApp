@@ -12,6 +12,12 @@ namespace ABF.ViewModels
 
         public Dictionary<AddOn, int> addontickets { get; set; }
 
+        public Dictionary<Event, int> UAeventtickets { get; set; }
+
+        public Dictionary<AddOnEventViewModel, int> UAaddontickets { get; set; }
+
+        public Dictionary<AddOnEventViewModel, int> RAaddontickets { get; set; }
+
         public MembershipType Membership { get; set; }
     }
 }
