@@ -278,6 +278,11 @@ namespace ABF.Controllers
 
                 viewModel.tickets = TicketList;
 
+                foreach (var ticket in TicketList) 
+                {
+                    ticketService.GenerateTicket(ticket);
+                }
+
                 #endregion
 
                 // clear all tickets from the basket!
