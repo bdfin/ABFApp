@@ -656,7 +656,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S215GN",
                     Email= "sammysquire@test.com",
                     PhoneNumber= "01149804582",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -670,7 +670,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
-                    MembershipTypeId= 2,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -684,7 +684,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "LS8709K",
                     Email= "a.white@test.com",
                     PhoneNumber= "01757889365",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -698,7 +698,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "NL89HK2",
                     Email= "Tinkerbell@test.com",
                     PhoneNumber= "7777778990",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -712,6 +712,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "NL89HK2",
                     Email= "PeterPan@test.com",
                     PhoneNumber= "666789219274",
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -725,7 +726,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "YO89KO",
                     Email= "a.cole@test.com",
                     PhoneNumber= "01787639223" ,
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -739,6 +740,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EH13LK",
                     Email= "Eenie.meenie.miney.m@tst.com",
                     PhoneNumber= "123490987768",
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -752,7 +754,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S29OL",
                     Email= "Dave.bb@test.com",
                     PhoneNumber= "88975461209",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
 
                 new Customer
@@ -766,7 +768,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S18RF",
                     Email= "chelsea.lou@test.com",
                     PhoneNumber= "0985672983",
-                    MembershipTypeId= 1,
+                    MembershipTypeId= 0,
                 },
             };
 
