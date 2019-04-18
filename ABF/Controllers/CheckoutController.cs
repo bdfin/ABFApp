@@ -17,12 +17,18 @@ namespace ABF.Controllers
         private EventService eventService;
         private TicketService ticketService;
         private AddOnService addOnService;
+        private OrderService orderService;
+        private PaymentService paymentService;
+        private CustomerService customerService;
 
         public CheckoutController()
         {
             eventService = new EventService();
             ticketService = new TicketService();
             addOnService = new AddOnService();
+            orderService = new OrderService();
+            paymentService = new PaymentService();
+            customerService = new CustomerService();
         }
 
 
@@ -131,15 +137,9 @@ namespace ABF.Controllers
             }
             else
             {
-                ABFDbContext db = new ABFDbContext();
-                OrderService orderService = new OrderService();
-                TicketService ticketService = new TicketService();
                 var viewModel = new OrderSuccessViewModel();
 
                 #region //----------------- Make a new payment
-
-                PaymentService ps;
-                ps = new PaymentService();
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
                 switch (paymentmethod)
@@ -162,17 +162,11 @@ namespace ABF.Controllers
                     Id = paymentid,
                     Method = pmethod,
                     Amount = this.calculategrandtotal()
-
                 };
-
-                ps.CreatePayment(payment);
-                db.SaveChanges();
-
+                paymentService.CreatePayment(payment);
                 #endregion
 
-                #region //-------------- Create Customer Class
-
-                CustomerService cs = new CustomerService();
+                #region //-------------- Create a new Customer
                 string customerid = Guid.NewGuid().ToString();
                 var customer = new Customer()
                 {
@@ -185,15 +179,10 @@ namespace ABF.Controllers
                     Email = email,
                     PhoneNumber = phone,
                 };
-
-                cs.CreateCustomer(customer);
-                db.SaveChanges();
-
+                customerService.CreateCustomer(customer);
                 #endregion
 
                 #region//---------------- create a new order
-
-                OrderService os = new OrderService();
                 var deliverymethod = "";
                 if (paymentmethod == "cheque" || paymentmethod == "cardpost")
                 {
@@ -216,11 +205,8 @@ namespace ABF.Controllers
                     PaymentId = paymentid,
                     Delivery = deliverymethod
                 };
-                os.CreateOrder(order);
-                db.SaveChanges();
-
+                orderService.CreateOrder(order);
                 viewModel.order = order;
-
                 #endregion
 
                 #region //------------ Create tickets for each item
@@ -246,7 +232,6 @@ namespace ABF.Controllers
                             };
 
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }
@@ -269,7 +254,6 @@ namespace ABF.Controllers
                             };
 
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }

@@ -54,7 +54,10 @@ namespace ABF.Data.DAO
 
         public void CreateCustomer(Customer customer)
         {
-            customer.Id = Guid.NewGuid().ToString();
+            if (customer.Id == null)
+            {
+                customer.Id = Guid.NewGuid().ToString();
+            }
             _context.Customers.Add(customer);
             _context.SaveChanges();
         }

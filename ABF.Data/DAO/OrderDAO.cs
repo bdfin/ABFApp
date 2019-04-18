@@ -20,10 +20,8 @@ namespace ABF.Data.DAO
 
         public void CreateOrder(Order order)
         {
-
             _context.Orders.Add(order);
             _context.SaveChanges();
-
         }
 
         public int GetOrderId(string PaymentId, string CustomerId)

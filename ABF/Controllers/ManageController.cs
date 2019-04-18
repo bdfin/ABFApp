@@ -17,14 +17,12 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private CustomerService customerService;
 
         public ManageController()
         {
+
         }
-
-      
-
+        
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
