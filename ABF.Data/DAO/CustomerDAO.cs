@@ -38,7 +38,6 @@ namespace ABF.Data.DAO
                         in _context.Customers
                         where c.Id == id
                         select c;
-
             return customer.ToList().First();
         }
 
@@ -50,24 +49,19 @@ namespace ABF.Data.DAO
                        in _context.Customers
                        where c.UserId == id
                        select c;
-
-                return customer.ToList().First();
-
+            return customer.ToList().First();
         }
 
         public void CreateCustomer(Customer customer)
         {
-
+            customer.Id = Guid.NewGuid().ToString();
             _context.Customers.Add(customer);
             _context.SaveChanges();
-
         }
         
         public void UpdateCustomer(Customer customer)
-
         {
             Customer UpCustomer = GetCustomer(customer.Id);
-
             UpCustomer.Name = customer.Name;
             UpCustomer.Address1 = customer.Address1;
             UpCustomer.Address2 = customer.Address2;
