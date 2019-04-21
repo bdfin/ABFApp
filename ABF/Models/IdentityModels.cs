@@ -68,15 +68,6 @@ namespace ABF.Models
                 manager.Create(role);
             }
 
-            if (!context.Roles.Any(r => r.Name == "Member"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Member" };
-
-                manager.Create(role);
-            }
-
             if (!context.Roles.Any(r => r.Name == "User"))
             {
                 var store = new RoleStore<IdentityRole>(context);
@@ -91,6 +82,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
+                    Id = "admin",
                     UserName = "admin@test.net",
                     Id = "admin",
                     Email = "admin@test.net",
@@ -101,7 +93,6 @@ namespace ABF.Models
 
                 manager.Create(user, "admin123");
                 manager.AddToRole(user.Id, "Admin");
-                manager.AddToRole(user.Id, "Member");
             }
 
             if (!context.Users.Any(u => u.UserName == "boxoffice"))
@@ -109,6 +100,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
+                    Id = "boxoffice",
                     UserName = "boxoffice@test.net",
                     Id = "boxoffice",
                     Email = "boxoffice@test.net",
@@ -126,6 +118,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
+                    Id = "user",
                     UserName = "testuser@test.net",
                     Id = "user",
                     Email = "testuser@test.net",
