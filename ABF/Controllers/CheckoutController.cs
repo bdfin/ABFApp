@@ -17,12 +17,18 @@ namespace ABF.Controllers
         private EventService eventService;
         private TicketService ticketService;
         private AddOnService addOnService;
+        private OrderService orderService;
+        private PaymentService paymentService;
+        private CustomerService customerService;
 
         public CheckoutController()
         {
             eventService = new EventService();
             ticketService = new TicketService();
             addOnService = new AddOnService();
+            orderService = new OrderService();
+            paymentService = new PaymentService();
+            customerService = new CustomerService();
         }
 
 
@@ -131,15 +137,9 @@ namespace ABF.Controllers
             }
             else
             {
-                ABFDbContext db = new ABFDbContext();
-                OrderService orderService = new OrderService();
-                TicketService ticketService = new TicketService();
                 var viewModel = new OrderSuccessViewModel();
 
                 #region //----------------- Make a new payment
-
-                PaymentService ps;
-                ps = new PaymentService();
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
                 switch (paymentmethod)
@@ -149,7 +149,7 @@ namespace ABF.Controllers
                     case "cardemail":
                         pmethod = "card";
                         break;
-                    case "collect":
+                    case "collectlater":
                         pmethod = "on collection";
                         break;
                     case "cheque":
@@ -162,17 +162,11 @@ namespace ABF.Controllers
                     Id = paymentid,
                     Method = pmethod,
                     Amount = this.calculategrandtotal()
-
                 };
-
-                ps.CreatePayment(payment);
-                db.SaveChanges();
-
+                paymentService.CreatePayment(payment);
                 #endregion
 
-                #region //-------------- Create Customer Class
-
-                CustomerService cs = new CustomerService();
+                #region //-------------- Create a new Customer
                 string customerid = Guid.NewGuid().ToString();
                 var customer = new Customer()
                 {
@@ -185,15 +179,10 @@ namespace ABF.Controllers
                     Email = email,
                     PhoneNumber = phone,
                 };
-
-                cs.CreateCustomer(customer);
-                db.SaveChanges();
-
+                customerService.CreateCustomer(customer);
                 #endregion
 
                 #region//---------------- create a new order
-
-                OrderService os = new OrderService();
                 var deliverymethod = "";
                 if (paymentmethod == "cheque" || paymentmethod == "cardpost")
                 {
@@ -216,11 +205,8 @@ namespace ABF.Controllers
                     PaymentId = paymentid,
                     Delivery = deliverymethod
                 };
-                os.CreateOrder(order);
-                db.SaveChanges();
-
+                orderService.CreateOrder(order);
                 viewModel.order = order;
-
                 #endregion
 
                 #region //------------ Create tickets for each item
@@ -246,7 +232,6 @@ namespace ABF.Controllers
                             };
 
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }
@@ -269,7 +254,6 @@ namespace ABF.Controllers
                             };
 
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }
@@ -304,16 +288,9 @@ namespace ABF.Controllers
             }
             else
             {
-
-                ABFDbContext db = new ABFDbContext();
-                OrderService orderService = new OrderService();
-                TicketService ticketService = new TicketService();
                 var viewModel = new OrderSuccessViewModel() { newmember = false };
 
                 #region //----------------- Make a new payment
-
-                PaymentService ps;
-                ps = new PaymentService();
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
                 switch (paymentmethod)
@@ -323,7 +300,7 @@ namespace ABF.Controllers
                     case "cardemail":
                         pmethod = "card";
                         break;
-                    case "collect":
+                    case "collectlater":
                         pmethod = "on collection";
                         break;
                     case "cheque":
@@ -338,22 +315,19 @@ namespace ABF.Controllers
                     Amount = this.calculategrandtotal()
                 };
 
-                ps.CreatePayment(payment);
-                db.SaveChanges();
+                paymentService.CreatePayment(payment);
 
                 #endregion
 
                 #region //-------------- Update Customer Details if appropriate
-
-                CustomerService cs = new CustomerService();
                 var userId = User.Identity.GetUserId();
                 var custId = "";
-
+                var updatedetails1 = updatedetails;
                 // check they have a customer account linked, if not create one
                 try
                 {
                     // see if a customer account can be found
-                    custId = cs.GetCustomerByUserId(userId).Id;
+                    custId = customerService.GetCustomerByUserId(userId).Id;
                 }
                 catch
                 {
@@ -370,13 +344,14 @@ namespace ABF.Controllers
                         Email = email,
                         PhoneNumber = phone,
                     };
-                    cs.CreateCustomer(newcustomer);
+                    customerService.CreateCustomer(newcustomer);
+                    updatedetails1 = "update";
                 }
 
                 // if customer checked the update details box, update details
-                if (updatedetails == "update")
+                if (updatedetails1 == "update")
                 {
-                    custId = cs.GetCustomerByUserId(userId).Id;
+                    custId = customerService.GetCustomerByUserId(userId).Id;
                     var customerupdated = new Customer()
                     {
                         Id = custId,
@@ -388,15 +363,12 @@ namespace ABF.Controllers
                         Email = email,
                         PhoneNumber = phone,
                     };
-                    cs.UpdateCustomer(customerupdated);
+                    customerService.UpdateCustomer(customerupdated);
                 }
-
                 #endregion
 
                 #region//---------------- create a new order
-
-                OrderService os = new OrderService();
-                custId = cs.GetCustomerByUserId(userId).Id;
+                custId = customerService.GetCustomerByUserId(userId).Id;
 
                 var deliverymethod = "";
                 if (paymentmethod == "cheque" || paymentmethod == "cardpost")
@@ -420,18 +392,13 @@ namespace ABF.Controllers
                     PaymentId = paymentid,
                     Delivery = deliverymethod
                 };
-                os.CreateOrder(order);
+                orderService.CreateOrder(order);
                 viewModel.order = order;
-                db.SaveChanges();
-
                 #endregion
 
                 #region //------------ Create tickets for each item
-
                 var TicketList = new List<Ticket>();
-
                 var orderId = orderService.GetOrderId(paymentid, custId);
-
                 if (Session["Tix"] != null)
                 {
                     var alltix = (Dictionary<int, int>)Session["Tix"];
@@ -447,16 +414,11 @@ namespace ABF.Controllers
                                 OrderId = orderId,
 
                             };
-
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }
-
                 }
-
-                ;
 
                 if (Session["AddOns"] != null)
                 {
@@ -471,11 +433,8 @@ namespace ABF.Controllers
                                 Id = ticketId,
                                 AddOnId = singleaddon.Key,
                                 OrderId = orderId,
-
                             };
-
                             ticketService.CreateTicket(ticket);
-                            db.SaveChanges();
                             TicketList.Add(ticket);
                         }
                     }
@@ -483,22 +442,19 @@ namespace ABF.Controllers
                 }
 
                 viewModel.tickets = TicketList;
-                ;
-
                 #endregion
 
                 #region //----------- turn user into member, if Membership was put in basket
 
                 if (Session["Membership"] != null)
                 {
-                    var newmember = cs.GetCustomer(custId);
+                    var newmember = customerService.GetCustomer(custId);
                     var requestedmembershiptype = (MembershipType)Session["Membership"];
                     newmember.MembershipTypeId = requestedmembershiptype.Id;
-                    cs.UpdateCustomer(newmember);
-
+                    newmember.DateJoined = DateTime.Now;
+                    customerService.UpdateCustomer(newmember);
                     viewModel.newmember = true;
                 }
-
                 #endregion
 
                 // clear all tickets from the basket!

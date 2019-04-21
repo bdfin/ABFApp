@@ -1,173 +1,149 @@
 ﻿@model ABF.Models.IndexViewModel
 @{
     ViewBag.Title = "My Account";
+    var ismember = false;
+
+    if (Model.membershipType != null)
+    {
+        ismember = true;
+    }
 }
 
 <h2>@ViewBag.Title.</h2>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-
     <hr />
     @using (Html.BeginForm("updateCustomerDetails", "Manage", FormMethod.Post))
     {
+        @Html.HiddenFor(model => model.customer.Id)
 
-
-
-              @Html.HiddenFor(model => model.customer.Id)
-
-          <div class="container">
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.Name, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.Name, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.Address1, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.Address1, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.Address2, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.Address2, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.Address3, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.Address3, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.Address3, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.PostCode, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.PostCode, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-              <div class="form-group">
-                  @Html.LabelFor(model => model.customer.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                  <div class="col">
-                      @Html.EditorFor(model => model.customer.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                      @Html.ValidationMessageFor(model => model.customer.PhoneNumber, "", new { @class = "text-danger" })
-                  </div>
-              </div>
-
-
-
-            @*  <div class="form-group">
-                      @Html.LabelFor(model => model.customer.MembershipTypeId, "Membership Type", htmlAttributes: new { @class = "control-label col-md-2" })
-                      <div class="col">
-                          @Html.DropDownListFor(l => l.customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Type"), "Not a Member", new { @class = "form-control" })
-                          @Html.ValidationMessageFor(model => model.customer.MembershipTypeId, "", new { @class = "text-danger" })
-                      </div>
-                  </div> *@
-
-          </div>
-
-       
+        <div class="container">
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
+                @Html.LabelFor(model => model.customer.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    @Html.EditorFor(model => model.customer.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.Address1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.Address2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.Address3, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.Address3, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.Address3, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.PostCode, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.customer.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col">
+                    @Html.EditorFor(model => model.customer.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.customer.PhoneNumber, "", new { @class = "text-danger" })
                 </div>
             </div>
             
-     }
+            <hr/>
             
-
-
-<hr />
-
-<dl class="dl-horizontal">
-    <dt>Password:</dt>
-    <dd>
-        [
-        @if (Model.HasPassword)
-        {
-            @Html.ActionLink("Change your password", "ChangePassword")
-        }
-        else
-        {
-            @Html.ActionLink("Create", "SetPassword")
-        }
-        ]
-    </dd>
-    <dt>External Logins:</dt>
-    <dd>
-        @Model.Logins.Count [
-        @Html.ActionLink("Manage", "ManageLogins") ]
-    </dd>
-    @*
-        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-         Uncomment the following block after you have set up two-factor authentication
-    *@
-    @*
-        <dt>Phone Number:</dt>
-        <dd>
-            @(Model.PhoneNumber ?? "None")
-            @if (Model.PhoneNumber != null)
-            {
-                <br />
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            <h4>Membership Details:</h4>
+            
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <td>Membership Type</td>
+                    <td>Date Bought</td>
+                    <td>Expiry Date</td>
+                </tr>
+                </thead>
+                
+                @if (ismember)
                 {
-                    @Html.AntiForgeryToken()
-                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                    <tr>
+                        <td><p>@Model.membershipType.Type</p></td>
+                        <td><p>@Model.customer.DateJoined.ToString()</p></td>
+                        <td>
+                            @if(Model.membershipType.Expiry)
+                            { 
+                                <p>31st December @DateTime.Now.Year.ToString()</p>
+                            }
+                            else
+                            {
+                                <p>N/A</p>
+                            }
+
+                        </td>
+                    </tr>
                 }
+                else
+                {
+                    <tr>
+                        <td>Non-Member</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="form-group">
+            <div class="col">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Password:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change your password", "ChangePassword")
             }
             else
             {
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
+                @Html.ActionLink("Create", "SetPassword")
             }
+            ]
         </dd>
-    *@
-    @* <dt>Two-Factor Authentication:</dt>
+        <dt>External Logins:</dt>
         <dd>
-            @if (Model.TwoFactor)
-            {
-                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                    </text>
-                }
-            }
-            else
-            {
-                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                    </text>
-                }
-            }
-        </dd> *@
-</dl>
+            @Model.Logins.Count [
+            @Html.ActionLink("Manage", "ManageLogins") ]
+        </dd>
+    </dl>
 </div>

@@ -39,6 +39,9 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Membership Type")]
         public int? MembershipTypeId { get; set; }
 
+        [Display(Name="Date Joined As Member")]
+        public DateTime? DateJoined { get; set; }
+
         public virtual MembershipType MembershipType { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
         public virtual IList<Order> Orders { get; set; }

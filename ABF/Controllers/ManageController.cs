@@ -17,14 +17,12 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private CustomerService customerService;
 
         public ManageController()
         {
+
         }
-
-      
-
+        
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -69,10 +67,12 @@ namespace ABF.Controllers
                 : "";
 
             CustomerService customerservice = new CustomerService();
+            MembershipTypeService membershiptype = new MembershipTypeService();
+
             var userId = User.Identity.GetUserId();
             var thisCustomer = customerservice.GetCustomerByUserId(userId);
-            MembershipTypeService membershiptype = new MembershipTypeService();
-          
+            string membershipTypeId = thisCustomer.MembershipTypeId.ToString();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -82,6 +82,13 @@ namespace ABF.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+
+            if (membershipTypeId != "" && membershipTypeId != null)
+            {
+                var thisMembershipType = new MembershipType();
+                thisMembershipType = membershiptype.GetMembershipType(Convert.ToInt16(membershipTypeId));
+                model.membershipType = thisMembershipType;
+            }
             return View(model);
         }
 
