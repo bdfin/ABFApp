@@ -149,7 +149,7 @@ namespace ABF.Controllers
                     case "cardemail":
                         pmethod = "card";
                         break;
-                    case "collect":
+                    case "collectlater":
                         pmethod = "on collection";
                         break;
                     case "cheque":
@@ -295,7 +295,7 @@ namespace ABF.Controllers
                     case "cardemail":
                         pmethod = "card";
                         break;
-                    case "collect":
+                    case "collectlater":
                         pmethod = "on collection";
                         break;
                     case "cheque":
@@ -446,6 +446,7 @@ namespace ABF.Controllers
                     var newmember = customerService.GetCustomer(custId);
                     var requestedmembershiptype = (MembershipType)Session["Membership"];
                     newmember.MembershipTypeId = requestedmembershiptype.Id;
+                    newmember.DateJoined = DateTime.Now;
                     customerService.UpdateCustomer(newmember);
                     viewModel.newmember = true;
                 }

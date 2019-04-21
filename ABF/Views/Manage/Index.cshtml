@@ -92,7 +92,7 @@
                 {
                     <tr>
                         <td><p>@Model.membershipType.Type</p></td>
-                        <td><p>INSERT DATE BOUGHT</p></td>
+                        <td><p>@Model.customer.DateJoined.ToString()</p></td>
                         <td>
                             @if(Model.membershipType.Expiry)
                             { 

@@ -84,7 +84,6 @@ namespace ABF.Models
                 var user = new ApplicationUser {
                     Id = "admin",
                     UserName = "admin@test.net",
-                    Id = "admin",
                     Email = "admin@test.net",
                     Name = "Admin User",
                     PostCode = "S40 9UF",
@@ -102,7 +101,6 @@ namespace ABF.Models
                 var user = new ApplicationUser {
                     Id = "boxoffice",
                     UserName = "boxoffice@test.net",
-                    Id = "boxoffice",
                     Email = "boxoffice@test.net",
                     Name = "Box Office User",
                     PostCode = "S70 4HJ",
@@ -120,7 +118,6 @@ namespace ABF.Models
                 var user = new ApplicationUser {
                     Id = "user",
                     UserName = "testuser@test.net",
-                    Id = "user",
                     Email = "testuser@test.net",
                     Name = "Standard User",
                     PostCode = "S8 7RW",
