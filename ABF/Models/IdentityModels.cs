@@ -92,6 +92,7 @@ namespace ABF.Models
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
                     UserName = "admin@test.net",
+                    Id = "admin",
                     Email = "admin@test.net",
                     Name = "Admin User",
                     PostCode = "S40 9UF",
@@ -109,6 +110,7 @@ namespace ABF.Models
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
                     UserName = "boxoffice@test.net",
+                    Id = "boxoffice",
                     Email = "boxoffice@test.net",
                     Name = "Box Office User",
                     PostCode = "S70 4HJ",
@@ -125,6 +127,7 @@ namespace ABF.Models
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
                     UserName = "testuser@test.net",
+                    Id = "user",
                     Email = "testuser@test.net",
                     Name = "Standard User",
                     PostCode = "S8 7RW",
