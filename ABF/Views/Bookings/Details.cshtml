@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
     var addondictionary = Model.AddOnsAndAvailabilities;
+    int Eavail = Model.EventAvailability;
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -29,14 +30,15 @@
             @{if (User.IsInRole("Member") || !Model.Event.IsMemberOnly)
                 {
 
-                    <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
-                    <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />;
-                    <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
+                    <button name="button" type="button" class="subevent btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
+                    <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="fieldevent" style="width:25px; text-align:center; border:2px solid black" />;
+                    <button name="button" type="button" class="addevent btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
                     <br />
 
-                    <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                        <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
-                        <input name="quantity" type="hidden" class="store" value="0" />
+                    <form method="post" class="addformevent" action="@Url.Action("AddtoBasket", "Basket", null)">
+                        <input name="eventId" type="text" class="Id" value=@Model.Event.Id />
+                        <input name="quantity" type="text" class="storeevent" value="0" />
+                        <input name="availability" type="text" class="availableEvent" value=@Eavail />
                         <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
                             Add to Basket
                         </button>
@@ -57,8 +59,9 @@
                             <br />
 
                             <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
-                                <input name="addonId" type="hidden" class="eId" value=@item.Key.Id />
-                                <input name="quantity" type="hidden" class="store" value="0" />
+                                <input name="addonId" type="text" class="aId" value=@item.Key.Id />
+                                <input name="quantity" type="text" class="store" value="0" />
+                                <input name="availability" type="text" class="available" value="@item.Value" />
                                 <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
                                     Add
                                 </button>
@@ -73,7 +76,6 @@
                     <p>If you are a member, please Login to enable ticket purchase for this event.</p>
                 }
             }
-
         </td>
     </tr>
 
@@ -209,41 +211,31 @@
 
 
 <script>
+    // ADDING TICKETS
+    $('.addevent').click(function () {
+        var avail = Number($(".availableEvent").val());
+        var req = Number($(".storeevent").val());
 
-
-    // when any element with the 'add' class is clicked....
-    $('.add').click(function () {
-
-        // if value of 'field' class in previous TD is valid
-        if (!isNaN($(this).parent().children(".field").val())) {
-            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
-            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
-            // prev()             = find the previous occurence of the <td> tag (in this case)
-            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <input>
-            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
-            // val()              = get the value of the element
-
-            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() + 1);
-            $(this).parent().children(".addform").children(".store").val($(this).parent().children(".field").val());
+        if (req < avail)
+        {
+            $(".fieldevent").val(+$(".fieldevent").val() + 1);
+            $(".storeevent").val($(".fieldevent").val());
         }
         else {
-            $(this).parent().children(".field").val(0);
-            $(this).parent().children(".addform").children(".store").val(0);
+            alert("Maximum number of available tickets reached.");
         }
     });
 
+    // REMOVING TICKETS
+    $('.subevent').click(function () {
+        var req = Number($(".storeevent").val());
 
-    $('.sub').click(function () {
-        if ((!isNaN($(this).parent().children(".field").val())) && ($(this).parent().children(".field").val() > 0)) {
-            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() - 1);
-            $(this).parent().children(".addform").children(".store").val(+$(this).parent().children(".field").val());
-        }
-        else {
-            $(this).parent().children(".field").val(0);
-            $(this).parent().children(".addform").children(".store").val(0);
+        if (req > 0)
+        {
+            $(".fieldevent").val(+$(".fieldevent").val() - 1);
+            $(".storeevent").val($(".fieldevent").val());
         }
     });
-
 
 </script>
 
