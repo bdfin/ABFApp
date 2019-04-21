@@ -96,16 +96,25 @@ namespace ABF.Controllers
         public ActionResult Details(int id)
         {
             var thisevent = eventService.GetEvent(id);
+            var eventavailability = thisevent.Capacity - ticketService.GetTicketSalesQuantityForEvent(id);
             var eventlocation = locationService.GetLocation(thisevent.LocationId);
             var eventimage = imageService.GetImage(thisevent.ImageId);
             var eventaddons = addOnService.GetEventAddOns(id);
+            var addonsandavailabilities = new Dictionary<AddOn, int>();
+
+            foreach (var addon in eventaddons)
+            {
+                var addonssold = ticketService.GetAddOnSalesQuantityForEvent(addon.Id);
+                addonsandavailabilities.Add(addon, (addon.Quantity - addonssold));
+            }
 
             var viewmodel = new EventDetailsViewModel
             {
                 Event = thisevent,
+                EventAvailability = eventavailability,
                 Location = eventlocation,
                 Image = eventimage,
-                AddOns = eventaddons.ToList()
+                AddOnsAndAvailabilities = addonsandavailabilities,
             };
 
             return View(viewmodel);

@@ -626,7 +626,7 @@ namespace ABF.Data.ABFDbModels
                 new Customer
                 {
                     Id = "1",
-                    UserId= "1",
+                    UserId= "admin",
                     Name= "Lucy Stalker",
                     Address1= "123 Avenue",
                     Address2= "London",
@@ -634,12 +634,13 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
+                    MembershipTypeId = 2
                 },
 
                 new Customer
                 {
                     Id= "2",
-                    UserId= "2",
+                    UserId= "boxoffice",
                     Name= "Samantha Squire" ,
                     Address1= "12 Road Street",
                     Address2= "Sheffield",
@@ -653,7 +654,7 @@ namespace ABF.Data.ABFDbModels
                 new Customer
                 {
                     Id= "3",
-                    UserId= "3",
+                    UserId= "user",
                     Name= "Marcus Pledge",
                     Address1= "1 Castle Lane",
                     Address2= "Floor 3",
@@ -661,7 +662,6 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
-                    MembershipTypeId= 2,
                 },
 
                 new Customer
