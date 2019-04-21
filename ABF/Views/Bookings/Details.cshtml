@@ -1,9 +1,9 @@
-﻿@model ABF.ViewModels.EventDetailsViewModel
+﻿@using ABF.Data.ABFDbModels
+@model ABF.ViewModels.EventDetailsViewModel
 @{
     ViewBag.Title = "Details";
-
+    var addondictionary = Model.AddOnsAndAvailabilities;
 }
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -23,10 +23,12 @@
 
         <td rowspan="5" style="width:300px; background-color:#fcbf2d; text-align:center; align-content:center">
             <br />
-            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3><br />
-
+            <h3>Tickets <b>£@Model.Event.TicketPrice</b></h3>
+            <sup class="text-danger">@Model.EventAvailability tickets available</sup>
+            <br/>
             @{if (User.IsInRole("Member") || !Model.Event.IsMemberOnly)
                 {
+
                     <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
                     <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />;
                     <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
@@ -39,38 +41,37 @@
                             Add to Basket
                         </button>
                     </form>
-                    <br />
+                    <hr />
 
-                    if (Model.AddOns.Count > 0)
+                    if (addondictionary.Count > 0)
                     {
-                        <ul>
-                            @foreach (var item in Model.AddOns)
-                            {
-                                <li style="list-style:none; text-align:center">
-                                    @item.Name - <b>£@item.Price</b>
+                        <h5>Add-Ons:</h5>
+                        foreach (KeyValuePair<AddOn, int> item in addondictionary)
+                        {
+                            <p>@item.Key.Name - <b>£@item.Key.Price</b></p>
+                            <sup class="text-danger">@item.Value available</sup><br/>
 
-                                    <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>&nbsp;&nbsp;
-                                    <input name="quantity" type="text" id="@item.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />&nbsp;&nbsp;
-                                    <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
-                                    <br />
+                            <button name="button" type="button" class="sub btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>
+                            <input name="quantity" type="text" id="@item.Key.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
+                            <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
+                            <br />
 
-                                    <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
-                                        <input name="addonId" type="hidden" class="eId" value=@item.Id />
-                                        <input name="quantity" type="hidden" class="store" value="0" />
-                                        <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
-                                            Add
-                                        </button>
-                                    </form>
-                                </li>
-                            }
-                        </ul>
+                            <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
+                                <input name="addonId" type="hidden" class="eId" value=@item.Key.Id />
+                                <input name="quantity" type="hidden" class="store" value="0" />
+                                <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                                    Add
+                                </button>
+                            </form>
+                            <hr/>
+                        }
                     }
                 }
-              else
-              {
-                  <p><b>Members Exclusive Event</b></p>
-                  <p>If you are a member, please Login to enable ticket purchase for this event.</p>
-              }
+                else
+                {
+                    <p><b>Members Exclusive Event</b></p>
+                    <p>If you are a member, please Login to enable ticket purchase for this event.</p>
+                }
             }
 
         </td>
@@ -96,7 +97,7 @@
     </tr>
 
     <tr style="height:25%">
-        @if (Model.AddOns.Count > 0)
+        @if (addondictionary.Count > 0)
         {
             <td style="background-color:aliceblue">
 
@@ -104,10 +105,10 @@
                     <li>
                         <b><u>Extras Available:</u></b>
                     </li>
-                    @foreach (var item in Model.AddOns)
+                    @foreach (KeyValuePair<AddOn, int> item in addondictionary)
                     {
                         <li>
-                            <b>£@item.Price - @item.Name</b>: @item.Description
+                            <b>£@item.Key.Price - @item.Key.Name</b>: @item.Key.Description
                         </li>
                     }
                 </ul>
