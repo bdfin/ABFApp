@@ -192,6 +192,10 @@ namespace ABF.Controllers
                 {
                     deliverymethod = "collect";
                 }
+                else if (paymentmethod == "cardDownload")
+                {
+                    deliverymethod = "download";
+                }
                 else
                 {
                     deliverymethod = "email";

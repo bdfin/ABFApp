@@ -1,13 +1,13 @@
 ﻿using ABF.Data.ABFDbModels;
 using ABF.Data.DAO;
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
-using Syroot.Windows.IO;
 
 namespace ABF.Service.Services
 {
@@ -60,7 +60,7 @@ namespace ABF.Service.Services
             return _ticketSalesDAO.GetTicketsForOrder(id);
         }
 
-        public void GenerateTicket(Ticket ticket)
+        public PdfDocument GenerateTicket(Ticket ticket)
         {
             int eventId = 0;
 
@@ -83,14 +83,8 @@ namespace ABF.Service.Services
             gfx.DrawString(ticketEvent.Name, font, XBrushes.Black,
                 new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
 
-            gfx.DrawString(ticketEvent.Date.ToShortDateString(), font, XBrushes.Black,
-                new XRect(1, 1, page.Width, page.Height), XStringFormats.Center);
-
-            string downloadsPath = new KnownFolder(KnownFolderType.Downloads).Path;
-            string filename = downloadsPath + "\\" + ticket.Id.ToString() + ".pdf";
-
-            document.Save(filename);
-        }
+            return document;
+        }     
     }
 
 }
