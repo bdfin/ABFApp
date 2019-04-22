@@ -634,6 +634,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
+                    MembershipTypeId =2,
                 },
 
                 new Customer
@@ -720,6 +721,7 @@ namespace ABF.Data.ABFDbModels
                 },
 
                 new Customer
+
                 {
                     Id= "8",
                     UserId= "8",
