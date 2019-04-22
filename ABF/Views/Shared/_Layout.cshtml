@@ -113,27 +113,27 @@
 
                     <ul class="list-unstyled">
                         <li class="list-group-item footer-colourbox">
-                            <small>@Html.ActionLink("About Us", "About", "Home")</small>
+                            @Html.ActionLink("About Us", "About", "Home", new { @class = "footer-fontcolour"})
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            @Html.ActionLink("Local Information", "Visit", "Home", new { @class = "footer-fontcolour" })
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            @Html.ActionLink("FAQ", "FAQs", "Home", new { @class = "footer-fontcolour" })
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            @Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "footer-fontcolour" })
                         </li>
 
                         <li class="list-group-item footer-colourbox ">
-                            <small>@Html.ActionLink("Local Information", "Visit", "Home")</small>
+                            @Html.ActionLink("Our Policies", "Cookies", "Home", new { @class = "footer-fontcolour" })
                         </li>
 
                         <li class="list-group-item footer-colourbox">
-                            <small>@Html.ActionLink("FAQ", "FAQs", "Home")</small>
-                        </li>
-
-                        <li class="list-group-item footer-colourbox">
-                            <small>@Html.ActionLink("Contact Us", "Contact", "Home")</small>
-                        </li>
-
-                        <li class="list-group-item footer-colourbox">
-                            <small>@Html.ActionLink("Our Policies", "Cookies", "Home")</small>
-                        </li>
-
-                        <li class="list-group-item footer-colourbox">
-                            <small>@Html.ActionLink("Ts & Cs", "TermsConditions", "Home")</small>
+                            @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "footer-fontcolour" })
                             </li>
                     </ul>
 
