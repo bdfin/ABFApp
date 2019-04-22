@@ -40,7 +40,7 @@
                     </li>
 
                     <li class="nav-item">
-                        @Html.ActionLink("Membership", "Membership", "Basket", null, new { @class=  "nav-link" })
+                        @Html.ActionLink("Membership", "Membership", "Basket", null, new { @class = "nav-link" })
                     </li>
 
                 </ul>
@@ -54,36 +54,107 @@
         @RenderBody()
     </div>
 
-    <footer class="navbar mt-5" id="footer">
-        <ul class="list-group list-group-horizontal d-flex justify-content-center text-center">
-            <li class="list-group-item">
-                <small>@Html.ActionLink("About Us", "About", "Home")</small>
-            </li>
+    @* <footer class="navbar mt-5" id="footer">
+            <ul class="list-group list-group-horizontal d-flex justify-content-center text-center">
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("About Us", "About", "Home")</small>
+                </li>
 
-            <li class="list-group-item">
-                <small>@Html.ActionLink("Local Information", "Visit", "Home")</small>
-            </li>
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("Local Information", "Visit", "Home")</small>
+                </li>
 
-            <li class="list-group-item">
-                <small>@Html.ActionLink("FAQ", "FAQs", "Home")</small> 
-            </li>
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("FAQ", "FAQs", "Home")</small>
+                </li>
 
-            <li class="list-group-item">
-                <small>@Html.ActionLink("Contact Us", "Contact", "Home")</small>
-            </li>
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("Contact Us", "Contact", "Home")</small>
+                </li>
 
-            <li class="list-group-item">
-                <small>@Html.ActionLink("Our Policies", "Cookies", "Home")</small>
-            </li>
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("Our Policies", "Cookies", "Home")</small>
+                </li>
 
-            <li class="list-group-item">
-                <small>@Html.ActionLink("Ts & Cs", "TermsConditions", "Home")</small>
-            </li>
-            <li class="list-group-item">
-                <small>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211)</small>
-            </li>
-        </ul>
+                <li class="list-group-item">
+                    <small>@Html.ActionLink("Ts & Cs", "TermsConditions", "Home")</small>
+                </li>
+                <li class="list-group-item">
+                    <small>&copy; Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved | Charity Commission number (1171761) | Company number (10016211)</small>
+                </li>
+            </ul>
+        </footer> *@
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue pt-4 bg-light">
+
+        <div class="container-fluid text-center text-md-left">
+
+          
+            <div class="row">
+
+             
+                <div class="col-md-6 mt-md-0 mt-3">
+
+                   
+                    <h5 class="text-uppercase">Footer Content</h5>
+                    <p></p>
+
+                </div>
+              
+
+                <hr class="clearfix w-100 d-md-none pb-3">
+
+               
+                <div class="col-md-3 mb-md-0 mb-3">
+
+                    
+                    <h5 class="text-uppercase">More Information</h5>
+
+                    <ul class="list-unstyled">
+                        <li class="list-group-item footer-colourbox">
+                            <small>@Html.ActionLink("About Us", "About", "Home")</small>
+                        </li>
+
+                        <li class="list-group-item footer-colourbox ">
+                            <small>@Html.ActionLink("Local Information", "Visit", "Home")</small>
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            <small>@Html.ActionLink("FAQ", "FAQs", "Home")</small>
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            <small>@Html.ActionLink("Contact Us", "Contact", "Home")</small>
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            <small>@Html.ActionLink("Our Policies", "Cookies", "Home")</small>
+                        </li>
+
+                        <li class="list-group-item footer-colourbox">
+                            <small>@Html.ActionLink("Ts & Cs", "TermsConditions", "Home")</small>
+                            </li>
+                    </ul>
+
+                </div>
+               
+
+            </div>
+           
+
+        </div>
+  
+        <div class="footer-copyright text-center py-3">
+            ©  Copyright 2019 by The Appledore Book Festival SIC. All Rights Reserved
+
+        </div>
+       
+
     </footer>
+
+
+
 
     @Scripts.Render("~/bundles/lib")
     @Scripts.Render("~/bundles/jqueryval")
