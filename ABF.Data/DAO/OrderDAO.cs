@@ -51,6 +51,15 @@ namespace ABF.Data.DAO
             return order.First();
         }
 
+        public IList<Order> getOrdersForCustomerId(string Id)
+        {
+            var order = from orders in _context.Orders
+                where orders.CustomerId == Id 
+                select orders;
+
+            return order.ToList();
+        }
+
         public IEnumerable<Order> getOrders()
         {
             var orders = from order 
