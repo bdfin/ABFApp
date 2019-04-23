@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Details";
     var addondictionary = Model.AddOnsAndAvailabilities;
+    int Eavail = Model.EventAvailability;
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -38,22 +39,30 @@
                 <button name="button" type="button" class="add btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">+</button><br />
                 <br />
 
-                <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
-                    <input name="eventId" type="hidden" class="eId" value=@Model.Event.Id />
-                    <input name="quantity" type="hidden" class="store" value="0" />
-                    <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
-                        Add to Basket
-                    </button>
-                </form>
-                <hr />
+                    <form method="post" class="addformevent" action="@Url.Action("AddtoBasket", "Basket", null)">
+                        <input name="eventId" type="hidden" class="Id" value=@Model.Event.Id />
+                        <input name="quantity" type="hidden" class="storeevent" value="0" />
+                        <input name="availability" type="hidden" class="availableEvent" value=@Eavail />
+                        <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                            Add to Basket
+                        </button>
+                    </form>
+                    <hr />
 
-                if (addondictionary.Count > 0)
-                {
-                    <h5>Add-Ons:</h5>
-                    foreach (KeyValuePair<AddOn, int> item in addondictionary)
+                    if (addondictionary.Count > 0)
                     {
-                        <p>@item.Key.Name - <b>£@item.Key.Price</b></p>
-                        <sup class="text-danger">@item.Value available</sup><br />
+                        <table>
+                            <tr>
+                                <td><h5>Add-Ons:</h5></td>
+                            </tr>
+
+                            @foreach (KeyValuePair<AddOn, int> item in addondictionary)
+                            {
+                                <tr>
+                                    <td>
+                                        <p>@item.Key.Name - <b>£@item.Key.Price</b></p>
+                                        <sup class="text-danger">@item.Value available</sup>
+                                        <br/>
 
                         if (item.Value > 0)
                         {
@@ -64,27 +73,28 @@
                             <br/>
                             <br/>
 
-                            <form method="post" class="addform" action="@Url.Action("AddAddOns", "Basket", null)">
-                                <input name="addonId" type="hidden" class="eId" value=@item.Key.Id/>
-                                <input name="quantity" type="hidden" class="store" value="0"/>
-                                <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
-                                    Add
-                                </button>
-                            </form>
-                        }
-                        else
-                        {
-                            <p><b>SOLD OUT</b></p>
-                            <p>Sorry, No more available.</p>
-                        }
-                        <hr />
+                                        <form method="post" class=formaddon action="@Url.Action("AddAddOns", "Basket", null)">
+                                            <input name="addonId" type="hidden" class="aId" value=@item.Key.Id/>
+                                            <input name="quantity" type="hidden" class="storeaddon" value="0"/>
+                                            <input name="availability" type="hidden" class="availableaddon" value="@item.Value"/>
+                                            <button type="submit" style="width:130px; height:40px; background-color:#2bb6af; border-radius:10px; border:2px solid black">
+                                                Add
+                                            </button>
+                                        </form>
+                                        <hr/>
+                                    </td>
+                                </tr>
+
+                            }
+                        </table>
+
                     }
                 }
-            }
-            else
-            {
-                <p><b>Members Exclusive Event</b></p>
-                <p>If you are a member, please Login to enable ticket purchase for this event.</p>
+                else
+                {
+                    <p><b>Members Exclusive Event</b></p>
+                    <p>If you are a member, please Login to enable ticket purchase for this event.</p>
+                }
             }
         </td>
     </tr>
@@ -221,46 +231,53 @@
 
 
 <script>
+    // ADDING TICKETS
+    $('.addevent').click(function () {
+        var avail = Number($(".availableEvent").val());
+        var req = Number($(".storeevent").val());
 
-
-    // when any element with the 'add' class is clicked....
-    $('.add').click(function () {
-
-        // if value of 'field' class in previous TD is valid
-        if (!isNaN($(this).parent().children(".field").val())) {
-            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
-            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
-            // prev()             = find the previous occurence of the <td> tag (in this case)
-            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <input>
-            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
-            // val()              = get the value of the element
-
-            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() + 1);
-            $(this).parent().children(".addform").children(".store").val($(this).parent().children(".field").val());
+        if (req < avail) {
+            $(".fieldevent").val(+$(".fieldevent").val() + 1);
+            $(".storeevent").val($(".fieldevent").val());
         }
         else {
-            $(this).parent().children(".field").val(0);
-            $(this).parent().children(".addform").children(".store").val(0);
+            alert("Maximum number of available tickets reached.");
         }
     });
 
+    // REMOVING TICKETS
+    $('.subevent').click(function () {
+        var req = Number($(".storeevent").val());
 
-    $('.sub').click(function () {
-        if ((!isNaN($(this).parent().children(".field").val())) && ($(this).parent().children(".field").val() > 0)) {
-            $(this).parent().children(".field").val(+$(this).parent().children(".field").val() - 1);
-            $(this).parent().children(".addform").children(".store").val(+$(this).parent().children(".field").val());
-        }
-        else {
-            $(this).parent().children(".field").val(0);
-            $(this).parent().children(".addform").children(".store").val(0);
+        if (req > 0) {
+            $(".fieldevent").val(+$(".fieldevent").val() - 1);
+            $(".storeevent").val($(".fieldevent").val());
         }
     });
 
+    // ADDING ADDONS
+    $('.addaddon').click(function () {
+        var avail = Number($(this).parent().children(".formaddon").children(".availableaddon").val());
+        var req = Number($(this).parent().children(".formaddon").children(".storeaddon").val());
+        if (req < avail) {
+            $(this).parent().children(".fieldaddon").val(+$(this).parent().children(".fieldaddon").val() + 1);
+            $(this).parent().children(".formaddon").children(".storeaddon").val($(this).parent().children(".fieldaddon").val());
+        }
+        else {
+            alert("Maximum number of available items reached.");
+        }
+    });
 
-</script>
+    // REMOVING ADDONS
+    $('.subaddon').click(function () {
+        var req = Number($(this).parent().children(".formaddon").children(".storeaddon").val());
+        if (req > 0) {
+            $(this).parent().children(".fieldaddon").val(+$(this).parent().children(".fieldaddon").val() - 1);
+            $(this).parent().children(".formaddon").children(".storeaddon").val($(this).parent().children(".fieldaddon").val());
+        }
+    });
 
-
-<script>
+    // GOOGLE MAPS
     function myMap()
     {
         var mapProp = {
