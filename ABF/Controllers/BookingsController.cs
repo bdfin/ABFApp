@@ -84,7 +84,7 @@ namespace ABF.Controllers
                 var userId = User.Identity.GetUserId();
                 var customermemberstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
 
-                if (customermemberstate != null)
+                if (customermemberstate > 0)
                 {
                     indexview.isMember = true;
                 }
