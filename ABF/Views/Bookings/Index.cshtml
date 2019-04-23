@@ -58,7 +58,13 @@
             <td id="eventId" style="display:none">
                 <p>@item.Event.Id</p> </td>
 
-            @if (item.Event.IsMemberOnly && !Model.isMember)
+            @if (item.availability < 1)
+            {
+                <td colspan="4">
+                    <p style="text-align: center; color:red"><b>SOLD OUT - SOLD OUT</b></p>
+                </td>
+            }
+            else if (item.Event.IsMemberOnly && !Model.isMember)
             {
                 <td colspan="4">
                     <button class="bg-light" style="width:250px; border-radius:10px; text-align:center">
