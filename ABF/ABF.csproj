@@ -429,6 +429,7 @@
     <Content Include="Content\SiteImages\FAQBackground.jpg" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
     <Content Include="Content\SiteImages\Membership background.jpg" />
+    <Content Include="Content\SiteImages\MessageSentBackground.jpg" />
     <Content Include="Content\SiteImages\navbar-basket.png" />
     <Content Include="Content\SiteImages\TandCBackground.jpg" />
     <Content Include="Content\SiteImages\VisitBackground.jpg" />

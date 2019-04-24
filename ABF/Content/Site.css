@@ -73,6 +73,14 @@ textarea {
     background-size: cover;
 }
 
+.message-sent-bg {
+    background: url("/Content/SiteImages/MessageSentBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
