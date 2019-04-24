@@ -37,6 +37,18 @@ textarea {
     padding-bottom: 40px;
 }
 
+.box-colour2 {
+    background: rgba(252,191,45, 0.5) !important;
+}
+
+.contact-us-bg {
+    background: url("/Content/SiteImages/ContactUsBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
