@@ -26,6 +26,14 @@ namespace ABF.Data.ABFDbModels
         [Required]
         public string Delivery { get; set; }
 
+        public string DeliveryName { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string Address3 { get; set; }
+        public string PostCode { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+
         public virtual Payment Payment { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual IList<Ticket> Tickets { get; set; }
