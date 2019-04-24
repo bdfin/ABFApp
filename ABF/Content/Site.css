@@ -49,6 +49,14 @@ textarea {
     background-size: cover;
 }
 
+.visit-bg {
+    background: url("/Content/SiteImages/VisitBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
