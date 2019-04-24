@@ -533,7 +533,7 @@ namespace ABF.Data.ABFDbModels
 
                 new MembershipType
                 {
-                    Id = 0,
+                    Id = 1,
                     Type = "Non-Member",
                     Expiry = false,
                     Price = 0
@@ -541,7 +541,7 @@ namespace ABF.Data.ABFDbModels
 
                 new MembershipType
                 {
-                    Id = 1,
+                    Id = 2,
                     Type = "Standard",
                     Expiry = true,
                     Price = 20
@@ -550,7 +550,7 @@ namespace ABF.Data.ABFDbModels
 
                 new MembershipType
                 {
-                    Id = 2,
+                    Id = 3,
                     Type = "Life Time",
                     Expiry = false,
                     Price = 0

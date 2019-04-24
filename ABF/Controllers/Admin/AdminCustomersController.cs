@@ -93,5 +93,23 @@ namespace ABF.Controllers
             return RedirectToAction("Index");
            
         }
+
+        public ActionResult RenewAllMemberships()
+        {
+            var allusers = customerService.GetCustomers();
+
+            foreach (var user in allusers)
+            {
+                var needreset = membershipTypeService.GetMembershipType(user.MembershipTypeId).Expiry;
+
+                if (needreset)
+                {
+                    user.MembershipTypeId = 1;
+                    user.DateJoined = null;
+                    customerService.UpdateCustomer(user);
+                }
+            }
+            return View("Index", customerService.GetCustomers());
+        }
     }
 }
