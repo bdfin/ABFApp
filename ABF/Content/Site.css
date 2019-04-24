@@ -57,6 +57,14 @@ textarea {
     background-size: cover;
 }
 
+.faq-bg {
+    background: url("/Content/SiteImages/FAQBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
