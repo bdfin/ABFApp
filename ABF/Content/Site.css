@@ -65,6 +65,14 @@ textarea {
     background-size: cover;
 }
 
+.tandc-bg {
+    background: url("/Content/SiteImages/TandCBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
