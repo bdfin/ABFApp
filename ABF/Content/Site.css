@@ -104,3 +104,11 @@ textarea {
     background-size: cover;
 }
 
+.footer-colourbox {
+   background: rgb(43,182,175);
+}
+
+.footer-fontcolour {
+
+    color: white !important;
+}
