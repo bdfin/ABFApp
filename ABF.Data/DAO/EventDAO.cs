@@ -64,6 +64,7 @@ namespace ABF.Data.DAO
             _event.BookUrl = e.BookUrl;
             _event.AuthorUrl = e.AuthorUrl;
 
+
             _context.SaveChanges();
         }
 

@@ -58,7 +58,13 @@
             <td id="eventId" style="display:none">
                 <p>@item.Event.Id</p> </td>
 
-            @if (item.Event.IsMemberOnly && !Model.isMember)
+            @if (item.availability < 1)
+            {
+                <td colspan="4">
+                    <p style="text-align: center; color:red"><b>SOLD OUT - SOLD OUT</b></p>
+                </td>
+            }
+            else if (item.Event.IsMemberOnly && !Model.isMember)
             {
                 <td colspan="4">
                     <button class="bg-light" style="width:250px; border-radius:10px; text-align:center">
@@ -82,6 +88,7 @@
                     <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
                         <input name="eventId" type="hidden" class="eId" value=@item.Event.Id>
                         <input name="quantity" type="hidden" class="store" value="0"/>
+                        <input name="availability" type="hidden" class="available" value="@item.availability"/>
                         <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
                             Add to Basket
                         </button>
@@ -128,36 +135,23 @@
 </script>
 
 <script>
-
-    // when any element with the 'add' class is clicked....
     $('.add').click(function () {
-
-        // if value of 'field' class in previous TD is valid
-        if (!isNaN($(this).parent().prev().children(".field").val())) {
-            // (this)       = the current HTML tag (with the 'add' class). In this case, a <button>.
-            // parent()     = the containing HTML tag (in this case, our <button> is contained in a <td> tag)
-            // prev()             = find the previous occurence of the <td> tag (in this case)
-            // children()         = return the elements inside the 'previous' <td> tag - in this case, only a <button>
-            // children(".field") = return the element inside the 'previous' <td> tag which has the class 'field'
-            // val()              = get the value of the element
-
+        var avail = Number($(this).parent().next().children(".addform").children(".available").val());
+        var req   = Number($(this).parent().next().children(".addform").children(".store").val());
+        if (req < avail) {
             $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
             $(this).parent().next().children(".addform").children(".store").val($(this).parent().prev().children(".field").val());
         }
         else {
-            $(this).parent().prev().children(".field").val(0);
-            $(this).parent().next().children(".addform").children(".store").val(0);
+            alert("Maximum number of available items reached.");
         }
     });
 
     $('.sub').click(function () {
-        if ((!isNaN($(this).parent().next().children(".field").val())) && ($(this).parent().next().children(".field").val() > 0)) {
+        var req   = Number($(this).parent().next().children(".addform").children(".store").val());
+        if (req > 0) {
             $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
             $(this).parent().next().next().next().children(".addform").children(".store").val(+$(this).parent().next().children(".field").val());
-        }
-        else {
-            $(this).parent().next().children(".field").val(0);
-            $(this).parent().next().next().next().children(".addform").children(".store").val(0);
         }
     });
 

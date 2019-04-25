@@ -203,7 +203,14 @@ namespace ABF.Controllers
                     Time = DateTime.Now,
                     CustomerId = customerid,
                     PaymentId = paymentid,
-                    Delivery = deliverymethod
+                    Delivery = deliverymethod,
+                    DeliveryName = name,
+                    Address1 = address1,
+                    Address2 = address2,
+                    Address3 = address3,
+                    PostCode = postcode,
+                    Email = email,
+                    PhoneNumber = phone
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
@@ -385,7 +392,14 @@ namespace ABF.Controllers
                     Time = DateTime.Now,
                     CustomerId = custId,
                     PaymentId = paymentid,
-                    Delivery = deliverymethod
+                    Delivery = deliverymethod,
+                    DeliveryName = name,
+                    Address1 = address1,
+                    Address2 = address2,
+                    Address3 = address3,
+                    PostCode = postcode,
+                    Email = email,
+                    PhoneNumber = phone
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;

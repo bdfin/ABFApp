@@ -11,6 +11,7 @@ namespace ABF.Data.ABFDbModels
     {
         public string Id { get; set; }
 
+        [Display(Name="User ID")]
         public string UserId { get; set; }
 
         [Required]
@@ -37,7 +38,7 @@ namespace ABF.Data.ABFDbModels
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Membership Type")]
-        public int? MembershipTypeId { get; set; }
+        public int MembershipTypeId { get; set; }
 
         [Display(Name="Date Joined As Member")]
         public DateTime? DateJoined { get; set; }

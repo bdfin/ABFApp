@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,6 +10,8 @@ using Microsoft.Owin.Security;
 using ABF.Models;
 using ABF.Service.Services;
 using ABF.Data.ABFDbModels;
+using ABF.ViewModels;
+using System.Collections.Generic;
 
 namespace ABF.Controllers
 {
@@ -17,10 +20,13 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private OrderService orderService;
+        private PaymentService paymentService;
 
         public ManageController()
         {
-
+            orderService = new OrderService();
+            paymentService = new PaymentService();
         }
         
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -72,6 +78,7 @@ namespace ABF.Controllers
             var userId = User.Identity.GetUserId();
             var thisCustomer = customerservice.GetCustomerByUserId(userId);
             string membershipTypeId = thisCustomer.MembershipTypeId.ToString();
+            var orderlist = orderService.getOrdersForCustomerId(thisCustomer.Id);
 
             var model = new IndexViewModel
             {
@@ -80,8 +87,27 @@ namespace ABF.Controllers
                 customer = thisCustomer,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
             };
+
+            if (orderlist.Count != 0)
+            {
+                var orderListViewModel = new List<OrderListViewModel>();
+                foreach (var order in orderlist)
+                {
+                    var viewModel = new OrderListViewModel()
+                    {
+                        orderId = order.Id,
+                        orderDate = order.Date,
+                        orderTime = order.Time,
+                        paymentMethod = paymentService.GetPayment(order.PaymentId).Method,
+                        deliveryMethod = order.Delivery,
+                        price = paymentService.GetPayment(order.PaymentId).Amount
+                    };
+                    orderListViewModel.Add(viewModel);
+                }
+                model.myorders = orderListViewModel;
+            }
 
             if (membershipTypeId != "" && membershipTypeId != null)
             {
