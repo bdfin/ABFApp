@@ -9,13 +9,17 @@ namespace ABF.Data.ABFDbModels
 {
     public class Ticket
     {
+        [Display(Name = "Ticket ID")]
         public string Id { get; set; }
 
+        [Display(Name = "Event ID")]
         public int? EventId { get; set; }
 
+        [Display(Name = "Add-On ID")]
         public int? AddOnId { get; set; }
 
         [Required]
+        [Display(Name = "Order ID")]
         public int OrderId { get; set; }
 
         public virtual AddOn AddOn { get; set; }

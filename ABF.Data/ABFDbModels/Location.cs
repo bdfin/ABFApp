@@ -9,6 +9,7 @@ namespace ABF.Data.ABFDbModels
 {
     public class Location
     {
+        [Display(Name = "Location ID")]
         public int Id { get; set; }
 
         [Display(Name = "Location")]
@@ -20,19 +21,21 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Address 2")]
         public string Address2 { get; set; }
 
-        [Display(Name = "Post Code")]
+        [Display(Name = "PostCode")]
         [DataType(DataType.PostalCode)]
         public string PostCode { get; set; }
 
-        [Display(Name = "Co-ordinates")]
+        [Display(Name = "Co-Ordinates")]
         public string LatLong { get; set; }
 
         [Display(Name = "Disabled Access")]
         public bool DisabledAccess { get; set; }
 
+        [Display(Name = "Venue Info")]
         [DataType(DataType.MultilineText)]
         public string Info { get; set; }
 
+        [Display(Name = "Venue Contact")]
         public string Contact { get; set; }
 
         public virtual IList<Event> Events { get; set; }

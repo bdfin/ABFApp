@@ -10,10 +10,12 @@ namespace ABF.Data.ABFDbModels
 {
     public class Event
     {
+        [Display(Name = "Event ID")]
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Date")]
         public DateTime Date { get; set; }
       
         [DataType(DataType.Time)]
@@ -25,18 +27,23 @@ namespace ABF.Data.ABFDbModels
         public DateTime EndTime { get; set; }
 
         [Required]
+        [Display(Name = "Event")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "Author")]
         public string Author { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Brief Details")]
         public string Details { get; set; }
 
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Full Details")]
         public string Description { get; set; }
 
         [Required]
+        [Display(Name = "Capacity")]
         public int Capacity { get; set; }
 
         [Required]
