@@ -10,10 +10,16 @@ namespace ABF.ViewModels
     public class EventListViewModel
     {
         public Event Event { get; set; }
+
         public Location Location { get; set; }
+
         public Image Image { get; set; }
+
         public IList<AddOn> AddOns { get; set; }
+
+        [Display(Name = "Availability")]
         public int availability { get; set; }
+
         public bool hasAddOn { get; set; }
 
     }
