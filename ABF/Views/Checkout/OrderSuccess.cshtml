@@ -31,9 +31,15 @@
     @foreach (var ticket in ticketlist)
     {
         <tr>
-            <td>@ticket.Id</td>
-            <td>@ticket.EventId</td>
-            <td>@ticket.AddOnId</td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.AddOnId)
+            </td>
         </tr>
     }
 </table>

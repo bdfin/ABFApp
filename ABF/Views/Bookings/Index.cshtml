@@ -46,15 +46,30 @@
                     <img src="~/Content/MapIcons/addonicon.png" width="20" alt="Members Exclusive Event"/>
                 }
             </td>
-            <td>@Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})</td>
-            <td>@item.Event.Author</td>
-            <td style="display:none">@fulldate</td>
-            <td style="white-space:nowrap">@date</td>
-            <td style="white-space:nowrap">@item.Event.StartTime.ToString("HH:mm")</td>
-            <td>@item.Location.Name</td>
-            <td>@item.availability</td>
-            <td>£@item.Event.TicketPrice</td>
-
+            <td>
+                @Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Event.Author)
+            </td>
+            <td style="display:none">
+                @fulldate
+            </td>
+            <td style="white-space:nowrap">
+                @date
+            </td>
+            <td style="white-space:nowrap">
+                @item.Event.StartTime.ToString("HH:mm")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.availability)
+            </td>
+            <td>
+                £@Html.DisplayFor(modelItem => item.Event.TicketPrice)
+            </td>
             <td id="eventId" style="display:none">
                 <p>@item.Event.Id</p> </td>
 

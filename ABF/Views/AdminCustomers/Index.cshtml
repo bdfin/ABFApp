@@ -15,13 +15,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MembershipTypeId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address1)
+                Address            
             </th>   
             <th>
                 @Html.DisplayNameFor(model => model.PostCode)
@@ -42,13 +39,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MembershipTypeId)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address1)
+                    @Html.DisplayFor(modelItem => item.Address1), @Html.DisplayFor(modelItem => item.Address2), @Html.DisplayFor(modelItem => item.Address3)
                 </td>            
                 <td>
                     @Html.DisplayFor(modelItem => item.PostCode)
