@@ -198,9 +198,9 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 1,
                     Date = new DateTime(2019,9,21),
-                    StartTime = new DateTime(2019,9,21),
-                    EndTime = new DateTime(2019,9,21),
-                    Name = "La Vie en Rose" ,
+                    StartTime = DateTime.ParseExact("21/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("21/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    Name = "La Vie en Rose",
                     Author = "Music",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
                     Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
@@ -223,8 +223,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 2,
                     Date = new DateTime(2019,9,21),
-                    StartTime = new DateTime(2019,9,21),
-                    EndTime = new DateTime(2019,9,21),
+                    StartTime = DateTime.ParseExact("21/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("21/09/2019 16:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Peter Rabbit" ,
                     Author = "Film",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -248,8 +248,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 3,
                     Date = new DateTime(2019,9,22),
-                    StartTime = new DateTime(2019,9,22),
-                    EndTime = new DateTime(2019,9,22),
+                    StartTime = DateTime.ParseExact("22/09/2019 19:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("22/09/2019 20:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "One Sentence",
                     Author = "Jeremy Vine",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -273,8 +273,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 4,
                     Date = new DateTime(2019,9,23),
-                    StartTime = new DateTime(2019,9,23),
-                    EndTime = new DateTime(2019,9,23),
+                    StartTime = DateTime.ParseExact("23/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("23/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name ="The Burning Chambers" ,
                     Author = "Kate Mosse" ,
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -298,8 +298,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 5,
                     Date = new DateTime(2019,9,23),
-                    StartTime = new DateTime(2019,9,23),
-                    EndTime = new DateTime(2019,9,23),
+                    StartTime = DateTime.ParseExact("23/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("23/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Horrible Science Lab",
                     Author = "Nick Arnold",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -323,8 +323,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 6,
                     Date = new DateTime(2019,9,24),
-                    StartTime = new DateTime(2019,9,24),
-                    EndTime = new DateTime(2019,9,24),
+                    StartTime = DateTime.ParseExact("24/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("24/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "The Appledore Walk",
                     Author = "David Carter",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -348,8 +348,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 7,
                     Date = new DateTime(2019,9,24),
-                    StartTime = new DateTime(2019,9,24),
-                    EndTime = new DateTime(2019,9,24),
+                    StartTime = DateTime.ParseExact("24/09/2019 16:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("24/09/2019 17:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "The Dartmoor Conchies",
                     Author = "Simon Dartmoor",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -373,8 +373,8 @@ namespace ABF.Data.ABFDbModels
                  {
                         Id = 8,
                         Date = new DateTime(2019,9,25),
-                        StartTime = new DateTime(2019,9,25),
-                        EndTime = new DateTime(2019,9,25),
+                        StartTime = DateTime.ParseExact("25/09/2019 11:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "A Babies Bones",
                         Author = "Rebecca Alexander",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -398,8 +398,8 @@ namespace ABF.Data.ABFDbModels
                   {
                         Id = 9,
                         Date = new DateTime(2019,9,25),
-                        StartTime = new DateTime(2019,9,25),
-                        EndTime = new DateTime(2019,9,25),
+                        StartTime = DateTime.ParseExact("25/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 16:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "Playing with Clay",
                         Author = "Sandy Brown",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -423,8 +423,8 @@ namespace ABF.Data.ABFDbModels
                    {
                         Id = 10,
                         Date = new DateTime(2019,9,26),
-                        StartTime = new DateTime(2019,9,26),
-                        EndTime = new DateTime(2019,9,26),
+                        StartTime = DateTime.ParseExact("25/09/2019 20:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 21:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "Ghost Walk 2",
                         Author = "Terry Bailey",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -448,8 +448,8 @@ namespace ABF.Data.ABFDbModels
                {
                         Id = 11,
                         Date = new DateTime(2019,9,26),
-                        StartTime = new DateTime(2019,9,26),
-                        EndTime = new DateTime(2019,9,26),
+                        StartTime = DateTime.ParseExact("26/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("26/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "The Salt Path",
                         Author = "Raymor Winn",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -473,8 +473,8 @@ namespace ABF.Data.ABFDbModels
                {
                     Id = 12,
                     Date = new DateTime(2019,9,27),
-                    StartTime = new DateTime(2019,9,27),
-                    EndTime = new DateTime(2019,9,27),
+                    StartTime = DateTime.ParseExact("27/09/2019 19:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("27/09/2019 20:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Beer Tasting",
                     Author = "Barry Raynes",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -498,8 +498,8 @@ namespace ABF.Data.ABFDbModels
                {
                    Id = 13,
                    Date = new DateTime(2019,9,27),
-                   StartTime = new DateTime(2019,9,27),
-                   EndTime = new DateTime(2019,9,27),
+                   StartTime = DateTime.ParseExact("27/09/2019 15:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                   EndTime = DateTime.ParseExact("27/09/2019 16:30:00", "dd/MM/yyyy HH:mm:ss",null),
                    Name = "Dare to Try",
                    Author = "Louise Minchin",
                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -671,6 +671,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
