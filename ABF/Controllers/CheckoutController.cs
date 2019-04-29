@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.EnterpriseServices;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -268,7 +269,7 @@ namespace ABF.Controllers
 
                 foreach (var ticket in TicketList) 
                 {
-                    ticketService.GenerateTicket(ticket);
+                    var pdfTicket = ticketService.GenerateTicket(ticket);
                 }
 
                 #endregion
@@ -467,6 +468,19 @@ namespace ABF.Controllers
                 // all the logic goes here
                 return View("OrderSuccess", viewModel);
             }
+        }
+
+
+        public ActionResult DownloadTicket(string id)
+        {
+            MemoryStream stream = new MemoryStream();
+
+            var ticket = ticketService.GetTicket(id);
+            var pdfTicket = ticketService.GenerateTicket(ticket);
+
+            pdfTicket.Save(stream, false);
+
+            return File(stream, "application/pdf");
         }
 
         public bool CheckAvailability()

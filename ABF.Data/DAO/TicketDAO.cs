@@ -28,6 +28,18 @@ namespace ABF.Data.DAO
             return tickets.ToList();
         }
 
+        public Ticket GetTicket(string id)
+        {
+            IQueryable<Ticket> ticket;
+
+            ticket = from t
+                     in _context.Tickets
+                     where t.Id == id
+                     select t;
+
+            return ticket.ToList().First();
+        }
+
         public IList<Ticket> GetTicketSalesForEvent(int id)
         {
             IQueryable<Ticket> tickets;
