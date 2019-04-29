@@ -34,6 +34,9 @@ namespace ABF.ViewModels
         public string paymentmethod { get; set; }
 
         public decimal total { get; set; }
+
+        public bool ismember { get; set; }
+        public bool updateneeded { get; set; }
     }
 
 }

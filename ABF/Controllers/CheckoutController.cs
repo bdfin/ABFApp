@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.EnterpriseServices;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
@@ -31,7 +32,6 @@ namespace ABF.Controllers
             customerService = new CustomerService();
         }
 
-
         // GET: Checkout
         public ActionResult Index()
         {
@@ -47,34 +47,28 @@ namespace ABF.Controllers
             }
             else
             {
-                var cust = new Customer();
-                try
-                {
-                    var cs = new CustomerService();
-                    cust = cs.GetCustomerByUserId(User.Identity.GetUserId());
-                }
-                catch
-                {
-                    // do nothing
-                }
-
+                var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-
-                var usercheckoutviewmodel = new UserCheckoutViewModel()
+                var vm = new SubmitViewModel
                 {
-                    customer = cust,
-                    tickettotal = tickettotal
+                    name = customer.Name,
+                    address1 = customer.Address1,
+                    address2 = customer.Address2,
+                    address3 = customer.Address3,
+                    postcode = customer.PostCode,
+                    email = customer.Email,
+                    phone = customer.PhoneNumber,
+                    total = tickettotal,
+                    ismember = true,
+                    updateneeded = false
                 };
-
-                return View("StartCheckoutUser", usercheckoutviewmodel);
+                return View("StartCheckout", vm);
             }
         }
 
         public ActionResult StartCheckoutGuest()
         {
-            var vm = new SubmitViewModel();
-
             if (this.CheckAvailability())
             {
                 return RedirectToAction("BasketNoCheck", "Bookings");
@@ -83,9 +77,12 @@ namespace ABF.Controllers
             {
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-                vm.total = tickettotal;
-                
-
+                var vm = new SubmitViewModel
+                {
+                    total = tickettotal,
+                    ismember = false,
+                    updateneeded = false
+                };
                 return View("StartCheckout", vm);
             }
         }
@@ -134,6 +131,7 @@ namespace ABF.Controllers
         [HttpPost]
         public ActionResult Submit(SubmitViewModel submitViewModel)
         {
+            string customerid = "";
             // check the availability, and return to basket if anything needs changing
             if (this.CheckAvailability())
             {
@@ -170,21 +168,40 @@ namespace ABF.Controllers
                 paymentService.CreatePayment(payment);
                 #endregion
 
-                #region //-------------- Create a new Customer
-                string customerid = Guid.NewGuid().ToString();
-                var customer = new Customer()
+                #region //-------------- Create/Update Customer Details
+
+                if (submitViewModel.ismember && submitViewModel.updateneeded)               // member needs details updating
                 {
-                    Id = customerid,
-                    Name = submitViewModel.name,
-                    Address1 = submitViewModel.address1,
-                    Address2 = submitViewModel.address2,
-                    Address3 = submitViewModel.address3,
-                    PostCode = submitViewModel.postcode,
-                    Email = submitViewModel.email,
-                    PhoneNumber = submitViewModel.phone,
-                    MembershipTypeId = 1
-                };
-                customerService.CreateCustomer(customer);
+                    var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
+                    customer.Name = submitViewModel.name;
+                    customer.Address1 = submitViewModel.address1;
+                    customer.Address2 = submitViewModel.address2;
+                    customer.Address3 = submitViewModel.address3;
+                    customer.Email = submitViewModel.email;
+                    customer.PhoneNumber = submitViewModel.phone;
+                    customer.PostCode = submitViewModel.phone;
+
+                    customerService.UpdateCustomer(customer);
+                    customerid = customer.Id;
+                }
+                else if (!submitViewModel.ismember)                                         // new customer
+                {
+                    customerid = Guid.NewGuid().ToString();
+                    var customer = new Customer()
+                    {
+                        Id = customerid,
+                        Name = submitViewModel.name,
+                        Address1 = submitViewModel.address1,
+                        Address2 = submitViewModel.address2,
+                        Address3 = submitViewModel.address3,
+                        PostCode = submitViewModel.postcode,
+                        Email = submitViewModel.email,
+                        PhoneNumber = submitViewModel.phone,
+                        MembershipTypeId = 1
+                    };
+                    customerService.CreateCustomer(customer);
+                }
+
                 #endregion
 
                 #region//---------------- create a new order
@@ -279,201 +296,6 @@ namespace ABF.Controllers
                 // clear all tickets from the basket!
                 Session.Abandon();
 
-                return View("OrderSuccess", viewModel);
-            }
-        }
-
-        [HttpPost]
-        public ActionResult SubmitUser(string name, string address1, string address2, string address3, string postcode,
-            string email, string phone, string paymentmethod, string updatedetails)
-        {
-            // check the availability, and return to basket if anything needs changing
-            if (this.CheckAvailability())
-            {
-                return RedirectToAction("BasketNoCheck", "Bookings");
-            }
-            else
-            {
-                var viewModel = new OrderSuccessViewModel() { newmember = false };
-
-                #region //----------------- Make a new payment
-                string paymentid = Guid.NewGuid().ToString();
-                var pmethod = "";
-                switch (paymentmethod)
-                {
-                    case "cardcollect":
-                    case "cardpost":
-                    case "cardemail":
-                        pmethod = "card";
-                        break;
-                    case "collectlater":
-                        pmethod = "on collection";
-                        break;
-                    case "cheque":
-                        pmethod = "cheque";
-                        break;
-                }
-
-                var payment = new Payment()
-                {
-                    Id = paymentid,
-                    Method = pmethod,
-                    Amount = this.calculategrandtotal()
-                };
-
-                paymentService.CreatePayment(payment);
-
-                #endregion
-
-                #region //-------------- Update Customer Details if appropriate
-                var userId = User.Identity.GetUserId();
-                var custId = "";
-                var updatedetails1 = updatedetails;
-                // check they have a customer account linked, if not create one
-                try
-                {
-                    // see if a customer account can be found
-                    custId = customerService.GetCustomerByUserId(userId).Id;
-                }
-                catch
-                {
-                    // if customer account does not exist:
-                    var newcustomer = new Customer()
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        UserId = userId,
-                        Name = name,
-                        Address1 = address1,
-                        Address2 = address2,
-                        Address3 = address3,
-                        PostCode = postcode,
-                        Email = email,
-                        PhoneNumber = phone,
-                    };
-                    customerService.CreateCustomer(newcustomer);
-                    updatedetails1 = "update";
-                }
-
-                // if customer checked the update details box, update details
-                if (updatedetails1 == "update")
-                {
-                    custId = customerService.GetCustomerByUserId(userId).Id;
-                    var customerupdated = new Customer()
-                    {
-                        Id = custId,
-                        Name = name,
-                        Address1 = address1,
-                        Address2 = address2,
-                        Address3 = address3,
-                        PostCode = postcode,
-                        Email = email,
-                        PhoneNumber = phone,
-                    };
-                    customerService.UpdateCustomer(customerupdated);
-                }
-                #endregion
-
-                #region//---------------- create a new order
-                custId = customerService.GetCustomerByUserId(userId).Id;
-
-                var deliverymethod = "";
-                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
-                {
-                    deliverymethod = "post";
-                }
-                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
-                {
-                    deliverymethod = "collect";
-                }
-                else
-                {
-                    deliverymethod = "email";
-                }
-
-                var order = new Order()
-                {
-                    Date = DateTime.Today,
-                    Time = DateTime.Now,
-                    CustomerId = custId,
-                    PaymentId = paymentid,
-                    Delivery = deliverymethod,
-                    DeliveryName = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone
-                };
-                orderService.CreateOrder(order);
-                viewModel.order = order;
-                #endregion
-
-                #region //------------ Create tickets for each item
-                var TicketList = new List<Ticket>();
-                var orderId = orderService.GetOrderId(paymentid, custId);
-                if (Session["Tix"] != null)
-                {
-                    var alltix = (Dictionary<int, int>)Session["Tix"];
-                    foreach (KeyValuePair<int, int> singletix in alltix)
-                    {
-                        for (int i = 0; i < singletix.Value; i++)
-                        {
-                            var ticketId = Guid.NewGuid().ToString();
-                            var ticket = new Ticket()
-                            {
-                                Id = ticketId,
-                                EventId = singletix.Key,
-                                OrderId = orderId,
-
-                            };
-                            ticketService.CreateTicket(ticket);
-                            TicketList.Add(ticket);
-                        }
-                    }
-                }
-
-                if (Session["AddOns"] != null)
-                {
-                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
-                    foreach (KeyValuePair<int, int> singleaddon in alladdons)
-                    {
-                        for (int i = 0; i < singleaddon.Value; i++)
-                        {
-                            var ticketId = Guid.NewGuid().ToString();
-                            var ticket = new Ticket()
-                            {
-                                Id = ticketId,
-                                AddOnId = singleaddon.Key,
-                                OrderId = orderId,
-                            };
-                            ticketService.CreateTicket(ticket);
-                            TicketList.Add(ticket);
-                        }
-                    }
-
-                }
-
-                viewModel.tickets = TicketList;
-                #endregion
-
-                #region //----------- turn user into member, if Membership was put in basket
-
-                if (Session["Membership"] != null)
-                {
-                    var newmember = customerService.GetCustomer(custId);
-                    var requestedmembershiptype = (MembershipType)Session["Membership"];
-                    newmember.MembershipTypeId = requestedmembershiptype.Id;
-                    newmember.DateJoined = DateTime.Now;
-                    customerService.UpdateCustomer(newmember);
-                    viewModel.newmember = true;
-                }
-                #endregion
-
-                // clear all tickets from the basket!
-                Session.Abandon();
-
-                // all the logic goes here
                 return View("OrderSuccess", viewModel);
             }
         }
