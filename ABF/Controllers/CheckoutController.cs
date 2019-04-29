@@ -67,6 +67,8 @@ namespace ABF.Controllers
 
         public ActionResult StartCheckoutGuest()
         {
+            var vm = new SubmitViewModel();
+
             if (this.CheckAvailability())
             {
                 return RedirectToAction("BasketNoCheck", "Bookings");
@@ -75,7 +77,10 @@ namespace ABF.Controllers
             {
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-                return View("StartCheckout", tickettotal);
+                vm.total = tickettotal;
+                
+
+                return View("StartCheckout", vm);
             }
         }
 
@@ -121,8 +126,7 @@ namespace ABF.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode,
-            string email, string phone, string paymentmethod)
+        public ActionResult Submit(SubmitViewModel submitViewModel)
         {
             // check the availability, and return to basket if anything needs changing
             if (this.CheckAvailability())

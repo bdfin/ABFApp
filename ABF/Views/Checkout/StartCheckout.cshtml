@@ -1,4 +1,4 @@
-﻿@model decimal
+﻿@model ABF.ViewModels.SubmitViewModel
 @{
     ViewBag.Title = "StartCheckoutGuest";
 }
@@ -11,90 +11,112 @@
 <hr />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout")">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h4>Delivery Address</h4>
-                <table class="table-responsive-md">
-                    <tr>
-                        <td class="label">Name</td>
-                        <td><input class="form-control form-control-lg" name="name" type="text" placeholder="e.g. Jeremy Vine" /></td>
-                    </tr>
-                    <tr>
-                        <td class="label">House Number/Name</td>
-                        <td><input class="form-control form-control-lg" name="address1" type="text" placeholder="e.g. 123 or My House Name"/></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Street Name</td>
-                        <td><input class="form-control form-control-lg" name="address2" type="text" placeholder="e.g. High Street"/></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Town</td>
-                        <td><input class="form-control form-control-lg" name="address3" type="text" placeholder="e.g. Appledore"/></td>
-                    </tr>
-                    <tr>
-                        <td class="label">PostCode</td>
-                        <td><input class="form-control form-control-lg" name="postcode" type="text" placeholder="e.g. EX39 1PH"/></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Email</td>
-                        <td><input class="form-control form-control-lg" name="email" type="email" placeholder="e.g. admin@appledorebookfestival.co.uk"/></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Telephone</td>
-                        <td><input class="form-control form-control-lg" name="phone" type="tel" placeholder="e.g. 01237 424949"/></td>
-                    </tr>
-                </table>
-            </div>
+@using (Html.BeginForm("Submit", "Checkout", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
 
-            <div class="col-sm-6">
-                <h4>Payment and Delivery</h4>
-                <table style="width:100%">
-                    <tr>
-                        <td><b>Payment Method</b></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-group">
-                                <select class="form-control" id="paymentmethod" name="paymentmethod">
-                                    <option value="">Select...</option>
-                                    <option value="cardemail">Pay Now - Email My Tickets</option>
-                                    <option value="cardpost">Pay Now - Post My Tickets</option>
-                                    <option value="cardcollect">Pay Now - Collect From Box Office</option>
-                                    <option value="latercollect">Pay Later - Collect From Box Office</option>
-                                    <option value="cheque">Send a Cheque - Post My Tickets </option>
-                                </select>
+    <div>
 
-                                <br />
-                                <div>
-                                    <p class="alert-light" id="paymentText"></p>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align:right">
-                            <hr/>
-                            <h5>Basket Total <b>£ @(Model - (decimal) 1.50)</b></h5>
-                            <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
-                            <hr/>
-                            <h5>Total <b>£ @Model </b></h5>
-                            <hr/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit" class="btn-lg button btn-info">Checkout</button>
-                        </td>
-                    </tr>
-                </table>
+        @Html.ValidationSummary(true, "Please fix the following errors:", new { @class = "text-danger" })
+        <h4>Delivery Address</h4>
+        <div class="form-group">
+            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
             </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.address1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.address1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.address2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.address2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.address3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.address3, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.address3, "", new { @class = "text-danger" })
+            </div>
+        </div> <div class="form-group">
+            @Html.LabelFor(model => model.postcode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.postcode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.postcode, "", new { @class = "text-danger" })
+            </div>
+        </div> <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div> <div class="form-group">
+            @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col">
+                @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <h4>Payment and Delivery</h4>
+
+        <b>Payment Method</b>
+
+        <div class="form-group">
+            <select class="form-control" id="paymentmethod" name="paymentmethod">
+                <option value="">Select...</option>
+                <option value="cardemail">Pay Now - Email My Tickets</option>
+                <option value="cardpost">Pay Now - Post My Tickets</option>
+                <option value="cardcollect">Pay Now - Collect From Box Office</option>
+                <option value="latercollect">Pay Later - Collect From Box Office</option>
+                <option value="cheque">Send a Cheque - Post My Tickets </option>
+            </select>
+
             <br />
-            <hr />
+            <div>
+                <p class="alert-light" id="paymentText"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
         </div>
     </div>
-</form>
+
+}
+
+
+
+<div class="col-sm-6">
+   
+    <table style="width:100%">
+
+        <tr>
+            <td colspan="2" style="text-align:right">
+                <hr />
+                <h5>Basket Total <b>£ @(Model.total - (decimal)1.50)</b></h5>
+                <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
+                <hr />
+                <h5>Total <b>£ @Model.total </b></h5>
+                <hr />
+            </td>
+        </tr>
+
+    </table>
+</div>
+<br />
+<hr />
+
+
 
 
 <br />
