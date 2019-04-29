@@ -20,10 +20,8 @@ namespace ABF.Data.DAO
 
         public void CreateOrder(Order order)
         {
-
             _context.Orders.Add(order);
             _context.SaveChanges();
-
         }
 
         public int GetOrderId(string PaymentId, string CustomerId)
@@ -51,6 +49,15 @@ namespace ABF.Data.DAO
                 select orders;
 
             return order.First();
+        }
+
+        public IList<Order> getOrdersForCustomerId(string Id)
+        {
+            var order = from orders in _context.Orders
+                where orders.CustomerId == Id 
+                select orders;
+
+            return order.ToList();
         }
 
         public IEnumerable<Order> getOrders()

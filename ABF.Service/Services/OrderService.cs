@@ -43,5 +43,10 @@ namespace ABF.Service.Services
             return orderDAO.getOrders();
         }
 
+        public IList<Order> getOrdersForCustomerId(string Id)
+        {
+            return orderDAO.getOrdersForCustomerId(Id);
+        }
+
     }
 }

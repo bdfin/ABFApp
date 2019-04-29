@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ABF.Data.ABFDbModels;
+using ABF.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -15,6 +16,7 @@ namespace ABF.Models
         public bool BrowserRemembered { get; set; }
         public Customer customer { get; set; }
         public MembershipType membershipType { get; set; }
+        public IList<OrderListViewModel> myorders { get; set; }
     }
 
     public class ManageLoginsViewModel

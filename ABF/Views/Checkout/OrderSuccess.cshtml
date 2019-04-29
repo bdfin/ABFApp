@@ -9,13 +9,16 @@
 
 @Html.Partial("_orderDetails", order)
 
-<div class="bg-">
-    <h4>Thank you for joining the Appledore Book Festival as a Member!</h4>
-    <p>You will need to <b>Log Out</b> and then <b>Log In</b> again to access the Membership features of the site, such as access to Members Events.</p>
-    <p>Your Membership will expire at the end of this calendar year.</p>
-    <p>You will receive an email when membership renewals are available.</p>
-    <hr/>
-</div>
+@if (Model.newmember)
+{
+    <div class="bg-success">
+        <h4>Thank you for joining the Appledore Book Festival as a Member!</h4>
+        <h5>Your Membership Privileges are available immediately.</h5>
+        <p>Your Membership will expire at the end of this calendar year.</p>
+        <p>You will receive an email when membership renewals are available.</p>
+        <hr/>
+    </div>
+}
 
 <h3>Here's a list of your tickets (for testing purposes)</h3>
 <table class="table">
