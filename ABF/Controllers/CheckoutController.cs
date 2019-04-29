@@ -146,7 +146,7 @@ namespace ABF.Controllers
                 #region //----------------- Make a new payment
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
-                switch (paymentmethod)
+                switch (submitViewModel.paymentmethod)
                 {
                     case "cardcollect":
                     case "cardpost":
@@ -175,24 +175,25 @@ namespace ABF.Controllers
                 var customer = new Customer()
                 {
                     Id = customerid,
-                    Name = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone,
+                    Name = submitViewModel.name,
+                    Address1 = submitViewModel.address1,
+                    Address2 = submitViewModel.address2,
+                    Address3 = submitViewModel.address3,
+                    PostCode = submitViewModel.postcode,
+                    Email = submitViewModel.email,
+                    PhoneNumber = submitViewModel.phone,
+                    MembershipTypeId = 1
                 };
                 customerService.CreateCustomer(customer);
                 #endregion
 
                 #region//---------------- create a new order
                 var deliverymethod = "";
-                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+                if (submitViewModel.paymentmethod == "cheque" || submitViewModel.paymentmethod == "cardpost")
                 {
                     deliverymethod = "post";
                 }
-                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+                else if (submitViewModel.paymentmethod == "collect" || submitViewModel.paymentmethod == "cardcollect")
                 {
                     deliverymethod = "collect";
                 }
@@ -208,13 +209,13 @@ namespace ABF.Controllers
                     CustomerId = customerid,
                     PaymentId = paymentid,
                     Delivery = deliverymethod,
-                    DeliveryName = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone
+                    DeliveryName = submitViewModel.name,
+                    Address1 = submitViewModel.address1,
+                    Address2 = submitViewModel.address2,
+                    Address3 = submitViewModel.address3,
+                    PostCode = submitViewModel.postcode,
+                    Email = submitViewModel.email,
+                    PhoneNumber = submitViewModel.phone
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
@@ -278,7 +279,6 @@ namespace ABF.Controllers
                 // clear all tickets from the basket!
                 Session.Abandon();
 
-                // all the logic goes here
                 return View("OrderSuccess", viewModel);
             }
         }
