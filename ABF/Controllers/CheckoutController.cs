@@ -73,6 +73,8 @@ namespace ABF.Controllers
 
         public ActionResult StartCheckoutGuest()
         {
+            var vm = new SubmitViewModel();
+
             if (this.CheckAvailability())
             {
                 return RedirectToAction("BasketNoCheck", "Bookings");
@@ -81,7 +83,10 @@ namespace ABF.Controllers
             {
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-                return View("StartCheckout", tickettotal);
+                vm.total = tickettotal;
+                
+
+                return View("StartCheckout", vm);
             }
         }
 
@@ -127,8 +132,7 @@ namespace ABF.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode,
-            string email, string phone, string paymentmethod)
+        public ActionResult Submit(SubmitViewModel submitViewModel)
         {
             // check the availability, and return to basket if anything needs changing
             if (this.CheckAvailability())
@@ -142,7 +146,7 @@ namespace ABF.Controllers
                 #region //----------------- Make a new payment
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
-                switch (paymentmethod)
+                switch (submitViewModel.paymentmethod)
                 {
                     case "cardcollect":
                     case "cardpost":
@@ -171,24 +175,25 @@ namespace ABF.Controllers
                 var customer = new Customer()
                 {
                     Id = customerid,
-                    Name = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone,
+                    Name = submitViewModel.name,
+                    Address1 = submitViewModel.address1,
+                    Address2 = submitViewModel.address2,
+                    Address3 = submitViewModel.address3,
+                    PostCode = submitViewModel.postcode,
+                    Email = submitViewModel.email,
+                    PhoneNumber = submitViewModel.phone,
+                    MembershipTypeId = 1
                 };
                 customerService.CreateCustomer(customer);
                 #endregion
 
                 #region//---------------- create a new order
                 var deliverymethod = "";
-                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+                if (submitViewModel.paymentmethod == "cheque" || submitViewModel.paymentmethod == "cardpost")
                 {
                     deliverymethod = "post";
                 }
-                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+                else if (submitViewModel.paymentmethod == "collect" || submitViewModel.paymentmethod == "cardcollect")
                 {
                     deliverymethod = "collect";
                 }
@@ -204,13 +209,13 @@ namespace ABF.Controllers
                     CustomerId = customerid,
                     PaymentId = paymentid,
                     Delivery = deliverymethod,
-                    DeliveryName = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone
+                    DeliveryName = submitViewModel.name,
+                    Address1 = submitViewModel.address1,
+                    Address2 = submitViewModel.address2,
+                    Address3 = submitViewModel.address3,
+                    PostCode = submitViewModel.postcode,
+                    Email = submitViewModel.email,
+                    PhoneNumber = submitViewModel.phone
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
@@ -274,7 +279,6 @@ namespace ABF.Controllers
                 // clear all tickets from the basket!
                 Session.Abandon();
 
-                // all the logic goes here
                 return View("OrderSuccess", viewModel);
             }
         }

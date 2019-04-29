@@ -643,7 +643,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
-                    MembershipTypeId = 2
+                    MembershipTypeId = 2,
                 },
 
                 new Customer
@@ -671,7 +671,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
-                    MembershipTypeId= 1,
+                    MembershipTypeId = 2
                 },
 
                 new Customer
@@ -731,6 +731,7 @@ namespace ABF.Data.ABFDbModels
                 },
 
                 new Customer
+
                 {
                     Id= "8",
                     UserId= "8",
@@ -741,7 +742,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EH13LK",
                     Email= "Eenie.meenie.miney.m@tst.com",
                     PhoneNumber= "123490987768",
-                    MembershipTypeId= 2,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -769,7 +770,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S18RF",
                     Email= "chelsea.lou@test.com",
                     PhoneNumber= "0985672983",
-                    MembershipTypeId= 2,
+                    MembershipTypeId= 1,
                 },
             };
 
