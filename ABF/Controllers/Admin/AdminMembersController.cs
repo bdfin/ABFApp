@@ -30,7 +30,18 @@ namespace ABF.Controllers.Admin
 
             foreach( var customer in allMembers)
             {
-                if(customer.MembershipTypeId != null)
+                var numid = 0;
+                var memid = customer.MembershipTypeId.ToString();
+                if(memid != "")
+                {
+                     numid = Convert.ToInt16(memid);
+                }
+                else
+                {
+                    numid = 1;
+                }
+
+                if(numid != 1)
                 {
 
                     var viewModel = new AllMembersViewModel()
@@ -38,6 +49,7 @@ namespace ABF.Controllers.Admin
 
                         Name = customer.Name,
                         MembershipTypeId = customer.MembershipTypeId,
+                        Type = membershipTypeService.GetMembershipType(numid).Type
                       
                    
                     };

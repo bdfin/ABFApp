@@ -2,40 +2,85 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string menuId = "adminMenu";
 }
 
-<h2>Index</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MembershipTypeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th></th>
-    </tr>
+<h2>Members</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MembershipTypeId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-      
-    </tr>
-}
+
+<table id="members" class="table">
+    <thead>
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.MembershipTypeId)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Name)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Type)
+            </td>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MembershipTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+
+
+
+            <td class="text-center">
+                <p>
+                    <button class="btn btn-outline-info shadow-sm" type="button" data-toggle="collapse" data-target="#@menuId" aria-expanded="false" aria-controls="@menuId">
+                        Menu
+                    </button>
+                </p>
+                <div class="collapse" id="@menuId">
+                    <div class="card card-body menu-links">
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.MembershipTypeId }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm" })
+                    </div>
+                </div>
+            </td>
+        </tr>
+        menuId = menuId + 1;
+    }
 
 </table>
+
+@section scripts
+    {
+    <script>
+
+        $(function () {
+            $('#members').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "dom": 'Bt',
+              
+                "buttons": ['copy', 'excel', 'pdf']
+            });
+        });
+
+
+        table.buttons().container()
+            .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+
+    </script>
+}
