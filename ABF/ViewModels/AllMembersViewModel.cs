@@ -9,17 +9,16 @@ namespace ABF.ViewModels
 {
     public class AllMembersViewModel
     {
-
-        
-       // [Display(Name = "Membership Type")]
-        // public int? Type { get; set; }
-
-        [Display(Name = "Name")]
+        [Display(Name = "Customer")]
         public string Name { get; set; }
 
-        [Display(Name ="Membership Id")]
-        public int? MembershipTypeId { get; set; }
-
+        [Display(Name = "Membership Type")]
         public string Type { get; set; }
+
+        [Display(Name = "Membership Purchase")]
+        public string DateBought { get; set; }
+
+        [Display(Name = "Membership Expires?")]
+        public bool Expiry { get; set; }
     }
 }

@@ -6,16 +6,15 @@
     var events = Model.Events;
     var datelist = Model.Datelist;
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 @Html.Partial("_DateList", datelist)
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <table class="table table-hover table-condensed" id="eventsTable">
     <thead>
         <tr class="bg-info">
             <td> </td>
-            <td style="display:none">ID</td>
             <td>Event</td>
             <td style="display:none">Hidden Date</td>
             <td>When & Where</td>
@@ -99,6 +98,7 @@
         </tr>
     }
 </table>
+
 <script>
     // search function for filtering data by day.
     function doSearch(searchText) {

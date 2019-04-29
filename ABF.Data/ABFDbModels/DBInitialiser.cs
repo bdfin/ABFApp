@@ -213,7 +213,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = false,
                     LocationId = 1,
-                    ImageId = 1,
+                    ImageId = 3,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -238,7 +238,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 8,
                     IsMemberOnly = false,
                     LocationId = 2,
-                    ImageId = 1,
+                    ImageId = 2,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -263,7 +263,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = true,
                     LocationId = 3,
-                    ImageId = 1,
+                    ImageId = 3,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -288,7 +288,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 12,
                     IsMemberOnly = false,
                     LocationId = 4,
-                    ImageId = 1,
+                    ImageId = 4,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -313,7 +313,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 5,
                     IsMemberOnly = false,
                     LocationId = 5,
-                    ImageId = 1,
+                    ImageId = 5,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -338,7 +338,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = true,
                     LocationId = 6,
-                    ImageId = 1,
+                    ImageId = 6,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -363,7 +363,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 6,
                     IsMemberOnly = false,
                     LocationId = 7,
-                    ImageId = 1,
+                    ImageId = 7,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -388,7 +388,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 8,
-                        ImageId = 1,
+                        ImageId = 2,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -413,7 +413,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 40,
                         IsMemberOnly = false,
                         LocationId = 9,
-                        ImageId = 1,
+                        ImageId = 3,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -438,7 +438,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 10,
-                        ImageId = 1,
+                        ImageId = 4,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -463,7 +463,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 11,
-                        ImageId = 1,
+                        ImageId = 5,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -488,7 +488,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 8,
                     IsMemberOnly = false,
                     LocationId = 12,
-                    ImageId = 1,
+                    ImageId = 6,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -513,7 +513,7 @@ namespace ABF.Data.ABFDbModels
                    TicketPrice = 10,
                    IsMemberOnly = false,
                    LocationId = 13,
-                   ImageId = 1,
+                   ImageId = 7,
                    BookUrl ="Link goes here",
                    AuthorUrl="Link goes here",
 
@@ -521,16 +521,52 @@ namespace ABF.Data.ABFDbModels
             };
 
             // Image seed
-            Image initialisedImage = new Image
+            IList<Image> initialisedImages = new List<Image>
             {
-                Id = 1,
-                ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
+                new Image
+                {
+                    Id = 1,
+                    ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
+                },
+                new Image
+                {
+                    Id = 2,
+                    ImagePath = "~/Content/Images/image1.jpeg"
+                },
+                new Image
+                {
+                    Id = 3,
+                    ImagePath = "~/Content/Images/image2.jpg"
+                },
+                new Image
+                {
+                    Id = 4,
+                    ImagePath = "~/Content/Images/image3.jpg"
+                },
+                new Image
+                {
+                    Id = 5,
+                    ImagePath = "~/Content/Images/image4.jpg"
+                },
+                new Image
+                {
+                    Id = 6,
+                    ImagePath = "~/Content/Images/image5.jpg"
+                },
+                new Image
+                {
+                    Id = 7,
+                    ImagePath = "~/Content/Images/image6.jpg"
+                },
+                new Image
+                {
+                    Id = 8,
+                    ImagePath = "~/Content/Images/image7.jpg"
+                },
             };
 
             // MembershipType seed
             IList<MembershipType> initialisedMembershipTypes = new List<MembershipType> {
-
-
                 new MembershipType
                 {
                     Id = 1,
@@ -775,7 +811,7 @@ namespace ABF.Data.ABFDbModels
             };
 
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
-            context.Images.Add(initialisedImage);
+            context.Images.AddRange(initialisedImages);
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
             context.AddOns.AddRange(initialisedAddOns);

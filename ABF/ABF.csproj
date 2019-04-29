@@ -394,6 +394,13 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\image1.jpeg" />
+    <Content Include="Content\Images\image2.jpg" />
+    <Content Include="Content\Images\image3.jpg" />
+    <Content Include="Content\Images\image4.jpg" />
+    <Content Include="Content\Images\image5.jpg" />
+    <Content Include="Content\Images\image6.jpg" />
+    <Content Include="Content\Images\image7.jpg" />
     <Content Include="Content\MapIcons\addonicon.png" />
     <Content Include="Content\MapIcons\arrow.png" />
     <Content Include="Content\MapIcons\Disability_Friendly-512.png" />
@@ -663,7 +670,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

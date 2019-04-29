@@ -8,54 +8,42 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<h2>Members</h2>
+<h2>ABF Members</h2>
 
-
-<table id="members" class="table">
+<table id="members" class="table table-hover table-condensed">
     <thead>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.MembershipTypeId)
-            </td>
-            <td>
-                @Html.DisplayNameFor(model => model.Name)
-            </td>
-            <td>
-                @Html.DisplayNameFor(model => model.Type)
-            </td>
-            <th></th>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Name)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.DateBought)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Type)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Expiry)
+        </td>
+    </tr>
     </thead>
+
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.MembershipTypeId)
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.DateBought)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-
-
-
-            <td class="text-center">
-                <p>
-                    <button class="btn btn-outline-info shadow-sm" type="button" data-toggle="collapse" data-target="#@menuId" aria-expanded="false" aria-controls="@menuId">
-                        Menu
-                    </button>
-                </p>
-                <div class="collapse" id="@menuId">
-                    <div class="card card-body menu-links">
-
-                        @Html.ActionLink("Delete", "Delete", new { id = item.MembershipTypeId }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm" })
-                    </div>
-                </div>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expiry)
             </td>
         </tr>
-        menuId = menuId + 1;
     }
 
 </table>
@@ -72,15 +60,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                "dom": 'Bt',
-              
-                "buttons": ['copy', 'excel', 'pdf']
             });
         });
-
-
-        table.buttons().container()
-            .appendTo($('.col-sm-6:eq(0)', table.table().container()));
-
     </script>
 }

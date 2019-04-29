@@ -74,14 +74,13 @@ namespace ABF.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                var userId = User.Identity.GetUserId();
-                var customermembershipstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
-                if (customermembershipstate != null)
+                var customermembershipstate = customerService.GetCustomerByUserId(User.Identity.GetUserId()).MembershipTypeId.ToString();
+
+                if (customermembershipstate != "" && customermembershipstate!= "1")
                 {
                     isMember = true;
                 }
             }
-
             return View(isMember);
         }
 

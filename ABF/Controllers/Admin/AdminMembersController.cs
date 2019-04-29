@@ -12,21 +12,17 @@ namespace ABF.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class AdminMembersController : Controller
     {
-
         private MembershipTypeService membershipTypeService;
         private CustomerService customerService;
+
         // GET: AdminMembers
         public ActionResult Index()
         {
             var customerService = new CustomerService();
             var membershipTypeService = new MembershipTypeService();
-
             var allMembers = customerService.GetCustomers();
-
-
-            var ViewModelList = new List<AllMembersViewModel>();
-
             
+            var ViewModelList = new List<AllMembersViewModel>();
 
             foreach( var customer in allMembers)
             {
@@ -43,22 +39,20 @@ namespace ABF.Controllers.Admin
 
                 if(numid != 1)
                 {
+                    var membershiptype = membershipTypeService.GetMembershipType(numid);
 
                     var viewModel = new AllMembersViewModel()
                     {
-
                         Name = customer.Name,
-                        MembershipTypeId = customer.MembershipTypeId,
-                        Type = membershipTypeService.GetMembershipType(numid).Type
-                      
-                   
+                        DateBought = customer.DateJoined.ToString(),
+                        Type = membershiptype.Type,
+                        Expiry = membershiptype.Expiry  
                     };
                      ViewModelList.Add(viewModel);
                 }
-
             }
 
-             return View(ViewModelList);
+            return View(ViewModelList);
         }
     }
 }
