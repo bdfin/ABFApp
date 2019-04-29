@@ -9,16 +9,19 @@ namespace ABF.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: Home/Index
         public ActionResult Index()
         {
             return View();
         }
 
+        // GET: Home/Visit
         public ActionResult Visit()
         {
             return View();
         }
 
+        // GET: Home/About
         public ActionResult About()
         {
             ViewBag.Message = "About Us";
@@ -26,6 +29,7 @@ namespace ABF.Controllers
             return View();
         }
 
+        // GET: Home/Contact
         [HttpGet]
         public ActionResult Contact()
         {
@@ -48,16 +52,19 @@ namespace ABF.Controllers
             return View("ContactSent");
         }
 
+        // GET: Home/FAQs
         public ActionResult FAQs()
         {
             return View();
         }
 
+        // GET: Home/TermsConditions
         public ActionResult TermsConditions()
         {
             return View();
         }
 
+        // GET: Home/Cookies
         public ActionResult Cookies()
         {
             return View();

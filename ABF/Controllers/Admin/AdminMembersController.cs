@@ -12,9 +12,6 @@ namespace ABF.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class AdminMembersController : Controller
     {
-        private MembershipTypeService membershipTypeService;
-        private CustomerService customerService;
-
         // GET: AdminMembers
         public ActionResult Index()
         {

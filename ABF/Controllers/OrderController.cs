@@ -15,7 +15,8 @@ namespace ABF.Controllers
         TicketService ticketService = new TicketService();
         PaymentService paymentService = new PaymentService();
 
-        // GET: Order
+        // GET: Order/Index
+        // Show the list of all orders in the database
         public ActionResult Index()
         {
             var orderlist = orderService.GetOrders();
@@ -39,6 +40,8 @@ namespace ABF.Controllers
             return View(viewModel);
         }
 
+        // GET Order/Details/1
+        // Show the details of a single order in the database
         public ActionResult Details(int id)
         {
             var order = orderService.GetOrder(id);

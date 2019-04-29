@@ -21,6 +21,8 @@ namespace ABF.Controllers
         private OrderService orderService;
         private PaymentService paymentService;
         private CustomerService customerService;
+        private MembershipTypeService memberService;
+
 
         public CheckoutController()
         {
@@ -30,14 +32,11 @@ namespace ABF.Controllers
             orderService = new OrderService();
             paymentService = new PaymentService();
             customerService = new CustomerService();
+            memberService = new MembershipTypeService();
         }
 
-        // GET: Checkout
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        // GET: /Checkout/StartCheckoutUser
+        // Shows checkout page to users (linked to from basket)
         public ActionResult StartCheckoutUser()
         {
             // check the availability, and return to basket if anything needs changing
@@ -67,6 +66,8 @@ namespace ABF.Controllers
             }
         }
 
+        // GET: /Checkout/StartCheckoutGuest
+        // Shows checkout page to guests (linked to from basket)
         public ActionResult StartCheckoutGuest()
         {
             if (this.CheckAvailability())
@@ -87,47 +88,8 @@ namespace ABF.Controllers
             }
         }
 
-        protected decimal calculategrandtotal()
-        {
-            EventService es = new EventService();
-            AddOnService aos = new AddOnService();
-            MembershipTypeService mts = new MembershipTypeService();
-            decimal grandtotal = 0;
-
-            if (Session["Tix"] != null)
-            {
-                var alltix = (Dictionary<int, int>)Session["Tix"];
-                foreach (KeyValuePair<int, int> singletix in alltix)
-                {
-                    var price = es.GetEvent(singletix.Key).TicketPrice;
-                    var subtotal = price * singletix.Value;
-                    grandtotal += subtotal;
-                }
-            }
-
-            if (Session["AddOns"] != null)
-            {
-                var alladdons = (Dictionary<int, int>)Session["AddOns"];
-                foreach (KeyValuePair<int, int> singleaddon in alladdons)
-                {
-                    var price = aos.GetAddOn(singleaddon.Key).Price;
-                    var subtotal = price * singleaddon.Value;
-                    grandtotal += subtotal;
-                }
-            }
-
-            if (Session["Membership"] != null)
-            {
-                var membershipprice = ((MembershipType)Session["Membership"]).Price;
-                grandtotal += membershipprice;
-            }
-
-            // Add the p&p fee
-            grandtotal += (decimal)1.50;
-
-            return grandtotal;
-        }
-
+        // POST: /Checkout/Submit
+        // Submits the customers/users details to make a new order
         [HttpPost]
         public ActionResult Submit(SubmitViewModel submitViewModel)
         {
@@ -300,6 +262,7 @@ namespace ABF.Controllers
             }
         }
 
+        // Checks the availability of all tickets and addons in the basket
         public bool CheckAvailability()
         {
             bool isChanged = false;
@@ -459,5 +422,45 @@ namespace ABF.Controllers
 
             return isChanged;
         }
+
+        // calculates the total of all the items in the basket
+        protected decimal calculategrandtotal()
+        {
+            decimal grandtotal = 0;
+
+            if (Session["Tix"] != null)
+            {
+                var alltix = (Dictionary<int, int>)Session["Tix"];
+                foreach (KeyValuePair<int, int> singletix in alltix)
+                {
+                    var price = eventService.GetEvent(singletix.Key).TicketPrice;
+                    var subtotal = price * singletix.Value;
+                    grandtotal += subtotal;
+                }
+            }
+
+            if (Session["AddOns"] != null)
+            {
+                var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                {
+                    var price = addOnService.GetAddOn(singleaddon.Key).Price;
+                    var subtotal = price * singleaddon.Value;
+                    grandtotal += subtotal;
+                }
+            }
+
+            if (Session["Membership"] != null)
+            {
+                var membershipprice = ((MembershipType)Session["Membership"]).Price;
+                grandtotal += membershipprice;
+            }
+
+            // Add the p&p fee
+            grandtotal += (decimal)1.50;
+
+            return grandtotal;
+        }
+
     }
 }
