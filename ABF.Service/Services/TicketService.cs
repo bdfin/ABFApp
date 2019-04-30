@@ -1,4 +1,5 @@
-﻿using ABF.Data.ABFDbModels;
+﻿using System;
+using ABF.Data.ABFDbModels;
 using ABF.Data.DAO;
 using System.Collections.Generic;
 using PdfSharp.Pdf;
@@ -7,6 +8,7 @@ using System.IO;
 using QRCoder;
 using PdfSharp;
 using PdfSharp.Drawing.Layout;
+using System.Web;
 
 namespace ABF.Service.Services
 {
@@ -76,6 +78,18 @@ namespace ABF.Service.Services
             EventService eventService = new EventService();
             var ticketEvent = eventService.GetEvent(eventId);
 
+            PdfDocument document = new PdfDocument();
+
+            PdfPage page = document.AddPage();
+            page.Orientation = PageOrientation.Landscape;
+
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+            XFont largeFont = new XFont("Sans-Serif", 18);
+            XFont smallFont = new XFont("Sans-Serif", 8);
+            XTextFormatter tf = new XTextFormatter(gfx);
+
+            document.Info.Title = ticketEvent.Name + " " + ticket.Id.ToString();
+
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(ticketEvent.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
@@ -84,17 +98,6 @@ namespace ABF.Service.Services
             MemoryStream imageStream = new MemoryStream();
 
             qrCodeImage.Save(imageStream, System.Drawing.Imaging.ImageFormat.Png);
-
-            PdfDocument document = new PdfDocument();
-
-            PdfPage page = document.AddPage();
-            page.Orientation = PageOrientation.Landscape; 
-
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-            XFont font = new XFont("Sans-Serif", 18);
-            XTextFormatter tf = new XTextFormatter(gfx);
-
-            document.Info.Title = ticketEvent.Name + " " + ticket.Id.ToString();
 
             gfx.DrawImage(XImage.FromStream(imageStream), 0, 0);
 
@@ -106,10 +109,21 @@ namespace ABF.Service.Services
                 ticketEvent.Date.ToShortDateString() + "\n\n" +
                 ticketEvent.StartTime.ToShortTimeString() + " - " + ticketEvent.EndTime.ToShortTimeString();
 
-            var rect = new XRect(40, 300, 255, 255);
-            gfx.DrawRectangle(XBrushes.White, rect);
+            var eventBox = new XRect(50, 340, 255, 255);
+            gfx.DrawRectangle(XBrushes.White, eventBox);
             tf.Alignment = XParagraphAlignment.Justify;
-            tf.DrawString(eventInfo, font, XBrushes.Black, rect, XStringFormats.TopLeft);
+            tf.DrawString(eventInfo, largeFont, XBrushes.Black, eventBox, XStringFormats.TopLeft);
+
+            string printedTime = "Printed: " + DateTime.Now.ToLongDateString();
+
+            var printedTimeBox = new XRect(0, 0, 100, 30);
+            gfx.DrawRectangle(XBrushes.White, printedTimeBox);
+            tf.Alignment = XParagraphAlignment.Justify;
+            tf.DrawString(printedTime, smallFont, XBrushes.Black, printedTimeBox, XStringFormats.TopLeft);
+
+            string imagePath = HttpContext.Current.Server.MapPath("~/Content/SiteImages/appledore-book-festival-logo.png");
+            XImage logoImage = XImage.FromFile(imagePath);
+            gfx.DrawImage(logoImage, 325, 90, 450, 142);
 
             return document;
         }     

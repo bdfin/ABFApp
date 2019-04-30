@@ -16,6 +16,7 @@ namespace ABF.Controllers
         PaymentService paymentService = new PaymentService();
 
         // GET: Order
+        [Route("Admin/Orders")]
         public ActionResult Index()
         {
             var orderlist = orderService.GetOrders();
@@ -39,6 +40,7 @@ namespace ABF.Controllers
             return View(viewModel);
         }
 
+        [Route("Admin/Orders/Details/{id}")]
         public ActionResult Details(int id)
         {
             var order = orderService.GetOrder(id);
