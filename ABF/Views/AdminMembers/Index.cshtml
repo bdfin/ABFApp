@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ABF.ViewModels.AllMembersViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string menuId = "adminMenu";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<h2>ABF Members</h2>
+
+<table id="members" class="table table-hover table-condensed">
+    <thead>
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Name)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.DateBought)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Type)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Expiry)
+        </td>
+    </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateBought)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expiry)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts
+    {
+    <script>
+
+        $(function () {
+            $('#members').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+            });
+        });
+    </script>
+}

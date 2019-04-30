@@ -179,6 +179,7 @@
     <Compile Include="Controllers\Admin\AdminEventsController.cs" />
     <Compile Include="Controllers\Admin\AdminCustomersController.cs" />
     <Compile Include="Controllers\Admin\AdminLocationsController.cs" />
+    <Compile Include="Controllers\Admin\AdminMembersController.cs" />
     <Compile Include="Controllers\Admin\AdminPaymentsController.cs" />
     <Compile Include="Controllers\Admin\AdminTicketController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddOnEventViewModel.cs" />
+    <Compile Include="ViewModels\AllMembersViewModel.cs" />
     <Compile Include="ViewModels\BasketViewModel.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="ViewModels\EventDetailsViewModel.cs" />
@@ -223,6 +225,7 @@
     <Compile Include="ViewModels\PaymentIndexViewModel.cs" />
     <Compile Include="ViewModels\OrderSuccessViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
+    <Compile Include="ViewModels\SubmitViewModel.cs" />
     <Compile Include="ViewModels\TicketListViewModel.cs" />
     <Compile Include="ViewModels\UserCheckoutViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />
@@ -391,6 +394,13 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\Images\image1.jpeg" />
+    <Content Include="Content\Images\image2.jpg" />
+    <Content Include="Content\Images\image3.jpg" />
+    <Content Include="Content\Images\image4.jpg" />
+    <Content Include="Content\Images\image5.jpg" />
+    <Content Include="Content\Images\image6.jpg" />
+    <Content Include="Content\Images\image7.jpg" />
     <Content Include="Content\MapIcons\addonicon.png" />
     <Content Include="Content\MapIcons\arrow.png" />
     <Content Include="Content\MapIcons\Disability_Friendly-512.png" />
@@ -651,16 +661,15 @@
     <Content Include="Views\Basket\Membership.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Checkout\StartCheckout.cshtml" />
-    <Content Include="Views\Checkout\StartCheckoutUser.cshtml" />
     <Content Include="Views\Checkout\OrderSuccess.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\AdminPayments\Index.cshtml" />
     <Content Include="Views\Checkout\_orderDetails.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\AdminMembers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

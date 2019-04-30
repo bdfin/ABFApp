@@ -9,11 +9,14 @@ namespace ABF.Data.ABFDbModels
 {
     public class Payment
     {
+        [Display(Name = "Payment ID")]
         public string Id { get; set; }
 
+        [Display(Name = "Payment Method")]
         [Required]
         public string Method { get; set; }
 
+        [Display(Name = "Payment Amount")]
         [Required]
         public decimal Amount {get; set;}
        

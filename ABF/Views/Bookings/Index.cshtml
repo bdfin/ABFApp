@@ -6,29 +6,23 @@
     var events = Model.Events;
     var datelist = Model.Datelist;
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 @Html.Partial("_DateList", datelist)
 
-<br />
 
-<br />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-<table class="table" id="eventsTable">
-
-    <tr id="tableheader">
-        <th> </th>
-        <th style="display:none">ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th style="display:none">Hidden Date</th>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Venue</th>
-        <th>Avail.</th>
-        <th>Price</th>
-        <th colspan="4" style="text-align:center">Tickets</th>
-    </tr>
+<table class="table table-hover table-condensed" id="eventsTable">
+    <thead>
+        <tr class="bg-info">
+            <td> </td>
+            <td>Event</td>
+            <td style="display:none">Hidden Date</td>
+            <td>When & Where</td>
+            <td>Availability</td>
+            <td>Price</td>
+            <td colspan="4" style="text-align:center; width:20%">Tickets</td>
+        </tr>
+    </thead>
 
     @foreach (var item in events)
     {
@@ -37,26 +31,31 @@
 
         <tr id="tabledata">
             <td>
-                @if (item.Event.IsMemberOnly)
-                {
-                    <img src="~/Content/MapIcons/vipIcon.png" width="20" alt="Add Ons Available"/>
-                }
                 @if (item.hasAddOn)
                 {
-                    <img src="~/Content/MapIcons/addonicon.png" width="20" alt="Members Exclusive Event"/>
+                    <img src="~/Content/MapIcons/addonicon.png" width="50" title="Add-Ons Available. See Event page for details." />
                 }
             </td>
-            <td>@Html.ActionLink(item.Event.Name, "Details", new {id = item.Event.Id})</td>
-            <td>@item.Event.Author</td>
-            <td style="display:none">@fulldate</td>
-            <td style="white-space:nowrap">@date</td>
-            <td style="white-space:nowrap">@item.Event.StartTime.ToString("HH:mm")</td>
-            <td>@item.Location.Name</td>
-            <td>@item.availability</td>
-            <td>£@item.Event.TicketPrice</td>
-
+            <td>
+                <h5><b>@Html.ActionLink(item.Event.Name, "Details", new { id = item.Event.Id }) </b></h5>
+                &nbsp; &nbsp;@Html.DisplayFor(modelItem => item.Event.Author)
+            </td>
+            <td style="display:none">
+                @fulldate
+            </td>
+            <td style="white-space:nowrap">
+                @date, @item.Event.StartTime.ToString("HH:mm") <br />
+                &nbsp;&nbsp; <b>at</b> @Html.DisplayFor(modelItem => item.Location.Name)
+            </td>
+            <td style="text-align: center">
+                @Html.DisplayFor(modelItem => item.availability)
+            </td>
+            <td>
+                <b>£@Html.DisplayFor(modelItem => item.Event.TicketPrice)</b>
+            </td>
             <td id="eventId" style="display:none">
-                <p>@item.Event.Id</p> </td>
+                <p>@item.Event.Id</p>
+            </td>
 
             @if (item.availability < 1)
             {
@@ -68,36 +67,38 @@
             {
                 <td colspan="4">
                     <button class="bg-light" style="width:250px; border-radius:10px; text-align:center">
-                        Members Event<br/>
+                        Members Event<br />
                         <sub>Log In or click <b>here</b> for information</sub>
                     </button>
                 </td>
             }
             else
             {
-                <td>
+                <td style="background-color: lightblue">
                     <button name="button" type="button" class="sub btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">-</button>
                 </td>
-                <td>
-                    <input name="quantity" type="text" id="@item.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black"/>
+                <td style="background-color: lightblue">
+                    <input name="quantity" type="text" id="@item.Event.Id" value="0" class="field" style="width:25px; text-align:center; border:2px solid black" />
                 </td>
-                <td>
+                <td style="background-color: lightblue">
                     <button name="button" type="button" class="add btn btn-default" style="background-color:yellow; font-size:medium; border:1px solid black">+</button>
                 </td>
-                <td>
+                <td style="background-color: lightblue">
                     <form method="post" class="addform" action="@Url.Action("AddtoBasket", "Basket", null)">
                         <input name="eventId" type="hidden" class="eId" value=@item.Event.Id>
-                        <input name="quantity" type="hidden" class="store" value="0"/>
-                        <input name="availability" type="hidden" class="available" value="@item.availability"/>
+                        <input name="quantity" type="hidden" class="store" value="0" />
+                        <input name="availability" type="hidden" class="available" value="@item.availability" />
                         <button type="submit" style="width:130px; height:40px; background-color:#fcbf2d; border-radius:10px; border:2px solid black">
                             Add to Basket
                         </button>
                     </form>
                 </td>
             }
+
         </tr>
     }
 </table>
+
 <script>
     // search function for filtering data by day.
     function doSearch(searchText) {
@@ -132,12 +133,10 @@
             }
         }
     }
-</script>
 
-<script>
     $('.add').click(function () {
         var avail = Number($(this).parent().next().children(".addform").children(".available").val());
-        var req   = Number($(this).parent().next().children(".addform").children(".store").val());
+        var req = Number($(this).parent().next().children(".addform").children(".store").val());
         if (req < avail) {
             $(this).parent().prev().children(".field").val(+$(this).parent().prev().children(".field").val() + 1);
             $(this).parent().next().children(".addform").children(".store").val($(this).parent().prev().children(".field").val());
@@ -148,7 +147,7 @@
     });
 
     $('.sub').click(function () {
-        var req   = Number($(this).parent().next().children(".addform").children(".store").val());
+        var req = Number($(this).parent().next().children(".addform").children(".store").val());
         if (req > 0) {
             $(this).parent().next().children(".field").val(+$(this).parent().next().children(".field").val() - 1);
             $(this).parent().next().next().next().children(".addform").children(".store").val(+$(this).parent().next().children(".field").val());
@@ -156,6 +155,3 @@
     });
 
 </script>
-
-
-

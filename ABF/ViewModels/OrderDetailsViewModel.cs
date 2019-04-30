@@ -9,8 +9,11 @@ namespace ABF.ViewModels
     public class OrderDetailsViewModel
     {
         public Order order { get; set; }
+
         public Payment payment { get; set; }
+
         public Customer customer { get; set; }
+
         public IEnumerable<Ticket> ticketlist { get; set; }
     }
 }

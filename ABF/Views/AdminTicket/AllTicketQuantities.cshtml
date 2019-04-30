@@ -11,41 +11,69 @@
 <table class="table table-hover table-bordered table-condensed" id="ticketSales">
     <thead class="thead-dark">
         <tr class="thead-dark">
-            <th scope="col">Event Id</th>
-            <th scope="col">Event Name</th>
-            <th scope="col">Event Author</th>
-            <th scope="col">Event Date</th>
-            <th scope="col">Capacity</th>
-            <th scope="col">Ticket Sales</th>
-            <th scope="col">Availability</th>
-            <th scope="col">% Sold</th>
+            <th scope="col">
+                Event Id
+            </th>
+            <th scope="col">
+                Event Name
+            </th>
+            <th scope="col">
+                Author
+            </th>
+            <th scope="col">
+                Date
+            </th>
+            <th scope="col">
+                Capacity
+            </th>
+            <th scope="col">
+                Ticket Sales
+            </th>
+            <th scope="col">
+                Availability
+            </th>
+            <th scope="col">
+                % Sold
+            </th>
         </tr>
     </thead>
 
     @foreach (var e in events)
     {
-        <tr class="table-primary" style="padding-top:5px">
-            <td>@e.Key.Id</td>
-            <td><b>@Html.ActionLink(e.Key.Name, "EventTickets", new { id = e.Key.Id })</b></td>
-            <td>@e.Key.Author</td>
-            <td>@e.Key.Date.ToString("ddd dd MMM")</td>
-            <td>@e.Key.Capacity</td>
-            <td>@e.Value</td>
-            <td>
-                @{
-                    var avail = (e.Key.Capacity - e.Value).ToString();
-                    if (avail == "0")
-                    {
-                        avail = "Sold Out";
-                    }
+    <tr class="table-primary" style="padding-top:5px">
+        <td>
+            @Html.DisplayFor(modelItem => e.Key.Id)
+        </td>
+        <td>
+            <b>@Html.ActionLink(e.Key.Name, "EventTickets", new { id = e.Key.Id })</b>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => e.Key.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => e.Key.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => e.Key.Capacity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => e.Value)
+        </td>
+        <td>
+            @{
+                var avail = (e.Key.Capacity - e.Value).ToString();
+                if (avail == "0")
+                {
+                    avail = "Sold Out";
                 }
-                @avail
-            </td>
-            <td>
-                @{ decimal perc = ((e.Value * 100) / e.Key.Capacity); }
-                @perc%
-            </td>
-        </tr>
+            }
+            @avail
+        </td>
+        <td>
+            @{ decimal perc = ((e.Value * 100) / e.Key.Capacity); }
+            @perc%
+        </td>
+    </tr>
 
 
         foreach (var a in addons)
@@ -55,9 +83,15 @@
                 {
                     <td></td>
                     <td>+ Add On: </td>
-                    <td colspan="2">@a.Key.Id: @a.Key.Name</td>
-                    <td>@a.Key.Quantity</td>
-                    <td>@a.Value</td>
+                    <td colspan="2">
+                        @Html.DisplayFor(modelItem => a.Key.Id): @Html.DisplayFor(modelItem => a.Key.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a.Key.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a.Value)
+                    </td>
                     <td>
                         @{
                             var AOavail = (a.Key.Quantity - a.Value).ToString();

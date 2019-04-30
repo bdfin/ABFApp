@@ -198,9 +198,9 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 1,
                     Date = new DateTime(2019,9,21),
-                    StartTime = new DateTime(2019,9,21),
-                    EndTime = new DateTime(2019,9,21),
-                    Name = "La Vie en Rose" ,
+                    StartTime = DateTime.ParseExact("21/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("21/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    Name = "La Vie en Rose",
                     Author = "Music",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
                     Description = "Nullam accumsan eleifend eros ac egestas. Curabitur iaculis et turpis ut faucibus." +
@@ -213,7 +213,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = false,
                     LocationId = 1,
-                    ImageId = 1,
+                    ImageId = 3,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -223,8 +223,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 2,
                     Date = new DateTime(2019,9,21),
-                    StartTime = new DateTime(2019,9,21),
-                    EndTime = new DateTime(2019,9,21),
+                    StartTime = DateTime.ParseExact("21/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("21/09/2019 16:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Peter Rabbit" ,
                     Author = "Film",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -238,7 +238,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 8,
                     IsMemberOnly = false,
                     LocationId = 2,
-                    ImageId = 1,
+                    ImageId = 2,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -248,8 +248,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 3,
                     Date = new DateTime(2019,9,22),
-                    StartTime = new DateTime(2019,9,22),
-                    EndTime = new DateTime(2019,9,22),
+                    StartTime = DateTime.ParseExact("22/09/2019 19:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("22/09/2019 20:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "One Sentence",
                     Author = "Jeremy Vine",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -263,7 +263,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = true,
                     LocationId = 3,
-                    ImageId = 1,
+                    ImageId = 3,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -273,8 +273,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 4,
                     Date = new DateTime(2019,9,23),
-                    StartTime = new DateTime(2019,9,23),
-                    EndTime = new DateTime(2019,9,23),
+                    StartTime = DateTime.ParseExact("23/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("23/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name ="The Burning Chambers" ,
                     Author = "Kate Mosse" ,
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -288,7 +288,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 12,
                     IsMemberOnly = false,
                     LocationId = 4,
-                    ImageId = 1,
+                    ImageId = 4,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -298,8 +298,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 5,
                     Date = new DateTime(2019,9,23),
-                    StartTime = new DateTime(2019,9,23),
-                    EndTime = new DateTime(2019,9,23),
+                    StartTime = DateTime.ParseExact("23/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("23/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Horrible Science Lab",
                     Author = "Nick Arnold",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -313,7 +313,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 5,
                     IsMemberOnly = false,
                     LocationId = 5,
-                    ImageId = 1,
+                    ImageId = 5,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -323,8 +323,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 6,
                     Date = new DateTime(2019,9,24),
-                    StartTime = new DateTime(2019,9,24),
-                    EndTime = new DateTime(2019,9,24),
+                    StartTime = DateTime.ParseExact("24/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("24/09/2019 13:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "The Appledore Walk",
                     Author = "David Carter",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -338,7 +338,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = true,
                     LocationId = 6,
-                    ImageId = 1,
+                    ImageId = 6,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -348,8 +348,8 @@ namespace ABF.Data.ABFDbModels
                 {
                     Id = 7,
                     Date = new DateTime(2019,9,24),
-                    StartTime = new DateTime(2019,9,24),
-                    EndTime = new DateTime(2019,9,24),
+                    StartTime = DateTime.ParseExact("24/09/2019 16:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("24/09/2019 17:00:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "The Dartmoor Conchies",
                     Author = "Simon Dartmoor",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -363,7 +363,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 6,
                     IsMemberOnly = false,
                     LocationId = 7,
-                    ImageId = 1,
+                    ImageId = 7,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -373,8 +373,8 @@ namespace ABF.Data.ABFDbModels
                  {
                         Id = 8,
                         Date = new DateTime(2019,9,25),
-                        StartTime = new DateTime(2019,9,25),
-                        EndTime = new DateTime(2019,9,25),
+                        StartTime = DateTime.ParseExact("25/09/2019 11:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 12:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "A Babies Bones",
                         Author = "Rebecca Alexander",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -388,7 +388,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 8,
-                        ImageId = 1,
+                        ImageId = 2,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -398,8 +398,8 @@ namespace ABF.Data.ABFDbModels
                   {
                         Id = 9,
                         Date = new DateTime(2019,9,25),
-                        StartTime = new DateTime(2019,9,25),
-                        EndTime = new DateTime(2019,9,25),
+                        StartTime = DateTime.ParseExact("25/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 16:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "Playing with Clay",
                         Author = "Sandy Brown",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -413,7 +413,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 40,
                         IsMemberOnly = false,
                         LocationId = 9,
-                        ImageId = 1,
+                        ImageId = 3,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -423,8 +423,8 @@ namespace ABF.Data.ABFDbModels
                    {
                         Id = 10,
                         Date = new DateTime(2019,9,26),
-                        StartTime = new DateTime(2019,9,26),
-                        EndTime = new DateTime(2019,9,26),
+                        StartTime = DateTime.ParseExact("25/09/2019 20:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("25/09/2019 21:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "Ghost Walk 2",
                         Author = "Terry Bailey",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -438,7 +438,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 10,
-                        ImageId = 1,
+                        ImageId = 4,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -448,8 +448,8 @@ namespace ABF.Data.ABFDbModels
                {
                         Id = 11,
                         Date = new DateTime(2019,9,26),
-                        StartTime = new DateTime(2019,9,26),
-                        EndTime = new DateTime(2019,9,26),
+                        StartTime = DateTime.ParseExact("26/09/2019 14:00:00", "dd/MM/yyyy HH:mm:ss",null),
+                        EndTime = DateTime.ParseExact("26/09/2019 15:00:00", "dd/MM/yyyy HH:mm:ss",null),
                         Name = "The Salt Path",
                         Author = "Raymor Winn",
                         Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -463,7 +463,7 @@ namespace ABF.Data.ABFDbModels
                         TicketPrice = 8,
                         IsMemberOnly = false,
                         LocationId = 11,
-                        ImageId = 1,
+                        ImageId = 5,
                         BookUrl ="Link goes here",
                         AuthorUrl="Link goes here",
 
@@ -473,8 +473,8 @@ namespace ABF.Data.ABFDbModels
                {
                     Id = 12,
                     Date = new DateTime(2019,9,27),
-                    StartTime = new DateTime(2019,9,27),
-                    EndTime = new DateTime(2019,9,27),
+                    StartTime = DateTime.ParseExact("27/09/2019 19:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                    EndTime = DateTime.ParseExact("27/09/2019 20:30:00", "dd/MM/yyyy HH:mm:ss",null),
                     Name = "Beer Tasting",
                     Author = "Barry Raynes",
                     Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -488,7 +488,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 8,
                     IsMemberOnly = false,
                     LocationId = 12,
-                    ImageId = 1,
+                    ImageId = 6,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -498,8 +498,8 @@ namespace ABF.Data.ABFDbModels
                {
                    Id = 13,
                    Date = new DateTime(2019,9,27),
-                   StartTime = new DateTime(2019,9,27),
-                   EndTime = new DateTime(2019,9,27),
+                   StartTime = DateTime.ParseExact("27/09/2019 15:30:00", "dd/MM/yyyy HH:mm:ss",null),
+                   EndTime = DateTime.ParseExact("27/09/2019 16:30:00", "dd/MM/yyyy HH:mm:ss",null),
                    Name = "Dare to Try",
                    Author = "Louise Minchin",
                    Details =" Vestibulum at nunc sed metus congue sollicitudin",
@@ -513,7 +513,7 @@ namespace ABF.Data.ABFDbModels
                    TicketPrice = 10,
                    IsMemberOnly = false,
                    LocationId = 13,
-                   ImageId = 1,
+                   ImageId = 7,
                    BookUrl ="Link goes here",
                    AuthorUrl="Link goes here",
 
@@ -521,16 +521,52 @@ namespace ABF.Data.ABFDbModels
             };
 
             // Image seed
-            Image initialisedImage = new Image
+            IList<Image> initialisedImages = new List<Image>
             {
-                Id = 1,
-                ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
+                new Image
+                {
+                    Id = 1,
+                    ImagePath = "~/Content/SiteImages/image-placeholder-350x350.png"
+                },
+                new Image
+                {
+                    Id = 2,
+                    ImagePath = "~/Content/Images/image1.jpeg"
+                },
+                new Image
+                {
+                    Id = 3,
+                    ImagePath = "~/Content/Images/image2.jpg"
+                },
+                new Image
+                {
+                    Id = 4,
+                    ImagePath = "~/Content/Images/image3.jpg"
+                },
+                new Image
+                {
+                    Id = 5,
+                    ImagePath = "~/Content/Images/image4.jpg"
+                },
+                new Image
+                {
+                    Id = 6,
+                    ImagePath = "~/Content/Images/image5.jpg"
+                },
+                new Image
+                {
+                    Id = 7,
+                    ImagePath = "~/Content/Images/image6.jpg"
+                },
+                new Image
+                {
+                    Id = 8,
+                    ImagePath = "~/Content/Images/image7.jpg"
+                },
             };
 
             // MembershipType seed
             IList<MembershipType> initialisedMembershipTypes = new List<MembershipType> {
-
-
                 new MembershipType
                 {
                     Id = 1,
@@ -643,7 +679,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EC123LZ",
                     Email= "Lucy.Stalker@test.com",
                     PhoneNumber= "123456123458" ,
-                    MembershipTypeId = 2
+                    MembershipTypeId = 2,
                 },
 
                 new Customer
@@ -657,7 +693,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S215GN",
                     Email= "sammysquire@test.com",
                     PhoneNumber= "01149804582",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -671,6 +707,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "D6JHS8",
                     Email= "the.pledge.m@test.com",
                     PhoneNumber= "01893920863",
+                    MembershipTypeId = 2
                 },
 
                 new Customer
@@ -684,7 +721,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "LS8709K",
                     Email= "a.white@test.com",
                     PhoneNumber= "01757889365",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -698,7 +735,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "NL89HK2",
                     Email= "Tinkerbell@test.com",
                     PhoneNumber= "7777778990",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -712,7 +749,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "NL89HK2",
                     Email= "PeterPan@test.com",
                     PhoneNumber= "666789219274",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -726,10 +763,11 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "YO89KO",
                     Email= "a.cole@test.com",
                     PhoneNumber= "01787639223" ,
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
+
                 {
                     Id= "8",
                     UserId= "8",
@@ -740,7 +778,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "EH13LK",
                     Email= "Eenie.meenie.miney.m@tst.com",
                     PhoneNumber= "123490987768",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
 
                 new Customer
@@ -754,7 +792,7 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S29OL",
                     Email= "Dave.bb@test.com",
                     PhoneNumber= "88975461209",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 2,
                 },
 
                 new Customer
@@ -768,12 +806,12 @@ namespace ABF.Data.ABFDbModels
                     PostCode= "S18RF",
                     Email= "chelsea.lou@test.com",
                     PhoneNumber= "0985672983",
-                    MembershipTypeId= 0,
+                    MembershipTypeId= 1,
                 },
             };
 
             context.MembershipTypes.AddRange(initialisedMembershipTypes);
-            context.Images.Add(initialisedImage);
+            context.Images.AddRange(initialisedImages);
             context.Locations.AddRange(initialisedLocations);
             context.Events.AddRange(intialisedEvents);
             context.AddOns.AddRange(initialisedAddOns);

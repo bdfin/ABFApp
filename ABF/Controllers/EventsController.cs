@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +25,7 @@ namespace ABF.Controllers
             addOnService = new AddOnService();
         }
 
+        // GET: /Events/Index
         public ActionResult Index(DateTime? dateSearch)
         {
             var viewModelList = new List<EventListViewModel>();

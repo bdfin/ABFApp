@@ -1,8 +1,6 @@
 ﻿@model ABF.ViewModels.FullBasketViewModel
-
 @{
     ViewBag.Title = "BasketwithAddOns";
-
     var addons = Model.addontickets;
     var events = Model.eventtickets;
     var Uaddons = Model.UAaddontickets;
@@ -10,10 +8,13 @@
     var Uevents = Model.UAeventtickets;
     var member = Model.Membership;
     decimal grandtotal = 0;
-
 }
+
+<button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
+
 <hr />
 
+<!----------- LIST OF UNAVAILABLE TICKETS ------->
 @if (Uevents != null)
 {
     <div class="alert-danger">
@@ -29,7 +30,6 @@
                     <th>Price</th>
                     <th>Quantity</th>
                 </tr>
-
             </thead>
 
             @foreach (var item in Uevents)
@@ -49,6 +49,7 @@
     <hr />
 }
 
+<!----------- LIST OF UNAVAILABLE ADDONS ------->
 @if (Uaddons != null)
 {
     <div class="alert-danger">
@@ -86,6 +87,7 @@
     <hr />
 }
 
+<!----------- LIST OF ADDONS REMOVED DUE TO UNAVAILABLE EVENT TICKETS------->
 @if (Raddons != null)
 {
     <div class="alert-danger">
@@ -123,10 +125,11 @@
     <hr />
 }
 
+
 <h2>Your Basket</h2>
-<button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
 <hr />
 
+<!----------- IF MEMBERSHIP IS IN BASKET ------->
 @if (Model.Membership != null)
 {
     <h4>Membership:</h4>
@@ -141,6 +144,7 @@
     </table>
 }
 
+<!----------- IF EVENT TICKETS IN BASKET ------->
 @if (events != null && events.Count > 0)
 {
     <h4>Tickets:</h4>
@@ -206,7 +210,6 @@
 
                 }
             }
-
             <tr><td> </td></tr>
         }
     </table>

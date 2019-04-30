@@ -46,6 +46,7 @@ namespace ABF.Controllers.Admin
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Location location)
         {
             if (!ModelState.IsValid)
@@ -94,6 +95,7 @@ namespace ABF.Controllers.Admin
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteLocation(int id)
         {
             var location = locationService.GetLocation(id);

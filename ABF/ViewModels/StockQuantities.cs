@@ -9,6 +9,7 @@ namespace ABF.ViewModels
     public class StockQuantities
     {
         public Dictionary<Event, int> events { get; set; }
+
         public Dictionary<AddOn, int> addons { get; set; }
     }
 }

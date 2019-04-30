@@ -59,11 +59,11 @@ namespace ABF.Models
                 manager.Create(role);
             }
 
-            if (!context.Roles.Any(r => r.Name == "BoxOffice"))
+            if (!context.Roles.Any(r => r.Name == "Box Office"))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "BoxOffice" };
+                var role = new IdentityRole { Name = "Box Office" };
 
                 manager.Create(role);
             }
@@ -108,7 +108,7 @@ namespace ABF.Models
                 };
 
                 manager.Create(user, "boxoffice123");
-                manager.AddToRole(user.Id, "BoxOffice");
+                manager.AddToRole(user.Id, "Box Office");
             }
 
             if (!context.Users.Any(u => u.UserName == "testuser"))

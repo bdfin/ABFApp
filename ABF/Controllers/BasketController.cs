@@ -25,12 +25,32 @@ namespace ABF.Controllers
             eventService = new EventService();
         }
 
-        // GET: Basket
+        // GET: /Basket/Index
+        // Redirects to check availability, then shows basket
         public ActionResult Index()
         {
-            return View("Basket", "Bookings");
+            return RedirectToAction("Basket", "Bookings");
         }
 
+        // GET: Basket/Mambership
+        // Shows the membership page
+        public ActionResult Membership()
+        {
+            bool isMember = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var customermembershipstate = customerService.GetCustomerByUserId(User.Identity.GetUserId()).MembershipTypeId.ToString();
+
+                if (customermembershipstate != "" && customermembershipstate!= "1")
+                {
+                    isMember = true;
+                }
+            }
+            return View(isMember);
+        }
+
+        // Adds a quantity of tickets for a single event to the basket
         public ActionResult AddToBasket(int eventId, int quantity)
         {
             if (quantity == 0)
@@ -50,7 +70,7 @@ namespace ABF.Controllers
 
                 else
                 {
-                    model = (Dictionary<int, int>) Session["Tix"];
+                    model = (Dictionary<int, int>)Session["Tix"];
 
                     if (model.ContainsKey(eventId))
                     {
@@ -68,23 +88,7 @@ namespace ABF.Controllers
 
         }
 
-        public ActionResult Membership()
-        {
-            bool isMember = false;
-
-            if (User.Identity.IsAuthenticated)
-            {
-                var userId = User.Identity.GetUserId();
-                var customermembershipstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
-                if (customermembershipstate != null)
-                {
-                    isMember = true;
-                }
-            }
-
-            return View(isMember);
-        }
-
+        // Adds a membership to the basket
         public ActionResult AddMembership(int membershipId)
         {
             if (Session["Membership"] != null)
@@ -102,6 +106,7 @@ namespace ABF.Controllers
             }
         }
 
+        // Adds a quantity of addons for a single addon ID to the basket
         public ActionResult AddAddOns(int addonId, int quantity)
         {
             // CHECK IF EVENT IS IN BASKET
@@ -148,12 +153,14 @@ namespace ABF.Controllers
             }
         }
 
+        // clears all items from the basket
         public ActionResult ClearBasket()
         {
             Session.Abandon();
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes all tickets for a given eventID from the basket
         public ActionResult DeleteBasketTix(int id)
         {
             // remove tickets from session  
@@ -183,6 +190,7 @@ namespace ABF.Controllers
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes all addons for a given addonID from the basket
         public ActionResult DeleteBasketAddOn(int id)
         {
             var addondictionary = (Dictionary<int, int>) Session["AddOns"];
@@ -199,12 +207,14 @@ namespace ABF.Controllers
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes the membership from the basket
         public ActionResult DeleteBasketMembership()
         {
             Session["Membership"] = null;
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes tickets which are unavailable from the basket during checkavailability()
         public ActionResult DeleteUnavailableTix(int id)
         {
             // get tickets from session  
@@ -222,6 +232,7 @@ namespace ABF.Controllers
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes addons which are unavailable from the basket during checkavailability()
         public ActionResult DeleteUnavailableAddOn(int id)
         {
             // get tickets from session  
@@ -239,6 +250,7 @@ namespace ABF.Controllers
             return RedirectToAction("Basket", "Bookings");
         }
 
+        // deletes addons for event which have had tickets removed due to deleteunavailabletix()
         public ActionResult DeleteUnavailableRAddOn(int id)
         {
             // get tickets from session  

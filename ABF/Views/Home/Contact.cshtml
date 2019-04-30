@@ -24,7 +24,8 @@
     <hr />
    
     <div class="form-group col-md-12">
-        <form action='@Url.Action("Contact","Home")' method='post'>
+        <form action='@Url.Action("Contact", "Home")' method='post'>
+            @Html.AntiForgeryToken()
 
             <table>
                 <tr id="nameinput">
@@ -33,7 +34,7 @@
                     </td>
                     <td rowspan="5" style="width:20px">&nbsp</td>
                     <td>
-                        <input name='name' />
+                        <input name='name'/>
                     </td>
                 </tr>
                 <tr id="emailinput">
@@ -41,7 +42,7 @@
                         <label for='email'><b>Email</b></label>
                     </td>
                     <td>
-                        <input name='email' />
+                        <input name='email'/>
                     </td>
                 </tr>
                 <tr id="phoneinput">
@@ -49,7 +50,7 @@
                         <label for='phone'><b>Phone Number</b></label>
                     </td>
                     <td>
-                        <input name='phone' />
+                        <input name='phone'/>
                     </td>
                 </tr>
                 <tr id="messageinput">
@@ -63,7 +64,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <input type='submit' value='Send Message' />
+                        <input type='submit' value='Send Message'/>
                     </td>
                 </tr>
             </table>
