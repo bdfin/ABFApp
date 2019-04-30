@@ -17,6 +17,7 @@ namespace ABF.Controllers
 
         // GET: Order/Index
         // Show the list of all orders in the database
+        [Authorize(Roles = "Box Office, Admin")]
         public ActionResult Index()
         {
             var orderlist = orderService.GetOrders();
@@ -42,6 +43,7 @@ namespace ABF.Controllers
 
         // GET Order/Details/1
         // Show the details of a single order in the database
+        [Authorize]
         public ActionResult Details(int id)
         {
             var order = orderService.GetOrder(id);

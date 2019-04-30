@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ABF
 {
+    [Authorize(Roles = "Admin")]
     public class InitAdminController : Controller
     {        
         public ApplicationDbContext db;

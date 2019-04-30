@@ -9,7 +9,7 @@ using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Box Office, Admin")]
     public class AdminMembersController : Controller
     {
         // GET: AdminMembers

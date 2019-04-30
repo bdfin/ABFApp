@@ -23,7 +23,6 @@ namespace ABF.Controllers
         private CustomerService customerService;
         private MembershipTypeService memberService;
 
-
         public CheckoutController()
         {
             eventService = new EventService();
@@ -37,6 +36,7 @@ namespace ABF.Controllers
 
         // GET: /Checkout/StartCheckoutUser
         // Shows checkout page to users (linked to from basket)
+        [Authorize]
         public ActionResult StartCheckoutUser()
         {
             // check the availability, and return to basket if anything needs changing
@@ -91,6 +91,7 @@ namespace ABF.Controllers
         // POST: /Checkout/Submit
         // Submits the customers/users details to make a new order
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Submit(SubmitViewModel submitViewModel)
         {
             string customerid = "";

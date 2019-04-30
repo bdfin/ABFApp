@@ -39,6 +39,7 @@ namespace ABF.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Contact(string name, string email, string phone, string message)
         {
             string emailBody = "The following Contact Form has been submitted from the website:\n\n\t" +
