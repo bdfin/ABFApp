@@ -213,7 +213,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = false,
                     LocationId = 1,
-                    ImageId = 3,
+                    ImageId = 7,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
