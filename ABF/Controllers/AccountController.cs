@@ -198,7 +198,8 @@ namespace ABF.Controllers
                         Name = model.Name,
                         Email = model.Email,
                         PostCode = model.PostCode,
-                        UserId = userId
+                        UserId = userId,
+                        MembershipTypeId = 1
                     };
 
                     customerService.CreateCustomer(customer);

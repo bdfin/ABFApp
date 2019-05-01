@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 
 namespace ABF.Data.ABFDbModels
 {
@@ -817,6 +818,7 @@ namespace ABF.Data.ABFDbModels
             context.AddOns.AddRange(initialisedAddOns);
             context.Customers.AddRange(initialisedCustomers);
             context.SaveChanges();
+
 
             base.Seed(context);
         }

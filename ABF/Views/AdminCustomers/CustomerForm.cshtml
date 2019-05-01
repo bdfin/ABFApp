@@ -26,6 +26,7 @@ else
         @Html.ValidationSummary(true, "Please fix the following errors:", new { @class = "text-danger" })
 
         @Html.HiddenFor(model => model.Customer.Id)
+      
 
 
         <div class="form-group">
@@ -83,7 +84,7 @@ else
                 @Html.ValidationMessageFor(model => model.Customer.PhoneNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Customer.MembershipTypeId, "Membership Type", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col">

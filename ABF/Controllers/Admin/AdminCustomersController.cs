@@ -46,7 +46,8 @@ namespace ABF.Controllers
         {
             if (viewModel.Customer.Id == "0" || viewModel.Customer.Id == null)
             {
-                customerService.CreateCustomer(viewModel.Customer);
+                viewModel.Customer.MembershipTypeId = 1;
+                customerService.CreateCustomer(viewModel.Customer); 
 
                 return RedirectToAction("Index");
             }

@@ -100,6 +100,12 @@ namespace ABF.Controllers
             {
                 return RedirectToAction("BasketNoCheck", "Bookings");
             }
+            //checks if all customer details have been entered and returns the startcheckout view if some information is missing
+            if (!ModelState.IsValid)
+            {
+                return View ("StartCheckout");
+            }
+
             else
             {
                 var viewModel = new OrderSuccessViewModel();
@@ -261,6 +267,9 @@ namespace ABF.Controllers
 
                 return View("OrderSuccess", viewModel);
             }
+
+            
+
         }
 
         // Checks the availability of all tickets and addons in the basket
