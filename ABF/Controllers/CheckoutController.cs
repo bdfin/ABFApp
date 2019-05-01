@@ -106,6 +106,7 @@ namespace ABF.Controllers
                 var viewModel = new OrderSuccessViewModel();
 
                 #region //----------------- Make a new payment
+
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
                 switch (submitViewModel.paymentmethod)
@@ -130,125 +131,12 @@ namespace ABF.Controllers
                     Amount = this.calculategrandtotal()
                 };
                 paymentService.CreatePayment(payment);
-                #endregion
-
-                #region //-------------- Create a new Customer
-                string customerid = Guid.NewGuid().ToString();
-                var customer = new Customer()
-                {
-                    Id = customerid,
-                    Name = name,
-                    Address1 = address1,
-                    Address2 = address2,
-                    Address3 = address3,
-                    PostCode = postcode,
-                    Email = email,
-                    PhoneNumber = phone,
-                };
-                customerService.CreateCustomer(customer);
-                #endregion
-
-                #region//---------------- create a new order
-                var deliverymethod = "";
-                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
-                {
-                    deliverymethod = "post";
-                }
-                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
-                {
-                    deliverymethod = "collect";
-                }
-                else if (paymentmethod == "cardDownload")
-                {
-                    deliverymethod = "download";
-                }
-                else
-                {
-                    deliverymethod = "email";
-                }
-
-                var order = new Order()
-                {
-                    Date = DateTime.Today,
-                    Time = DateTime.Now,
-                    CustomerId = customerid,
-                    PaymentId = paymentid,
-                    Delivery = deliverymethod
-                };
-                orderService.CreateOrder(order);
-                viewModel.order = order;
-                #endregion
-
-                #region //------------ Create tickets for each item
-
-                var TicketList = new List<Ticket>();
-
-                var orderId = orderService.GetOrderId(paymentid, customerid);
-
-                if (Session["Tix"] != null)
-                {
-                    var alltix = (Dictionary<int, int>)Session["Tix"];
-                    foreach (KeyValuePair<int, int> singletix in alltix)
-                    {
-                        for (int i = 0; i < singletix.Value; i++)
-                        {
-                            var ticketId = Guid.NewGuid().ToString();
-                            var ticket = new Ticket()
-                            {
-                                Id = ticketId,
-                                EventId = singletix.Key,
-                                OrderId = orderId,
-
-                            };
-
-                            ticketService.CreateTicket(ticket);
-                            TicketList.Add(ticket);
-                        }
-                    }
-                }
-
-                if (Session["AddOns"] != null)
-                {
-                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
-                    foreach (KeyValuePair<int, int> singleaddon in alladdons)
-                    {
-                        for (int i = 0; i < singleaddon.Value; i++)
-                        {
-                            var ticketId = Guid.NewGuid().ToString();
-                            var ticket = new Ticket()
-                            {
-                                Id = ticketId,
-                                AddOnId = singleaddon.Key,
-                                OrderId = orderId,
-
-                            };
-
-                            ticketService.CreateTicket(ticket);
-                            TicketList.Add(ticket);
-                        }
-                    }
-
-                }
-
-                viewModel.tickets = TicketList;
-
-                foreach (var ticket in TicketList) 
-                {
-                    var pdfTicket = ticketService.GenerateTicket(ticket);
-                }
 
                 #endregion
 
-                // clear all tickets from the basket!
-                Session.Abandon();
-
-                // all the logic goes here
-                return View("OrderSuccess", viewModel);
-            }
-        }
                 #region //-------------- Create/Update Customer Details
 
-                if (submitViewModel.ismember && submitViewModel.updateneeded)               // member needs details updating
+                if (submitViewModel.ismember && submitViewModel.updateneeded) // member needs details updating
                 {
                     var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
                     customer.Name = submitViewModel.name;
@@ -262,7 +150,7 @@ namespace ABF.Controllers
                     customerService.UpdateCustomer(customer);
                     customerid = customer.Id;
                 }
-                else if (!submitViewModel.ismember)                                         // new customer
+                else if (!submitViewModel.ismember) // new customer
                 {
                     customerid = Guid.NewGuid().ToString();
                     var customer = new Customer()
@@ -283,6 +171,7 @@ namespace ABF.Controllers
                 #endregion
 
                 #region//---------------- create a new order
+
                 var deliverymethod = "";
                 if (submitViewModel.paymentmethod == "cheque" || submitViewModel.paymentmethod == "cardpost")
                 {
@@ -314,6 +203,7 @@ namespace ABF.Controllers
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
+
                 #endregion
 
                 #region //------------ Create tickets for each item
@@ -324,7 +214,7 @@ namespace ABF.Controllers
 
                 if (Session["Tix"] != null)
                 {
-                    var alltix = (Dictionary<int, int>)Session["Tix"];
+                    var alltix = (Dictionary<int, int>) Session["Tix"];
                     foreach (KeyValuePair<int, int> singletix in alltix)
                     {
                         for (int i = 0; i < singletix.Value; i++)
@@ -346,7 +236,7 @@ namespace ABF.Controllers
 
                 if (Session["AddOns"] != null)
                 {
-                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                    var alladdons = (Dictionary<int, int>) Session["AddOns"];
                     foreach (KeyValuePair<int, int> singleaddon in alladdons)
                     {
                         for (int i = 0; i < singleaddon.Value; i++)
@@ -380,16 +270,16 @@ namespace ABF.Controllers
 
 
         public ActionResult DownloadTicket(string id)
-        {
-            MemoryStream stream = new MemoryStream();
+                {
+                    MemoryStream stream = new MemoryStream();
 
-            var ticket = ticketService.GetTicket(id);
-            var pdfTicket = ticketService.GenerateTicket(ticket);
+                    var ticket = ticketService.GetTicket(id);
+                    var pdfTicket = ticketService.GenerateTicket(ticket);
 
-            pdfTicket.Save(stream, false);
+                    pdfTicket.Save(stream, false);
 
-            return File(stream, "application/pdf");
-        }
+                    return File(stream, "application/pdf");
+                }
 
         // Checks the availability of all tickets and addons in the basket
         public bool CheckAvailability()
