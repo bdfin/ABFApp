@@ -213,7 +213,7 @@ namespace ABF.Data.ABFDbModels
                     TicketPrice = 10,
                     IsMemberOnly = false,
                     LocationId = 1,
-                    ImageId = 3,
+                    ImageId = 7,
                     BookUrl ="Link goes here",
                     AuthorUrl="Link goes here",
 
@@ -531,37 +531,37 @@ namespace ABF.Data.ABFDbModels
                 new Image
                 {
                     Id = 2,
-                    ImagePath = "~/Content/Images/image1.jpeg"
+                    ImagePath = "~/Content/SiteImages/image1.jpeg"
                 },
                 new Image
                 {
                     Id = 3,
-                    ImagePath = "~/Content/Images/image2.jpg"
+                    ImagePath = "~/Content/SiteImages/image2.jpg"
                 },
                 new Image
                 {
                     Id = 4,
-                    ImagePath = "~/Content/Images/image3.jpg"
+                    ImagePath = "~/Content/SiteImages/image3.jpg"
                 },
                 new Image
                 {
                     Id = 5,
-                    ImagePath = "~/Content/Images/image4.jpg"
+                    ImagePath = "~/Content/SiteImages/image4.jpg"
                 },
                 new Image
                 {
                     Id = 6,
-                    ImagePath = "~/Content/Images/image5.jpg"
+                    ImagePath = "~/Content/SiteImages/image5.jpg"
                 },
                 new Image
                 {
                     Id = 7,
-                    ImagePath = "~/Content/Images/image6.jpg"
+                    ImagePath = "~/Content/SiteImages/image6.jpg"
                 },
                 new Image
                 {
                     Id = 8,
-                    ImagePath = "~/Content/Images/image7.jpg"
+                    ImagePath = "~/Content/SiteImages/image7.jpg"
                 },
             };
 
