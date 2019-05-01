@@ -9,7 +9,6 @@ using ABF.ViewModels;
 
 namespace ABF.Controllers.Admin
 {
-    [Authorize(Roles = "Admin")]
     public class AdminTicketController : Controller
     {
         private TicketService ticketService;
@@ -28,6 +27,7 @@ namespace ABF.Controllers.Admin
         }
 
         // GET: AdminTicketSales
+        [Authorize(Roles = "Box Office, Admin")]
         public ActionResult Index()
         {
             var allticketsales = ticketService.GetAllTicketSales();
@@ -35,6 +35,7 @@ namespace ABF.Controllers.Admin
             return View(allticketsales);
         }
 
+        [Authorize(Roles = "Box Office, Admin")]
         public ActionResult EventTickets(int id)
         {
             var ticketsforevent = ticketService.GetTicketSalesForEvent(id);
@@ -57,6 +58,7 @@ namespace ABF.Controllers.Admin
             return View(viewModel);
         }
 
+        [Authorize(Roles = "Box Office, Admin")]
         public ActionResult AllTicketQuantities()
         {
             // get the dictionary of eventids and tickets sold

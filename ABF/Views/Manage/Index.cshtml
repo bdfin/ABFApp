@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "My Account";
     var ismember = false;
+    var orderlist = Model.myorders;
 
     if (Model.membershipType != null)
     {
@@ -14,136 +15,188 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <hr />
-    @using (Html.BeginForm("updateCustomerDetails", "Manage", FormMethod.Post))
-    {
-        @Html.HiddenFor(model => model.customer.Id)
-
-        <div class="container">
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.Address1, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.Address1, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.Address2, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.Address2, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.Address3, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.Address3, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.Address3, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.PostCode, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.PostCode, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.customer.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col">
-                    @Html.EditorFor(model => model.customer.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.customer.PhoneNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            
-            <hr/>
-            
-            <h4>Membership Details:</h4>
-            
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <td>Membership Type</td>
-                    <td>Date Bought</td>
-                    <td>Expiry Date</td>
-                </tr>
-                </thead>
-                
-                @if (ismember)
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                @using (Html.BeginForm("updateCustomerDetails", "Manage", FormMethod.Post))
                 {
-                    <tr>
-                        <td><p>@Model.membershipType.Type</p></td>
-                        <td><p>@Model.customer.DateJoined.ToString()</p></td>
-                        <td>
-                            @if(Model.membershipType.Expiry)
-                            { 
-                                <p>31st December @DateTime.Now.Year.ToString()</p>
-                            }
-                            else
-                            {
-                                <p>N/A</p>
-                            }
+                    @Html.HiddenFor(model => model.customer.Id)
+                    @Html.HiddenFor(model => model.customer.MembershipTypeId)
 
-                        </td>
-                    </tr>
+                    <h4>Your Details:</h4>
+                    <table>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.Name, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.Address1, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.Address1, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.Address2, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.Address2, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.Address3, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.Address3, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.Address3, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.PostCode, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.Email, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.LabelFor(model => model.customer.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.customer.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.customer.PhoneNumber, "", new { @class = "text-danger" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> </td>
+                            <td>
+                                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                            </td>
+                        </tr>
+                    </table>
                 }
-                else
-                {
-                    <tr>
-                        <td>Non-Member</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                    </tr>
-                }
-            </table>
-        </div>
+            </div>
 
-        <div class="form-group">
-            <div class="col">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="col-md-5">
+                <h4>Membership Details:</h4>
+
+                <table class="table">
+                    <thead class="table-dark">
+                    <tr>
+                        <td>Membership Type</td>
+                        <td>Date Bought</td>
+                        <td>Expiry Date</td>
+                    </tr>
+                    </thead>
+
+                    @if (ismember)
+                    {
+                        <tr>
+                            <td><p>@Model.membershipType.Type</p></td>
+                            <td><p>@Model.customer.DateJoined.ToString()</p></td>
+                            <td>
+                                @if (Model.membershipType.Expiry)
+                                {
+                                    <p>31st December @DateTime.Now.Year.ToString()</p>
+                                }
+                                else
+                                {
+                                    <p>N/A</p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>Non-Member</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                    }
+                </table>
+
+                <hr />
+                <h4>Login & Security:</h4>
+                <dl class="dl-horizontal">
+                    <dt>Password:
+                        [
+                        @if (Model.HasPassword)
+                        {
+                            @Html.ActionLink("Change your password", "ChangePassword")
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Create", "SetPassword")
+                        }
+                        ]
+                    </dt>
+                    <dt>External Logins:
+                        @Model.Logins.Count [
+                        @Html.ActionLink("Manage", "ManageLogins") ]
+                    </dt>
+                </dl>
             </div>
         </div>
-    }
-
-
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-    </dl>
+    </div>
 </div>
+
+<hr/>
+
+<h4>My Orders:</h4>
+
+@if (orderlist != null)
+{
+    <table class="table">
+        <thead class="bg-info">
+        <tr>
+            <td>Order Id</td>
+            <td>Order Date & Time</td>
+            <td>Delivery Method</td>
+            <td>Payment Method</td>
+            <td>Amount</td>
+            <td>Options</td>
+        </tr>
+        </thead>
+        @foreach (var order in orderlist)
+        {
+            <tr>
+                <td>@order.orderId</td>
+                <td>@order.orderDate.ToString("ddd dd MMM yyyy") at @order.orderTime.ToString("HH:mm")</td>
+                <td>@order.deliveryMethod</td>
+                <td>@order.paymentMethod</td>
+                <td><b>£@order.price</b></td>
+                <td><b>See Tickets</b> | @Html.ActionLink("Full Details", "Details", "Order", new { id = order.orderId }, null)
+
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h5>No Orders to Display</h5>
+}
+<hr/>
+
+

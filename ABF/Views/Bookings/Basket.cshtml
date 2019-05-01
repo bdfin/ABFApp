@@ -1,8 +1,6 @@
 ﻿@model ABF.ViewModels.FullBasketViewModel
-
 @{
     ViewBag.Title = "BasketwithAddOns";
-
     var addons = Model.addontickets;
     var events = Model.eventtickets;
     var Uaddons = Model.UAaddontickets;
@@ -10,26 +8,28 @@
     var Uevents = Model.UAeventtickets;
     var member = Model.Membership;
     decimal grandtotal = 0;
-
 }
+
+<button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
+
 <hr />
 
+<!----------- LIST OF UNAVAILABLE TICKETS ------->
 @if (Uevents != null)
 {
     <div class="alert-danger">
         <p>These <b>event tickets</b> have been removed from your basket as they are no longer available.</p>
         <table class="table table-danger">
             <thead>
-            <tr>
-                <th></th>
-                <th>Event</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-
+                <tr>
+                    <th></th>
+                    <th>Event</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
             </thead>
 
             @foreach (var item in Uevents)
@@ -46,25 +46,26 @@
             }
         </table>
     </div>
-    <hr/>
+    <hr />
 }
 
+<!----------- LIST OF UNAVAILABLE ADDONS ------->
 @if (Uaddons != null)
 {
     <div class="alert-danger">
         <p>These <b>add ons</b> have been removed from your basket as they are no longer available.</p>
         <table class="table table-danger">
             <thead>
-            <tr>
-                <th></th>
-                <th>Event</th>
-                <th>Author</th>
-                <th>Add-On</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Event</th>
+                    <th>Author</th>
+                    <th>Add-On</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
 
             </thead>
 
@@ -72,7 +73,7 @@
             {
                 <tr class="table-danger">
                     <td>@Html.ActionLink("OK", "DeleteUnavailableAddOn", "Basket", new { id = item.Key.addon.Id }, null)</td>
-                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id})</b></td>
+                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id })</b></td>
                     <td>@item.Key.addonevent.Author</td>
                     <td>@item.Key.addon.Name</td>
                     <td>@item.Key.addonevent.Date.ToString("ddd dd MMM")</td>
@@ -83,25 +84,26 @@
             }
         </table>
     </div>
-    <hr/>
+    <hr />
 }
 
+<!----------- LIST OF ADDONS REMOVED DUE TO UNAVAILABLE EVENT TICKETS------->
 @if (Raddons != null)
 {
     <div class="alert-danger">
         <p>These <b>add ons</b> have been removed from your basket as you no longer have any associated event tickets.</p>
         <table class="table table-danger">
             <thead>
-            <tr>
-                <th></th>
-                <th>Event</th>
-                <th>Author</th>
-                <th>Add-On</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Event</th>
+                    <th>Author</th>
+                    <th>Add-On</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
 
             </thead>
 
@@ -109,7 +111,7 @@
             {
                 <tr class="table-danger">
                     <td>@Html.ActionLink("OK", "DeleteUnavailableRAddOn", "Basket", new { id = item.Key.addon.Id }, null)</td>
-                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id})</b></td>
+                    <td><b>@Html.ActionLink(item.Key.addonevent.Name, "Details", new { id = item.Key.addonevent.Id })</b></td>
                     <td>@item.Key.addonevent.Author</td>
                     <td>@item.Key.addon.Name</td>
                     <td>@item.Key.addonevent.Date.ToString("ddd dd MMM")</td>
@@ -120,13 +122,14 @@
             }
         </table>
     </div>
-    <hr/>
+    <hr />
 }
 
+
 <h2>Your Basket</h2>
-<button class="btn-lg btn-outline-info"><a href="@Request.UrlReferrer">Back to List/Details</a></button>
 <hr />
 
+<!----------- IF MEMBERSHIP IS IN BASKET ------->
 @if (Model.Membership != null)
 {
     <h4>Membership:</h4>
@@ -141,6 +144,7 @@
     </table>
 }
 
+<!----------- IF EVENT TICKETS IN BASKET ------->
 @if (events != null && events.Count > 0)
 {
     <h4>Tickets:</h4>
@@ -184,11 +188,11 @@
 
             if (Model.addontickets != null)
             {
-                <tr>
-                    @foreach (var ao in Model.addontickets)
+                foreach (var ao in Model.addontickets)
+                {
+                    if (ao.Key.EventId == item.Event.Id)
                     {
-                        if (ao.Key.EventId == item.Event.Id)
-                        {
+                        <tr>
                             <td>@Html.ActionLink("Delete", "DeleteBasketAddOn", "Basket", new { id = ao.Key.Id }, null)</td>
                             <td><i>+ Event Extras: </i></td>
                             <td colspan="4">@ao.Key.Name</td>
@@ -201,12 +205,11 @@
                                 }
                                 £@x
                             </td>
-                        }
-
+                        </tr>
                     }
-                </tr>
-            }
 
+                }
+            }
             <tr><td> </td></tr>
         }
     </table>

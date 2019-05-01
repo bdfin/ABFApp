@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,6 +10,8 @@ using Microsoft.Owin.Security;
 using ABF.Models;
 using ABF.Service.Services;
 using ABF.Data.ABFDbModels;
+using ABF.ViewModels;
+using System.Collections.Generic;
 
 namespace ABF.Controllers
 {
@@ -17,10 +20,13 @@ namespace ABF.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private OrderService orderService;
+        private PaymentService paymentService;
 
         public ManageController()
         {
-
+            orderService = new OrderService();
+            paymentService = new PaymentService();
         }
         
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -55,6 +61,7 @@ namespace ABF.Controllers
 
         //
         // GET: /Manage/Index
+        // Show details for the logged-in customer only
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -72,6 +79,7 @@ namespace ABF.Controllers
             var userId = User.Identity.GetUserId();
             var thisCustomer = customerservice.GetCustomerByUserId(userId);
             string membershipTypeId = thisCustomer.MembershipTypeId.ToString();
+            var orderlist = orderService.getOrdersForCustomerId(thisCustomer.Id);
 
             var model = new IndexViewModel
             {
@@ -80,8 +88,27 @@ namespace ABF.Controllers
                 customer = thisCustomer,
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
             };
+
+            if (orderlist.Count != 0)
+            {
+                var orderListViewModel = new List<OrderListViewModel>();
+                foreach (var order in orderlist)
+                {
+                    var viewModel = new OrderListViewModel()
+                    {
+                        orderId = order.Id,
+                        orderDate = order.Date,
+                        orderTime = order.Time,
+                        paymentMethod = paymentService.GetPayment(order.PaymentId).Method,
+                        deliveryMethod = order.Delivery,
+                        price = paymentService.GetPayment(order.PaymentId).Amount
+                    };
+                    orderListViewModel.Add(viewModel);
+                }
+                model.myorders = orderListViewModel;
+            }
 
             if (membershipTypeId != "" && membershipTypeId != null)
             {
@@ -92,21 +119,14 @@ namespace ABF.Controllers
             return View(model);
         }
 
-
         public ActionResult updateCustomerDetails(IndexViewModel model)
         {
             CustomerService customerservice = new CustomerService();
             customerservice.UpdateCustomer(model.customer);
             ViewBag.StatusMessage = "Your Details have been changed.";
             return RedirectToAction("Index", "Manage", null);
-
-
-
-
-
         }
 
-        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -130,38 +150,6 @@ namespace ABF.Controllers
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        //
-        // GET: /Manage/AddPhoneNumber
-        public ActionResult AddPhoneNumber()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Manage/AddPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
-            if (UserManager.SmsService != null)
-            {
-                var message = new IdentityMessage
-                {
-                    Destination = model.Number,
-                    Body = "Your security code is: " + code
-                };
-                await UserManager.SmsService.SendAsync(message);
-            }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
-        }
-
-        //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -176,7 +164,6 @@ namespace ABF.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -191,58 +178,6 @@ namespace ABF.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //
-        // GET: /Manage/VerifyPhoneNumber
-        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
-        {
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
-            // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
-        }
-
-        //
-        // POST: /Manage/VerifyPhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
-            }
-            // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
-            return View(model);
-        }
-
-        //
-        // POST: /Manage/RemovePhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemovePhoneNumber()
-        {
-            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
-            if (!result.Succeeded)
-            {
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
-            }
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user != null)
-            {
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-            }
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
-        }
 
         //
         // GET: /Manage/ChangePassword

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.EnterpriseServices;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
 using ABF.Data.ABFDbModels;
@@ -21,6 +22,7 @@ namespace ABF.Controllers
         private OrderService orderService;
         private PaymentService paymentService;
         private CustomerService customerService;
+        private MembershipTypeService memberService;
 
         public CheckoutController()
         {
@@ -30,15 +32,12 @@ namespace ABF.Controllers
             orderService = new OrderService();
             paymentService = new PaymentService();
             customerService = new CustomerService();
+            memberService = new MembershipTypeService();
         }
 
-
-        // GET: Checkout
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        // GET: /Checkout/StartCheckoutUser
+        // Shows checkout page to users (linked to from basket)
+        [Authorize]
         public ActionResult StartCheckoutUser()
         {
             // check the availability, and return to basket if anything needs changing
@@ -48,30 +47,28 @@ namespace ABF.Controllers
             }
             else
             {
-                var cust = new Customer();
-                try
-                {
-                    var cs = new CustomerService();
-                    cust = cs.GetCustomerByUserId(User.Identity.GetUserId());
-                }
-                catch
-                {
-                    // do nothing
-                }
-
+                var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-
-                var usercheckoutviewmodel = new UserCheckoutViewModel()
+                var vm = new SubmitViewModel
                 {
-                    customer = cust,
-                    tickettotal = tickettotal
+                    name = customer.Name,
+                    address1 = customer.Address1,
+                    address2 = customer.Address2,
+                    address3 = customer.Address3,
+                    postcode = customer.PostCode,
+                    email = customer.Email,
+                    phone = customer.PhoneNumber,
+                    total = tickettotal,
+                    ismember = true,
+                    updateneeded = false
                 };
-
-                return View("StartCheckoutUser", usercheckoutviewmodel);
+                return View("StartCheckout", vm);
             }
         }
 
+        // GET: /Checkout/StartCheckoutGuest
+        // Shows checkout page to guests (linked to from basket)
         public ActionResult StartCheckoutGuest()
         {
             if (this.CheckAvailability())
@@ -82,55 +79,23 @@ namespace ABF.Controllers
             {
                 var tickettotal = this.calculategrandtotal();
                 Session["GrandTotal"] = tickettotal;
-                return View("StartCheckout", tickettotal);
+                var vm = new SubmitViewModel
+                {
+                    total = tickettotal,
+                    ismember = false,
+                    updateneeded = false
+                };
+                return View("StartCheckout", vm);
             }
         }
 
-        protected decimal calculategrandtotal()
-        {
-            EventService es = new EventService();
-            AddOnService aos = new AddOnService();
-            MembershipTypeService mts = new MembershipTypeService();
-            decimal grandtotal = 0;
-
-            if (Session["Tix"] != null)
-            {
-                var alltix = (Dictionary<int, int>)Session["Tix"];
-                foreach (KeyValuePair<int, int> singletix in alltix)
-                {
-                    var price = es.GetEvent(singletix.Key).TicketPrice;
-                    var subtotal = price * singletix.Value;
-                    grandtotal += subtotal;
-                }
-            }
-
-            if (Session["AddOns"] != null)
-            {
-                var alladdons = (Dictionary<int, int>)Session["AddOns"];
-                foreach (KeyValuePair<int, int> singleaddon in alladdons)
-                {
-                    var price = aos.GetAddOn(singleaddon.Key).Price;
-                    var subtotal = price * singleaddon.Value;
-                    grandtotal += subtotal;
-                }
-            }
-
-            if (Session["Membership"] != null)
-            {
-                var membershipprice = ((MembershipType)Session["Membership"]).Price;
-                grandtotal += membershipprice;
-            }
-
-            // Add the p&p fee
-            grandtotal += (decimal)1.50;
-
-            return grandtotal;
-        }
-
+        // POST: /Checkout/Submit
+        // Submits the customers/users details to make a new order
         [HttpPost]
-        public ActionResult Submit(string name, string address1, string address2, string address3, string postcode,
-            string email, string phone, string paymentmethod)
+        [ValidateAntiForgeryToken()]
+        public ActionResult Submit(SubmitViewModel submitViewModel)
         {
+            string customerid = "";
             // check the availability, and return to basket if anything needs changing
             if (this.CheckAvailability())
             {
@@ -143,7 +108,7 @@ namespace ABF.Controllers
                 #region //----------------- Make a new payment
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
-                switch (paymentmethod)
+                switch (submitViewModel.paymentmethod)
                 {
                     case "cardcollect":
                     case "cardpost":
@@ -281,106 +246,49 @@ namespace ABF.Controllers
                 return View("OrderSuccess", viewModel);
             }
         }
+                #region //-------------- Create/Update Customer Details
 
-        [HttpPost]
-        public ActionResult SubmitUser(string name, string address1, string address2, string address3, string postcode,
-            string email, string phone, string paymentmethod, string updatedetails)
-        {
-            // check the availability, and return to basket if anything needs changing
-            if (this.CheckAvailability())
-            {
-                return RedirectToAction("BasketNoCheck", "Bookings");
-            }
-            else
-            {
-                var viewModel = new OrderSuccessViewModel() { newmember = false };
-
-                #region //----------------- Make a new payment
-                string paymentid = Guid.NewGuid().ToString();
-                var pmethod = "";
-                switch (paymentmethod)
+                if (submitViewModel.ismember && submitViewModel.updateneeded)               // member needs details updating
                 {
-                    case "cardcollect":
-                    case "cardpost":
-                    case "cardemail":
-                        pmethod = "card";
-                        break;
-                    case "collectlater":
-                        pmethod = "on collection";
-                        break;
-                    case "cheque":
-                        pmethod = "cheque";
-                        break;
+                    var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
+                    customer.Name = submitViewModel.name;
+                    customer.Address1 = submitViewModel.address1;
+                    customer.Address2 = submitViewModel.address2;
+                    customer.Address3 = submitViewModel.address3;
+                    customer.Email = submitViewModel.email;
+                    customer.PhoneNumber = submitViewModel.phone;
+                    customer.PostCode = submitViewModel.phone;
+
+                    customerService.UpdateCustomer(customer);
+                    customerid = customer.Id;
                 }
-
-                var payment = new Payment()
+                else if (!submitViewModel.ismember)                                         // new customer
                 {
-                    Id = paymentid,
-                    Method = pmethod,
-                    Amount = this.calculategrandtotal()
-                };
-
-                paymentService.CreatePayment(payment);
-
-                #endregion
-
-                #region //-------------- Update Customer Details if appropriate
-                var userId = User.Identity.GetUserId();
-                var custId = "";
-                var updatedetails1 = updatedetails;
-                // check they have a customer account linked, if not create one
-                try
-                {
-                    // see if a customer account can be found
-                    custId = customerService.GetCustomerByUserId(userId).Id;
-                }
-                catch
-                {
-                    // if customer account does not exist:
-                    var newcustomer = new Customer()
+                    customerid = Guid.NewGuid().ToString();
+                    var customer = new Customer()
                     {
-                        Id = Guid.NewGuid().ToString(),
-                        UserId = userId,
-                        Name = name,
-                        Address1 = address1,
-                        Address2 = address2,
-                        Address3 = address3,
-                        PostCode = postcode,
-                        Email = email,
-                        PhoneNumber = phone,
+                        Id = customerid,
+                        Name = submitViewModel.name,
+                        Address1 = submitViewModel.address1,
+                        Address2 = submitViewModel.address2,
+                        Address3 = submitViewModel.address3,
+                        PostCode = submitViewModel.postcode,
+                        Email = submitViewModel.email,
+                        PhoneNumber = submitViewModel.phone,
+                        MembershipTypeId = 1
                     };
-                    customerService.CreateCustomer(newcustomer);
-                    updatedetails1 = "update";
+                    customerService.CreateCustomer(customer);
                 }
 
-                // if customer checked the update details box, update details
-                if (updatedetails1 == "update")
-                {
-                    custId = customerService.GetCustomerByUserId(userId).Id;
-                    var customerupdated = new Customer()
-                    {
-                        Id = custId,
-                        Name = name,
-                        Address1 = address1,
-                        Address2 = address2,
-                        Address3 = address3,
-                        PostCode = postcode,
-                        Email = email,
-                        PhoneNumber = phone,
-                    };
-                    customerService.UpdateCustomer(customerupdated);
-                }
                 #endregion
 
                 #region//---------------- create a new order
-                custId = customerService.GetCustomerByUserId(userId).Id;
-
                 var deliverymethod = "";
-                if (paymentmethod == "cheque" || paymentmethod == "cardpost")
+                if (submitViewModel.paymentmethod == "cheque" || submitViewModel.paymentmethod == "cardpost")
                 {
                     deliverymethod = "post";
                 }
-                else if (paymentmethod == "collect" || paymentmethod == "cardcollect")
+                else if (submitViewModel.paymentmethod == "collect" || submitViewModel.paymentmethod == "cardcollect")
                 {
                     deliverymethod = "collect";
                 }
@@ -393,17 +301,27 @@ namespace ABF.Controllers
                 {
                     Date = DateTime.Today,
                     Time = DateTime.Now,
-                    CustomerId = custId,
+                    CustomerId = customerid,
                     PaymentId = paymentid,
-                    Delivery = deliverymethod
+                    Delivery = deliverymethod,
+                    DeliveryName = submitViewModel.name,
+                    Address1 = submitViewModel.address1,
+                    Address2 = submitViewModel.address2,
+                    Address3 = submitViewModel.address3,
+                    PostCode = submitViewModel.postcode,
+                    Email = submitViewModel.email,
+                    PhoneNumber = submitViewModel.phone
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
                 #endregion
 
                 #region //------------ Create tickets for each item
+
                 var TicketList = new List<Ticket>();
-                var orderId = orderService.GetOrderId(paymentid, custId);
+
+                var orderId = orderService.GetOrderId(paymentid, customerid);
+
                 if (Session["Tix"] != null)
                 {
                     var alltix = (Dictionary<int, int>)Session["Tix"];
@@ -419,6 +337,7 @@ namespace ABF.Controllers
                                 OrderId = orderId,
 
                             };
+
                             ticketService.CreateTicket(ticket);
                             TicketList.Add(ticket);
                         }
@@ -438,7 +357,9 @@ namespace ABF.Controllers
                                 Id = ticketId,
                                 AddOnId = singleaddon.Key,
                                 OrderId = orderId,
+
                             };
+
                             ticketService.CreateTicket(ticket);
                             TicketList.Add(ticket);
                         }
@@ -447,25 +368,12 @@ namespace ABF.Controllers
                 }
 
                 viewModel.tickets = TicketList;
-                #endregion
 
-                #region //----------- turn user into member, if Membership was put in basket
-
-                if (Session["Membership"] != null)
-                {
-                    var newmember = customerService.GetCustomer(custId);
-                    var requestedmembershiptype = (MembershipType)Session["Membership"];
-                    newmember.MembershipTypeId = requestedmembershiptype.Id;
-                    newmember.DateJoined = DateTime.Now;
-                    customerService.UpdateCustomer(newmember);
-                    viewModel.newmember = true;
-                }
                 #endregion
 
                 // clear all tickets from the basket!
                 Session.Abandon();
 
-                // all the logic goes here
                 return View("OrderSuccess", viewModel);
             }
         }
@@ -483,6 +391,7 @@ namespace ABF.Controllers
             return File(stream, "application/pdf");
         }
 
+        // Checks the availability of all tickets and addons in the basket
         public bool CheckAvailability()
         {
             bool isChanged = false;
@@ -642,5 +551,45 @@ namespace ABF.Controllers
 
             return isChanged;
         }
+
+        // calculates the total of all the items in the basket
+        protected decimal calculategrandtotal()
+        {
+            decimal grandtotal = 0;
+
+            if (Session["Tix"] != null)
+            {
+                var alltix = (Dictionary<int, int>)Session["Tix"];
+                foreach (KeyValuePair<int, int> singletix in alltix)
+                {
+                    var price = eventService.GetEvent(singletix.Key).TicketPrice;
+                    var subtotal = price * singletix.Value;
+                    grandtotal += subtotal;
+                }
+            }
+
+            if (Session["AddOns"] != null)
+            {
+                var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                foreach (KeyValuePair<int, int> singleaddon in alladdons)
+                {
+                    var price = addOnService.GetAddOn(singleaddon.Key).Price;
+                    var subtotal = price * singleaddon.Value;
+                    grandtotal += subtotal;
+                }
+            }
+
+            if (Session["Membership"] != null)
+            {
+                var membershipprice = ((MembershipType)Session["Membership"]).Price;
+                grandtotal += membershipprice;
+            }
+
+            // Add the p&p fee
+            grandtotal += (decimal)1.50;
+
+            return grandtotal;
+        }
+
     }
 }

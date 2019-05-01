@@ -37,6 +37,50 @@ textarea {
     padding-bottom: 40px;
 }
 
+.box-colour2 {
+    background: rgba(252,191,45, 0.5) !important;
+}
+
+.contact-us-bg {
+    background: url("/Content/SiteImages/ContactUsBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.visit-bg {
+    background: url("/Content/SiteImages/VisitBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.faq-bg {
+    background: url("/Content/SiteImages/FAQBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.tandc-bg {
+    background: url("/Content/SiteImages/TandCBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.message-sent-bg {
+    background: url("/Content/SiteImages/MessageSentBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .navlogo-padding {
     padding-left: 4px;
 }
@@ -104,3 +148,11 @@ textarea {
     background-size: cover;
 }
 
+.footer-colourbox {
+   background: rgb(43,182,175);
+}
+
+.footer-fontcolour {
+
+    color: white !important;
+}

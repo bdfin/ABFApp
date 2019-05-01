@@ -66,6 +66,7 @@ namespace ABF.Controllers.Admin
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(EventFormViewModel viewModel)
         {
             if (!ModelState.IsValid)
@@ -150,6 +151,7 @@ namespace ABF.Controllers.Admin
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteEvent(int id)
         {
             var e = eventService.GetEvent(id);

@@ -1,23 +1,46 @@
 ﻿@using Antlr.Runtime.Tree
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="bg-info">
+    <h1>Admin Console</h1>
+</div>
 
-<h2>Admin Dashboard</h2>
-@Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Locations", "Index", "AdminLocations", null, new { @class = "btn btn-primary" })
+<div class="bg-warning">
+    <h3>Box Office Features</h3>
+</div>
 
-<hr/>
-<h2>Reports</h2>
+<h5>Reports</h5>
 @Html.ActionLink("Ticket Sales", "AllTicketQuantities", "AdminTicket", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Orders", "Index", "Order", null, new { @class = "btn btn-primary" })
 @Html.ActionLink("Payment", "Index", "AdminPayments", null, new { @class = "btn btn-primary" })
+@Html.ActionLink("Members", "Index", "AdminMembers", null, new { @class = "btn btn-primary" })
 
-<hr />
+<hr/>
+<br/>
+<br/>
 
-<h3>User and Role Management</h3>
-@Html.ActionLink("Add an Admin", "Index", "InitAdmin", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("User Management", "Index", "UsersAdmin", null, new { @class = "btn btn-primary" })
-@Html.ActionLink("Role Management", "Index", "RolesAdmin", null, new { @class = "btn btn-primary" })
+
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="bg-warning">
+        <h3>Admin Features</h3>
+    </div>
+
+    <h5>Database Management</h5>
+    @Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Locations", "Index", "AdminLocations", null, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Customers", "Index", "AdminCustomers", null, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("Website Users", "Index", "UsersAdmin", null, new { @class = "btn btn-secondary" })
+    @Html.ActionLink("User Roles", "Index", "RolesAdmin", null, new { @class = "btn btn-secondary" })
+
+    <hr />
+
+    <h5>Admin Functions</h5>
+    @Html.ActionLink("Reset Annual Memberships", "RenewAllMemberships", "AdminCustomers", null, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Add an Admin", "Index", "InitAdmin", null, new { @class = "btn btn-danger" })
+
+}
+

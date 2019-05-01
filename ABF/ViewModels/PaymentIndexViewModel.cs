@@ -15,7 +15,7 @@ namespace ABF.ViewModels
         [Display (Name = "Order Id")]
         public int OrderId { get; set; }
 
-        [Display (Name ="Customer Name")]
+        [Display (Name ="Customer")]
         public string CustName { get; set; }
 
         [Display(Name = "Order Date")]
@@ -27,7 +27,7 @@ namespace ABF.ViewModels
         [Display(Name = "Payment Method")]
         public string PaymentMethod { get; set; }
 
-        [Display(Name ="Amount")]
+        [Display(Name ="Total")]
         public decimal amount { get; set; }
 
 

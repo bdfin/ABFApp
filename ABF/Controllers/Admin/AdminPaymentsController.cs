@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ABF.Controllers.Admin
 {
+    [Authorize(Roles = "Box Office, Admin")]
     public class AdminPaymentsController : Controller
     {
         // GET: AdminPayments

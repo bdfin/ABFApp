@@ -9,36 +9,44 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-8">
             <table>
                 <thead>
                     <tr>
-                        <td colspan="2"><h4>Customer Details</h4></td>
+                        <td colspan="2"><h4>Customer Details:</h4></td>
                     </tr>
                 </thead>
                 <tr>
-                    <td><b>Name</b></td>
-                    <td>@Model.customer.Name</td>
-                </tr>
-                <tr>
-                    <td><b>Address</b></td>
+                    <td><b>Customer Account:</b></td>
                     <td>
-                        @Model.customer.Address1 @Model.customer.Address2,<br />
-                        @Model.customer.Address3,<br />
-                        @Model.customer.PostCode
+                        @Model.customer.Name<br/>
+                        @Model.customer.Email<br/>
+                        @Model.customer.PhoneNumber
                     </td>
                 </tr>
                 <tr>
-                    <td><b>Email</b></td>
-                    <td>@Model.customer.Email</td>
+                    <td colspan="2"><br/><h4>Delivery Details:</h4></td>
                 </tr>
                 <tr>
-                    <td><b>Phone</b></td>
-                    <td>@Model.customer.PhoneNumber</td>
+                    <td><b>Delivery Address</b></td>
+                    <td>
+                        <b>@Model.order.DeliveryName</b><br/>
+                        @Model.order.Address1 @Model.order.Address2,<br/>
+                        @Model.order.Address3,<br/>
+                        @Model.order.PostCode
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Delivery Email</b></td>
+                    <td>@Model.order.Email</td>
+                </tr>
+                <tr>
+                    <td><b>Delivery Phone</b></td>
+                    <td>@Model.order.PhoneNumber</td>
                 </tr>
             </table>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <table>
                 <thead>
                 <tr>

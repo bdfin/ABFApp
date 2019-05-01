@@ -1,60 +1,94 @@
-﻿@model decimal
+﻿@model ABF.ViewModels.SubmitViewModel
 @{
     ViewBag.Title = "StartCheckoutGuest";
 }
 
-<h2>Checkout As A Guest</h2>
-<div class="bg-warning">
-    <h5>As a Guest, you will not be able to see or manage your order via the website.</h5>
-    <p>To enable these features, please Register or Login using the links above.</p>
-</div>
-<hr />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-<form method="post" class="customerdetails" action="@Url.Action("Submit", "Checkout")">
+@if (Model.ismember == false)
+{
+    <div class="bg-warning">
+        <h2>Checkout As A Guest</h2>
+        <h5>As a Guest, you will not be able to see or manage your order via the website.</h5>
+        <p>To enable these features, please Register or Login using the links above.</p>
+    </div>
+}
+else
+{
+    <div class="bg-success">
+        <h2>Member Checkout</h2>
+    </div>
+}
+
+<hr />
+
+@using (Html.BeginForm("Submit", "Checkout", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+ 
+    @Html.ValidationSummary(true, "Please fix the following errors:", new { @class = "text-danger" })
+
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h4>Delivery Address</h4>
-                <table class="table-responsive-md">
+                <table style="width:100%">
                     <tr>
-                        <td class="label">Name</td>
-                        <td><input class="form-control form-control-lg" name="name" type="text" placeholder="e.g. Jeremy Vine" /></td>
+                        <td colspan="3" class="bg-info"><h4>Delivery Address</h4></td>
                     </tr>
                     <tr>
-                        <td class="label">House Number/Name</td>
-                        <td><input class="form-control form-control-lg" name="address1" type="text" placeholder="e.g. 123 or My House Name"/></td>
+                        <td>@Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
-                        <td class="label">Street Name</td>
-                        <td><input class="form-control form-control-lg" name="address2" type="text" placeholder="e.g. High Street"/></td>
+                        <td>@Html.LabelFor(model => model.address1, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.address1, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.address1, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
-                        <td class="label">Town</td>
-                        <td><input class="form-control form-control-lg" name="address3" type="text" placeholder="e.g. Appledore"/></td>
+                        <td>@Html.LabelFor(model => model.address2, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.address2, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.address2, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
-                        <td class="label">PostCode</td>
-                        <td><input class="form-control form-control-lg" name="postcode" type="text" placeholder="e.g. EX39 1PH"/></td>
+                        <td>@Html.LabelFor(model => model.address3, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.address3, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.address3, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
-                        <td class="label">Email</td>
-                        <td><input class="form-control form-control-lg" name="email" type="email" placeholder="e.g. admin@appledorebookfestival.co.uk"/></td>
+                        <td>@Html.LabelFor(model => model.postcode, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.postcode, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.postcode, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
-                        <td class="label">Telephone</td>
-                        <td><input class="form-control form-control-lg" name="phone" type="tel" placeholder="e.g. 01237 424949"/></td>
+                        <td>@Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })</td>
                     </tr>
+                    <tr>
+                        <td>@Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-12" })</td>
+                        <td>@Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })</td>
+                        <td>@Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })</td>
+                    </tr>
+                    
+                    @if (Model.ismember == true)
+                    {
+                        <tr>
+                            <td colspan="3">
+                                <input type="checkbox" name="updatedetails" value=true><b>&nbsp;Update my registered details</b>
+                            </td>
+                        </tr>
+                    }
                 </table>
             </div>
 
             <div class="col-sm-6">
-                <h4>Payment and Delivery</h4>
                 <table style="width:100%">
                     <tr>
-                        <td><b>Payment Method</b></td>
+                        <td colspan="2" class="bg-info"><h4>Payment</h4></td>
                     </tr>
                     <tr>
+                        <td>Payment Method:</td>
                         <td>
                             <div class="form-group">
                                 <select class="form-control" id="paymentmethod" name="paymentmethod">
@@ -72,34 +106,51 @@
                                     <p class="alert-light" id="paymentText"></p>
                                 </div>
                             </div>
+                            <br />
+                            <select class="form-control" id="paymentmethod" name="paymentmethod">
+                                <option value="">Select...</option>
+                                <option value="cardemail">Pay Now - Email Tickets</option>
+                                <option value="cardpost">Pay Now - Post Tickets</option>
+                                <option value="cardcollect">Pay Now - Collect Tickets </option>
+                                <option value="latercollect">Pay Later - Collect Tickets </option>
+                                <option value="cheque">Send Cheque - Post Tickets </option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align:right">
-                            <hr/>
-                            <h5>Basket Total <b>£ @(Model - (decimal) 1.50)</b></h5>
-                            <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
-                            <hr/>
-                            <h5>Total <b>£ @Model </b></h5>
-                            <hr/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit" class="btn-lg button btn-info">Checkout</button>
+                        <td colspan="2">
+                            <br />
+                            <p class="alert-light" id="paymentText"></p>
                         </td>
                     </tr>
                 </table>
+
+
+                <table style="width:100%">
+                    <tr>
+                        <td colspan="2" style="text-align:right">
+                            <hr />
+                            <h5>Basket Total <b>£ @(Model.total - (decimal)1.50)</b></h5>
+                            <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
+                            <hr />
+                            <h5>Total <b>£ @Model.total </b></h5>
+                            <hr />
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="form-group">
+                    <div class="col">
+                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>
             </div>
-            <br />
-            <hr />
         </div>
     </div>
-</form>
-
+}
 
 <br />
-
+<hr />
 
 
 <script>

@@ -35,7 +35,8 @@ namespace ABF.Controllers
             adminticketcontroller = new AdminTicketController();
         }
 
-        // GET: Bookings
+        // GET: /Bookings/Index
+        // Shows a list of all events in the database
         public ActionResult Index()
         {
             var locationlist = locationService.GetLocations();
@@ -84,7 +85,7 @@ namespace ABF.Controllers
                 var userId = User.Identity.GetUserId();
                 var customermemberstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
 
-                if (customermemberstate != null)
+                if (customermemberstate > 0)
                 {
                     indexview.isMember = true;
                 }
@@ -93,6 +94,8 @@ namespace ABF.Controllers
             return View(indexview);
         }
 
+        // GET: /Bookings/Details/2
+        // Returns view of details of a single event
         public ActionResult Details(int id)
         {
             var thisevent = eventService.GetEvent(id);
@@ -120,6 +123,8 @@ namespace ABF.Controllers
             return View(viewmodel);
         }
 
+        // GET: /Bookings/UniqueDates
+        // Returns a list of unique event dates for which events are scheduled
         public ActionResult UniqueDates()
         {
             var datelist = eventService.GetUniqueDates();
@@ -132,6 +137,8 @@ namespace ABF.Controllers
             return View("_DateList", stringdatelist);
         }
 
+        // GET: /Bookings/Basket
+        // Checks the availability of all items, then shows basket view
         public ActionResult Basket()
         {
             this.CheckAvailability();
@@ -249,6 +256,8 @@ namespace ABF.Controllers
             }
         }
 
+        // GET: /Bookings/CheckAvailability
+        // checks the availability of all items in the basket
         public bool CheckAvailability()
         {
             bool isChanged = false;
@@ -409,6 +418,8 @@ namespace ABF.Controllers
             return isChanged;
         }
 
+        // GET: /Bookings/BasketNoCheck
+        // returns the basket view without checking availabilty
         public ActionResult BasketNoCheck()
         {
             if (Session["Tix"] == null && Session["Membership"] == null && Session["UTix"] == null

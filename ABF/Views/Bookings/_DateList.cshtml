@@ -1,12 +1,23 @@
 ﻿@model IEnumerable<DateTime>
+<div style="background-color:palegoldenrod">
+    <table>
+        <tr>
+            <td>
+                <h5><b>Filter by Date: </b></h5>
+            </td>
+            <td>
+                &nbsp;&nbsp;<input id="AllEvents" style="background-color: lightskyblue; margin:5px" type="button" value="Show All Events" onclick="doSearch('')" />
+            </td>
+            <td>
+                @foreach (var item in Model)
+                {
+                    var value = item.ToString("ddd dd MMM");
+                    var searchvalue = item.ToString("ddMMMyyyy");
 
-<input id="AllEvents" type="button" value="Show All Events" onclick="doSearch('')" />
-
-@foreach (var item in Model)
-{
-    var value = item.ToString("ddd dd MMM");
-    var searchvalue = item.ToString("ddMMMyyyy");
-
-    <input id="@item" type="button" value="@value" onclick="doSearch('@searchvalue')" />
-
-}
+                    <input id="@item" style="background-color: orange; margin:3px" type="button" value="@value" onclick="doSearch('@searchvalue')" />
+                }
+            </td>
+        </tr>
+    </table>
+</div>
+<hr />

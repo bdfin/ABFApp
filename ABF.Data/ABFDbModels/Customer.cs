@@ -11,12 +11,14 @@ namespace ABF.Data.ABFDbModels
     {
         public string Id { get; set; }
 
+        [Display(Name="User ID")]
         public string UserId { get; set; }
 
         [Required]
+        [Display(Name = "Full Name")]
         public string Name { get; set; }
 
-        [Display(Name ="House Number/Name")]
+        [Display(Name ="House No/Name")]
         public string Address1 { get; set; }
 
         [Display(Name="Street Name")]
@@ -30,14 +32,15 @@ namespace ABF.Data.ABFDbModels
         public string PostCode { get; set; }
 
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Phone")]
         [DataType(DataType.PhoneNumber)]        
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Membership Type")]
-        public int? MembershipTypeId { get; set; }
+        public int MembershipTypeId { get; set; }
 
         [Display(Name="Date Joined As Member")]
         public DateTime? DateJoined { get; set; }

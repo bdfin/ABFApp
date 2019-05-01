@@ -31,10 +31,16 @@
     @foreach (var ticket in ticketlist)
     {
         <tr>
-            <td>@ticket.Id</td>
-            <td>@ticket.EventId</td>
-            <td>@ticket.AddOnId</td>
-            <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.EventId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.AddOnId)
+            </td>
+          <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
         </tr>
     }
 </table>

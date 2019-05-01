@@ -41,6 +41,7 @@ namespace ABF.Controllers
             return View("CustomerForm", viewModel);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Save(CustomerFormViewModel viewModel)
         {
             if (viewModel.Customer.Id == "0" || viewModel.Customer.Id == null)
@@ -83,8 +84,8 @@ namespace ABF.Controllers
             return View(customerService.GetCustomer(id));
         }
 
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteCustomer(string id)
         {
             var customer = customerService.GetCustomer(id);
@@ -92,6 +93,24 @@ namespace ABF.Controllers
             
             return RedirectToAction("Index");
            
+        }
+
+        public ActionResult RenewAllMemberships()
+        {
+            var allusers = customerService.GetCustomers();
+
+            foreach (var user in allusers)
+            {
+                var needreset = membershipTypeService.GetMembershipType(user.MembershipTypeId).Expiry;
+
+                if (needreset)
+                {
+                    user.MembershipTypeId = 1;
+                    user.DateJoined = null;
+                    customerService.UpdateCustomer(user);
+                }
+            }
+            return View("Index", customerService.GetCustomers());
         }
     }
 }
