@@ -74,23 +74,25 @@
 
 <div class="container">
     <h3>Tickets:</h3>
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <td>Ticket ID</td>
-            <td>Event ID</td>
-            <td>AddOn ID</td>
+            <th>Ticket ID</th>
+            <th>Event</th>
+            <th>AddOn ID</th>
+            <th>Download Ticket</th>
         </tr>
         </thead>
-        
-        @foreach (var ticket in Model.ticketlist)
-        {
-            <tr>
-                <td>@ticket.Id</td>
-                <td>@ticket.EventId</td>
-                <td>@ticket.AddOnId</td>
-            </tr>
-        }
-
+        <tbody>
+            @foreach (var ticket in Model.ticketlist)
+            {
+                <tr>
+                    <td>@ticket.Id</td>
+                    <td>@ticket.Event.Name</td>
+                    <td>@ticket.AddOnId</td>
+                    <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+                </tr>
+            }
+        </tbody> 
     </table>
 </div>
