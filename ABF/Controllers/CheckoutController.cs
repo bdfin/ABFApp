@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.EnterpriseServices;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
@@ -111,6 +112,7 @@ namespace ABF.Controllers
                 var viewModel = new OrderSuccessViewModel();
 
                 #region //----------------- Make a new payment
+
                 string paymentid = Guid.NewGuid().ToString();
                 var pmethod = "";
                 switch (submitViewModel.paymentmethod)
@@ -135,11 +137,12 @@ namespace ABF.Controllers
                     Amount = this.calculategrandtotal()
                 };
                 paymentService.CreatePayment(payment);
+
                 #endregion
 
                 #region //-------------- Create/Update Customer Details
 
-                if (submitViewModel.ismember && submitViewModel.updateneeded)               // member needs details updating
+                if (submitViewModel.ismember && submitViewModel.updateneeded) // member needs details updating
                 {
                     var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
                     customer.Name = submitViewModel.name;
@@ -153,7 +156,7 @@ namespace ABF.Controllers
                     customerService.UpdateCustomer(customer);
                     customerid = customer.Id;
                 }
-                else if (!submitViewModel.ismember)                                         // new customer
+                else if (!submitViewModel.ismember) // new customer
                 {
                     customerid = Guid.NewGuid().ToString();
                     var customer = new Customer()
@@ -174,6 +177,7 @@ namespace ABF.Controllers
                 #endregion
 
                 #region//---------------- create a new order
+
                 var deliverymethod = "";
                 if (submitViewModel.paymentmethod == "cheque" || submitViewModel.paymentmethod == "cardpost")
                 {
@@ -205,6 +209,7 @@ namespace ABF.Controllers
                 };
                 orderService.CreateOrder(order);
                 viewModel.order = order;
+
                 #endregion
 
                 #region //------------ Create tickets for each item
@@ -215,7 +220,7 @@ namespace ABF.Controllers
 
                 if (Session["Tix"] != null)
                 {
-                    var alltix = (Dictionary<int, int>)Session["Tix"];
+                    var alltix = (Dictionary<int, int>) Session["Tix"];
                     foreach (KeyValuePair<int, int> singletix in alltix)
                     {
                         for (int i = 0; i < singletix.Value; i++)
@@ -237,7 +242,7 @@ namespace ABF.Controllers
 
                 if (Session["AddOns"] != null)
                 {
-                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
+                    var alladdons = (Dictionary<int, int>) Session["AddOns"];
                     foreach (KeyValuePair<int, int> singleaddon in alladdons)
                     {
                         for (int i = 0; i < singleaddon.Value; i++)
@@ -271,6 +276,19 @@ namespace ABF.Controllers
             
 
         }
+
+
+        public ActionResult DownloadTicket(string id)
+                {
+                    MemoryStream stream = new MemoryStream();
+
+                    var ticket = ticketService.GetTicket(id);
+                    var pdfTicket = ticketService.GenerateTicket(ticket);
+
+                    pdfTicket.Save(stream, false);
+
+                    return File(stream, "application/pdf");
+                }
 
         // Checks the availability of all tickets and addons in the basket
         public bool CheckAvailability()

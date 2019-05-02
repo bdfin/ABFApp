@@ -10,56 +10,55 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="@Url.Action("Index", "Home")" class="navbar-left"><img src="/Content/SiteImages/appledore-book-festival-logo-navbar-small.png"></a>
-            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="@Url.Action("Index", "Home")" class="navbar-left"><img src="/Content/SiteImages/appledore-book-festival-logo-navbar-small.png"></a>
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
 
-                <ul class="nav navbar-nav mr-auto">
-                    @if (User.IsInRole("Admin") || User.IsInRole("Box Office"))
-                    {
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Admin Console
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="nav navbar-nav mr-auto">
+                @if (User.IsInRole("Admin") || User.IsInRole("Box Office"))
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin Console
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    @Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "dropdown-item" })
-                                    @Html.ActionLink("Locations", "Index", "AdminLocations", null, new { @class = "dropdown-item" })
-                                    @Html.ActionLink("Customers", "Index", "AdminCustomers", null, new { @class = "dropdown-item" })
-                                    <div class="dropdown-divider"></div>
-                                }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Events", "Index", "AdminEvents", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Locations", "Index", "AdminLocations", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Customers", "Index", "AdminCustomers", null, new { @class = "dropdown-item" })
+                                <div class="dropdown-divider"></div>
+                            }
 
-                                @Html.ActionLink("Admin Console", "Index", "Admin", null, new { @class = "dropdown-item" })
-                            </div>
-                        </li>
-                    }
-
-                    <li class="nav-item">
-                        @Html.ActionLink("Browse Events", "Index", "Bookings", null, new { @class = "nav-link" })
+                            @Html.ActionLink("Admin Console", "Index", "Admin", null, new { @class = "dropdown-item" })
+                        </div>
                     </li>
+                }
 
-                    <li class="nav-item">
-                        @Html.ActionLink("Membership", "Membership", "Basket", null, new { @class = "nav-link" })
-                    </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Browse Events", "Index", "Bookings", null, new { @class = "nav-link" })
+                </li>
 
-                </ul>
+                <li class="nav-item">
+                    @Html.ActionLink("Membership", "Membership", "Basket", null, new { @class = "nav-link" })
+                </li>
 
-                @Html.Partial("_LoginPartial")
-            </div>
+            </ul>
+
+            @Html.Partial("_LoginPartial")
         </div>
-    </nav>
-
-    <div class="container body-content h-100 pb-5">
-        @RenderBody()
     </div>
-</body>
-</html>
+</nav>
+
+<div class="container body-content h-100 pb-5">
+    @RenderBody()
+</div>
+
 
 <!-- Footer -->
 <footer class="page-footer font-small blue pt-4 bg-light">
@@ -124,34 +123,35 @@
                 <h5 class="text-uppercase">More Information</h5>
                 <ul class="list-unstyled">
                     <li class="list-group-item footer-colourbox">
-                        @Html.ActionLink("About Us", "About", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("About Us", "About", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
 
                     <li class="list-group-item footer-colourbox">
-                        @Html.ActionLink("Local Information", "Visit", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("Local Information", "Visit", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
 
                     <li class="list-group-item footer-colourbox">
-                        @Html.ActionLink("FAQ", "FAQs", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("FAQ", "FAQs", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
 
                     <li class="list-group-item footer-colourbox">
-                        @Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("Contact Us", "Contact", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
 
                     <li class="list-group-item footer-colourbox ">
-                        @Html.ActionLink("Our Policies", "Cookies", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("Our Policies", "Cookies", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
 
                     <li class="list-group-item footer-colourbox">
-                        @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "footer-fontcolour" })
+                        @Html.ActionLink("Ts & Cs", "TermsConditions", "Home", new { @class = "footer-fontcolour" }, null)
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
-
+</body>
+</html>
 
 @Scripts.Render("~/bundles/lib")
 @Scripts.Render("~/bundles/jqueryval")

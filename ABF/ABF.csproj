@@ -90,12 +90,24 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder, Version=1.3.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.3.5\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.5.0\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -394,13 +406,6 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Content\Images\image1.jpeg" />
-    <Content Include="Content\Images\image2.jpg" />
-    <Content Include="Content\Images\image3.jpg" />
-    <Content Include="Content\Images\image4.jpg" />
-    <Content Include="Content\Images\image5.jpg" />
-    <Content Include="Content\Images\image6.jpg" />
-    <Content Include="Content\Images\image7.jpg" />
     <Content Include="Content\MapIcons\addonicon.png" />
     <Content Include="Content\MapIcons\arrow.png" />
     <Content Include="Content\MapIcons\Disability_Friendly-512.png" />
@@ -438,6 +443,13 @@
     <Content Include="Content\SiteImages\ContactUsBackground.jpg" />
     <Content Include="Content\SiteImages\FAQBackground.jpg" />
     <Content Include="Content\SiteImages\image-placeholder-350x350.png" />
+    <Content Include="Content\SiteImages\image1.jpeg" />
+    <Content Include="Content\SiteImages\image2.jpg" />
+    <Content Include="Content\SiteImages\image3.jpg" />
+    <Content Include="Content\SiteImages\image4.jpg" />
+    <Content Include="Content\SiteImages\image5.jpg" />
+    <Content Include="Content\SiteImages\image6.jpg" />
+    <Content Include="Content\SiteImages\image7.jpg" />
     <Content Include="Content\SiteImages\Membership background.jpg" />
     <Content Include="Content\SiteImages\MessageSentBackground.jpg" />
     <Content Include="Content\SiteImages\navbar-basket.png" />
@@ -670,6 +682,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
