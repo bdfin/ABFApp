@@ -90,8 +90,10 @@ namespace ABF.Service.Services
 
             document.Info.Title = ticketEvent.Name + " " + ticket.Id.ToString();
 
+            string qrCodeString = ticket.Id;
+
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode(ticketEvent.Id.ToString(), QRCodeGenerator.ECCLevel.Q);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrCodeString, QRCodeGenerator.ECCLevel.Q);
             QRCode qrCode = new QRCode(qrCodeData);
             System.Drawing.Image qrCodeImage = qrCode.GetGraphic(15);
 
@@ -99,7 +101,7 @@ namespace ABF.Service.Services
 
             qrCodeImage.Save(imageStream, System.Drawing.Imaging.ImageFormat.Png);
 
-            gfx.DrawImage(XImage.FromStream(imageStream), 0, 0);
+            gfx.DrawImage(XImage.FromStream(imageStream), 20, 20, 250, 250);
 
             imageStream.Close();
 
