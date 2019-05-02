@@ -1,11 +1,11 @@
 ﻿@model ABF.Data.ABFDbModels.Order
 
-<div class="bg-info">
+<div class="jumbotron">
     <h2>Your order number is <b>@Model.Id</b>.</h2>
     <h5>Order Placed on @Model.Date.ToString("ddd dd MMM") at @Model.Time.ToString("hh:mm").</h5>
 
     <br />
-    <h4><b>Selected Delivery Method:</b> @Model.Delivery</h4>
+    <h4>Delivery Information</h4>
     @{
         switch (Model.Delivery)
         {
@@ -23,8 +23,8 @@
                     your order will be cancelled and tickets returned to stock.</p>
                 break;
             case "email":
-                <h5>Your tickets will been emailed to the email address you supplied at checkout.</h5>
-                <p>Please allow a few minutes for this to happen and check your SPAM or Junk box if they have not arrived in an hour.</p>
+                <h5>Your tickets are available to download by clicking on the box below for each ticket.</h5>
+                <br />
                 <p><b>If you are a registered customer, you can see your orders and reprint tickets from your Account page.</b></p>
                 break;
         }

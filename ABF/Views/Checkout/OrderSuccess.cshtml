@@ -20,28 +20,34 @@
     </div>
 }
 
-<h3>Here's a list of your tickets (for testing purposes)</h3>
+<h3>Here's a list of your tickets!</h3>
 <table class="table">
-    <tr>
-        <th>Ticket ID</th>
-        <th>Event Id</th>
-        <th>Add On Id</th>
-    </tr>
-
-    @foreach (var ticket in ticketlist)
-    {
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.EventId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => ticket.AddOnId)
-            </td>
-          <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+            <th>Ticket ID</th>
+            <th>Event Name</th>
+            <th>Add On Id</th>
+            <th>Donwload Ticket</th>
         </tr>
-    }
+    </thead>
+
+    <tbody>
+        @foreach (var ticket in ticketlist)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.Event.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => ticket.AddOnId)
+                </td>
+                <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+            </tr>
+        }
+    </tbody>
+   
 </table>
 

@@ -5,27 +5,25 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-@if (Model.ismember == false)
-{
-    <div class="bg-warning">
+<div class="jumbotron">
+    @if (Model.ismember == false)
+    {
         <h2>Checkout As A Guest</h2>
         <h5>As a Guest, you will not be able to see or manage your order via the website.</h5>
         <p>To enable these features, please Register or Login using the links above.</p>
-    </div>
-}
-else
-{
-    <div class="bg-success">
+    }
+    else
+    {
         <h2>Member Checkout</h2>
-    </div>
-}
+    }
+</div>
 
 <hr />
 
 @using (Html.BeginForm("Submit", "Checkout", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
- 
+
     @Html.ValidationSummary(true, "Please fix the following errors:", new { @class = "text-danger" })
 
     <div class="container">
@@ -70,7 +68,7 @@ else
                         <td>@Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })</td>
                         <td>@Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })</td>
                     </tr>
-                    
+
                     @if (Model.ismember == true)
                     {
                         <tr>
@@ -90,37 +88,19 @@ else
                     <tr>
                         <th>Payment Method:</th>
 
-
                         <td>
                             <div class="form-group">
-                                <select class="form-control" id="paymentmethod" name="paymentmethod">
+                                <select class="form-control" id="paymentmethod" name="paymentmethod" , @Html.EditorFor(model => model.paymentmethod, new { htmlAttributes = new { @class = "form-control" } })>
                                     <option value="">Select...</option>
-                                    <option value="cardemail">Pay Now - Email My Tickets</option>
-                                    <option value="cardDownload">Pay Now - Download My Tickets</option>
-                                    <option value="cardpost">Pay Now - Post My Tickets</option>
-                                    <option value="cardcollect">Pay Now - Collect From Box Office</option>
-                                    <option value="collectlater">Pay Later - Collect From Box Office</option>
-                                    <option value="cheque">Send a Cheque - Post My Tickets </option>
+                                    <option value="cardemail">Pay Now - Download Tickets</option>
+                                    <option value="cardpost">Pay Now - Post Tickets</option>
+                                    <option value="cardcollect">Pay Now - Collect Tickets </option>
+                                    <option value="latercollect">Pay Later - Collect Tickets </option>
+                                    <option value="cheque">Send Cheque - Post Tickets </option>
                                 </select>
-
-                                <br />
-                                <div>
-                                    <p class="alert-light" id="paymentText"></p>
-                                </div>
                             </div>
-                            <br />
-                            <select class="form-control" id="paymentmethod" name="paymentmethod", @Html.EditorFor(model => model.paymentmethod, new { htmlAttributes = new { @class = "form-control" } }) >
-                                <option value="">Select...</option>
-                                <option value="cardemail">Pay Now - Email Tickets</option>
-                                <option value="cardpost">Pay Now - Post Tickets</option>
-                                <option value="cardcollect">Pay Now - Collect Tickets </option>
-                                <option value="latercollect">Pay Later - Collect Tickets </option>
-                                <option value="cheque">Send Cheque - Post Tickets </option>
-                                <td>@Html.ValidationMessageFor(model => model.paymentmethod, "", new { @class = "text-danger" })</td>
-                            </select>
                         </td>
-
-                        
+                        <td>@Html.ValidationMessageFor(model => model.paymentmethod, "", new { @class = "text-danger" })</td>
                     </tr>
                     <tr>
                         <td colspan="2">
@@ -129,29 +109,32 @@ else
                         </td>
                     </tr>
                 </table>
+            </div>
+            <br />
 
 
-                <table style="width:100%">
-                    <tr>
-                        <td colspan="2" style="text-align:right">
-                            <hr />
-                            <h5>Basket Total <b>£ @(Model.total - (decimal)1.50)</b></h5>
-                            <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
-                            <hr />
-                            <h5>Total <b>£ @Model.total </b></h5>
-                            <hr />
-                        </td>
-                    </tr>
-                </table>
 
-                <div class="form-group">
-                    <div class="col">
-                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
-                    </div>
+            <table style="width:100%">
+                <tr>
+                    <td colspan="2" style="text-align:right">
+                        <hr />
+                        <h5>Basket Total <b>£ @(Model.total - (decimal)1.50)</b></h5>
+                        <h5>Booking/Transaction Fee <b>£ &nbsp;&nbsp;1.50</b></h5>
+                        <hr />
+                        <h5>Total <b>£ @Model.total </b></h5>
+                        <hr />
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-group">
+                <div class="col">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
                 </div>
             </div>
         </div>
     </div>
+
 }
 
 <br />

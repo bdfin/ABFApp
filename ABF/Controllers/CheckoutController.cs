@@ -104,7 +104,7 @@ namespace ABF.Controllers
             //checks if all customer details have been entered and returns the startcheckout view if some information is missing
             if (!ModelState.IsValid)
             {
-                return View ("StartCheckout");
+                return View("StartCheckout");
             }
 
             else
@@ -220,7 +220,7 @@ namespace ABF.Controllers
 
                 if (Session["Tix"] != null)
                 {
-                    var alltix = (Dictionary<int, int>) Session["Tix"];
+                    var alltix = (Dictionary<int, int>)Session["Tix"];
                     foreach (KeyValuePair<int, int> singletix in alltix)
                     {
                         for (int i = 0; i < singletix.Value; i++)
@@ -242,7 +242,7 @@ namespace ABF.Controllers
 
                 if (Session["AddOns"] != null)
                 {
-                    var alladdons = (Dictionary<int, int>) Session["AddOns"];
+                    var alladdons = (Dictionary<int, int>)Session["AddOns"];
                     foreach (KeyValuePair<int, int> singleaddon in alladdons)
                     {
                         for (int i = 0; i < singleaddon.Value; i++)
@@ -273,22 +273,22 @@ namespace ABF.Controllers
                 return View("OrderSuccess", viewModel);
             }
 
-            
+
 
         }
 
 
         public ActionResult DownloadTicket(string id)
-                {
-                    MemoryStream stream = new MemoryStream();
+        {
+            MemoryStream stream = new MemoryStream();
 
-                    var ticket = ticketService.GetTicket(id);
-                    var pdfTicket = ticketService.GenerateTicket(ticket);
+            var ticket = ticketService.GetTicket(id);
+            var pdfTicket = ticketService.GenerateTicket(ticket);
 
-                    pdfTicket.Save(stream, false);
+            pdfTicket.Save(stream, false);
 
-                    return File(stream, "application/pdf");
-                }
+            return File(stream, "application/pdf");
+        }
 
         // Checks the availability of all tickets and addons in the basket
         public bool CheckAvailability()
