@@ -19,7 +19,9 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Payment Amount")]
         [Required]
         public decimal Amount {get; set;}
-    
+
+        public string test { get; set; }
+       
         public virtual IList<Order> Orders { get; set; }
     }
 }

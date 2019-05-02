@@ -88,7 +88,9 @@ else
                         <td colspan="2" class="bg-info"><h4>Payment</h4></td>
                     </tr>
                     <tr>
-                        <td>Payment Method:</td>
+                        <th>Payment Method:</th>
+
+
                         <td>
                             <div class="form-group">
                                 <select class="form-control" id="paymentmethod" name="paymentmethod">
@@ -107,15 +109,18 @@ else
                                 </div>
                             </div>
                             <br />
-                            <select class="form-control" id="paymentmethod" name="paymentmethod">
+                            <select class="form-control" id="paymentmethod" name="paymentmethod", @Html.EditorFor(model => model.paymentmethod, new { htmlAttributes = new { @class = "form-control" } }) >
                                 <option value="">Select...</option>
                                 <option value="cardemail">Pay Now - Email Tickets</option>
                                 <option value="cardpost">Pay Now - Post Tickets</option>
                                 <option value="cardcollect">Pay Now - Collect Tickets </option>
                                 <option value="latercollect">Pay Later - Collect Tickets </option>
                                 <option value="cheque">Send Cheque - Post Tickets </option>
+                                <td>@Html.ValidationMessageFor(model => model.paymentmethod, "", new { @class = "text-danger" })</td>
                             </select>
                         </td>
+
+                        
                     </tr>
                     <tr>
                         <td colspan="2">
