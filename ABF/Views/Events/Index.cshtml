@@ -12,16 +12,15 @@
 <h2>Events</h2>
 
 <hr />
-<div class="row mb-3">
-    <div class="col text-center">
-        @Html.ActionLink("All Events", "Index", null, new { @class = "btn btn-outline-info btn-lg shadow-sm" })
-    </div>
-</div>
 
-<div class="jumbotron jumbotron-fluid shadow-sm">
 
+<div class="jumbotron box-colour">
     <div class="button-group text-center">
-
+        <div class="row mb-3">
+            <div class="col text-center">
+                @Html.ActionLink("All Events", "Index", null, new { @class = "btn btn-info btn-lg shadow-sm" })
+            </div>
+        </div>
         @foreach (var item in eventDates)
         {
             @Html.ActionLink(item.Date.ToString("ddd") + " " + item.Day.ToString(), "Index", new { dateSearch = item.Date }, new { @class = "btn btn-info btn-lg shadow mr-2 mt-2" })
@@ -43,14 +42,18 @@
                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.Event.Name)</h5>
                     <h6>@Html.DisplayFor(modelItem => item.Event.Author)</h6>
                     <p class="card-text">@Html.DisplayFor(modelItem => item.Event.Details)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Event.Date)</p>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Event.StartTime) - @Html.DisplayFor(modelItem => item.Event.EndTime)</p>
+
                     <p>
                         <button class="btn btn-info shadow-sm" type="button" data-toggle="collapse" data-target="#@dropdownId" aria-expanded="false" aria-controls="@dropdownId">
-                            Button with data-target
+                            Details
                         </button>
                     </p>
                     <div class="collapse" id="@dropdownId">
                         <div class="card card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            @Html.DisplayFor(modelItem => item.Event.Description)
+                            @Html.ActionLink("Book", "Details", "Bookings", new { id = item.Event.Id }, new { @class = "btn btn-info shadow mr-2 mt-2"})
                         </div>
                     </div>
                 </div>

@@ -82,7 +82,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
-                    Id = "admin",
+                    Id = "1",
                     UserName = "admin@test.net",
                     Email = "admin@test.net",
                     Name = "Admin User",
@@ -99,7 +99,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
-                    Id = "boxoffice",
+                    Id = "2",
                     UserName = "boxoffice@test.net",
                     Email = "boxoffice@test.net",
                     Name = "Box Office User",
@@ -116,7 +116,7 @@ namespace ABF.Models
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser {
-                    Id = "user",
+                    Id = "3",
                     UserName = "testuser@test.net",
                     Email = "testuser@test.net",
                     Name = "Standard User",

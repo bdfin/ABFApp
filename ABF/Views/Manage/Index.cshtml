@@ -10,10 +10,9 @@
     }
 }
 
-<h2>@ViewBag.Title.</h2>
-
 <p class="text-success">@ViewBag.StatusMessage</p>
-<div>
+<div class="jumbotron">
+    <h2>@ViewBag.Title.</h2>
     <hr />
     <div class="container">
         <div class="row">
@@ -103,11 +102,11 @@
 
                 <table class="table">
                     <thead class="table-dark">
-                    <tr>
-                        <td>Membership Type</td>
-                        <td>Date Bought</td>
-                        <td>Expiry Date</td>
-                    </tr>
+                        <tr>
+                            <td>Membership Type</td>
+                            <td>Date Bought</td>
+                            <td>Expiry Date</td>
+                        </tr>
                     </thead>
 
                     @if (ismember)
@@ -140,7 +139,8 @@
                 <hr />
                 <h4>Login & Security:</h4>
                 <dl class="dl-horizontal">
-                    <dt>Password:
+                    <dt>
+                        Password:
                         [
                         @if (Model.HasPassword)
                         {
@@ -152,7 +152,8 @@
                         }
                         ]
                     </dt>
-                    <dt>External Logins:
+                    <dt>
+                        External Logins:
                         @Model.Logins.Count [
                         @Html.ActionLink("Manage", "ManageLogins") ]
                     </dt>
@@ -164,39 +165,42 @@
 
 <hr/>
 
-<h4>My Orders:</h4>
+<div class="jumbotron box-colour">
+    <h4>My Orders:</h4>
 
-@if (orderlist != null)
-{
-    <table class="table">
-        <thead class="bg-info">
-        <tr>
-            <td>Order Id</td>
-            <td>Order Date & Time</td>
-            <td>Delivery Method</td>
-            <td>Payment Method</td>
-            <td>Amount</td>
-            <td>Options</td>
-        </tr>
-        </thead>
-        @foreach (var order in orderlist)
-        {
-            <tr>
-                <td>@order.orderId</td>
-                <td>@order.orderDate.ToString("ddd dd MMM yyyy") at @order.orderTime.ToString("HH:mm")</td>
-                <td>@order.deliveryMethod</td>
-                <td>@order.paymentMethod</td>
-                <td><b>£@order.price</b></td>
-                <td><b>See Tickets</b> | @Html.ActionLink("Full Details", "Details", "Order", new { id = order.orderId }, null)
+    @if (orderlist != null)
+    {
+        <table class="table">
+            <thead class="bg-info">
+                <tr>
+                    <td>Order Id</td>
+                    <td>Order Date & Time</td>
+                    <td>Delivery Method</td>
+                    <td>Payment Method</td>
+                    <td>Amount</td>
+                    <td>Options</td>
+                </tr>
+            </thead>
+            @foreach (var order in orderlist)
+            {
+                <tr>
+                    <td>@order.orderId</td>
+                    <td>@order.orderDate.ToString("ddd dd MMM yyyy") at @order.orderTime.ToString("HH:mm")</td>
+                    <td>@order.deliveryMethod</td>
+                    <td>@order.paymentMethod</td>
+                    <td><b>£@order.price</b></td>
+                    <td>@Html.ActionLink("Full Details", "Details", "Order", new { id = order.orderId }, null)
 
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <h5>No Orders to Display</h5>
-}
-<hr/>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h5>No Orders to Display</h5>
+    }
+    <hr />
+
+</div>
 
 

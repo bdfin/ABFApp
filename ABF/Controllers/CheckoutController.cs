@@ -142,21 +142,7 @@ namespace ABF.Controllers
 
                 #region //-------------- Create/Update Customer Details
 
-                if (submitViewModel.ismember && submitViewModel.updateneeded) // member needs details updating
-                {
-                    var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
-                    customer.Name = submitViewModel.name;
-                    customer.Address1 = submitViewModel.address1;
-                    customer.Address2 = submitViewModel.address2;
-                    customer.Address3 = submitViewModel.address3;
-                    customer.Email = submitViewModel.email;
-                    customer.PhoneNumber = submitViewModel.phone;
-                    customer.PostCode = submitViewModel.phone;
-
-                    customerService.UpdateCustomer(customer);
-                    customerid = customer.Id;
-                }
-                else if (!submitViewModel.ismember) // new customer
+                if (!User.IsInRole("User")) // member needs details updating
                 {
                     customerid = Guid.NewGuid().ToString();
                     var customer = new Customer()
@@ -171,8 +157,8 @@ namespace ABF.Controllers
                         PhoneNumber = submitViewModel.phone,
                         MembershipTypeId = 1
                     };
-                    customerService.CreateCustomer(customer);
-                }
+                     customerService.CreateCustomer(customer);
+                } 
 
                 #endregion
 
@@ -192,11 +178,14 @@ namespace ABF.Controllers
                     deliverymethod = "email";
                 }
 
+                var getCustomer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
+                string customerId = getCustomer.Id;
+
                 var order = new Order()
                 {
                     Date = DateTime.Today,
                     Time = DateTime.Now,
-                    CustomerId = customerid,
+                    CustomerId = customerId,
                     PaymentId = paymentid,
                     Delivery = deliverymethod,
                     DeliveryName = submitViewModel.name,
@@ -216,7 +205,7 @@ namespace ABF.Controllers
 
                 var TicketList = new List<Ticket>();
 
-                var orderId = orderService.GetOrderId(paymentid, customerid);
+                var orderId = orderService.GetOrderId(paymentid, customerId);
 
                 if (Session["Tix"] != null)
                 {
@@ -272,12 +261,9 @@ namespace ABF.Controllers
 
                 return View("OrderSuccess", viewModel);
             }
-
-
-
         }
 
-
+        // Generates and returns individual ticket to browser tab
         public ActionResult DownloadTicket(string id)
         {
             MemoryStream stream = new MemoryStream();

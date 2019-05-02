@@ -672,7 +672,7 @@ namespace ABF.Data.ABFDbModels
                 new Customer
                 {
                     Id = "1",
-                    UserId= "admin",
+                    UserId= "1",
                     Name= "Lucy Stalker",
                     Address1= "123 Avenue",
                     Address2= "London",
@@ -686,7 +686,7 @@ namespace ABF.Data.ABFDbModels
                 new Customer
                 {
                     Id= "2",
-                    UserId= "boxoffice",
+                    UserId= "2",
                     Name= "Samantha Squire" ,
                     Address1= "12 Road Street",
                     Address2= "Sheffield",
@@ -700,7 +700,7 @@ namespace ABF.Data.ABFDbModels
                 new Customer
                 {
                     Id= "3",
-                    UserId= "user",
+                    UserId= "3",
                     Name= "Marcus Pledge",
                     Address1= "1 Castle Lane",
                     Address2= "Floor 3",
