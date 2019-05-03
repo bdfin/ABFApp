@@ -26,8 +26,8 @@
         <tr>
             <th>Ticket ID</th>
             <th>Event Name</th>
-            <th>Add On Id</th>
-            <th>Donwload Ticket</th>
+            <th>Ticket Type</th>
+            <th>Download</th>
         </tr>
     </thead>
 
@@ -36,15 +36,24 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.Id)
+                    @Html.DisplayFor(modelItem => ticket.ticketId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => ticket.Event.Name)
+                    @Html.DisplayFor(modelItem => ticket.eventName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => ticket.AddOnId)
-                </td>
-                <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+                @if (ticket.addonName != null)
+                {
+                    <td>
+                        Add-On: @Html.DisplayFor(modelItem => ticket.addonName)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Event Ticket
+                    </td>
+                }
+                <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.ticketId }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
             </tr>
         }
     </tbody>

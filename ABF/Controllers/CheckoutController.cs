@@ -60,7 +60,7 @@ namespace ABF.Controllers
                     email = customer.Email,
                     phone = customer.PhoneNumber,
                     total = tickettotal,
-                    ismember = true,
+                    isuser = true,
                     updateneeded = false
                 };
                 return View("StartCheckout", vm);
@@ -82,7 +82,7 @@ namespace ABF.Controllers
                 var vm = new SubmitViewModel
                 {
                     total = tickettotal,
-                    ismember = false,
+                    isuser = false,
                     updateneeded = false
                 };
                 return View("StartCheckout", vm);
@@ -141,25 +141,52 @@ namespace ABF.Controllers
                 #endregion
 
                 #region //-------------- Create/Update Customer Details
-
-                if (!User.IsInRole("User")) // member needs details updating
+                // OPTION 1 - guest checkout ( check to see if email address recognised.... add to this customer if so, or create new one)
+                if (!submitViewModel.isuser)
                 {
-                    customerid = Guid.NewGuid().ToString();
-                    var customer = new Customer()
+                    try
                     {
-                        Id = customerid,
-                        Name = submitViewModel.name,
-                        Address1 = submitViewModel.address1,
-                        Address2 = submitViewModel.address2,
-                        Address3 = submitViewModel.address3,
-                        PostCode = submitViewModel.postcode,
-                        Email = submitViewModel.email,
-                        PhoneNumber = submitViewModel.phone,
-                        MembershipTypeId = 1
-                    };
-                     customerService.CreateCustomer(customer);
-                } 
+                        customerid = customerService.GetCustomerByEmail(submitViewModel.email).Id;
+                    }
+                    catch
+                    {
+                        customerid = Guid.NewGuid().ToString();
+                        var customer = new Customer()
+                        {
+                            Id = customerid,
+                            Name = submitViewModel.name,
+                            Address1 = submitViewModel.address1,
+                            Address2 = submitViewModel.address2,
+                            Address3 = submitViewModel.address3,
+                            PostCode = submitViewModel.postcode,
+                            Email = submitViewModel.email,
+                            PhoneNumber = submitViewModel.phone,
+                            MembershipTypeId = 1
+                        };
+                        customerService.CreateCustomer(customer);
+                    }
+                }
 
+                // OPTION 2 - recognised user needs updating
+                else if (submitViewModel.updateneeded)
+                {
+                    var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
+                    customerid = customer.Id;
+                    customer.Name = submitViewModel.name;
+                    customer.Address1 = submitViewModel.address1;
+                    customer.Address2 = submitViewModel.address2;
+                    customer.Address3 = submitViewModel.address3;
+                    customer.PostCode = submitViewModel.postcode;
+                    customer.Email = submitViewModel.email;
+                    customer.PhoneNumber = submitViewModel.phone;
+                    customerService.UpdateCustomer(customer);
+                }
+
+                // OPTION 3 - recognised user does NOT need updating
+                else
+                {
+                    customerid = customerService.GetCustomerByUserId(User.Identity.GetUserId()).Id;
+                }
                 #endregion
 
                 #region//---------------- create a new order
@@ -252,9 +279,49 @@ namespace ABF.Controllers
 
                 }
 
-                viewModel.tickets = TicketList;
+                var ticketinfolist = new List<TicketInfoViewModel>();
+
+                foreach (var ticket in TicketList)
+                {
+                    var thisticket = new TicketInfoViewModel()
+                    {
+                        ticketId = ticket.Id,
+                    };
+
+                    if (ticket.EventId.HasValue)
+                    {
+                        string x = ticket.EventId.ToString();
+                        int y = Convert.ToInt16(x);
+                        thisticket.eventName = eventService.GetEvent(y).Name;
+                    }
+
+                    if (ticket.AddOnId.HasValue)
+                    {
+                        string x = ticket.AddOnId.ToString();
+                        int y = Convert.ToInt16(x);
+                        thisticket.addonName = addOnService.GetAddOn(y).Name;
+                        thisticket.eventName = eventService.GetEvent(addOnService.GetAddOn(y).EventId).Name;
+                    }
+
+                    ticketinfolist.Add(thisticket);
+                }
+
+                viewModel.tickets = ticketinfolist;
 
                 #endregion
+
+                #region//-------------- Update MembershipId if needed
+                if (Session["Membership"] != null)
+                {
+                    var membershipId = (MembershipType)Session["Membership"];
+                    var memId = Convert.ToInt16(membershipId.Id);
+                    var customer = customerService.GetCustomerByUserId(User.Identity.GetUserId());
+                    customer.MembershipTypeId = memId;
+                    customer.DateJoined = DateTime.Now;
+                    customerService.UpdateCustomer(customer);
+                }
+                #endregion
+
 
                 // clear all tickets from the basket!
                 Session.Abandon();

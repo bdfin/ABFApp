@@ -42,7 +42,7 @@ namespace ABF.ViewModels
 
         public decimal total { get; set; }
 
-        public bool ismember { get; set; }
+        public bool isuser { get; set; }
         public bool updateneeded { get; set; }
     }
 

@@ -35,6 +35,8 @@ namespace ABF.Controllers
                 var ol = new OrderListViewModel()
                 {
                     customerName = customerService.GetCustomer(order.CustomerId).Name,
+                    deliveryname = order.DeliveryName,
+                    email = order.Email,
                     deliveryMethod = order.Delivery,
                     orderDate = order.Date,
                     orderId = order.Id,

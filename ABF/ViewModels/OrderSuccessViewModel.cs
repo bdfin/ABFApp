@@ -8,7 +8,7 @@ namespace ABF.ViewModels
 {
     public class OrderSuccessViewModel
     {
-        public IList<Ticket> tickets { get; set; }
+        public IList<TicketInfoViewModel> tickets { get; set; }
 
         public Order order { get; set; }
 

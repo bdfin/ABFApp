@@ -6,7 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div class="jumbotron">
-    @if (Model.ismember == false)
+    @if (Model.isuser == false)
     {
         <h2>Checkout As A Guest</h2>
         <h5>As a Guest, you will not be able to see or manage your order via the website.</h5>
@@ -69,15 +69,17 @@
                         <td>@Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })</td>
                     </tr>
 
-                    @if (Model.ismember == true)
+                    @if (Model.isuser == true)
                     {
                         <tr>
                             <td colspan="3">
-                                <input type="checkbox" name="updatedetails" value=true><b>&nbsp;Update my registered details</b>
+                                <input type="checkbox" name="updateneeded" value=true><b>&nbsp;Update my registered details</b>
                             </td>
                         </tr>
                     }
                 </table>
+                
+                @Html.HiddenFor(model => model.isuser)
             </div>
 
             <div class="col-sm-6">
@@ -95,7 +97,7 @@
                                     <option value="cardemail">Pay Now - Download Tickets</option>
                                     <option value="cardpost">Pay Now - Post Tickets</option>
                                     <option value="cardcollect">Pay Now - Collect Tickets </option>
-                                    <option value="latercollect">Pay Later - Collect Tickets </option>
+                                    <option value="collectlater">Pay Later - Collect Tickets </option>
                                     <option value="cheque">Send Cheque - Post Tickets </option>
                                 </select>
                             </div>
