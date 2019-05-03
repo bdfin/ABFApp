@@ -14,6 +14,6 @@ namespace ABF.ViewModels
 
         public Customer customer { get; set; }
 
-        public IEnumerable<Ticket> ticketlist { get; set; }
+        public IEnumerable<TicketInfoViewModel> ticketlist { get; set; }
     }
 }

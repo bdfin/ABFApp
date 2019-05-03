@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ABF.Data.ABFDbModels;
 using ABF.Service.Services;
 using ABF.ViewModels;
 
@@ -14,6 +15,8 @@ namespace ABF.Controllers
         CustomerService customerService = new CustomerService();
         TicketService ticketService = new TicketService();
         PaymentService paymentService = new PaymentService();
+        EventService eventService = new EventService();
+        AddOnService addOnService = new AddOnService();
 
 
         [Route("Admin/Orders")]
@@ -53,7 +56,33 @@ namespace ABF.Controllers
             var order = orderService.GetOrder(id);
             var payment = paymentService.GetPayment(order.PaymentId);
             var customer = customerService.GetCustomer(order.CustomerId);
-            var ticketlist = ticketService.GetTicketsForOrder(id);
+            var tickets = ticketService.GetTicketsForOrder(id);
+
+            var ticketlist = new List<TicketInfoViewModel>();
+            foreach (Ticket i in tickets)
+            {
+                var newticket = new TicketInfoViewModel()
+                {
+                    ticketId = i.Id,
+                };
+
+                if (i.EventId.HasValue)
+                {
+                    string x = i.EventId.ToString();
+                    int y = Convert.ToInt16(x);
+                    newticket.eventName = eventService.GetEvent(y).Name;
+                }
+
+                if (i.AddOnId.HasValue)
+                {
+                    string x = i.AddOnId.ToString();
+                    int y = Convert.ToInt16(x);
+                    newticket.addonName = addOnService.GetAddOn(y).Name;
+                    newticket.eventName = eventService.GetEvent(addOnService.GetAddOn(y).EventId).Name;
+                }
+                ticketlist.Add(newticket);
+            }
+
 
             var details = new OrderDetailsViewModel()
             {
