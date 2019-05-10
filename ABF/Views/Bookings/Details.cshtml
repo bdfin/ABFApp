@@ -37,7 +37,7 @@
                 <p><b>SOLD OUT</b></p>
                 <p>Sorry, this event has now Sold Out.</p>
             }
-            else if (User.IsInRole("Member") || !Model.Event.IsMemberOnly)
+            else if (Model.IsMember == true || !Model.Event.IsMemberOnly)
             {
                 <button name="button" type="button" class="subevent btn btn-default" style="background-color:#2bb6af; font-size:medium; border:1px solid black">-</button>;
                 <input name="quantity" type="text" id="@Model.Event.Id" value="0" class="fieldevent" style="width:25px; text-align:center; border:2px solid black" />;

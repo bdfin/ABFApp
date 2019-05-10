@@ -21,5 +21,6 @@ namespace ABF.ViewModels
 
         public Dictionary<AddOn, int> AddOnsAndAvailabilities { get; set; }
 
+        public bool IsMember { get; set; }
     }
 }
