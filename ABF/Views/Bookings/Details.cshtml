@@ -10,8 +10,13 @@
 
 
 <table id="infoheader">
+    <button class="btn-outline-info"><a href="@Request.UrlReferrer">Back</a></button>
     <tr>
+
         <td rowspan="5" style="width:280px;">
+
+
+
             @if (Model.Event.ImageId != 0)
             {
                 <img src="@Url.Content(Model.Image.ImagePath)" width="250" />

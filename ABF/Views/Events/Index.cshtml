@@ -9,21 +9,18 @@
     var eventDates = Model.Events.Select(x => x.Event.Date).Distinct();
 }
 
-<h2>Events</h2>
-
-<hr />
-
-
 <div class="jumbotron box-colour">
     <div class="button-group text-center">
         <div class="row mb-3">
             <div class="col text-center">
-                @Html.ActionLink("All Events", "Index", null, new { @class = "btn btn-info btn-lg shadow-sm" })
+                @Html.ActionLink("All Events", "Index", null, new { @class = "btn btn-secondary btn-lg shadow-sm" })
+                @Html.ActionLink("List View", "Index", "Bookings", null, new { @class = "btn btn-primary btn-lg shadow-sm" })
             </div>
         </div>
         @foreach (var item in eventDates)
         {
-            @Html.ActionLink(item.Date.ToString("ddd") + " " + item.Day.ToString(), "Index", new { dateSearch = item.Date }, new { @class = "btn btn-info btn-lg shadow mr-2 mt-2" })
+            @Html.ActionLink(item.Date.ToString("ddd") + " " + item.Day.ToString() + " " + item.Date.ToString("MMM"), "Index", new { dateSearch = item.Date }, new { @class = "btn btn-info btn-lg shadow mr-2" })
+
         }
 
     </div>

@@ -1,23 +1,18 @@
 ﻿@model IEnumerable<DateTime>
-<div style="background-color:palegoldenrod">
-    <table>
-        <tr>
-            <td>
-                <h5><b>Filter by Date: </b></h5>
-            </td>
-            <td>
-                &nbsp;&nbsp;<input id="AllEvents" style="background-color: lightskyblue; margin:5px" type="button" value="Show All Events" onclick="doSearch('')" />
-            </td>
-            <td>
-                @foreach (var item in Model)
-                {
-                    var value = item.ToString("ddd dd MMM");
-                    var searchvalue = item.ToString("ddMMMyyyy");
-
-                    <input id="@item" style="background-color: orange; margin:3px" type="button" value="@value" onclick="doSearch('@searchvalue')" />
-                }
-            </td>
-        </tr>
-    </table>
+<div class="jumbotron box-colour">
+    <div class="button-group text-center">
+        <div class="row mb-3">
+            <div class="col text-center">
+                &nbsp;&nbsp;<input id="AllEvents" class="btn btn-secondary btn-lg shadow-sm" type="button" value="All Events" onclick="doSearch('')" />
+                @Html.ActionLink("Grid View", "Index", "Events", null, new { @class = "btn btn-primary btn-lg shadow-sm" })
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            var value = item.ToString("ddd dd MMM");
+            var searchvalue = item.ToString("ddMMMyyyy");
+            <input id="@item" class="btn btn-info btn-lg shadow-sm" type="button" value="@value" onclick="doSearch('@searchvalue')" />
+        }
+    </div>
 </div>
 <hr />
