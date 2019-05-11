@@ -120,6 +120,17 @@ namespace ABF.Controllers
                 AddOnsAndAvailabilities = addonsandavailabilities,
             };
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var customermemberstate = customerService.GetCustomerByUserId(userId).MembershipTypeId;
+
+                if (customermemberstate > 1)
+                {
+                    viewmodel.IsMember = true;
+                }
+            }
+
             return View(viewmodel);
         }
 

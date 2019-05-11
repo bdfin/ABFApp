@@ -69,10 +69,19 @@ namespace ABF.Service.Services
         public PdfDocument GenerateTicket(Ticket ticket)
         {
             int eventId = 0;
+            int addonId = 0;
+            AddOnService addonService = new AddOnService();
+            AddOn ticketAddOn = new AddOn();
 
             if (ticket.EventId.HasValue)
             {
                 eventId = ticket.EventId.Value;   
+            }
+            else if (ticket.AddOnId.HasValue)
+            {
+                addonId = ticket.AddOnId.Value;
+                ticketAddOn = addonService.GetAddOn(addonId);
+                eventId = ticketAddOn.EventId;
             }
 
             EventService eventService = new EventService();
@@ -105,11 +114,24 @@ namespace ABF.Service.Services
 
             imageStream.Close();
 
-            string eventInfo =
-                ticketEvent.Name + "\n\n" +
-                ticketEvent.Author + "\n\n" +
-                ticketEvent.Date.ToShortDateString() + "\n\n" +
-                ticketEvent.StartTime.ToShortTimeString() + " - " + ticketEvent.EndTime.ToShortTimeString();
+            string eventInfo = "";
+
+            if (addonId != 0)
+            {
+                eventInfo = "ADD ON: " + ticketAddOn.Name + "\n\n" +
+                    ticketEvent.Name + "\n\n" +
+                    ticketEvent.Author + "\n\n" +
+                    ticketEvent.Date.ToShortDateString() + "\n\n" +
+                    ticketEvent.StartTime.ToShortTimeString() + " - " + ticketEvent.EndTime.ToShortTimeString();
+            }
+            else
+            {
+                eventInfo =
+                    ticketEvent.Name + "\n\n" +
+                    ticketEvent.Author + "\n\n" +
+                    ticketEvent.Date.ToShortDateString() + "\n\n" +
+                    ticketEvent.StartTime.ToShortTimeString() + " - " + ticketEvent.EndTime.ToShortTimeString();
+            }
 
             var eventBox = new XRect(50, 340, 255, 255);
             gfx.DrawRectangle(XBrushes.White, eventBox);

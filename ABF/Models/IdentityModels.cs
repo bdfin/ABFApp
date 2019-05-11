@@ -86,7 +86,7 @@ namespace ABF.Models
                     UserName = "admin@test.net",
                     Email = "admin@test.net",
                     Name = "Admin User",
-                    PostCode = "S40 9UF",
+                    PostCode = "S42 9UF",
                     EmailConfirmed = true,
                 };
 

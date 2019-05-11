@@ -79,7 +79,7 @@
         <tr>
             <th>Ticket ID</th>
             <th>Event</th>
-            <th>AddOn ID</th>
+            <th>Ticket Type</th>
             <th>Download Ticket</th>
         </tr>
         </thead>
@@ -87,10 +87,20 @@
             @foreach (var ticket in Model.ticketlist)
             {
                 <tr>
-                    <td>@ticket.Id</td>
-                    <td>@ticket.Event.Name</td>
-                    <td>@ticket.AddOnId</td>
-                    <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.Id }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
+                    <td>@ticket.ticketId</td>
+                    <td>@ticket.eventName</td>
+                    
+                    @if (ticket.addonName != "" && ticket.addonName != null)
+                    {
+                        <td>AddOn: @ticket.addonName</td>
+                    }
+                    else
+                    {
+                        <td>Event Ticket</td>
+                    }
+                    
+                    
+                    <td>@Html.ActionLink("Download Ticket", "DownloadTicket", "Checkout", new { id = ticket.ticketId }, htmlAttributes: new { @class = "btn btn-info btn-block shadow-sm", @target = "_blank" })</td>
                 </tr>
             }
         </tbody> 

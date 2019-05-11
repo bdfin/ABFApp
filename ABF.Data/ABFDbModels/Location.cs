@@ -38,6 +38,8 @@ namespace ABF.Data.ABFDbModels
         [Display(Name = "Venue Contact")]
         public string Contact { get; set; }
 
+        public string Test2 { get; set; }
+
         public virtual IList<Event> Events { get; set; }
     }
 }

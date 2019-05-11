@@ -33,6 +33,11 @@ namespace ABF.Service.Services
             return customerDAO.GetCustomerByUserId(id);
         }
 
+        public Customer GetCustomerByEmail(string email)
+        {
+            return customerDAO.GetCustomerByEmail(email);
+        }
+
         public void CreateCustomer(Customer customer)
         {
             customerDAO.CreateCustomer(customer);

@@ -53,6 +53,17 @@ namespace ABF.Data.DAO
             return customer.ToList().First();
         }
 
+        public Customer GetCustomerByEmail(string email)
+        {
+            IQueryable<Customer> customer;
+
+            customer = from c
+                       in _context.Customers
+                       where c.Email == email
+                       select c;
+            return customer.ToList().First();
+        }
+
         public void CreateCustomer(Customer customer)
         {
             if (customer.Id == null)

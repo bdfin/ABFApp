@@ -238,6 +238,7 @@
     <Compile Include="ViewModels\OrderSuccessViewModel.cs" />
     <Compile Include="ViewModels\StockQuantities.cs" />
     <Compile Include="ViewModels\SubmitViewModel.cs" />
+    <Compile Include="ViewModels\TicketInfoViewModel.cs" />
     <Compile Include="ViewModels\TicketListViewModel.cs" />
     <Compile Include="ViewModels\UserCheckoutViewModel.cs" />
     <Compile Include="ViewModels\Users-in-Role_ViewModel.cs" />

@@ -17,8 +17,14 @@ namespace ABF.ViewModels
         [Display(Name = "Order Time")]
         public DateTime orderTime { get; set; }
 
+        [Display(Name = "Email")]
+        public string email { get; set; }
+
         [Display(Name = "Customer")]
         public string customerName { get; set; }
+
+        [Display(Name = "Delivery Name")]
+        public string deliveryname { get; set; }
 
         [Display(Name = "Payment Method")]
         public string paymentMethod { get; set; }
